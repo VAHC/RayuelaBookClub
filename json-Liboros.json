@@ -8,7 +8,7 @@
 		"price": 10,
 		"stock":5,
 		"publishedDate": "1996",
-		"image": "http://books.google.com/books/content?id=fJ1BM2gJEcgC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+		"image": "http://books.google.com/books/content?id=fJ1BM2gJEcgC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"
 	},
 	{
 		"id": "vGqREAAAQBAJ",
@@ -19,7 +19,7 @@
 		"price": 10,
 		"stock":5,
 		"publishedDate": "2017-10-31",
-		"image": "http://books.google.com/books/content?id=vGqREAAAQBAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+		"image": "http://books.google.com/books/content?id=vGqREAAAQBAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api"
 	},
 	{
 		"id": "0FMwEAAAQBAJ",
@@ -30,7 +30,7 @@
 		"price": 10,
 		"stock":5,
 		"publishedDate": "2021-06-01",
-		"image": "http://books.google.com/books/content?id=0FMwEAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+		"image": "http://books.google.com/books/content?id=0FMwEAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"
 	},
 	{
 	"id": "tIhjAAAAMAAJ",
@@ -41,7 +41,7 @@
 	"price": 10,
 	"stock":5,
 	"publishedDate": "1998",
-	"image": "http://books.google.com/books/content?id=tIhjAAAAMAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+	"image": "http://books.google.com/books/content?id=tIhjAAAAMAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api"
 	  
 	},
 	{
@@ -53,7 +53,7 @@
 		"price": 10,
 		"stock":5,
 		"publishedDate": "1959",
-		"image": "http://books.google.com/books/content?id=VGCA1B20JZYC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+		"image": "http://books.google.com/books/content?id=VGCA1B20JZYC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"
 	},
 	{
 		"id": "O6yNBAAAQBAJ",
@@ -64,7 +64,7 @@
 		"price": 10,
 		"stock":5,
 		"publishedDate": "2014-10-01",
-		"image": "http://books.google.com/books/content?id=O6yNBAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+		"image": "http://books.google.com/books/content?id=O6yNBAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"
 	},
 	{
 		"id": "RmwZEAAAQBAJ",
@@ -75,7 +75,7 @@
 		"price": 10,
 		"stock":5,
 		"publishedDate": "2019-10-01",
-		"image": "http://books.google.com/books/content?id=RmwZEAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+		"image": "http://books.google.com/books/content?id=RmwZEAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"
 	},
 	{
 		"id": "D3JEEAAAQBAJ",
@@ -86,6 +86,6 @@
 		"price": 10,
 		"stock":5,
 		"publishedDate": "2021-10-01",
-		"image": "http://books.google.com/books/content?id=D3JEEAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+		"image": "http://books.google.com/books/content?id=D3JEEAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"
 	}
 ]
