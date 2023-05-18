@@ -8,31 +8,48 @@ import { Filters } from "./filters";
 import { Posters } from "./Posters";
 
 //Estilos
-import Container from "./Styles/catalogo";
+import {
+    Container,
+    Sidebar,
+    OrdersSection,
+    CatalogoSection,
+    SearchBarDiv,
+    DetailSection,
+    PosterSection,
+    Wrap
+} from "./Styles/catalogo";
 
 // En este componente se renderizan todos los demas.
 export const Catalogo = () => {
     return (
-        <Container>
-
+        <Wrap>
             {/* ¿NavBar? */}
 
-            <div>
+            <SearchBarDiv>
                 <SearchBar />
-            </div>
-            <div>
-                <Filters />
-            </div>
-            <div>
-                <Orders />
-            </div>
-            <div>
-                <Posters />
-            </div>
-            <div>
-                <Detail />
-            </div>
-            
-        </Container>
+            </SearchBarDiv>
+
+            <Container>
+                <Sidebar>
+                    <Filters />
+                </Sidebar>
+
+                <CatalogoSection>
+
+                    <OrdersSection>
+                        <Orders />
+                    </OrdersSection>
+
+                    <PosterSection>
+                        <Posters />
+                    </PosterSection>
+
+                </CatalogoSection>
+
+                <DetailSection>
+                    <Detail />
+                </DetailSection>
+            </Container>
+        </Wrap>
     );
 };
