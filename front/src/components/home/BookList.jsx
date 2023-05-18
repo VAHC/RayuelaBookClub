@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchData } from '../../redux/action';
-import myBooks from '../../../../json-Liboros.json'
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -11,11 +10,11 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(fetchData());
-    
-    console.log(myBooks)
+  
     console.log(data)
   }, [dispatch]);
 
+  console.log(data)
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -26,15 +25,15 @@ const Home = () => {
 
   return (
     <div>
-       {myBooks && (
+        {data && (
         <ul>
-          {myBooks.map((item) => (
+          {data.map((item) => (
             <li key={item.id}>Id:{item.id}  <br />Title: {item.title} <br/>Price:{item.price}</li>
           ))}
         </ul>
-      )} 
+      )}  
 
-      {/* {data.title} */}
+      
     </div>
   );
 };

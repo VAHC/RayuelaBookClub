@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 // Action types
 export const GET_DATA_REQUEST = 'GET_DATA_REQUEST';
 export const GET_DATA_SUCCESS = 'GET_DATA_SUCCESS';
@@ -24,7 +25,7 @@ export const getDataFailure = (error) => ({
 export const fetchData = () => {
   return (dispatch) => {
     dispatch(getDataRequest());
-    axios.get('https://jsonplaceholder.typicode.com/todos/1')
+    axios.get('https://pi-henry-woad.vercel.app/imagen/jsonL.json')
       .then((response) => {
         dispatch(getDataSuccess(response.data));
       })
