@@ -1,5 +1,4 @@
-import styled from "styled-components";
-
+import styled from 'styled-components'
 
 export const Wrap = styled.div`
 display: flex;
@@ -22,7 +21,7 @@ export const SearchBarDiv = styled.div`
   height: 10vh; 
   width: 100%;
   background-color: blue;
-`;
+`
 
 export const Sidebar = styled.div`
   /* Estilos de la columna de los filtros */
@@ -32,7 +31,7 @@ export const Sidebar = styled.div`
   height: 100%;
   background-color: yellow;
  
-`;
+`
 
 export const OrdersSection = styled.div`
 /* Estilos del div de orderselection */
@@ -40,7 +39,7 @@ height: 15%;
 background-color: green;
   
   
-`;
+`
 export const PosterSection = styled.div`
 `
 export const CatalogoSection = styled.div`
@@ -52,7 +51,7 @@ export const CatalogoSection = styled.div`
     height: 100%;
     background-color: red;
   /* Otros estilos del div de posters */
-`;
+`
 
 export const DetailSection = styled.div`
   /* Estilos del div de detalle */
@@ -61,4 +60,4 @@ export const DetailSection = styled.div`
   width: 33.33333%; /* 2/6 del viewport */
   background-color: coral;
   /* Otros estilos del div de detalle */
-`;
+`

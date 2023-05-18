@@ -1,19 +1,18 @@
 import './App.css'
 
-//Librerias
-import {Route, Routes} from "react-router-dom";
+// Librerias
+import { Route, Routes } from 'react-router-dom'
 
-//Componentes
-import {Home} from "./components/home/Home"
-import { Catalogo } from './components/catalogo/catalogo';
+// Componentes
+import { Home } from './components/home/Home'
+import { Catalogo } from './components/catalogo/catalogo'
 
-
-function App() {
+function App () {
   return (
     <>
       <Routes>
-        <Route exact path="/home" element={<Home/>}/>
-        <Route exact path="/catalogo" element={<Catalogo/>}/>
+        <Route exact path='/home' element={<Home />} />
+        <Route exact path='/catalogo' element={<Catalogo />} />
       </Routes>
     </>
   )
