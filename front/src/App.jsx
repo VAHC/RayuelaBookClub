@@ -11,7 +11,6 @@ import { Catalogo } from './components/catalogo/catalogo';
 function App() {
   return (
     <>
-    <p>Hola Mundo</p>
       <Routes>
         <Route exact path="/home" element={<Home/>}/>
         <Route exact path="/catalogo" element={<Catalogo/>}/>
