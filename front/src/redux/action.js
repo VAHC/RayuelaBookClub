@@ -5,6 +5,8 @@ import axios from 'axios';
 export const GET_DATA_REQUEST = 'GET_DATA_REQUEST';
 export const GET_DATA_SUCCESS = 'GET_DATA_SUCCESS';
 export const GET_DATA_FAILURE = 'GET_DATA_FAILURE';
+export const SORT_BY_PRICE = 'SORT_BY_PRICE';
+export const SORT_BY_RATING = 'SORT_BY_RATING';
 
 // Action creators
 export const getDataRequest = () => ({
@@ -34,3 +36,17 @@ export const fetchData = () => {
       });
   };
 };
+
+export const sortByPrice = (payload) => {
+  return {
+    type: SORT_BY_PRICE,
+    payload
+  }
+};
+
+export const sortByRating = (payload) => {
+  return {
+    type: SORT_BY_RATING,
+    payload
+  }
+}
