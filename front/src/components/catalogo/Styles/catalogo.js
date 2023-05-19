@@ -4,10 +4,10 @@ import styled from "styled-components";
 export const Wrap = styled.div`
 display: flex;
 flex-direction: column;
-justify-content: flex-start;
-align-content: flex-start;
-width: 95vw;
-height: 90vh;
+justify-content: center;
+align-content: center;
+width: 100vw;
+height: 100vh;
 `
 
 export const Container = styled.div`
@@ -44,21 +44,20 @@ background-color: green;
 export const PosterSection = styled.div`
 `
 export const CatalogoSection = styled.div`
-  /* Estilos del div de posters */
     display: flex;
     flex-direction: column;
     flex: 3;
     width: 50%; 
     height: 100%;
     background-color: red;
-  /* Otros estilos del div de posters */
+
 `;
 
 export const DetailSection = styled.div`
-  /* Estilos del div de detalle */
-
+display: flex;
+align-items: center;
+justify-content: center;
   height: 100%;
   width: 33.33333%; /* 2/6 del viewport */
   background-color: coral;
-  /* Otros estilos del div de detalle */
 `;
