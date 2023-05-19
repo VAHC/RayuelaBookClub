@@ -1,10 +1,10 @@
 import React from "react";
 
 //Componentes
-import { Detail } from "./detail";
+import { Detail } from "./Detail";
 import { SearchBar } from "./SearchBar";
-import { Orders } from "./orders";
-import { Filters } from "./filters";
+import { Orders } from "./Orders";
+import { Filters } from "./Filters";
 import { Posters } from "./Posters";
 
 //Estilos
