@@ -1,5 +1,5 @@
 const getBookById = (id) => {
-    return 'funciono'
+  return 'funciono'
 }
 
-module.exports = {getBookById}
+module.exports = { getBookById }
