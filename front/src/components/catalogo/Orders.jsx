@@ -1,6 +1,7 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
 import {useState} from 'react';
+import {sortByPrice, sortByRating} from '../../redux/action'
 
 export const Orders = () => {
   const dispatch = useDispatch();
@@ -8,10 +9,12 @@ export const Orders = () => {
   const[ratingValue, setRatingValue] = useState('');
 
   const handlerSortByPrice = (e) => {
+    dispatch(sortByPrice(e.target.value))
     setPriceValue('')
   }
 
   const handlerSortByRating = (e) => {
+    dispatch(sortByRating(e.target.value))
     setRatingValue('')
   }
   
