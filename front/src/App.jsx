@@ -1,5 +1,3 @@
-//import './App.css'
-
 //Librerias
 import {Route, Routes} from "react-router-dom";
 
@@ -7,6 +5,7 @@ import {Route, Routes} from "react-router-dom";
 import { Home } from "./components/home/Home";
 import { Nav } from "./components/nav/Nav";
 import { Catalogo } from './components/catalogo/catalogo';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import BookList from './components/home/BookList'
 
