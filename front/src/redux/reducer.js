@@ -6,6 +6,7 @@ const initialState = {
   data: null,
   error: null,
   books: [],
+  allBooks: []
 };
 
 // Reducer
@@ -21,7 +22,8 @@ const reducer = (state = initialState, action) => {
     case GET_ALL_BOOKS:
       return {
         ...state,
-        books: action.payload
+        books: action.payload,
+        allBooks: action.payload
       };
 
     case SORT_BY_PRICE:
