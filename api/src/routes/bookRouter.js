@@ -7,9 +7,8 @@ const {
 
 const bookRouter = Router()
 
-console.log('dadad')
-
 bookRouter.get('/', getBookByIdHandler)
+bookRouter.get('/:id', getBookByIdHandler)
 // console.log(searchCountriesHandler);
 
 module.exports = bookRouter
