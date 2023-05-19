@@ -1,5 +1,5 @@
 const axios = require('axios')
-const { Book } = require('../../db')
+const { Book,Gender } = require('../../db')
 
 const LoadAllBooks = async () => {
   const GetBooks = await axios('https://pi-henry-woad.vercel.app/imagen/test.json')
@@ -15,7 +15,16 @@ const LoadAllBooks = async () => {
     })
   })
   await Book.bulkCreate(LoadBooks) // carga masiva
+
+  const GetGenres = await axios('https://pi-henry-woad.vercel.app/imagen/genero.json')
+  const LoadGenres = GetGenres.data.map(genres =>{
+    return({
+      name:genres.name
+    })
+  })
+   await Gender.bulkCreate(LoadGenres) // carga masiva
+
   console.log('carge libros')
-  return (LoadBooks)
+  return (LoadGenres)
 }
 module.exports = { LoadAllBooks }
