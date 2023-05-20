@@ -1,7 +1,36 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getBooksPage, getAllBooks } from "../../redux/action";
+
+import Card from "./Card";
 
 export const Posters = () => {
-  return (
-    <div>Posters</div>
-  )
-}
+    //Pagina actual
+    const pagina = useSelector((state) => state.paginaActual);
+    console.log(pagina);
+    //libros de la pagina array
+    const booksPage = useSelector((state) => state.booksPage);
+    console.log(booksPage);
+    //flag para no cargar todos los libros con cada render
+    const [allBooksLoaded, setAllBooksLoaded] = useState(false);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const booksGet = async () => {
+            if (!allBooksLoaded) {
+                await dispatch(getAllBooks());
+                setAllBooksLoaded(true);
+            }
+            dispatch(getBooksPage(pagina));
+        };
+        booksGet();
+    }, [pagina]);
+
+    const booksMap = booksPage.map((book) => {
+        return <Card image={book.image} price={book.price} title={book.title}/>;
+    });
+
+    return(booksMap)  
+        
+};
