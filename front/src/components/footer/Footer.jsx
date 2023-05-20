@@ -7,7 +7,7 @@ export const Footer = () => {
         <div class="container-fluid">
           <span class="navbar-text p-1">
             Contactanos
-            <i class="bi bi-envelope p-1"></i>
+            <a href='http://mail.google.com/'><i class="bi bi-envelope p-1"></i></a>
             rayuela@email.com
           </span>
           <span class="navbar-text p-1">
