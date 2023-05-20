@@ -36,4 +36,4 @@ const getBooksHandler = async (req, res) => {
   }
 }
 
-module.exports = { getBookByIdHandler, LoadBooksHandler, getBooksHandler }
+module.exports = { LoadBooksHandler, getBooksHandler }
