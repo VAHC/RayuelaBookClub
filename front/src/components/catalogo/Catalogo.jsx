@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect }  from "react";
 
 //Componentes
 import { Detail } from "./Detail";
@@ -19,8 +19,19 @@ import {
     Wrap
 } from "./Styles/catalogo";
 
+import {getAllBooks } from "../../redux/action";
+import {useDispatch } from "react-redux";
+
 // En este componente se renderizan todos los demas.
 export const Catalogo = () => {
+
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+        dispatch(getAllBooks());
+        console.log("se hace el dispatch para buscar allBooks");
+    }, [])
+
     return (
         <Wrap>
             {/* ¿NavBar? */}

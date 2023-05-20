@@ -1,4 +1,4 @@
-import { GET_DATA_REQUEST, GET_DATA_SUCCESS, GET_DATA_FAILURE, GET_ALL_BOOKS, SORT_BY_PRICE, SORT_BY_RATING } from './action';
+import { GET_DATA_REQUEST, GET_DATA_SUCCESS, GET_DATA_FAILURE, GET_ALL_BOOKS, SORT_BY_PRICE, SORT_BY_RATING, GET_BOOKSPAGE,CHANGE_PAGINA } from './action';
 
 // Initial state
 const initialState = {
@@ -6,9 +6,11 @@ const initialState = {
   data: null,
   //detail_data es en donde se guarda la data para renderizar en detail, tanto del searchbar como al clickear una portada. 
   detail_data:{},
+  booksPage:[],
+  paginaActual:1,
   error: null,
   books: [],
-  pageBooks:[],
+
   allBooks: []
 };
 
@@ -28,6 +30,28 @@ const reducer = (state = initialState, action) => {
         books: action.payload,
         allBooks: action.payload
       };
+
+      case CHANGE_PAGINA:
+        return {
+          ...state,
+          paginaActual: action.payload
+        };
+
+      case GET_BOOKSPAGE:
+        const pageSize= 9;
+        const pageNumber = action.payload
+        const indiceInicio= (pageNumber - 1 ) * pageSize ;
+        const indiceFinal= indiceInicio + pageSize;
+
+        console.log("pageNumber "+pageNumber)
+        console.log("indiceInicio "+indiceInicio)
+        console.log("indiceFinal "+indiceFinal)
+        console.log()
+        
+        return {
+          ...state,
+          booksPage: state.allBooks.slice(indiceInicio,indiceFinal)
+        };
 
     case SORT_BY_PRICE:
       let sortPriceArray = action.payload === 'Asc' ? state.books.sort((a, b) => {
@@ -52,6 +76,9 @@ const reducer = (state = initialState, action) => {
         ...state,
         books: [...sortRatingArray]
       }
+
+
+      
       default:
       return state;
   }

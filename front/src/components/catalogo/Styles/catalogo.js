@@ -42,6 +42,14 @@ background-color: green;
   
 `;
 export const PosterSection = styled.div`
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+justify-content: space-between;
+align-items:center;
+overflow: auto;
+width: 100%;
+height: auto;
 `
 export const CatalogoSection = styled.div`
     display: flex;
