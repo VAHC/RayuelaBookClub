@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 export const Home = () => {
   return (
     <>
-      <div class="container p-3">
-        <div class="row justify-content-center">
-          <div class="col-8">
+      <div className="container p-3">
+        <div className="row justify-content-center">
+          <div className="col-8">
             <div id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="carousel">
               <div className="carousel-inner">
                 <div className="carousel-item active">
@@ -51,7 +51,6 @@ export const Home = () => {
                 <h5 className="card-title">Club de lectores</h5>
                 <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
                 <div className="position-relative">
-
                   <img src="./images/05.jpg" className="d-block w-100" alt="..." />
                   <Link to="/suscripcion"><button className="btn btn-dark position-absolute bottom-0 start-50 translate-middle m-2">Suscribite</button></Link>
                 </div>
@@ -64,7 +63,6 @@ export const Home = () => {
                 <h5 className="card-title">Tienda</h5>
                 <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
                 <div className="position-relative">
-
                   <img src="./images/04.jpg" className="d-block w-100" alt="..." />
                   <Link to="/catalogo"><button className="btn btn-dark position-absolute bottom-0 start-50 translate-middle m-2">Catálogo</button></Link>
                 </div>
