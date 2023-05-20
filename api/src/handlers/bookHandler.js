@@ -21,15 +21,32 @@ const LoadBooksHandler = async (req, res) => {
   }
 }
 
+// const getBooksHandler = async (req, res) => {
+
+//   const { title, authors } = req.query;
+
+//   try {
+//     const search = title || authors;
+
+//     const results = search
+//       ? await searchBooks(search)
+//       : await getAllBooks();
+//     res.status(200).json(results)
+//   } catch (error) {
+//     res.status(400).json({ error: error.message })
+//   }
+// }
+
 const getBooksHandler = async (req, res) => {
 
-  const { title, author } = req.query;
+  const { title, authors } = req.query;
 
   try {
-    const search = title || author;
+    const search = title || authors;
+    const searchField = title ? "title" : "authors";
 
     const results = search
-      ? await searchBooks(search)
+      ? await searchBooks(search, searchField)
       : await getAllBooks();
     res.status(200).json(results)
   } catch (error) {
