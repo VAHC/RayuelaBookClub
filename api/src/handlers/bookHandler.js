@@ -21,22 +21,6 @@ const LoadBooksHandler = async (req, res) => {
   }
 }
 
-// const getBooksHandler = async (req, res) => {
-
-//   const { title, authors } = req.query;
-
-//   try {
-//     const search = title || authors;
-
-//     const results = search
-//       ? await searchBooks(search)
-//       : await getAllBooks();
-//     res.status(200).json(results)
-//   } catch (error) {
-//     res.status(400).json({ error: error.message })
-//   }
-// }
-
 const getBooksHandler = async (req, res) => {
 
   const { title, authors } = req.query;
