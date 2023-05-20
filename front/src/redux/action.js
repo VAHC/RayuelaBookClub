@@ -10,6 +10,7 @@ export const SORT_BY_PRICE = 'SORT_BY_PRICE';
 export const SORT_BY_RATING = 'SORT_BY_RATING';
 export const GET_BOOKSPAGE = 'GET_BOOKPAGE';
 export const CHANGE_PAGINA = 'CHANGE_PAGINA';
+export const SEARCH_BY_NAME_OR_AUTHOR = 'SEARCH_BY_NAME_OR_AUTHOR';
 
 
 // Action creators
@@ -79,3 +80,12 @@ export const sortByRating = (payload) => {
     payload
   }
 }
+
+export const searchByNameOrAuthor = () => {
+  return async (dispatch) => {
+    //cambiar endpoint del get por la ruta del back para el search
+    const response = await axios.get('https://pi-henry-woad.vercel.app/imagen/jsonL.json');
+    const searchArray = response.data;
+    dispatch({type: SEARCH_BY_NAME_OR_AUTHOR, payload: searchArray})
+  }
+};
