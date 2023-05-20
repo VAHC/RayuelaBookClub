@@ -14,7 +14,7 @@ export const Nav = () => {
           </button>
           <div className="collapse navbar-collapse nav-fill" id="navbarNav">
                 <Link to="/" className="nav-link fs-4 nav-link active" aria-current="page">Inicio</Link>
-                <Link to="/" className="nav-link fs-4">Nosotros</Link>
+                <Link to="/nosotros" className="nav-link fs-4">Nosotros</Link>
                 <Link to="/suscripcion" className="nav-link fs-4">Suscribirme</Link>
                 <Link to="/catalogo" className="nav-link fs-4">Tienda</Link>
                 <Link to="/" className="nav-link fs-4">Ingresar</Link>
