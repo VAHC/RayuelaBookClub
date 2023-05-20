@@ -1,4 +1,4 @@
-import { GET_DATA_REQUEST, GET_DATA_SUCCESS, GET_DATA_FAILURE, GET_ALL_BOOKS, SORT_BY_PRICE, SORT_BY_RATING } from './action';
+import { GET_DATA_REQUEST, GET_DATA_SUCCESS, GET_DATA_FAILURE, GET_ALL_BOOKS, SORT_BY_PRICE, SORT_BY_RATING, SEARCH_BY_NAME_OR_AUTHOR } from './action';
 
 // Initial state
 const initialState = {
@@ -6,7 +6,7 @@ const initialState = {
   data: null,
   error: null,
   books: [],
-  allBooks: []
+  allBooks: [],
 };
 
 // Reducer
@@ -49,6 +49,13 @@ const reducer = (state = initialState, action) => {
         ...state,
         books: [...sortRatingArray]
       }
+      
+      case SEARCH_BY_NAME_OR_AUTHOR:
+        return {
+          ...state,
+          books: action.payload,
+        };
+      
       default:
       return state;
   }
