@@ -2,6 +2,7 @@
 const { LoadAllBooks } = require('../controllers/books/LoadBooks')
 const searchBooks = require('../controllers/books/searchBooks')
 const getAllBooks = require('../controllers/books/getAllBooks')
+const pageController = require('../controllers/books/pageController')
 
 // const getBookByIdHandler = (req, res) => {
 //   try {
@@ -28,12 +29,24 @@ const getBooksHandler = async (req, res) => {
     const search = title || author;
 
     const results = search
-    ? await searchBooks(search)
-    : await getAllBooks();
+      ? await searchBooks(search)
+      : await getAllBooks();
     res.status(200).json(results)
   } catch (error) {
-    res.status(400).json({error: error.message})    
+    res.status(400).json({ error: error.message })
   }
 }
 
-module.exports = { LoadBooksHandler, getBooksHandler }
+
+const getPage = async (req, res) => {
+  const { number } = req.params
+
+  try {
+    const pageNumber = await pageController(number)
+    res.status(200).json(pageNumber)
+  } catch (error) {
+    res.status(400).json({error: error.message})
+  }
+}
+
+module.exports = { LoadBooksHandler, getBooksHandler, getPage }
