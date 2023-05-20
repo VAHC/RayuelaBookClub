@@ -8,11 +8,9 @@ const searchBooks = async (search) => {
     if (search){
 
         const booksFiltered = allBooks.filter((book) => {
-            const bookTitle = book.title.toLowerCase();
-            // const bookAuthor = book.author.toLowerCase();
-
-            return bookTitle.includes(search.toLowerCase()) 
-            // || bookAuthor.includes(search.toLowerCase());
+           
+            return book.title.toLowerCase().includes(search.toLowerCase()) 
+            || book.authors.toLowerCase().includes(search.toLowerCase());
         })
     
         if (booksFiltered.length === 0) {

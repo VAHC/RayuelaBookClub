@@ -2,7 +2,7 @@ const axios = require('axios')
 const { Book,Gender,Author } = require('../../db')
 
 const LoadAllBooks = async () => {
-  const GetBooks = await axios('https://pi-henry-woad.vercel.app/imagen/test.json')
+  const GetBooks = await axios('https://pi-henry-woad.vercel.app/imagen/jsonL.json')
   const LoadBooks = GetBooks.data.map(libro => {
     return ({
       title: libro.title,
