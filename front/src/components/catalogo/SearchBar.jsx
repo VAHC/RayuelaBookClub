@@ -27,7 +27,7 @@ export const SearchBar = () => {
     <div>
       {notFound && <img src='./images/notFound.png' alt='bad request'/>}
       <input type='search' value={input} placeholder='Libro o Autor...' onChange={handlerChange}/>
-      <button onClick={handlerDispatch}>Buscar</button>
+      <button className='btn btn-secondary' onClick={handlerDispatch}>Buscar</button>
     </div>
   )
 }
