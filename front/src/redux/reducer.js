@@ -4,6 +4,8 @@ import { GET_DATA_REQUEST, GET_DATA_SUCCESS, GET_DATA_FAILURE, GET_ALL_BOOKS, SO
 const initialState = {
   loading: false,
   data: null,
+  //detail_data es en donde se guarda la data para renderizar en detail, tanto del searchbar como al clickear una portada. 
+  detail_data:{},
   error: null,
   books: [],
   allBooks: []
