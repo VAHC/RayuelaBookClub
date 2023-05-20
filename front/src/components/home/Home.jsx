@@ -11,22 +11,22 @@ export const Home = () => {
                 <div className="carousel-item active">
                   <img src="./images/01.png" className="d-block w-100 img-fluid" alt="..." />
                   <div className="carousel-caption d-none d-md-block bg-light bg-opacity-25 text-dark rounded">
-                    <h5 className='fs-3'>Bienvenidos a Rayuela</h5>
-                    <p className='fs-5'>Some representative placeholder content for the first slide.</p>
+                    <h5 className='fs-3 fw-bold'>Bienvenidos a Rayuela</h5>
+                    <p className='fs-5 fw-bold px-5'>¡Es el momento de disfrutar de la lectura!</p>
                   </div>
                 </div>
                 <div className="carousel-item">
                   <img src="./images/02.png" className="d-block w-100 img-fluid" alt="..." />
                   <div className="carousel-caption d-none d-md-block bg-light bg-opacity-25 text-dark rounded">
-                    <h5 className='fs-3'>¿Qué es Rayuela?</h5>
-                    <p className='fs-5'>Some representative placeholder content for the first slide.</p>
+                    <h5 className='fs-3 fw-bold'>¿Qué es Rayuela?</h5>
+                    <p className='fs-5 fw-bold px-5'>Rayuela es una suscripción literaria que te va a sorprender mes a mes con un libro que te va a encantar</p>
                   </div>
                 </div>
                 <div className="carousel-item">
                   <img src="./images/03.png" className="d-block w-100 img-fluid" alt="..." />
                   <div className="carousel-caption d-none d-md-block bg-light bg-opacity-25 text-dark rounded">
-                    <h5 className='fs-3'>Third slide label</h5>
-                    <p className='fs-5'>Some representative placeholder content for the first slide.</p>
+                    <h5 className='fs-3 fw-bold'>Comunidad</h5>
+                    <p className='fs-5 fw-bold px-5'>En el sitio podés reseñar tus libros preferidos y conectarte con otros lectores que comparten tu misma pasión</p>
                   </div>
                 </div>
               </div>
@@ -44,10 +44,10 @@ export const Home = () => {
       <div className='container p-3'>
         <div className="row">
           <div className="col-sm-6 mb-3 mb-sm-0">
-            <div className="card text-center">
+            <div className="card text-center h-100">
               <div className="card-body">
                 <h5 className="card-title fs-4 fw-bold text-secondary">Club de lectores</h5>
-                <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <p className="card-text">Si querés sorprenderte todos los meses con nuevas propuestas, renovar tus ganas de leer con una experiencia única y dejar de preocuparte por elegir tu próxima lectura ¡Rayuela es para vos!</p>
                 <div className="position-relative">
                   <img src="./images/05.jpg" className="d-block w-100" alt="..." />
                   <Link to="/suscripcion"><button className="btn btn-dark btn-lg position-absolute bottom-0 start-50 translate-middle m-2">Suscribite</button></Link>
@@ -56,10 +56,10 @@ export const Home = () => {
             </div>
           </div>
           <div className="col-sm-6">
-            <div className="card text-center">
+            <div className="card text-center h-100">
               <div className="card-body">
                 <h5 className="card-title fs-4 fw-bold text-secondary">Tienda</h5>
-                <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <p className="card-text">Encontrá una selección de libros clásicos y modernos, con opiniones de otros lectores, para que elijas tu favorito y lo recibas en tu casa. ¡Empezá ahora!</p>
                 <div className="position-relative">
                   <img src="./images/04.jpg" className="d-block w-100" alt="..." />
                   <Link to="/catalogo"><button className="btn btn-dark btn-lg position-absolute bottom-0 start-50 translate-middle m-2">Catálogo</button></Link>
