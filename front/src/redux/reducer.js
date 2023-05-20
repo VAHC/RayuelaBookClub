@@ -8,6 +8,7 @@ const initialState = {
   detail_data:{},
   error: null,
   books: [],
+  pageBooks:[],
   allBooks: []
 };
 
