@@ -26,8 +26,8 @@ export const SearchBar = () => {
   return (
     <div>
       {notFound && <img src='./images/notFound.png' alt='bad request'/>}
-      <input type='search' value={input} placeholder='Libro o Autor...' onChange={handlerChange}/>
-      <button className='btn btn-secondary' onClick={handlerDispatch}>Buscar</button>
+      <input type='search' className='form-control-sm' value={input} placeholder='Libro o Autor...' onChange={handlerChange}/>
+      <button className='btn btn-secondary btn-sm' onClick={handlerDispatch}>Buscar</button>
     </div>
   )
 }

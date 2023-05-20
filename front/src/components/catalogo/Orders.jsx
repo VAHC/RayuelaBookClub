@@ -20,21 +20,23 @@ export const Orders = () => {
   
   return (
     <div>
-      {/* <h3>Ordena tus libros por</h3> */}
+      <h6>Ordena por</h6>
       <div>
-        <label htmlFor='priceOrder'>Precio:</label>
-        <select name='priceOrder' value={priceValue} onChange={handlerSortByPrice}>
-          <option value="" readOnly hidden>Elije una opcion...</option>
+        {/* <label htmlFor='priceOrder'>Precio:</label> */}
+        <select className='form-select' name='priceOrder' value={priceValue} onChange={handlerSortByPrice}>
+          {/* <option value="" readOnly hidden>Elije una opcion...</option> */}
+          <option value="" readOnly hidden>Precio...</option>
           <option value="Asc">Menor precio</option>
           <option value="Desc">Mayor precio</option>
         </select>
       </div>
       <div>
-        <label htmlFor='ratingOrder'>Calificación:</label>
-        <select name='ratingOrder' value={ratingValue} onChange={handlerSortByRating}>
-          <option value="" readOnly hidden>Elije una opcion...</option>
-          <option value="Asc">Peor Calificado</option>
-          <option value="Desc">Mejor Calificado</option>
+        {/* <label htmlFor='ratingOrder'>Valoracion:</label> */}
+        <select className='form-select' name='ratingOrder' value={ratingValue} onChange={handlerSortByRating}>
+          {/* <option value="" readOnly hidden>Elije una opcion...</option> */}
+          <option value="" readOnly hidden>Valoracion...</option>
+          <option value="Asc">Peor Valorado</option>
+          <option value="Desc">Mejor Valorado</option>
         </select>
       </div>
     </div>
