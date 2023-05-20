@@ -41,12 +41,12 @@ const { Book, Gender, Author } = sequelize.models
 // Product.hasMany(Reviews);
 
 // Relación N:N entre Libros y Géneros
-Book.belongsToMany(Gender, { through: 'books_genders' })
-Gender.belongsToMany(Book, { through: 'books_genders' })
+Book.belongsToMany(Gender, { through: 'books_genders', timestamps: false })
+Gender.belongsToMany(Book, { through: 'books_genders', timestamps: false })
 
 // Relación N:N entre Libros y Autor
-Book.belongsToMany(Author, { through: 'books_authors' })
-Author.belongsToMany(Book, { through: 'books_authors' })
+Book.belongsToMany(Author, { through: 'books_authors', timestamps: false })
+Author.belongsToMany(Book, { through: 'books_authors', timestamps: false })
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
