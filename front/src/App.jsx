@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 //Librerias
 import {Route, Routes} from "react-router-dom";
+=======
+//import './App.css'
+
+// Librerias
+import { Route, Routes } from 'react-router-dom'
+>>>>>>> e6856bccc1b33c5e86e62956fb1fb615d5e54a45
 
 //Componentes
 import { Home } from "./components/home/Home";

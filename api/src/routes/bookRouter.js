@@ -1,5 +1,4 @@
 const { Router } = require('express')
-
 const {
   //getBookByIdHandler,
   LoadBooksHandler,
@@ -15,6 +14,6 @@ bookRouter.get('/', getBooksHandler)
 bookRouter.get('/:id', getBookByIdHandler)
 bookRouter.get('/load', LoadBooksHandler)
 
-// console.log(searchCountriesHandler);
+
 
 module.exports = bookRouter

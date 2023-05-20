@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 //Componentes
 import { Detail } from "./Detail";
@@ -7,49 +7,49 @@ import { Orders } from "./Orders";
 import { Filters } from "./Filters";
 import { Posters } from "./Posters";
 
-//Estilos
+// Estilos
 import {
-    Container,
-    Sidebar,
-    OrdersSection,
-    CatalogoSection,
-    SearchBarDiv,
-    DetailSection,
-    PosterSection,
-    Wrap
-} from "./Styles/catalogo";
+  Container,
+  Sidebar,
+  OrdersSection,
+  CatalogoSection,
+  SearchBarDiv,
+  DetailSection,
+  PosterSection,
+  Wrap
+} from './Styles/catalogo'
 
 // En este componente se renderizan todos los demas.
 export const Catalogo = () => {
-    return (
-        <Wrap>
-            {/* ¿NavBar? */}
+  return (
+    <Wrap>
+      {/* ¿NavBar? */}
 
-            <SearchBarDiv>
-                <SearchBar />
-            </SearchBarDiv>
+      <SearchBarDiv>
+        <SearchBar />
+      </SearchBarDiv>
 
-            <Container>
-                <Sidebar>
-                    <Filters />
-                </Sidebar>
+      <Container>
+        <Sidebar>
+          <Filters />
+        </Sidebar>
 
-                <CatalogoSection>
+        <CatalogoSection>
 
-                    <OrdersSection>
-                        <Orders />
-                    </OrdersSection>
+          <OrdersSection>
+            <Orders />
+          </OrdersSection>
 
-                    <PosterSection>
-                        <Posters />
-                    </PosterSection>
+          <PosterSection>
+            <Posters />
+          </PosterSection>
 
-                </CatalogoSection>
+        </CatalogoSection>
 
-                <DetailSection>
-                    <Detail />
-                </DetailSection>
-            </Container>
-        </Wrap>
-    );
-};
+        <DetailSection>
+          <Detail />
+        </DetailSection>
+      </Container>
+    </Wrap>
+  )
+}
