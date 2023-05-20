@@ -1,15 +1,15 @@
-const { getBookById } = require('../controllers/books/getBookById')
+// const { getBookById } = require('../controllers/books/getBookById')
 const { LoadAllBooks } = require('../controllers/books/LoadBooks')
 const searchBooks = require('../controllers/books/searchBooks')
 const getAllBooks = require('../controllers/books/getAllBooks')
 
-const getBookByIdHandler = (req, res) => {
-  try {
-    res.status(200).send('funciona')
-  } catch (error) {
-    res.status(400).json({ error: error.message })
-  }
-}
+// const getBookByIdHandler = (req, res) => {
+//   try {
+//     res.status(200).send('funciona')
+//   } catch (error) {
+//     res.status(400).json({ error: error.message })
+//   }
+// }
 
 const LoadBooksHandler = async (req, res) => {
   try {
