@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import { GenderFiltered, getAllBooks, filterAuthor, changePagina } from '../../redux/action'
+import { genreFiltered, getAllBooks, filterAuthor, changePagina } from '../../redux/action'
 
 export function Filters({setCurrentPage, generos, setOrder}) {
 
@@ -25,12 +25,11 @@ export function Filters({setCurrentPage, generos, setOrder}) {
 //var uniqueAuthors = [...new Set(allBooks.map(obj => obj.authors))]
 
   const handleFilterGenre = (e) => {
-    dispatch(GenderFiltered(e.target.value))
+    dispatch(genreFiltered(e.target.value))
     dispatch(changePagina(1))
   }
 
   const handleFilterAuthor = (e) => {
-    
     dispatch(filterAuthor(e.target.value))
     dispatch(changePagina(1))
   }
