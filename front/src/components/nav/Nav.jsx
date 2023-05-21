@@ -6,11 +6,11 @@ export const Nav = () => {
     <>
       <nav className="navbar navbar-expand-lg">
         <div className="container-fluid">
-          <p className="navbar-brand ms-auto mb-2 mb-lg-0 fs-4 d-flex align-items-center">
+          <p className="navbar-brand ms-auto mb-2 mb-lg-0 fs-4 d-flex align-items-center pb-4">
             <img src="./images/logo.png" alt="Logo" width="80" height="80" className="d-inline-block"/>
           </p>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse nav-fill" id="navbarNav">
                 <Link to="/" className="nav-link fs-4 nav-link active" aria-current="page">Inicio</Link>

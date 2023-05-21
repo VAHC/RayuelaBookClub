@@ -34,7 +34,11 @@ export const Posters = () => {
     }, [pagina]);
 
     const booksMap = booksPage.map((book) => {
-        return <Card image={book.image} price={book.price} title={book.title}/>;
+        return (
+            <Card
+            book={book}
+            />
+        );
     });
 
     return(
