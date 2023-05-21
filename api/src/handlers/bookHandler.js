@@ -27,10 +27,10 @@ const getBooksHandler = async (req, res) => {
 
   try {
     const search = title || authors;
-    const searchField = title ? "title" : "authors";
+    // const searchField = title ? "title" : "authors";
 
     const results = search
-      ? await searchBooks(search, searchField)
+      ? await searchBooks(search)
       : await getAllBooks();
     res.status(200).json(results)
   } catch (error) {
