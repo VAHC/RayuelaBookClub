@@ -27,10 +27,11 @@ export const Posters = () => {
         booksGet();
     }, [pagina]);
 
-    const booksMap = booksPage.map((book) => {
+    const booksMap = booksPage.map((book, index) => {
         return (
             <Card
             book={book}
+            key={index}
             />
         );
     });
