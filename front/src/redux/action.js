@@ -12,6 +12,7 @@ export const GET_BOOKSPAGE = 'GET_BOOKPAGE';
 export const CHANGE_PAGINA = 'CHANGE_PAGINA';
 export const SEARCH_BY_NAME_OR_AUTHOR = 'SEARCH_BY_NAME_OR_AUTHOR';
 export const FILTER_BY_GENRE = 'FILTERS'
+export const FILTER_AUTHOR = 'FILTER_AUTHOR'
 
 
 // Action creators
@@ -105,4 +106,8 @@ export const GenderFiltered = (arr) => {
       type: FILTER_BY_GENRE,
       payload:arr
   }
+}
+
+export const filterAuthor = (value) => {
+  return { type: FILTER_AUTHOR, payload: value }
 }

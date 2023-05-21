@@ -20,6 +20,8 @@ export const Posters = () => {
     const extractedArray = booksPage.flatMap(obj => obj.gender);
     console.log(extractedArray)
 
+    
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -44,7 +46,7 @@ export const Posters = () => {
     return(
       <div>
         {booksMap}
-        <Filters setCurrentPage={setCurrentPage} generos={extractedArray} setOrder={setOrder}/>
+        {/* <Filters setCurrentPage={setCurrentPage} generos={extractedArray} setOrder={setOrder}/> */}
       </div>
       
       )
