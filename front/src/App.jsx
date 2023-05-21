@@ -6,8 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Home } from "./components/home/Home";
 import { Nav } from "./components/nav/Nav";
 import { Catalogo } from './components/catalogo/catalogo';
-
-import BookList from './components/home/BookList'
+//import BookList from './components/home/BookList'
 
 import { Suscripcion } from './components/suscripcion/Suscripcion';
 import { Footer } from "./components/footer/Footer";
@@ -22,8 +21,7 @@ function App() {
         <Route exact path="/nosotros" element={<AboutUs/>}/>
         <Route exact path="/suscripcion" element={<Suscripcion/>}/>
         <Route exact path="/catalogo" element={<Catalogo/>}/>
-
-        <Route exact path="/books" element={<BookList />}/>
+        
       </Routes>
       <Footer/>
     </>

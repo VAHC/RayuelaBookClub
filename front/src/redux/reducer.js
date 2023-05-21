@@ -1,4 +1,4 @@
-import { GET_DATA_REQUEST, GET_DATA_SUCCESS, GET_DATA_FAILURE, GET_ALL_BOOKS, SORT_BY_PRICE, SORT_BY_RATING, GET_BOOKSPAGE, CHANGE_PAGINA, SEARCH_BY_NAME_OR_AUTHOR,SET_DETAIL } from './action';
+import { GET_DATA_REQUEST, GET_DATA_SUCCESS, GET_DATA_FAILURE, GET_ALL_BOOKS, SORT_BY_PRICE, SORT_BY_RATING, GET_BOOKSPAGE,CHANGE_PAGINA, SEARCH_BY_NAME_OR_AUTHOR, FILTER_BY_GENRE, FILTER_AUTHOR } from './action';
 
 
 // Initial state
@@ -83,16 +83,47 @@ const reducer = (state = initialState, action) => {
           booksPage: action.payload,
         };
 
-    case SET_DETAIL:
-      return {
-        ...state,
-        detail_data: action.payload,
-      };
+        case FILTER_BY_GENRE:
+            const allAux = state.allBooks  
+            const Filtered = action.payload === 'Filter by gender'?
+            state.allBooks : allAux.filter(r => {         
+                if(r.gender.length > 0){
+                    if(r.gender.find(g => g === action.payload)) return r
+                }
+            })
+            return {
+                ...state,
+                booksPage:Filtered
+            }
+            case FILTER_AUTHOR:
+            const allAuthors = state.allBooks  
+            const authorsFiltered = action.payload === 'Filter by authors'?
+            state.allBooks : allAuthors.filter(r => {     
+                if(r.authors.length > 0){
+                    if(r.authors.find(g => g === action.payload)) return r
+                }
+            })
+            return {
+                ...state,
+                booksPage:authorsFiltered
+            }
 
-
-    default:
+      default:
       return state;
   }
 };
 
 export default reducer;
+
+
+
+
+
+
+// case FILTER_AUTHOR:
+            //   const booksCopy2 = [...state.allBooks]
+            //   const booksFilteredAuthor = action.payload === "All" ? booksCopy2 : booksCopy2.filter(b => c.authors.some(a => a === action.payload))
+            //   return {
+            //       ...state,
+            //       booksCopy: booksFilteredAuthor
+            //   }

@@ -11,7 +11,8 @@ export const SORT_BY_RATING = 'SORT_BY_RATING';
 export const GET_BOOKSPAGE = 'GET_BOOKPAGE';
 export const CHANGE_PAGINA = 'CHANGE_PAGINA';
 export const SEARCH_BY_NAME_OR_AUTHOR = 'SEARCH_BY_NAME_OR_AUTHOR';
-export const SET_DETAIL = "SET_DETAIL"
+export const FILTER_BY_GENRE = 'FILTERS'
+export const FILTER_AUTHOR = 'FILTER_AUTHOR'
 
 
 // Action creators
@@ -98,4 +99,15 @@ export const setDetail = (bookObj) => {
     type: SET_DETAIL,
     payload: bookObj
   }
+};
+
+export const GenderFiltered = (arr) => {
+  return{
+      type: FILTER_BY_GENRE,
+      payload:arr
+  }
+}
+
+export const filterAuthor = (value) => {
+  return { type: FILTER_AUTHOR, payload: value }
 }
