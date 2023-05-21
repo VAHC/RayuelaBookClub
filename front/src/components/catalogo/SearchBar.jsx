@@ -21,13 +21,18 @@ export const SearchBar = () => {
     setInput('')
   }
 
-
-
   return (
     <div>
-      {notFound && <img src='./images/notFound.png' alt='bad request'/>}
-      <input type='search' className='form-control-sm' value={input} placeholder='Libro o Autor...' onChange={handlerChange}/>
-      <button className='btn btn-secondary btn-sm' onClick={handlerDispatch}>Buscar</button>
+      {notFound && <img src='./images/notFound.png' className="w-25 position-absolute top-50 start-50 translate-middle" alt='bad request'/>}
+      <nav className="navbar navbar-light bg-dark">
+        <div className="container-fluid">
+          <form className="d-flex" role="search">
+            <input className="form-control me-2" type="search" placeholder="Libro o autor" aria-label="Buscar" value={input} onChange={handlerChange} />
+            <button className="btn btn-light btn-outline-secondary" onClick={handlerDispatch}>Buscar</button>
+          </form>
+          <i className="bi bi-cart text-light fs-3 mx-5"></i>
+        </div>
+      </nav>
     </div>
   )
 }
