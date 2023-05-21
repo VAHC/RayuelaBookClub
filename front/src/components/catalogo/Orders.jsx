@@ -22,7 +22,7 @@ export const Orders = () => {
   
   return (
     <div>
-      <h6>Ordena por</h6>
+      <h6 className='mx-2'>Ordena por</h6>
         <div className='m-1 mb-3'>
           {/* <label htmlFor='priceOrder'>Precio:</label> */}
           <select className='form-select' name='priceOrder' value={priceValue} onChange={handlerSortByPrice}>
@@ -36,9 +36,9 @@ export const Orders = () => {
           {/* <label htmlFor='ratingOrder'>Valoracion:</label> */}
           <select className='form-select' name='ratingOrder' value={ratingValue} onChange={handlerSortByRating}>
             {/* <option value="" readOnly hidden>Elije una opcion...</option> */}
-            <option value="" readOnly hidden>Valoracion...</option>
-            <option value="Asc">Peor Valorado</option>
-            <option value="Desc">Mejor Valorado</option>
+            <option value="" readOnly hidden>Valoración...</option>
+            <option value="Asc">Valoración más baja</option>
+            <option value="Desc">Valoración más alta</option>
           </select>
         </div>
       </div>
