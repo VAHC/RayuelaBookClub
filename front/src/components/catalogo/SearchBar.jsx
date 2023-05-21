@@ -1,7 +1,7 @@
 import React from 'react';
 import {useState} from 'react';
 import {useDispatch} from 'react-redux';
-import { searchByNameOrAuthor } from '../../redux/action';
+import { searchByNameOrAuthor,changePagina } from '../../redux/action';
 
 export const SearchBar = () => {
   const dispatch = useDispatch();
@@ -15,6 +15,7 @@ export const SearchBar = () => {
 
   const handlerDispatch = () => {
     dispatch(searchByNameOrAuthor(input))
+    dispatch(changePagina(1))
     .then()
     .catch(error => setNotFound(true),
     setTimeout(() => setNotFound(false), 2000))
