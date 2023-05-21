@@ -11,7 +11,6 @@ import { Posters } from "./Posters";
 import {
     Container,
     Sidebar,
-    OrdersSection,
     CatalogoSection,
     SearchBarDiv,
     DetailSection,
@@ -20,7 +19,7 @@ import {
 } from "./Styles/catalogo";
 
 import {getAllBooks } from "../../redux/action";
-import {useDispatch } from "react-redux";
+import {useDispatch, useSelector } from "react-redux";
 
 // En este componente se renderizan todos los demas.
 export const Catalogo = () => {
@@ -32,6 +31,8 @@ export const Catalogo = () => {
         console.log("se hace el dispatch para buscar allBooks");
     }, [])
 
+    const detailData= useSelector(state=>state.detailData)
+
     return (
         <Wrap>
             {/* ¿NavBar? */}
@@ -42,14 +43,11 @@ export const Catalogo = () => {
 
             <Container>
                 <Sidebar>
+                <Orders />
                     <Filters />
                 </Sidebar>
 
                 <CatalogoSection>
-
-                    <OrdersSection>
-                        <Orders />
-                    </OrdersSection>
 
                     <PosterSection>
                         <Posters />
@@ -57,9 +55,9 @@ export const Catalogo = () => {
 
                 </CatalogoSection>
 
-                <DetailSection>
+                {detailData === undefined  && <DetailSection>
                     <Detail />
-                </DetailSection>
+                </DetailSection>}
             </Container>
         </Wrap>
     );

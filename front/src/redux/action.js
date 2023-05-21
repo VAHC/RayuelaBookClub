@@ -11,6 +11,7 @@ export const SORT_BY_RATING = 'SORT_BY_RATING';
 export const GET_BOOKSPAGE = 'GET_BOOKPAGE';
 export const CHANGE_PAGINA = 'CHANGE_PAGINA';
 export const SEARCH_BY_NAME_OR_AUTHOR = 'SEARCH_BY_NAME_OR_AUTHOR';
+export const SET_DETAIL = "SET_DETAIL"
 
 
 // Action creators
@@ -52,6 +53,7 @@ export const getAllBooks = () => {
   }
 };
 
+//importa los libros de la pagina correspondiente
 export const getBooksPage = (pagNum) => {
   return {
     type: GET_BOOKSPAGE,
@@ -59,10 +61,11 @@ export const getBooksPage = (pagNum) => {
   }
 };
 
-export function changePagina(pagNum){
+//se encarga de actualizar pagina actual
+export function changePagina(pagNum) {
   return {
-      type: CHANGE_PAGINA,
-      payload: pagNum
+    type: CHANGE_PAGINA,
+    payload: pagNum
   }
 
 }
@@ -86,6 +89,13 @@ export const searchByNameOrAuthor = (name) => {
     //cambiar endpoint del get por la ruta del back para el search
     const response = await axios.get(`http://localhost:3001/books?name=${name}`);
     const searchArray = response.data;
-    dispatch({type: SEARCH_BY_NAME_OR_AUTHOR, payload: searchArray})
+    dispatch({ type: SEARCH_BY_NAME_OR_AUTHOR, payload: searchArray })
   }
 };
+
+export const setDetail = (bookObj) => {
+  return {
+    type: SET_DETAIL,
+    payload: bookObj
+  }
+}
