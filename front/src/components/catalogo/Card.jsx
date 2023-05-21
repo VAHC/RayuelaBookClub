@@ -2,8 +2,14 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
+import { useDispatch } from "react-redux";
+import { setDetail } from "../../redux/action";
 
-const bookCard = ({ image, price, title }) => {
+const bookCard = ({book}) => {
+
+  const dispatch = useDispatch()
+const handleClick = ()=> {dispatch(setDetail(book))}
+
   const renderTooltip = () => (
     <Tooltip>
       <span role="img" aria-label="star">
@@ -18,7 +24,7 @@ const bookCard = ({ image, price, title }) => {
           padding: "5px",
         }}
       >
-        {title}
+        {book.title}
       </div>
       <div
         style={{
@@ -27,14 +33,14 @@ const bookCard = ({ image, price, title }) => {
           marginBottom: "10px",
         }}
       >
-        $ {price} .-
+        $ {book.price} .-
       </div>
     </Tooltip>
   );
 
   return (
-    <Card style={{ width: "11rem" }}>
-      <Card.Img variant="top" src={image} />
+    <Card style={{ width: "11rem" }} onClick={handleClick}>
+      <Card.Img variant="top" src={book.image} />
       <OverlayTrigger placement="top" overlay={renderTooltip()}>
         <Card.ImgOverlay
           style={{
@@ -50,7 +56,7 @@ const bookCard = ({ image, price, title }) => {
               padding: "5px",
             }}
           >
-            {title}
+            {book.title}
           </div>
         </Card.ImgOverlay>
       </OverlayTrigger>

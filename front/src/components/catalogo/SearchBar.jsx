@@ -1,7 +1,7 @@
 import React from 'react';
 import {useState} from 'react';
 import {useDispatch} from 'react-redux';
-import { searchByNameOrAuthor } from '../../redux/action';
+import { searchByNameOrAuthor,changePagina } from '../../redux/action';
 
 export const SearchBar = () => {
   const dispatch = useDispatch();
@@ -15,19 +15,25 @@ export const SearchBar = () => {
 
   const handlerDispatch = () => {
     dispatch(searchByNameOrAuthor(input))
+    dispatch(changePagina(1))
     .then()
     .catch(error => setNotFound(true),
     setTimeout(() => setNotFound(false), 2000))
     setInput('')
   }
 
-
-
   return (
     <div>
-      {notFound && <img src='./images/notFound.png' alt='bad request'/>}
-      <input type='search' value={input} placeholder='Libro o Autor...' onChange={handlerChange}/>
-      <button onClick={handlerDispatch}>Buscar</button>
+      {notFound && <img src='./images/notFound.png' className="w-25 position-absolute top-50 start-50 translate-middle" alt='bad request'/>}
+      <nav className="navbar navbar-light bg-dark">
+        <div className="container-fluid">
+          <form className="d-flex" role="search">
+            <input className="form-control me-2" type="search" placeholder="Libro o autor" aria-label="Buscar" value={input} onChange={handlerChange} />
+            <button className="btn btn-light btn-outline-secondary" onClick={handlerDispatch}>Buscar</button>
+          </form>
+          <i className="bi bi-cart text-light fs-3 mx-5"></i>
+        </div>
+      </nav>
     </div>
   )
 }
