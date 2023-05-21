@@ -33,6 +33,7 @@ export const Paginado = () => {
     };
 
     return (
+        <div style={{ display: "flex", justifyContent: "center" }}>
         <Pagination>
             <Pagination.First onClick={() => pageChangerHandle(1)} />
             <Pagination.Prev
@@ -46,5 +47,6 @@ export const Paginado = () => {
             />
             <Pagination.Last onClick={() => pageChangerHandle(totalPaginas)} />
         </Pagination>
+        </div>
     );
 };
