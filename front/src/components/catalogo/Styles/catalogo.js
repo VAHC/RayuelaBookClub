@@ -26,10 +26,11 @@ export const Sidebar = styled.div`
   /* Estilos de la columna de los filtros */
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   flex: 1;
   width: 16.66667%; /* 1/6 del viewport */
   height: 100%;
-  background-color: yellow;
+  background-color: grey;
  
 `;
 
