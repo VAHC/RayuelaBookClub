@@ -1,70 +1,49 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchData } from '../../redux/action';
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getBooksPage, getAllBooks } from "../../redux/action";
+import { Filters } from "./Filters";
 
+import Card from "./Card";
 
 export const Posters = () => {
-  const dispatch = useDispatch();
-  const { loading, data, error } = useSelector((state) => state);
-  const [hoveredItem, setHoveredItem] = useState(null);
+    //Pagina actual
+    const pagina = useSelector((state) => state.paginaActual);
+    console.log(pagina);
+    //libros de la pagina array
+    const booksPage = useSelector((state) => state.booksPage);
+    //flag para no cargar todos los libros con cada render
+    const [allBooksLoaded, setAllBooksLoaded] = useState(false);
 
-  
+    const [currentPage, setCurrentPage] = useState(1);
+    const [order, setOrder] = useState('')
 
-  useEffect(() => {
-    dispatch(fetchData());
-  
-    console.log(data)
-  }, [dispatch]);
+    const extractedArray = booksPage.flatMap(obj => obj.gender);
+    console.log(extractedArray)
 
-  console.log(data)
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+    const dispatch = useDispatch();
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  const handleHover = (itemId) => {
-    setHoveredItem(itemId);
-  };
-
-  return (
-    // <div>
-    //     {data && (
-    //     <ul>
-    //       {data.map((item) => (
-    //         <div>
-    //           <li>   Title: {item.title} <br/>Price:{item.price}</li>
-
-    //           <img src={item.image}></img>
-    //         </div>
-            
-    //       ))}
-    //     </ul>
-    //   )}   
-    // </div>
-
-    <div>
-      
-      {data && (data.map((item) => (
-        <div
-          key={item.id}
-          onMouseEnter={() => handleHover(item.id)}
-          onMouseLeave={() => handleHover(null)}
-        >
-          <img
-            src={item.image}
-            alt={item.title}
-          />
-          {hoveredItem === item.id && <span>
-              {item.title} <br /> {item.price}
-              </span>
-            
+    useEffect(() => {
+        const booksGet = async () => {
+            if (!allBooksLoaded) {
+                await dispatch(getAllBooks());
+                setAllBooksLoaded(true);
             }
-        </div>
-      )))}
-    </div>
-  );
-};
+            dispatch(getBooksPage(pagina));
+        };
+        booksGet();
+    }, [pagina]);
 
+    const booksMap = booksPage.map((book) => {
+        return <Card image={book.image} price={book.price} title={book.title}/>;
+    });
+
+    return(
+      <div>
+        {booksMap}
+        <Filters setCurrentPage={setCurrentPage} generos={extractedArray} setOrder={setOrder}/>
+      </div>
+      
+      )
+     
+        
+};

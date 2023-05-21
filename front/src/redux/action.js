@@ -5,6 +5,14 @@ import axios from 'axios';
 export const GET_DATA_REQUEST = 'GET_DATA_REQUEST';
 export const GET_DATA_SUCCESS = 'GET_DATA_SUCCESS';
 export const GET_DATA_FAILURE = 'GET_DATA_FAILURE';
+export const GET_ALL_BOOKS = 'GET_ALL_BOOKS';
+export const SORT_BY_PRICE = 'SORT_BY_PRICE';
+export const SORT_BY_RATING = 'SORT_BY_RATING';
+export const GET_BOOKSPAGE = 'GET_BOOKPAGE';
+export const CHANGE_PAGINA = 'CHANGE_PAGINA';
+export const SEARCH_BY_NAME_OR_AUTHOR = 'SEARCH_BY_NAME_OR_AUTHOR';
+export const FILTER_BY_GENRE = 'FILTERS'
+
 
 // Action creators
 export const getDataRequest = () => ({
@@ -34,3 +42,58 @@ export const fetchData = () => {
       });
   };
 };
+
+//getAllBooks trae todos los libros en un objeto, por ahi se pisa con lo de arriba, 
+//pero no estoy teniendo en reducer como manejar el objeto; o almenos yo no lo entiendo
+export const getAllBooks = () => {
+  return async (dispatch) => {
+    const response = await axios.get('https://pi-henry-woad.vercel.app/imagen/jsonL.json');
+    const allBooks = response.data;
+    dispatch({ type: GET_ALL_BOOKS, payload: allBooks })
+  }
+};
+
+export const getBooksPage = (pagNum) => {
+  return {
+    type: GET_BOOKSPAGE,
+    payload: pagNum,
+  }
+};
+
+export function changePagina(pagNum){
+  return {
+      type: CHANGE_PAGINA,
+      payload: pagNum
+  }
+
+}
+
+export const sortByPrice = (payload) => {
+  return {
+    type: SORT_BY_PRICE,
+    payload
+  }
+};
+
+export const sortByRating = (payload) => {
+  return {
+    type: SORT_BY_RATING,
+    payload
+  }
+}
+
+export const searchByNameOrAuthor = () => {
+  return async (dispatch) => {
+    //cambiar endpoint del get por la ruta del back para el search
+    const response = await axios.get('https://pi-henry-woad.vercel.app/imagen/jsonL.json');
+    const searchArray = response.data;
+    dispatch({type: SEARCH_BY_NAME_OR_AUTHOR, payload: searchArray})
+  }
+};
+
+export const GenderFiltered = (arr) => {
+  return{
+      type: FILTER_BY_GENRE,
+      payload:arr
+  }
+}
