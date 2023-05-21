@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import { genreFiltered, getAllBooks, filterAuthor, changePagina } from '../../redux/action'
 
-export function Filters({setCurrentPage, generos, setOrder}) {
-
+//export function Filters({setCurrentPage, generos, setOrder}) {
+export function Filters() {
   const dispatch = useDispatch()
-  const booksPage = useSelector((state) => state.booksPage)
+ // const booksPage = useSelector((state) => state.booksPage)
   const allBooks = useSelector((state) => state.allBooks)
+  const [authorValue, setAuthorValue] = useState('')
+  const [genreValue, setGenreValue] = useState('')
 
   //const extractedArray = booksPage.flatMap(obj => obj.gender)
 
@@ -27,19 +29,21 @@ export function Filters({setCurrentPage, generos, setOrder}) {
   const handleFilterGenre = (e) => {
     dispatch(genreFiltered(e.target.value))
     dispatch(changePagina(1))
+    setGenreValue('')
   }
 
   const handleFilterAuthor = (e) => {
     dispatch(filterAuthor(e.target.value))
     dispatch(changePagina(1))
+    setAuthorValue('')
   }
 
   return (
     <div >
       <h6 className='mx-2'>Filtrar por</h6>
       <div className='m-1 mb-3'>
-        <select className='form-select' onChange={e => handleFilterAuthor(e)}  >
-          <option value="filter">Autor</option>
+        <select className='form-select' value={authorValue} onChange={e => handleFilterAuthor(e)}  >
+          <option value="" readOnly hidden>Autor...</option>
           <option value="All">Todos</option>
           {authorsNoRepeat && authorsNoRepeat.map((a, index) =>
             <option key={index} value={a}>{a}</option>
@@ -47,8 +51,8 @@ export function Filters({setCurrentPage, generos, setOrder}) {
         </select>
       </div>
       <div className='m-1'>
-        <select className='form-select' onChange={e => handleFilterGenre(e)}  >
-          <option value="filter">Género</option>
+        <select className='form-select' value={genreValue} onChange={e => handleFilterGenre(e)}  >
+          <option value="" readOnly hidden>Género...</option>
           <option value="All">Todos</option>
           {genresNoRepeat && genresNoRepeat.map((a, index) =>
             <option key={index} value={a}>{a}</option>
