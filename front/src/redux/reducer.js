@@ -1,4 +1,4 @@
-import { GET_DATA_REQUEST, GET_DATA_SUCCESS, GET_DATA_FAILURE, GET_ALL_BOOKS, SORT_BY_PRICE, SORT_BY_RATING, GET_BOOKSPAGE, CHANGE_PAGINA, SEARCH_BY_NAME_OR_AUTHOR,SET_DETAIL } from './action';
+import { GET_DATA_REQUEST, GET_DATA_SUCCESS, GET_DATA_FAILURE, GET_ALL_BOOKS, SORT_BY_PRICE, SORT_BY_RATING, GET_BOOKSPAGE, CHANGE_PAGINA, SEARCH_BY_NAME_OR_AUTHOR,SET_DETAIL, FILTER_BY_GENRE, FILTER_AUTHOR } from './action';
 
 
 // Initial state
@@ -44,10 +44,10 @@ const reducer = (state = initialState, action) => {
       const indiceInicio = (pageNumber - 1) * pageSize;
       const indiceFinal = indiceInicio + pageSize;
 
-      console.log("pageNumber " + pageNumber)
-      console.log("indiceInicio " + indiceInicio)
-      console.log("indiceFinal " + indiceFinal)
-      console.log()
+      // console.log("pageNumber " + pageNumber)
+      // console.log("indiceInicio " + indiceInicio)
+      // console.log("indiceFinal " + indiceFinal)
+      // console.log()
 
       return {
         ...state,
@@ -65,6 +65,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         booksPage: [...sortPriceArray]
       }
+
     //el case SORT_BY_RATING esta hecho en base al precio, ya que aun no hay reseñas
     case SORT_BY_RATING:
       let sortRatingArray = action.payload === 'Asc' ? state.booksPage.sort((a, b) => {
@@ -77,11 +78,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         booksPage: [...sortRatingArray]
       }
-      case SEARCH_BY_NAME_OR_AUTHOR:
-        return {
-          ...state,
-          booksPage: action.payload,
-        };
+
+    case SEARCH_BY_NAME_OR_AUTHOR:
+      return {
+        ...state,
+        booksPage: action.payload,
+      };
 
     case SET_DETAIL:
       return {
@@ -89,6 +91,31 @@ const reducer = (state = initialState, action) => {
         detail_data: action.payload,
       };
 
+    case FILTER_BY_GENRE:
+      const allAux = state.allBooks
+      const Filtered = action.payload === 'Filter by gender' ?
+        state.allBooks : allAux.filter(r => {
+          if (r.gender.length > 0) {
+            if (r.gender.find(g => g === action.payload)) return r
+          }
+        })
+      return {
+        ...state,
+        booksPage: Filtered
+      }
+      
+    case FILTER_AUTHOR:
+      const allAuthors = state.allBooks
+      const authorsFiltered = action.payload === 'Filter by authors' ?
+        state.allBooks : allAuthors.filter(r => {
+          if (r.authors.length > 0) {
+            if (r.authors.find(g => g === action.payload)) return r
+          }
+        })
+      return {
+        ...state,
+        booksPage: authorsFiltered
+      }
 
     default:
       return state;
