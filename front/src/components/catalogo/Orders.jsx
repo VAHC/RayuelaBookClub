@@ -24,7 +24,7 @@ export const Orders = () => {
       <div className='input-group mb-3'>
         <div>
           {/* <label htmlFor='priceOrder'>Precio:</label> */}
-          <select className='form-select' name='priceOrder' value={priceValue} onChange={handlerSortByPrice}>
+          <select className='form-select-sm' name='priceOrder' value={priceValue} onChange={handlerSortByPrice}>
             {/* <option value="" readOnly hidden>Elije una opcion...</option> */}
             <option value="" readOnly hidden>Precio...</option>
             <option value="Asc">Menor precio</option>
@@ -33,7 +33,7 @@ export const Orders = () => {
         </div>
         <div>
           {/* <label htmlFor='ratingOrder'>Valoracion:</label> */}
-          <select className='form-select' name='ratingOrder' value={ratingValue} onChange={handlerSortByRating}>
+          <select className='form-select-sm' name='ratingOrder' value={ratingValue} onChange={handlerSortByRating}>
             {/* <option value="" readOnly hidden>Elije una opcion...</option> */}
             <option value="" readOnly hidden>Valoracion...</option>
             <option value="Asc">Peor Valorado</option>

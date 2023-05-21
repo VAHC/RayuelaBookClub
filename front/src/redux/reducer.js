@@ -55,33 +55,33 @@ const reducer = (state = initialState, action) => {
       };
 
     case SORT_BY_PRICE:
-      let sortPriceArray = action.payload === 'Asc' ? state.books.sort((a, b) => {
+      let sortPriceArray = action.payload === 'Asc' ? state.booksPage.sort((a, b) => {
         return a.price - b.price
       }) :
-        state.books.sort((a, b) => {
+        state.booksPage.sort((a, b) => {
           return b.price - a.price
         });
       return {
         ...state,
-        books: [...sortPriceArray]
+        booksPage: [...sortPriceArray]
       }
     //el case SORT_BY_RATING esta hecho en base al precio, ya que aun no hay reseñas
     case SORT_BY_RATING:
-      let sortRatingArray = action.payload === 'Asc' ? state.books.sort((a, b) => {
+      let sortRatingArray = action.payload === 'Asc' ? state.booksPage.sort((a, b) => {
         return a.price - b.price
       }) :
-        state.books.sort((a, b) => {
+        state.booksPage.sort((a, b) => {
           return b.price - a.price
         });
       return {
         ...state,
-        books: [...sortRatingArray]
+        booksPage: [...sortRatingArray]
       }
-    case SEARCH_BY_NAME_OR_AUTHOR:
-      return {
-        ...state,
-        books: action.payload,
-      };
+      case SEARCH_BY_NAME_OR_AUTHOR:
+        return {
+          ...state,
+          booksPage: action.payload,
+        };
 
     case SET_DETAIL:
       return {
