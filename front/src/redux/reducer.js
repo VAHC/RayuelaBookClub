@@ -63,7 +63,7 @@ const reducer = (state = initialState, action) => {
       });
       return {
         ...state,
-        books: [...sortPriceArray]
+        booksPage: [...sortPriceArray]
       }
     //el case SORT_BY_RATING esta hecho en base al precio, ya que aun no hay reseñas
     case SORT_BY_RATING:
@@ -75,12 +75,12 @@ const reducer = (state = initialState, action) => {
       });
       return {
         ...state,
-        books: [...sortRatingArray]
+        booksPage: [...sortRatingArray]
       }
       case SEARCH_BY_NAME_OR_AUTHOR:
         return {
           ...state,
-          books: action.payload,
+          booksPage: action.payload,
         };
 
       default:
