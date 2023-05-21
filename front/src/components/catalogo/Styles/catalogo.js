@@ -19,9 +19,7 @@ background-color: whitesmoke;
 
 export const SearchBarDiv = styled.div`
   /* Estilos del NavBar */
-  height: 10vh; 
   width: 100%;
-  background-color: blue;
 `;
 
 export const Sidebar = styled.div`
