@@ -49,7 +49,7 @@ export const Detail = () => {
                             <Card.Subtitle className="text-muted">
                                 Género
                             </Card.Subtitle>
-                            {detailData.gender.map((gender) => {
+                            {detailData.genders.map((gender) => {
                                 return <Card.Text>{gender}</Card.Text>;
                             })}
                         </Col>
