@@ -12,8 +12,8 @@ export function Filters() {
   const books = useSelector(state => state.books)
   // console.log('books' + books);
 
-  // const [authorValue, setAuthorValue] = useState('')
-  // const [genreValue, setGenreValue] = useState('')
+  const [authorValue, setAuthorValue] = useState('')
+  const [genreValue, setGenreValue] = useState('')
 
   //const extractedArray = booksPage.flatMap(obj => obj.gender)
 
@@ -58,6 +58,14 @@ export function Filters() {
     //setAuthorValue('')
   }
 
+  const clearFilters = () => {
+    setAuthorValue('')
+    setGenreValue('')
+    dispatch(genreFiltered('All'))
+    dispatch(filterAuthor('All'))
+    dispatch(changePagina(1))
+  };
+
   return (
     <div >
       <h6 className='mx-2'>Filtrar por</h6>
@@ -79,6 +87,9 @@ export function Filters() {
           )}
         </select>
       </div>
+      <button className='btn btn-secondary' onClick={clearFilters}>
+        Borrar filtros
+      </button>
     </div>
   )
 }
