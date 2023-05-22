@@ -17,7 +17,7 @@ export function Filters() {
   }, [])
 
   const genresNoRepeat = allBooks
-    .flatMap(book => book.gender)
+    .flatMap(book => book.genders)
     .filter((genre, index, self) => self.findIndex(g => g === genre) === index);
 
   const authorsNoRepeat = allBooks
