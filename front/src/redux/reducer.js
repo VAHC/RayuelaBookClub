@@ -83,7 +83,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         booksPage: action.payload,
-        // allBooks: action.payload,
+         allBooks: action.payload,
       };
 
     case SET_DETAIL:
