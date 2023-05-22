@@ -93,14 +93,15 @@ const reducer = (state = initialState, action) => {
       };
 
     case FILTER_BY_GENRE:
-
-      // const booksAux = state.allBooks
+      {
+   // const booksAux = state.allBooks
       // const filterGenre = booksAux.filter(b => b.genders.some(g => g === action.payload))
       // return {
       //   ...state,
       //   allBooks: filterGenre
       // }
-     let allAux = state.books
+      
+      let allAux = [...state.books]
       const Filtered = action.payload === 'All' ?
         allAux : allAux.filter(r => {
         //state.allBooks : allAux.filter(r => {
@@ -111,11 +112,13 @@ const reducer = (state = initialState, action) => {
       console.log(Filtered);
     return {
       ...state,
-      allBooks: Filtered
-      // booksPage: Filtered
+      allBooks: Filtered,
+      booksPage: Filtered
     }
+      }
+   
       
-    case FILTER_AUTHOR:
+    case FILTER_AUTHOR:{
       let allAuthors = state.books
       const authorsFiltered = action.payload === 'All' ?
         allAuthors : allAuthors.filter(r => {
@@ -126,10 +129,12 @@ const reducer = (state = initialState, action) => {
         })
       return {
         ...state,
-        allBooks: authorsFiltered
-        // booksPage: authorFiltered
+        allBooks: authorsFiltered,
+         booksPage: authorsFiltered
 
       }
+    }
+     
 
     default:
       return state;
