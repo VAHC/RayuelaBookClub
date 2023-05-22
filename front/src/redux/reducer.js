@@ -83,6 +83,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         booksPage: action.payload,
+        // allBooks: action.payload,
       };
 
     case SET_DETAIL:
@@ -92,7 +93,14 @@ const reducer = (state = initialState, action) => {
       };
 
     case FILTER_BY_GENRE:
-      const allAux = state.allBooks
+
+      // const booksAux = state.allBooks
+      // const filterGenre = booksAux.filter(b => b.genders.some(g => g === action.payload))
+      // return {
+      //   ...state,
+      //   allBooks: filterGenre
+      // }
+     let allAux = state.books
       const Filtered = action.payload === 'All' ?
         allAux : allAux.filter(r => {
         //state.allBooks : allAux.filter(r => {
@@ -100,20 +108,12 @@ const reducer = (state = initialState, action) => {
           if (r.genders.find(g => g === action.payload)) return r
         }
       })
+      console.log(Filtered);
     return {
       ...state,
-      booksPage: Filtered
+      allBooks: Filtered
+      // booksPage: Filtered
     }
-      // const Filtered = action.payload === 'All' ?
-      //   state.allBooks : allAux.filter(r => {
-      //     if (r.genders.length > 0) {
-      //       if (r.genders.find(g => g === action.payload)) return r
-      //     }
-      //   })
-      // return {
-      //   ...state,
-      //   booksPage: Filtered
-      // }
       
     case FILTER_AUTHOR:
       const allAuthors = state.allBooks
@@ -126,7 +126,9 @@ const reducer = (state = initialState, action) => {
         })
       return {
         ...state,
-        booksPage: authorsFiltered
+        allBooks: authorsFiltered
+        // booksPage: authorFiltered
+
       }
 
     default:
