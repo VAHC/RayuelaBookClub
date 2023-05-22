@@ -96,8 +96,8 @@ const reducer = (state = initialState, action) => {
       const allAux = state.allBooks
       const Filtered = action.payload === 'All' ?
         state.allBooks : allAux.filter(r => {
-          if (r.gender.length > 0) {
-            if (r.gender.find(g => g === action.payload)) return r
+          if (r.genders.length > 0) {
+            if (r.genders.find(g => g === action.payload)) return r
           }
         })
       return {
