@@ -87,11 +87,22 @@ export const sortByRating = (payload) => {
 }
 
 export const searchByNameOrAuthor = (name) => {
+  // return async (dispatch) => {
+  //   //cambiar endpoint del get por la ruta del back para el search
+  //   const response = await axios.get(`http://localhost:3001/books?title=${name}`);
+  //   const searchArray = response.data;
+  //   dispatch({ type: SEARCH_BY_NAME_OR_AUTHOR, payload: searchArray })
+  // }
   return async (dispatch) => {
-    //cambiar endpoint del get por la ruta del back para el search
-    const response = await axios.get(`http://localhost:3001/books?title=${name}`);
-    const searchArray = response.data;
-    dispatch({ type: SEARCH_BY_NAME_OR_AUTHOR, payload: searchArray })
+    try {
+      const response = await axios.get(`http://localhost:3001/books?title=${name}`)
+      return dispatch({
+        type: SEARCH_BY_NAME_OR_AUTHOR,
+        payload: response.data
+      })
+    } catch (error) {
+      console.log(JSON.stringify(error))
+    }
   }
 };
 
