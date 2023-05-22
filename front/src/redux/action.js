@@ -49,7 +49,7 @@ export const fetchData = () => {
 //pero no estoy teniendo en reducer como manejar el objeto; o almenos yo no lo entiendo
 export const getAllBooks = () => {
   return async (dispatch) => {
-    const response = await axios.get('https://pi-henry-woad.vercel.app/imagen/jsonL.json');
+    const response = await axios.get('http://localhost:3001/books/');
     const allBooks = response.data;
     dispatch({ type: GET_ALL_BOOKS, payload: allBooks })
   }
