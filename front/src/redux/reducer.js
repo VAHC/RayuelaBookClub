@@ -116,7 +116,7 @@ const reducer = (state = initialState, action) => {
     }
       
     case FILTER_AUTHOR:
-      const allAuthors = state.allBooks
+      let allAuthors = state.books
       const authorsFiltered = action.payload === 'All' ?
         allAuthors : allAuthors.filter(r => {
         // state.allBooks : allAuthors.filter(r => {
