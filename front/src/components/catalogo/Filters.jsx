@@ -5,10 +5,15 @@ import { genreFiltered, getAllBooks, filterAuthor, changePagina } from '../../re
 //export function Filters({setCurrentPage, generos, setOrder}) {
 export function Filters() {
   const dispatch = useDispatch()
- // const booksPage = useSelector((state) => state.booksPage)
-  const allBooks = useSelector((state) => state.allBooks)
-  const [authorValue, setAuthorValue] = useState('')
-  const [genreValue, setGenreValue] = useState('')
+ const booksPage = useSelector((state) => state.booksPage)
+ console.log(booksPage);
+  // const allBooks = useSelector((state) => state.allBooks)
+  // console.log('allBooks' + allBooks);
+  const books = useSelector(state => state.books)
+  // console.log('books' + books);
+
+  // const [authorValue, setAuthorValue] = useState('')
+  // const [genreValue, setGenreValue] = useState('')
 
   //const extractedArray = booksPage.flatMap(obj => obj.gender)
 
@@ -16,24 +21,20 @@ export function Filters() {
   //   dispatch(getAllBooks())
   // }, [])
 
-
-  
-
-  const genresNoRepeat = allBooks
+  const genresNoRepeat = books
     .flatMap(book => book.genders)
-
     .filter((genre, index, self) => self.findIndex(g => g === genre) === index);
     
-    //console.log(genresNoRepeat);
+    // console.log(genresNoRepeat);
     const sortGenres = genresNoRepeat.sort((a, b) => { 
       if(a > b) {return 1}
       if(b > a) {return -1}
     return 0
     })
-    //console.log(sortGenre);
+    // console.log(sortGenres);
 
     
-    const authorsNoRepeat = allBooks
+    const authorsNoRepeat = books
     .flatMap(book => book.authors)
     .filter((aut, index, self) => self.findIndex(a => a === aut) === index);
 
@@ -48,8 +49,7 @@ export function Filters() {
     
     const handleFilterGenre = (e) => {
       dispatch(genreFiltered(e.target.value))
-      dispatch(changePagina(1))
-      //setGenreValue('')
+      // dispatch(changePagina(1))
     }
 
   const handleFilterAuthor = (e) => {
@@ -62,7 +62,7 @@ export function Filters() {
     <div >
       <h6 className='mx-2'>Filtrar por</h6>
       <div className='m-1 mb-3'>
-        <select className='form-select' value={authorValue} onChange={e => handleFilterAuthor(e)}  >
+        <select className='form-select' onChange={e => handleFilterAuthor(e)}  >
           <option value="" readOnly hidden>Autor...</option>
           <option value="All">Todos</option>
           {sortAuthors && sortAuthors.map((a, index) =>
@@ -71,7 +71,7 @@ export function Filters() {
         </select>
       </div>
       <div className='m-1'>
-        <select className='form-select' value={genreValue} onChange={e => handleFilterGenre(e)}  >
+        <select className='form-select' onChange={e => handleFilterGenre(e)}  >
           <option value="" readOnly hidden>Género...</option>
           <option value="All">Todos</option>
           {sortGenres && sortGenres.map((a, index) =>
