@@ -35,7 +35,7 @@ const getBooksHandler = async (req, res) => {
       console.log(results);
     res.status(200).json(results)
   } catch (error) {
-    res.status(400).json({ error: 'pepeepep' })
+    res.status(400).json({ error: error.message })
   }
 }
 
