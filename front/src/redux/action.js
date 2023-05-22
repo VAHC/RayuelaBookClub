@@ -49,7 +49,7 @@ export const fetchData = () => {
 //pero no estoy teniendo en reducer como manejar el objeto; o almenos yo no lo entiendo
 export const getAllBooks = () => {
   return async (dispatch) => {
-    const response = await axios.get('https://pi-henry-woad.vercel.app/imagen/jsonL.json');
+    const response = await axios.get('http://localhost:3001/books');
     const allBooks = response.data;
     dispatch({ type: GET_ALL_BOOKS, payload: allBooks })
   }
@@ -89,7 +89,7 @@ export const sortByRating = (payload) => {
 export const searchByNameOrAuthor = (name) => {
   return async (dispatch) => {
     //cambiar endpoint del get por la ruta del back para el search
-    const response = await axios.get(`http://localhost:3001/books?name=${name}`);
+    const response = await axios.get(`http://localhost:3001/books?title=${name}`);
     const searchArray = response.data;
     dispatch({ type: SEARCH_BY_NAME_OR_AUTHOR, payload: searchArray })
   }
