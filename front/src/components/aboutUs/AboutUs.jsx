@@ -22,7 +22,7 @@ export const AboutUs = () => {
   </div>
   <div className="col">
     <div className="card h-100">
-      <img src="./images/us/andres.jpg" className="card-img-top" alt="..."/>
+      <img src="./images/us/victor.jpg" className="card-img-top" alt="..."/>
       <div className="card-body">
         <h5 className="card-title">Víctor Alfonso Hardoy</h5>
       </div>
@@ -62,7 +62,7 @@ export const AboutUs = () => {
   </div>
   <div className="col">
     <div className="card h-100">
-      <img src="./images/us/kelvin.jpg" className="card-img-top" alt="..."/>
+      <img src="./images/us/team.jpg" className="card-img-top" alt="..."/>
       <div className="card-body">
         <h5 className="card-title">Henry PT-11a Grupo 06</h5>
       </div>
