@@ -34,19 +34,21 @@ export const Paginado = () => {
 
     return (
         <div style={{ display: "flex", justifyContent: "center" }}>
-        <Pagination>
-            <Pagination.First onClick={() => pageChangerHandle(1)} />
-            <Pagination.Prev
-                onClick={() => pageChangerHandle(PagActual - 1)}
-                disabled={PagActual === 1}
-            />
-            {renderizadoItemsPaginado()}
-            <Pagination.Next
-                onClick={() => pageChangerHandle(PagActual + 1)}
-                disabled={PagActual === totalPaginas}
-            />
-            <Pagination.Last onClick={() => pageChangerHandle(totalPaginas)} />
-        </Pagination>
+            <Pagination>
+                <Pagination.First onClick={() => pageChangerHandle(1)} />
+                <Pagination.Prev
+                    onClick={() => pageChangerHandle(PagActual - 1)}
+                    disabled={PagActual === 1}
+                />
+                {renderizadoItemsPaginado()}
+                <Pagination.Next
+                    onClick={() => pageChangerHandle(PagActual + 1)}
+                    disabled={PagActual === totalPaginas}
+                />
+                <Pagination.Last
+                    onClick={() => pageChangerHandle(totalPaginas)}
+                />
+            </Pagination>
         </div>
     );
 };
