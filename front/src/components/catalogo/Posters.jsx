@@ -7,10 +7,10 @@ import Card from "./Card";
 export const Posters = () => {
     //Pagina actual
     const pagina = useSelector((state) => state.paginaActual);
-    console.log(pagina);
+    //console.log(pagina);
     //libros de la pagina array
     const booksPage = useSelector((state) => state.booksPage);
-    console.log(booksPage);
+    //console.log(booksPage);
     //flag para no cargar todos los libros con cada render
     const [allBooksLoaded, setAllBooksLoaded] = useState(false);
 
