@@ -63,8 +63,7 @@ const reducer = (state = initialState, action) => {
         });
       return {
         ...state,
-        booksPage: [...sortPriceArray],
-
+        booksPage: [...sortPriceArray]
       }
 
     //el case SORT_BY_RATING esta hecho en base al precio, ya que aun no hay reseñas
@@ -84,6 +83,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         booksPage: action.payload,
+        // allBooks: action.payload,
       };
 
     case SET_DETAIL:
@@ -93,29 +93,42 @@ const reducer = (state = initialState, action) => {
       };
 
     case FILTER_BY_GENRE:
-      const allAux = state.allBooks
+
+      // const booksAux = state.allBooks
+      // const filterGenre = booksAux.filter(b => b.genders.some(g => g === action.payload))
+      // return {
+      //   ...state,
+      //   allBooks: filterGenre
+      // }
+     let allAux = state.books
       const Filtered = action.payload === 'All' ?
-        state.allBooks : allAux.filter(r => {
-          if (r.genders.length > 0) {
-            if (r.genders.find(g => g === action.payload)) return r
-          }
-        })
-      return {
-        ...state,
-        booksPage: Filtered
-      }
+        allAux : allAux.filter(r => {
+        //state.allBooks : allAux.filter(r => {
+        if (r.genders.length > 0) {
+          if (r.genders.find(g => g === action.payload)) return r
+        }
+      })
+      console.log(Filtered);
+    return {
+      ...state,
+      allBooks: Filtered
+      // booksPage: Filtered
+    }
       
     case FILTER_AUTHOR:
-      const allAuthors = state.allBooks
+      let allAuthors = state.books
       const authorsFiltered = action.payload === 'All' ?
-        state.allBooks : allAuthors.filter(r => {
+        allAuthors : allAuthors.filter(r => {
+        // state.allBooks : allAuthors.filter(r => {
           if (r.authors.length > 0) {
             if (r.authors.find(g => g === action.payload)) return r
           }
         })
       return {
         ...state,
-        booksPage: authorsFiltered
+        allBooks: authorsFiltered
+        // booksPage: authorFiltered
+
       }
 
     default:
