@@ -1,30 +1,34 @@
 import React from 'react';
-import {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { searchByNameOrAuthor,changePagina } from '../../redux/action';
 
 export const SearchBar = () => {
   const dispatch = useDispatch();
+
   const[input, setInput] = useState('');
   const[notFound, setNotFound] = useState(false);
 
+  const booksPage = useSelector((state) => state.booksPage)
 
   const handlerChange = (e) => {
     setInput(e.target.value)
   }
 
   const handlerDispatch = () => {
+    event.preventDefault()
     dispatch(searchByNameOrAuthor(input))
+    if (booksPage.length === 0) {
+     setNotFound(true);
+     setTimeout(() => setNotFound(false), 2000);
+    }
     dispatch(changePagina(1))
-    .then()
-    .catch(error => setNotFound(true),
-    setTimeout(() => setNotFound(false), 2000))
     setInput('')
   }
 
   return (
     <div>
-      {notFound && <img src='./images/notFound.png' className="w-25 position-absolute top-50 start-50 translate-middle" alt='bad request'/>}
+      {notFound && <img src='./images/notFound.png' className="w-25 position-absolute start-50 top-50 translate-middle-x" alt='bad request'/>}
       <nav className="navbar navbar-light bg-dark">
         <div className="container-fluid">
           <form className="d-flex" role="search">
