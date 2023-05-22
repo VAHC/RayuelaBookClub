@@ -21,7 +21,6 @@ export function Filters() {
 
   const genresNoRepeat = allBooks
     .flatMap(book => book.genders)
-
     .filter((genre, index, self) => self.findIndex(g => g === genre) === index);
     
     //console.log(genresNoRepeat);
@@ -62,7 +61,7 @@ export function Filters() {
     <div >
       <h6 className='mx-2'>Filtrar por</h6>
       <div className='m-1 mb-3'>
-        <select className='form-select' value={authorValue} onChange={e => handleFilterAuthor(e)}  >
+        <select className='form-select' onChange={e => handleFilterAuthor(e)}  >
           <option value="" readOnly hidden>Autor...</option>
           <option value="All">Todos</option>
           {sortAuthors && sortAuthors.map((a, index) =>
@@ -71,7 +70,7 @@ export function Filters() {
         </select>
       </div>
       <div className='m-1'>
-        <select className='form-select' value={genreValue} onChange={e => handleFilterGenre(e)}  >
+        <select className='form-select' onChange={e => handleFilterGenre(e)}  >
           <option value="" readOnly hidden>Género...</option>
           <option value="All">Todos</option>
           {sortGenres && sortGenres.map((a, index) =>
