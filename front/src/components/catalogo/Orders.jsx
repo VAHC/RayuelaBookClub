@@ -10,7 +10,7 @@ export const Orders = () => {
 
   const handlerSortByPrice = (e) => {
     dispatch(sortByPrice(e.target.value))
-    // dispatch(changePagina(1))
+    dispatch(changePagina(1))
     setPriceValue('')
   }
 
