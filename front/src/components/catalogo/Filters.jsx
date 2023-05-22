@@ -12,30 +12,50 @@ export function Filters() {
 
   //const extractedArray = booksPage.flatMap(obj => obj.gender)
 
-  useEffect(()=>{
-    dispatch(getAllBooks())
-  }, [])
+  // useEffect(()=>{
+  //   dispatch(getAllBooks())
+  // }, [])
+
+
+  
 
   const genresNoRepeat = allBooks
     .flatMap(book => book.genders)
-    .filter((genre, index, self) => self.findIndex(g => g === genre) === index);
 
-  const authorsNoRepeat = allBooks
+    .filter((genre, index, self) => self.findIndex(g => g === genre) === index);
+    
+    //console.log(genresNoRepeat);
+    const sortGenres = genresNoRepeat.sort((a, b) => { 
+      if(a > b) {return 1}
+      if(b > a) {return -1}
+    return 0
+    })
+    //console.log(sortGenre);
+
+    
+    const authorsNoRepeat = allBooks
     .flatMap(book => book.authors)
     .filter((aut, index, self) => self.findIndex(a => a === aut) === index);
 
-//var uniqueAuthors = [...new Set(allBooks.map(obj => obj.authors))]
+    const sortAuthors = authorsNoRepeat.sort((a, b) => { 
+      if(a > b) {return 1}
+      if(b > a) {return -1}
+    return 0
+    })
+    
+    //var uniqueAuthors = [...new Set(allBooks.map(obj => obj.authors))]
 
-  const handleFilterGenre = (e) => {
-    dispatch(genreFiltered(e.target.value))
-    dispatch(changePagina(1))
-    setGenreValue('')
-  }
+    
+    const handleFilterGenre = (e) => {
+      dispatch(genreFiltered(e.target.value))
+      dispatch(changePagina(1))
+      //setGenreValue('')
+    }
 
   const handleFilterAuthor = (e) => {
     dispatch(filterAuthor(e.target.value))
     dispatch(changePagina(1))
-    setAuthorValue('')
+    //setAuthorValue('')
   }
 
   return (
@@ -45,7 +65,7 @@ export function Filters() {
         <select className='form-select' value={authorValue} onChange={e => handleFilterAuthor(e)}  >
           <option value="" readOnly hidden>Autor...</option>
           <option value="All">Todos</option>
-          {authorsNoRepeat && authorsNoRepeat.map((a, index) =>
+          {sortAuthors && sortAuthors.map((a, index) =>
             <option key={index} value={a}>{a}</option>
           )}
         </select>
@@ -54,7 +74,7 @@ export function Filters() {
         <select className='form-select' value={genreValue} onChange={e => handleFilterGenre(e)}  >
           <option value="" readOnly hidden>Género...</option>
           <option value="All">Todos</option>
-          {genresNoRepeat && genresNoRepeat.map((a, index) =>
+          {sortGenres && sortGenres.map((a, index) =>
             <option key={index} value={a}>{a}</option>
           )}
         </select>
