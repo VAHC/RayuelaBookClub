@@ -14,12 +14,9 @@ export const SearchBar = () => {
   }
 
   const handlerDispatch = () => {
+   event.preventDefault()
     dispatch(searchByNameOrAuthor(input))
     dispatch(changePagina(1))
-    .then()
-    .catch(error => setNotFound(true),
-    setTimeout(() => setNotFound(false), 2000))
-    setInput('')
   }
 
   return (

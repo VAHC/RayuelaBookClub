@@ -32,9 +32,10 @@ const getBooksHandler = async (req, res) => {
     const results = search
       ? await searchBooks(search)
       : await getAllBooks();
+      console.log(results);
     res.status(200).json(results)
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    res.status(400).json({ error: 'pepeepep' })
   }
 }
 
