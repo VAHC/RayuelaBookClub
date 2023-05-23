@@ -66,13 +66,13 @@ export const FormCreateBook = () => {
         if(e.target.name === 'authors'){
             setInput({
                 ...input,
-                authors: [...input.countryId, e.target.value]//traigo todo lo que esta en el array y le concateno el nuevo valor
+                authors: [...input.authors, e.target.value]//traigo todo lo que esta en el array y le concateno el nuevo valor
                 
             })  
         } else if (e.target.name === 'genders'){
             setInput({
                 ...input,
-                authors: [...input.genders, e.target.value]//traigo todo lo que esta en el array y le concateno el nuevo valor
+                genders: [...input.genders, e.target.value]//traigo todo lo que esta en el array y le concateno el nuevo valor
                 
             }) 
         } else {
