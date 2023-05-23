@@ -140,68 +140,114 @@ export const FormCreateBook = () => {
             alert('missing or incorrect data');
         }
     }
-    return(
-        <div>
-            <h4>Crea un libro</h4>
+    return (
+        <>
+            <h4 className='text-center fs-3'>Crea un libro</h4>
             <form onSubmit={submitHandler}>
-                {success && <img  src='./images/notFound.png' alt='formulario enviado correctamente'/> }
+                {success && <img src='./images/notFound.png' alt='formulario enviado correctamente' />}
                 {!success && <div>
-                    <div>
-                        <label htmlFor='title'>Titulo:</label>
-                        <input id='title' type='text'  value={input.title} name='title' placeholder='titulo del libro' onChange={inputHandler}/>
-                        {/* {errors.name ? <p className={styles.vDanger}>{errors.name}</p> : null} */}
+                    <div className="row g-3 align-items-center">
+                        <div className="col-auto">
+                            <label className="col-form-label ms-3" htmlFor='title'>Título:</label>
+                        </div>
+                        <div className="col-auto">
+                            <input className="form-control" id='title' type='text' value={input.title} name='title' placeholder='Título del libro' onChange={inputHandler} />
+                            {/* {errors.name ? <p className={styles.vDanger}>{errors.name}</p> : null} */}
+                        </div>
                     </div>
-                    <div>
-                        <label htmlFor='publisher'>Editorial:</label>
-                        <input id='publisher' type='text'  value={input.publisher} name='publisher' placeholder='editorial del libro' onChange={inputHandler}/>
+
+                    <div className="row g-3 align-items-center">
+                        <div className="col-auto">
+                            <label className="col-form-label ms-3" htmlFor='publisher'>Editorial:</label>
+                        </div>
+                        <div className="col-auto">
+                            <input className="form-control" id='publisher' type='text' value={input.publisher} name='publisher' placeholder='Editorial del libro' onChange={inputHandler} />
+                        </div>
                     </div>
-                    <div>
-                        <label htmlFor='description'>Sinopsis:</label>
-                        <input id='description' type='text'  value={input.description} name='description' placeholder='editorial del libro' onChange={inputHandler}/>
+
+                    <div className="row g-3 align-items-center">
+                        <div className="col-auto">
+                            <label className="col-form-label ms-3" htmlFor='description'>Sinopsis:</label>
+                        </div>
+                        <div className="col-auto">
+                            <input className="form-control" id='description' type='textarea' value={input.description} name='description' placeholder='Sinopsis del libro' onChange={inputHandler} />
+                        </div>
                     </div>
-                    <div>
-                        <label htmlFor='price'>Precio:</label>
-                        <input id='price' type='text'  value={input.price} name='price' placeholder='$' onChange={inputHandler}/>
+
+                    <div className="row g-3 align-items-center">
+                        <div className="col-auto">
+                            <label className="col-form-label ms-3" htmlFor='price'>Precio:</label>
+                        </div>
+                        <div className="col-auto">
+                            <input className="form-control" id='price' type='text' value={input.price} name='price' placeholder='$' onChange={inputHandler} />
+                        </div>
                     </div>
-                    <div>
-                        <label htmlFor='stock'>Stock:</label>
-                        <input id='stock' type='text'  value={input.stock} name='stock' placeholder='cantidad' onChange={inputHandler}/>
-                    </div> 
-                    <div>
-                        <label htmlFor='publishedDate'>Fecha de Publicación:</label>
-                        <input id='publishedDate' type='text'  value={input.publishedDate} name='publishedDate' placeholder='mm/aaaa' onChange={inputHandler}/>
-                    </div>  
-                    <div>
-                        <label htmlFor='image'>Imagen Libro:</label>
-                        <input id='image' type='text'  value={input.image} name='image' placeholder='url' onChange={inputHandler}/>
+
+                    <div className="row g-3 align-items-center">
+                        <div className="col-auto">
+                            <label className="col-form-label ms-3" htmlFor='stock'>Stock:</label>
+                        </div>
+                        <div className="col-auto">
+                            <input className="form-control" id='stock' type='text' value={input.stock} name='stock' placeholder='Cantidad' onChange={inputHandler} />
+                        </div>
                     </div>
-                    <div>
-                        <label htmlFor='genders'>Género/s literario:</label>
-                        <select name='genders' id='genders' onChange={inputHandler}>
-                             <option value='' readOnly hidden>elige uno o mas...</option>
-                            {sortAuthors && sortAuthors.map((author, index) => {
-                                 return(
-                                    <option key={index} value={author}>{author}</option>
-                             )})
-                         }
-                        </select>
-                    </div> 
-                    <div>
-                         <label htmlFor='authors'>Autor/es:</label>
-                        <select name='authors' id='authors' onChange={inputHandler}>
-                             <option value='' readOnly hidden>elige uno o mas...</option>
-                            {sortGenres && sortGenres.map((genre, index) => {
-                                 return(
-                                    <option key={index} value={genre}>{genre}</option>
-                                )})
-                            }
-                        </select>
-                    </div>      
+
+                    <div className="row g-3 align-items-center">
+                        <div className="col-auto">
+                            <label className="col-form-label ms-3" htmlFor='publishedDate'>Fecha de publicación:</label>
+                        </div>
+                        <div className="col-auto">
+                            <input className="form-control" id='publishedDate' type='text' value={input.publishedDate} name='publishedDate' placeholder='mm/aaaa' onChange={inputHandler} />
+                        </div>
+                    </div>
+
+                    <div className="row g-3 align-items-center">
+                        <div className="col-auto">
+                            <label className="col-form-label ms-3" htmlFor='image'>Portada:</label>
+                        </div>
+                        <div className="col-auto">
+                            <input className="form-control" id='image' type='text' value={input.image} name='image' placeholder='url' onChange={inputHandler} />
+                        </div>
+                    </div>
+
+                    <div className="row g-3 align-items-center">
+                        <div className="col-auto">
+                            <label className="col-form-label ms-3" htmlFor='genders'>Género/s literario/s:</label>
+                        </div>
+                        <div className="col-auto">
+                            <select className="form-select" name='genders' id='genders' onChange={inputHandler}>
+                                <option value='' readOnly hidden>Elegí uno o más...</option>
+                                {sortGenres && sortGenres.map((genre, index) => {
+                                    return (
+                                        <option key={index} value={genre}>{genre}</option>
+                                    )
+                                })}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className="row g-3 align-items-center">
+                        <div className="col-auto">
+                            <label className="col-form-label ms-3" htmlFor='authors'>Autor/es:</label>
+                        </div>
+                        <div className="col-auto">
+                            <select className="form-select col-auto" name='authors' id='authors' onChange={inputHandler}>
+                                <option value='' readOnly hidden>Elegí uno o más...</option>
+                                {sortAuthors && sortAuthors.map((author, index) => {
+                                    return (
+                                        <option key={index} value={author}>{author}</option>
+                                    )
+                                })}
+                            </select>
+                        </div>
+                    </div>
                 </div>}
-                <button disabled={!formComplete} type='submit'>Crear</button>
+                <div className="d-flex flex-row justify-content-evenly">
+                    <button className="btn btn-dark m-3" disabled={!formComplete} type='submit'>Crear</button>
+                    <button className="btn btn-dark m-3" onClick={() => navigate('/catalogo')}>Volver</button>
+                </div>
             </form>
-            <button onClick={() => navigate('/catalogo')}>Volver</button>
-        </div>
+        </>
     )
 }
     
