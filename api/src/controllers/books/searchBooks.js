@@ -6,7 +6,7 @@ const searchBooks = async (search) => {
     const allBooks = await getAllBooks();
     console.log(search)
     if (search){
-       
+
         const booksFiltered = allBooks.filter((book) => {
 
             const lowerCaseSearch = search.toLowerCase();
