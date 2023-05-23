@@ -7,6 +7,7 @@ const {
 
 } = require('../handlers/bookHandler')
 const {getBookByIdHandler} = require('../handlers/getBookByIdHandler')
+const createBookHandler = require('../handlers/createBookHandler')
 // const router = require(".");
 
 const bookRouter = Router()
@@ -15,6 +16,7 @@ bookRouter.get('/', getBooksHandler)
 bookRouter.get('/:id', getBookByIdHandler)
 bookRouter.get('/page/:number', getPage)
 bookRouter.get('/load', LoadBooksHandler)
+bookRouter.post('/', createBookHandler)
 
 
 
