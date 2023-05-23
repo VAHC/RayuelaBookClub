@@ -106,7 +106,7 @@ export const filterAuthor = (value) => {
 
 export const postBook = (book) => {
   return async function (dispatch) {
-      let response = await axios.post("http://localhost:3001/books", book)
+      let response = await axios.post('http://localhost:3001/books', book)
       return response
   }
 }
