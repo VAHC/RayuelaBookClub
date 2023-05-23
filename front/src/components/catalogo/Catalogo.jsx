@@ -36,6 +36,10 @@ export const Catalogo = () => {
     return (
         <Wrap>
             {/* ¿NavBar? */}
+            <SearchBarDiv>
+            <SearchBar />
+            </SearchBarDiv>
+
             <Container>
                 <Sidebar>
                     <Orders />
@@ -43,8 +47,7 @@ export const Catalogo = () => {
                 </Sidebar>
 
                 <CatalogoSection>
-                    <SearchBar />
-                    <Paginado/>
+                    
                     <PosterSection>
                         <Posters />
                     </PosterSection>

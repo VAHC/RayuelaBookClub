@@ -33,7 +33,7 @@ export const Paginado = () => {
     };
 
     return (
-        <div style={{ display: "flex", justifyContent: "center" }}>
+        <div>
         <Pagination>
             {PagActual > 1 &&
                 <Pagination.First onClick={() => pageChangerHandle(1)} />}
