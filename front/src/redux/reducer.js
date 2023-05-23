@@ -66,10 +66,10 @@ const reducer = (state = initialState, action) => {
       };
 
     case SORT_BY_PRICE:
-      let sortPriceArray = action.payload === 'Asc' ? state.allBooks.sort((a, b) => {
+      let sortPriceArray = action.payload === 'Asc' ? state.booksPage.sort((a, b) => {
         return a.price - b.price
       }) :
-        state.allBooks.sort((a, b) => {
+        state.booksPage.sort((a, b) => {
           return b.price - a.price
         });
       return {
@@ -79,10 +79,10 @@ const reducer = (state = initialState, action) => {
 
     //el case SORT_BY_RATING esta hecho en base al precio, ya que aun no hay reseñas
     case SORT_BY_RATING:
-      let sortRatingArray = action.payload === 'Asc' ? state.allBooks.sort((a, b) => {
+      let sortRatingArray = action.payload === 'Asc' ? state.booksPage.sort((a, b) => {
         return a.price - b.price
       }) :
-        state.allBooks.sort((a, b) => {
+        state.booksPage.sort((a, b) => {
           return b.price - a.price
         });
       return {
@@ -120,7 +120,7 @@ const reducer = (state = initialState, action) => {
           if (r.genders.find(g => g === action.payload)) return r
         }
       })
-      console.log(Filtered);
+     // console.log(Filtered);
     return {
       ...state,
       allBooks: Filtered,
