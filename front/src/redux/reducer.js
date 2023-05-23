@@ -1,4 +1,16 @@
-import { GET_DATA_REQUEST, GET_DATA_SUCCESS, GET_DATA_FAILURE, GET_ALL_BOOKS, SORT_BY_PRICE, SORT_BY_RATING, GET_BOOKSPAGE, CHANGE_PAGINA, SEARCH_BY_NAME_OR_AUTHOR,SET_DETAIL, FILTER_BY_GENRE, FILTER_AUTHOR } from './action';
+import { GET_DATA_REQUEST, 
+  GET_DATA_SUCCESS, 
+  GET_DATA_FAILURE, 
+  GET_ALL_BOOKS, 
+  SORT_BY_PRICE, 
+  SORT_BY_RATING, 
+  GET_BOOKSPAGE, 
+  CHANGE_PAGINA, 
+  SEARCH_BY_NAME_OR_AUTHOR,
+  SET_DETAIL, 
+  FILTER_BY_GENRE, 
+  FILTER_AUTHOR,
+  POST_BOOK } from './action';
 
 
 // Initial state
@@ -12,8 +24,7 @@ const initialState = {
   error: null,
   books: [],
   allBooks: [],
-
-};
+}
 
 // Reducer
 const reducer = (state = initialState, action) => {
@@ -63,8 +74,7 @@ const reducer = (state = initialState, action) => {
         });
       return {
         ...state,
-        booksPage: [...sortPriceArray],
-
+        booksPage: [...sortPriceArray]
       }
 
     //el case SORT_BY_RATING esta hecho en base al precio, ya que aun no hay reseñas
@@ -84,6 +94,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         booksPage: action.payload,
+         allBooks: action.payload,
       };
 
     case SET_DETAIL:
@@ -93,34 +104,52 @@ const reducer = (state = initialState, action) => {
       };
 
     case FILTER_BY_GENRE:
-      const allAux = state.allBooks
-      const Filtered = action.payload === 'All' ?
-        state.allBooks : allAux.filter(r => {
-          if (r.gender.length > 0) {
-            if (r.gender.find(g => g === action.payload)) return r
-          }
-        })
-      return {
-        ...state,
-        booksPage: Filtered
-      }
+      {
+   // const booksAux = state.allBooks
+      // const filterGenre = booksAux.filter(b => b.genders.some(g => g === action.payload))
+      // return {
+      //   ...state,
+      //   allBooks: filterGenre
+      // }
       
-    case FILTER_AUTHOR:
-      const allAuthors = state.allBooks
+      let allAux = [...state.books]
+      const Filtered = action.payload === 'All' ?
+        allAux : allAux.filter(r => {
+        //state.allBooks : allAux.filter(r => {
+        if (r.genders.length > 0) {
+          if (r.genders.find(g => g === action.payload)) return r
+        }
+      })
+      console.log(Filtered);
+    return {
+      ...state,
+      allBooks: Filtered,
+      booksPage: Filtered
+    }
+      }
+   
+    case FILTER_AUTHOR:{
+      let allAuthors = state.books
       const authorsFiltered = action.payload === 'All' ?
-        state.allBooks : allAuthors.filter(r => {
+        allAuthors : allAuthors.filter(r => {
+        // state.allBooks : allAuthors.filter(r => {
           if (r.authors.length > 0) {
             if (r.authors.find(g => g === action.payload)) return r
           }
         })
       return {
         ...state,
-        booksPage: authorsFiltered
+        allBooks: authorsFiltered,
+         booksPage: authorsFiltered
       }
+    }
+    
+    case POST_BOOK:
+      return { ...state }
 
     default:
       return state;
   }
-};
+}
 
 export default reducer;

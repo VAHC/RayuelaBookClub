@@ -4,9 +4,9 @@ const getAllBooks = require('./getAllBooks');
 
 const searchBooks = async (search) => {
     const allBooks = await getAllBooks();
-
+    console.log(search)
     if (search){
-        console.log(search)
+
         const booksFiltered = allBooks.filter((book) => {
 
             const lowerCaseSearch = search.toLowerCase();
@@ -16,12 +16,13 @@ const searchBooks = async (search) => {
                 book.authors.some((author) => author.toLowerCase().includes(lowerCaseSearch))
             )
         })
-    
-        if (booksFiltered.length === 0) {
-            throw Error(`No books have been found matching your search:'${search}'`)
-        } else {
-        return booksFiltered;
-    }
+    //     console.log(booksFiltered);
+    //     if (booksFiltered.length === 0) {
+    //         throw Error(`No books have been found matching your search:'${search}'`)
+    //     } else {
+    //     return booksFiltered;
+    // }
+    return booksFiltered;
 }
 };
 
