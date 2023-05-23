@@ -120,7 +120,7 @@ const reducer = (state = initialState, action) => {
           if (r.genders.find(g => g === action.payload)) return r
         }
       })
-      console.log(Filtered);
+     // console.log(Filtered);
     return {
       ...state,
       allBooks: Filtered,

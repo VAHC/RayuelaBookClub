@@ -21,6 +21,7 @@ export function Filters() {
   //   dispatch(getAllBooks())
   // }, [])
 
+
   const genresNoRepeat = books
     .flatMap(book => book.genders)
     .filter((genre, index, self) => self.findIndex(g => g === genre) === index);
@@ -46,21 +47,37 @@ export function Filters() {
     
     //var uniqueAuthors = [...new Set(allBooks.map(obj => obj.authors))]
 
-    
+    const [Select, setSelect] = useState({
+      selectAutor: 'All',
+      selectGenre: 'All',
+    })
     const handleFilterGenre = (e) => {
+      setSelect({
+        [e.target.name]: e.target.value
+      })
       dispatch(genreFiltered(e.target.value))
-      // dispatch(changePagina(1))
+      dispatch(changePagina(1))
     }
 
+
   const handleFilterAuthor = (e) => {
+  
+    setSelect({
+      [e.target.name]: e.target.value
+    })
     dispatch(filterAuthor(e.target.value))
     dispatch(changePagina(1))
     //setAuthorValue('')
   }
 
   const clearFilters = () => {
-    setAuthorValue('')
-    setGenreValue('')
+    // setAuthorValue('')
+    // setGenreValue('')
+    event.preventDefault()
+    setSelect({
+      selectAutor: 'All',
+      selectGenre: 'All'
+    })
     dispatch(genreFiltered('All'))
     dispatch(filterAuthor('All'))
     dispatch(changePagina(1))
@@ -70,7 +87,7 @@ export function Filters() {
     <div >
       <h6 className='mx-2'>Filtrar por</h6>
       <div className='m-1 mb-3'>
-        <select className='form-select' onChange={e => handleFilterAuthor(e)}  >
+        <select className='form-select'  value={Select.selectAutor} onChange={e => handleFilterAuthor(e)}  >
           <option value="" readOnly hidden>Autor...</option>
           <option value="All">Todos</option>
           {sortAuthors && sortAuthors.map((a, index) =>
@@ -79,7 +96,7 @@ export function Filters() {
         </select>
       </div>
       <div className='m-1'>
-        <select className='form-select' onChange={e => handleFilterGenre(e)}  >
+        <select className='form-select' value={Select.selectGenre} onChange={e => handleFilterGenre(e)}  >
           <option value="" readOnly hidden>Género...</option>
           <option value="All">Todos</option>
           {sortGenres && sortGenres.map((a, index) =>
