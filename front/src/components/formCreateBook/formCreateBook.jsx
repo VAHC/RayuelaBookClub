@@ -66,13 +66,13 @@ export const FormCreateBook = () => {
         if(e.target.name === 'authors'){
             setInput({
                 ...input,
-                authors: [...input.countryId, e.target.value]//traigo todo lo que esta en el array y le concateno el nuevo valor
+                authors: [...input.authors, e.target.value]//traigo todo lo que esta en el array y le concateno el nuevo valor
                 
             })  
         } else if (e.target.name === 'genders'){
             setInput({
                 ...input,
-                authors: [...input.genders, e.target.value]//traigo todo lo que esta en el array y le concateno el nuevo valor
+                genders: [...input.genders, e.target.value]//traigo todo lo que esta en el array y le concateno el nuevo valor
                 
             }) 
         } else {
@@ -144,7 +144,7 @@ export const FormCreateBook = () => {
         <>
             <h4 className='text-center fs-3'>Crea un libro</h4>
             <form onSubmit={submitHandler}>
-                {success && <img src='./images/notFound.png' alt='formulario enviado correctamente' />}
+                {success && <img className="w-50 p-3 h-50 d-inline-block" src='./images/libroCreado.jpg' alt='formulario enviado correctamente' />}
                 {!success && <div>
                     <div className="row g-3 align-items-center">
                         <div className="col-auto">
