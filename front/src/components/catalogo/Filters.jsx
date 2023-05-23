@@ -87,7 +87,7 @@ export function Filters() {
           )}
         </select>
       </div>
-      <div className="d-flex justify-content-center">
+      <div style={{ marginTop: "20px" }} className="d-flex justify-content-center">
         <button className='btn btn-dark m-2' onClick={clearFilters}>
           Borrar filtros
         </button>
