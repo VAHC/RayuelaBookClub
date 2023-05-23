@@ -8,7 +8,7 @@ export const Detail = () => {
     if (!detailData){return(
         <Card style={{ width: "90%", height: "100%" }}>
         <Card.Body className="d-flex flex-column justify-content-evenly">
-     <h1>Selecciona un libro para ver mas detalles.</h1>
+     <h1>Selecciona un libro para ver más detalles.</h1>
         </Card.Body>
     </Card>
     )}
@@ -41,8 +41,8 @@ export const Detail = () => {
                             <Card.Subtitle className="text-muted">
                                 Autor
                             </Card.Subtitle>
-                            {detailData.authors.map((author) => {
-                                return <Card.Text>{author}</Card.Text>;
+                            {detailData.authors.map((author, index) => {
+                                return <Card.Text key={index} >{author}</Card.Text>;
                             })}
                         </Col>
                         <Col>

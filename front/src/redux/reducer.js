@@ -1,4 +1,16 @@
-import { GET_DATA_REQUEST, GET_DATA_SUCCESS, GET_DATA_FAILURE, GET_ALL_BOOKS, SORT_BY_PRICE, SORT_BY_RATING, GET_BOOKSPAGE, CHANGE_PAGINA, SEARCH_BY_NAME_OR_AUTHOR,SET_DETAIL, FILTER_BY_GENRE, FILTER_AUTHOR } from './action';
+import { GET_DATA_REQUEST, 
+  GET_DATA_SUCCESS, 
+  GET_DATA_FAILURE, 
+  GET_ALL_BOOKS, 
+  SORT_BY_PRICE, 
+  SORT_BY_RATING, 
+  GET_BOOKSPAGE, 
+  CHANGE_PAGINA, 
+  SEARCH_BY_NAME_OR_AUTHOR,
+  SET_DETAIL, 
+  FILTER_BY_GENRE, 
+  FILTER_AUTHOR,
+  POST_BOOK } from './action';
 
 
 // Initial state
@@ -12,8 +24,7 @@ const initialState = {
   error: null,
   books: [],
   allBooks: [],
-
-};
+}
 
 // Reducer
 const reducer = (state = initialState, action) => {
@@ -117,7 +128,6 @@ const reducer = (state = initialState, action) => {
     }
       }
    
-      
     case FILTER_AUTHOR:{
       let allAuthors = state.books
       const authorsFiltered = action.payload === 'All' ?
@@ -131,14 +141,15 @@ const reducer = (state = initialState, action) => {
         ...state,
         allBooks: authorsFiltered,
          booksPage: authorsFiltered
-
       }
     }
-     
+    
+    case POST_BOOK:
+      return { ...state }
 
     default:
       return state;
   }
-};
+}
 
 export default reducer;
