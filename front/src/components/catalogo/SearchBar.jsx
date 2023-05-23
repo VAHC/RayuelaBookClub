@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchByNameOrAuthor,changePagina } from '../../redux/action';
+import { Link } from 'react-router-dom';
 
 export const SearchBar = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ export const SearchBar = () => {
             <input className="form-control me-2" type="search" placeholder="Libro o autor" aria-label="Buscar" value={input} onChange={handlerChange} />
             <button className="btn btn-light btn-outline-secondary" onClick={handlerDispatch}>Buscar</button>
           </form>
+          <Link to="/formulario"><button className="btn btn-light btn-outline-secondary">Agregar libro</button></Link>
           <i className="bi bi-cart text-light fs-3 mx-5"></i>
         </div>
       </nav>
