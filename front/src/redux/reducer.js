@@ -13,14 +13,15 @@ import {
 
 // Initial state
 const initialState = {
-  loading: false,
-  data: null,
   //detail_data es en donde se guarda la data para renderizar en detail, tanto del searchbar como al clickear una portada. 
   detail_data: undefined,
+  //slice del Allbooks con la pagina pedida
   booksPage: [],
+  //Representa el numero de pagina que se renderiza en Posters.
   paginaActual: 1,
-  error: null,
+  //books sirve para renderizar los filtrados
   books: [],
+  //array original de todos los libros
   allBooks: [],
 }
 
