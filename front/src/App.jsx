@@ -11,6 +11,7 @@ import { Suscripcion } from './components/suscripcion/Suscripcion';
 import { Footer } from "./components/footer/Footer";
 import { AboutUs } from "./components/aboutUs/AboutUs";
 import { FormCreateBook } from "./components/formCreateBook/formCreateBook";
+import Dashboard from "./components/adminDashboard/Dashboard"
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route exact path="/suscripcion" element={<Suscripcion/>}/>
         <Route exact path="/catalogo" element={<Catalogo/>}/>
         <Route exact path="/formulario" element={<FormCreateBook/>}/>
+        <Route exact path="/dashboard" element={<Dashboard/>}/>
       </Routes>
       <Footer/>
     </>
