@@ -13,6 +13,8 @@ export const SET_DETAIL = "SET_DETAIL";
 export const FILTER_BY_GENRE = 'FILTER_BY_GENRE';
 export const FILTER_AUTHOR = 'FILTER_AUTHOR';
 export const POST_BOOK = "POST_BOOK";
+export const GET_REVIEWS_BOOK = 'GET_REVIEWS_BOOK';
+
 
 
 export const getAllBooks = () => {
@@ -80,3 +82,11 @@ export const postBook = (book) => {
       return response
   }
 }
+//A DESCOMENTAR CUANDO ESTE LA RUTA CREADA EN EL BACK
+// export const getReviewsBook = (bookId) => {
+//   return async (dispatch) => {
+//     const response = await axios.get('http://localhost:3001');
+//     const allReviews = response.data;
+//     dispatch({ type: GET_REVIEWS_BOOK, payload: allReviews })
+//   }
+// }
