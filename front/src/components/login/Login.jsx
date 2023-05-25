@@ -10,7 +10,8 @@ export const Login = () => {
     })
 
     const [errors, setErrors] = useState({
-        email: ""
+        email: "",
+        password: ""
     })
 
     const handleInputChange = (event) => {
@@ -20,7 +21,7 @@ export const Login = () => {
         })
         setErrors(validation({
             ...userData,
-            email: event.target.value
+            [event.target.name]: event.target.value
         }))
     }
 
@@ -30,8 +31,8 @@ export const Login = () => {
         console.log(errors)
         if (Object.keys(errors).length === 0) {
             alert("Funciona")
+        }
     }
-}
 
     return (
         <>
@@ -39,7 +40,7 @@ export const Login = () => {
             <div className="d-flex justify-content-center m-2">
                 <div className="card w-25 mb-5">
                     <div className="card-body">
-                        <form action='/ingresar' method='post' onSubmit={handleSubmit}>
+                        <form action='' method='post' onSubmit={handleSubmit}>
                             <div className="mb-3 text-center">
                                 <label className="form-label" htmlFor="POST-email">Correo electrónico</label>
                                 <input className="form-control"
@@ -65,21 +66,22 @@ export const Login = () => {
                                     value={userData.password}
                                     onChange={handleInputChange}
                                 />
+                                {errors.password && <p className="text-danger">{errors.password}</p>}
                             </div>
 
                             <div className="text-center mb-3">
                                 <button type="submit" value="Save" className="btn btn-dark w-50">Ingresar</button>
                             </div>
-
-                            <div className="row text-center mb-3">
-                                <div className="col-3">
-                                    <i className="bi bi-google fs-3"></i>
-                                </div>
-                                <div className="col-9">
-                                    <button className="btn btn-outline-dark">Ingresar con G-mail</button>
-                                </div>
-                            </div>
                         </form>
+
+                        <div className="row text-center mb-3">
+                            <div className="col-3">
+                                <i className="bi bi-google fs-3"></i>
+                            </div>
+                            <div className="col-9">
+                                <a href="" className="btn btn-outline-dark">Ingresar con G-mail</a>
+                            </div>
+                        </div>
 
                         <div className="row text-center">
                             <p className="card-text">
@@ -97,6 +99,12 @@ const validation = (userData) => {
     const errors = {}
     if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(userData.email)) {
         errors.email = "Escribí un email válido"
+    }
+    if (userData.password === "") {
+        errors.password = "Escribí tu contraseña"
+    }
+    if (userData.password.length < 8 && userData.password.length >= 1) {
+        errors.password = "Contraseña no válida"
     }
     return errors
 }
