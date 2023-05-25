@@ -13,6 +13,7 @@ import { FormCreateBook } from "./components/formCreateBook/formCreateBook";
 import Dashboard from "./components/adminDashboard/Dashboard";
 import { Login } from "./components/login/Login";
 import { Registro } from "./components/login/Registro";
+import { FAQs } from "./components/footer/FAQs";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route exact path="/dashboard" element={<Dashboard/>}/>
         <Route exact path="/ingresar" element={<Login/>}/>
         <Route exact path="/registro" element={<Registro/>}/>
+        <Route exact path="/preguntas-frecuentes" element={<FAQs/>}/>
       </Routes>
       <Footer/>
     </>
