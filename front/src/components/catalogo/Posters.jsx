@@ -7,10 +7,15 @@ import Card from "./Card";
 export const Posters = () => {
     //Pagina actual
     const pagina = useSelector((state) => state.paginaActual);
-    //console.log(pagina);
     //libros de la pagina array
     const booksPage = useSelector((state) => state.booksPage);
-    //console.log(booksPage);
+
+    //array de libros filtrados
+    const filteredbooks = useSelector((state) => state.books);
+
+    //flag para saber si esta activo algun filtro
+    const filterFlag = useSelector((state) => state.filterFlag);
+
     //flag para no cargar todos los libros con cada render
     const [allBooksLoaded, setAllBooksLoaded] = useState(false);
 
@@ -27,14 +32,24 @@ export const Posters = () => {
         booksGet();
     }, [pagina]);
 
-    const booksMap = booksPage.map((book, index) => {
-        return (
-            <Card
-            book={book}
-            key={index}
-            />
-        );
-    });
+    const renderConditional = () => {
+        let renderElements = undefined
 
-    return (booksMap);
+        if (filterFlag) {
+            renderElements= filteredbooks.map((book, index) => {
+                return <Card book={book} key={index} />;
+            });
+        } else {
+            renderElements = booksPage.map((book, index) => {
+                return <Card book={book} key={index} />;
+            });
+        }
+
+        return renderElements
+    };
+
+    const prueba = renderConditional();
+    console.log(prueba);
+
+    return prueba;
 };

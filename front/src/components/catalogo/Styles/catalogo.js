@@ -9,6 +9,7 @@ align-content: center;
 width: 100vw;
 height: 100vh;
 margin-top: 10px;
+margin-bottom: 50px;
 
 
 `
