@@ -7,7 +7,7 @@ export const Detail = () => {
 
   if (!detailData) {
     return (
-      <Card style={{ width: "100%", height: "100%" }}>
+      <Card style={{ width: "100%", height: "100%"}}>
         <Card.Body className="d-flex flex-column justify-content-evenly">
      <h1>Selecciona un libro para ver más detalles.</h1>
         </Card.Body>
