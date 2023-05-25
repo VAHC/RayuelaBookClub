@@ -16,6 +16,7 @@ const ContainerReviews = () => {
                 <Review 
                     id = {review.id}
                     key = {review.id}
+                    book = {review.book.title}
                     title = {review.title}
                     qualification = {review.qualification}
                     comment = {review.comment}
