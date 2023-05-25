@@ -9,7 +9,7 @@ import {
   FILTER_BY_GENRE, 
   FILTER_AUTHOR,
   POST_BOOK,
-  GET_REVIEWS_BOOK,
+ // GET_REVIEWS_BOOK,
 } from './action';
 
 
