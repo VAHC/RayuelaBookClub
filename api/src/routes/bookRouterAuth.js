@@ -1,14 +1,13 @@
 const { Router } = require('express')
 
-const {ValidateUser,LoginUser,EroorUser,LogOut} = require ('../handlers/auth/loginHandler')
+const {ValidateUser,EroorUser,LogOut} = require ('../handlers/auth/loginHandler')
 const bookRouterAuth = Router()
 
-require('../handlers/auth/auth.js')
-require('../handlers/auth/local.js')
+require('../controllers/auth/gmail.js')
+require('../controllers/auth/local.js')
 const passport = require('passport')
 
 function isLoggedIn (req, res, next) {
-    console.log(req.isAuthenticated());
     req.isAuthenticated() ? next() : res.redirect('/books/auth/error')
      //res.sendStatus(401)
   }
@@ -17,27 +16,35 @@ function isLoggedIn (req, res, next) {
   // { id: 1, name: 'urial' }
   // 1 => Sereliazcion
   passport.serializeUser(function (user, done) {
-    done(null, user)
+    console.log('serializeUser');
+    let dato=''
+    if (user.provider) {
+      dato={
+        name:user.name.givenName,
+        pepe:'dsds'
+      }
+    } else {
+      dato={
+        name:user.name,
+        pepe:'dsds'
+      } 
+    }
+    done(null, dato)
   })
   
   // deseralizacion
   passport.deserializeUser(function (user, done) {
+    console.log('deserializeUser');
     done(null, user)
   })
   
   bookRouterAuth.get('/validate', isLoggedIn, ValidateUser)
-  bookRouterAuth.get('/error',EroorUser)  
+  bookRouterAuth.get('/error',EroorUser)
 
   bookRouterAuth.post('/login',  passport.authenticate('local', {
      successRedirect: '/books/auth/validate',
      failureRedirect: '/books/auth/error'
-   }), LoginUser)
-
-  
- // bookRouterAuth.get('/login',LoginUser)
-
- bookRouterAuth.get('/logout', LogOut)
-
+   }))
 
  bookRouterAuth.get('/authSocial',
     passport.authenticate('google', { scope: ['email', 'profile'] }
@@ -50,5 +57,6 @@ function isLoggedIn (req, res, next) {
     })
   )
 
+  bookRouterAuth.get('/logout', LogOut)
 
 module.exports = bookRouterAuth
