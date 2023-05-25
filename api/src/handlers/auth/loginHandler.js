@@ -2,8 +2,16 @@
 
 const ValidateUser = async (req, res) => {
     /// si esta ok
+    let user=''
+    if (req.user.provider) {
+      user=req.user.name.givenName
+     
+    } else {
+      user=req.user.name
+      console.log(req.user)
+    }
 
-    res.send(`Hello ${req.user.name} <a href="/books/auth/logout">logout</a>`)
+    res.send(`Hello ${user} <a href="/books/auth/logout">logout</a>`)
   }
 
 const LoginUser = async (req, res) => {
