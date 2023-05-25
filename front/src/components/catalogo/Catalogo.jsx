@@ -28,7 +28,7 @@ export const Catalogo = () => {
 
     useEffect(() => {
         dispatch(getAllBooks());
-        console.log("se hace el dispatch para buscar allBooks");
+        //console.log("se hace el dispatch para buscar allBooks");
     }, []);
 
     const detailData = useSelector((state) => state.detailData);
@@ -36,6 +36,10 @@ export const Catalogo = () => {
     return (
         <Wrap>
             {/* ¿NavBar? */}
+            <SearchBarDiv>
+            <SearchBar />
+            </SearchBarDiv>
+
             <Container>
                 <Sidebar>
                     <Orders />
@@ -43,8 +47,7 @@ export const Catalogo = () => {
                 </Sidebar>
 
                 <CatalogoSection>
-                    <SearchBar />
-                    <Paginado/>
+                    
                     <PosterSection>
                         <Posters />
                     </PosterSection>
