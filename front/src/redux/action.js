@@ -13,7 +13,7 @@ export const SET_DETAIL = "SET_DETAIL";
 export const FILTER_BY_GENRE = 'FILTER_BY_GENRE';
 export const FILTER_AUTHOR = 'FILTER_AUTHOR';
 export const POST_BOOK = "POST_BOOK";
-export const GET_REVIEWS_BOOK = 'GET_REVIEWS_BOOK';
+//export const GET_REVIEWS_BOOK = 'GET_REVIEWS_BOOK';
 
 
 
