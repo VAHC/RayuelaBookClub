@@ -26,6 +26,10 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
+    profile: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     createdDb: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
