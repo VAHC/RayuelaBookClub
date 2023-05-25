@@ -4,6 +4,9 @@ const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const routes = require('./routes/index.js')
 
+const passport = require('passport')
+const session = require('express-session')
+
 require('./db.js')
 
 const server = express()
@@ -11,6 +14,11 @@ const server = express()
 server.name = 'API'
 
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }))
+server.use(cookieParser('mi ultra passs'))  /// colocarlo EL ENV cuando este en produccion
+server.set('view engine', 'ejs') // eliminar cuando este el front
+server.use(session({ secret: 'cats', resave: false, saveUninitialized: true })) /// colocarlo EL ENV cuando este en produccion
+server.use(passport.initialize())
+server.use(passport.session())
 server.use(bodyParser.json({ limit: '50mb' }))
 server.use(cookieParser())
 server.use(morgan('dev'))
@@ -23,6 +31,12 @@ server.use((req, res, next) => {
 })
 
 server.use('/', routes)
+
+server.get('/login', (req, res) => {
+  res.render('login')
+  /// eliminar cuando este funcionando el front
+  // elimnar carpeta views de API
+})
 
 // Error catching endware.
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
