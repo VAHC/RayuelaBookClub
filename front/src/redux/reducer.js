@@ -122,7 +122,6 @@ const reducer = (state = initialState, action) => {
           ...state,
           books: genreFiltered
         }
-      }
 
     case FILTER_AUTHOR: {
       const authorsFiltered = action.payload === 'All' ?

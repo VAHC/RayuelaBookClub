@@ -4,11 +4,9 @@ const {
   LoadBooksHandler,
   getBooksHandler,
   getPage
-
 } = require('../handlers/bookHandler')
 const {getBookByIdHandler} = require('../handlers/getBookByIdHandler')
 const createBookHandler = require('../handlers/createBookHandler')
-// const router = require(".");
 
 const bookRouter = Router()
 
