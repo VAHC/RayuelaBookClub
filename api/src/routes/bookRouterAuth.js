@@ -3,8 +3,8 @@ const { Router } = require('express')
 const {ValidateUser,LoginUser,EroorUser,LogOut} = require ('../handlers/auth/loginHandler')
 const bookRouterAuth = Router()
 
-//require('./auth')
-require('../handlers/auth/local')
+require('../handlers/auth/auth.js')
+require('../handlers/auth/local.js')
 const passport = require('passport')
 
 function isLoggedIn (req, res, next) {
@@ -26,8 +26,7 @@ function isLoggedIn (req, res, next) {
   })
   
   bookRouterAuth.get('/validate', isLoggedIn, ValidateUser)
- //bookRouterAuth.get('/validate', ValidateUser)
- bookRouterAuth.get('/error',EroorUser)  
+  bookRouterAuth.get('/error',EroorUser)  
 
   bookRouterAuth.post('/login',  passport.authenticate('local', {
      successRedirect: '/books/auth/validate',
@@ -40,27 +39,16 @@ function isLoggedIn (req, res, next) {
  bookRouterAuth.get('/logout', LogOut)
 
 
-//   app.get('/auth',
-//     passport.authenticate('google', { scope: ['email', 'profile'] }
-//     ))
+ bookRouterAuth.get('/authSocial',
+    passport.authenticate('google', { scope: ['email', 'profile'] }
+    ))
 
-//   app.get('/auth/google',
-//     passport.authenticate('google', {
-//       successRedirect: '/',
-//       failureRedirect: '/login'
-//     })
-//   )
-  
-//   app.get('/logout', (req, res) => {
-//     if (req.user) {
-//       req.logout(function (err) {
-//         if (err) { res.send('eroro!') }
-//         req.session.destroy()
-//         res.send('Goodbye! server ')
-//       })
-//     } else {
-//       res.redirect('/login')
-//     }
-//   })
+    bookRouterAuth.get('/authSocial/google',
+    passport.authenticate('google', {
+      successRedirect: '/books/auth/validate',
+     failureRedirect: '/books/auth/error'
+    })
+  )
+
 
 module.exports = bookRouterAuth
