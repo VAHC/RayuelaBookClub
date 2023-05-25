@@ -2,8 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import validation from "./validationRegistro";
+import { useDispatch } from 'react-redux';
+import { createUser } from "../../redux/action";
 
 export const Registro = () => {
+
+    const dispatch = useDispatch();
 
     const [userInputs, setUserInputs] = useState({
         name: "",
@@ -53,7 +57,7 @@ export const Registro = () => {
     const handleSubmit = (event) => {
         event.preventDefault()
         if (Object.keys(errors).length === 0) {
-            //dispatch(postActivity(inputs))
+            dispatch(createUser(userInputs))
             alert("Funciona")
         }
     }
