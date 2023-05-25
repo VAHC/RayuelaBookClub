@@ -1,88 +1,62 @@
 import React, { useEffect, useState } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import { genreFiltered, getAllBooks, filterAuthor, changePagina } from '../../redux/action'
+import { genreFiltered, getAllBooks, filterAuthor, changePagina,filterFlagToggle,resetFilter, getGeneros, getAutores } from '../../redux/action'
 
 //export function Filters({setCurrentPage, generos, setOrder}) {
 export function Filters() {
   const dispatch = useDispatch()
  const booksPage = useSelector((state) => state.booksPage)
- console.log(booksPage);
-  // const allBooks = useSelector((state) => state.allBooks)
-  // console.log('allBooks' + allBooks);
+  const allBooks = useSelector(state => state.allBooks)
   const books = useSelector(state => state.books)
-  // console.log('books' + books);
+  const autores= useSelector(state => state.autores)
+  const generos= useSelector(state => state.generos)
 
-  const [authorValue, setAuthorValue] = useState('')
-  const [genreValue, setGenreValue] = useState('')
+  const [authorValue, setAuthorValue] = useState(null)
+  const [genreValue, setGenreValue] = useState(null)
 
-  //const extractedArray = booksPage.flatMap(obj => obj.gender)
-
-  // useEffect(()=>{
-  //   dispatch(getAllBooks())
-  // }, [])
-
-  const genresNoRepeat = books
-    .flatMap(book => book.genders)
-    .filter((genre, index, self) => self.findIndex(g => g === genre) === index);
-    
-    // console.log(genresNoRepeat);
-    const sortGenres = genresNoRepeat.sort((a, b) => { 
-      if(a > b) {return 1}
-      if(b > a) {return -1}
-    return 0
-    })
-    // console.log(sortGenres);
-
-    
-    const authorsNoRepeat = books
-    .flatMap(book => book.authors)
-    .filter((aut, index, self) => self.findIndex(a => a === aut) === index);
-
-    const sortAuthors = authorsNoRepeat.sort((a, b) => { 
-      if(a > b) {return 1}
-      if(b > a) {return -1}
-    return 0
-    })
-    
-    //var uniqueAuthors = [...new Set(allBooks.map(obj => obj.authors))]
-
+  
+  useEffect(()=>{
+    dispatch(getGeneros())
+    dispatch(getAutores())
+  }, [allBooks, books])
     
     const handleFilterGenre = (e) => {
+      setGenreValue(e.target.value)
       dispatch(genreFiltered(e.target.value))
-      // dispatch(changePagina(1))
+      dispatch(filterFlagToggle(true))
+
     }
 
   const handleFilterAuthor = (e) => {
+    setAuthorValue(e.target.value)
     dispatch(filterAuthor(e.target.value))
-    dispatch(changePagina(1))
-    //setAuthorValue('')
+    dispatch(filterFlagToggle(true))
   }
 
   const clearFilters = () => {
-    setAuthorValue('')
-    setGenreValue('')
-    dispatch(genreFiltered('All'))
-    dispatch(filterAuthor('All'))
-    dispatch(changePagina(1))
+    setGenreValue("All")
+    setAuthorValue("All")
+    dispatch(genreFiltered("All"))
+    dispatch(filterAuthor("All"))
+    dispatch(resetFilter())
+    dispatch(filterFlagToggle(false))
   };
 
   return (
     <div >
       <h6 className='mx-2'>Filtrar por</h6>
       <div className='m-1 mb-3'>
-        <select className='form-select' onChange={e => handleFilterAuthor(e)}  >
-          <option value="" readOnly hidden>Autor...</option>
-          <option value="All">Todos</option>
-          {sortAuthors && sortAuthors.map((a, index) =>
-            <option key={index} value={a}>{a}</option>
+        <select className='form-select' value={authorValue|| "All" } onChange={e => handleFilterAuthor(e)}  >
+          <option value="All" readOnly hidden>Autor</option>
+          {autores && autores.map((autor, index) =>
+            <option key={index} value={autor}>{autor}</option>
           )}
         </select>
       </div>
       <div className='m-1'>
-        <select className='form-select' onChange={e => handleFilterGenre(e)}  >
-          <option value="" readOnly hidden>Género...</option>
-          <option value="All">Todos</option>
-          {sortGenres && sortGenres.map((a, index) =>
+        <select className='form-select' value={genreValue || "All"} onChange={e => handleFilterGenre(e)}  >
+          <option value="All" readOnly hidden>Género</option>
+          {generos && generos.map((a, index) =>
             <option key={index} value={a}>{a}</option>
           )}
         </select>
