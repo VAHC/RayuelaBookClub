@@ -13,10 +13,7 @@ import { FormCreateBook } from "./components/formCreateBook/formCreateBook";
 import Dashboard from "./components/adminDashboard/Dashboard";
 import { Login } from "./components/login/Login";
 import { Registro } from "./components/login/Registro";;
-import ContainerReviews from './components/reviews/ContainerReviews';
-import FormCreateReview from './components/reviews/FormCreateReview';
 import MyReviews from './components/reviews/myReviews/MyReviews';
-import FormEditReviews from './components/reviews/myReviews/FormEditReviews'
 
 
 function App() {
@@ -32,10 +29,7 @@ function App() {
         <Route exact path="/dashboard" element={<Dashboard/>}/>
         <Route exact path="/ingresar" element={<Login/>}/>
         <Route exact path="/registro" element={<Registro/>}/>
-        <Route exact path="/reseñas" element={<ContainerReviews/>}/>
-        <Route exact path="/crearReseña" element={<FormCreateReview/>}/>
         <Route exact path="/misReseñas" element={<MyReviews/>}/>
-        <Route exact path="/editarReseñas" element={<FormEditReviews/>}/>
       </Routes>
       <Footer/>
     </>
