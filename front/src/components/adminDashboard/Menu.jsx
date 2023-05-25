@@ -1,20 +1,20 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
 
-const Sidebar = () => {
+const Menu = () => {
   return (
     <Nav variant="pills" className="flex-column sidebar shadow">
       <Nav.Item className="sidebar-item">
-        <Nav.Link  href="#inicio">Inicio</Nav.Link>
+        <Nav.Link  href="#panel">Panel de Control</Nav.Link>
       </Nav.Item>
       <Nav.Item className="sidebar-item">
-        <Nav.Link href="#libros">Libros</Nav.Link>
+        <Nav.Link href="#inventario">Inventario</Nav.Link>
       </Nav.Item>
       <Nav.Item className="sidebar-item">
-        <Nav.Link href="#pedidos">Pedidos</Nav.Link>
+        <Nav.Link href="#usuarios">Usuarios</Nav.Link>
       </Nav.Item>
       <Nav.Item className="sidebar-item">
-        <Nav.Link href="#clientes">Clientes</Nav.Link>
+        <Nav.Link href="#clientes">Pedidos</Nav.Link>
       </Nav.Item>
       <Nav.Item className="sidebar-item">
         <Nav.Link href="#estadisticas">Estadísticas</Nav.Link>
@@ -26,4 +26,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default Menu;
