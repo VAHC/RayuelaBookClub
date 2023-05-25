@@ -11,10 +11,15 @@ import { Footer } from "./components/footer/Footer";
 import { AboutUs } from "./components/aboutUs/AboutUs";
 import { FormCreateBook } from "./components/formCreateBook/formCreateBook";
 import Dashboard from "./components/adminDashboard/Dashboard";
+
 import ContainerReviews from './components/reviews/ContainerReviews';
 import FormCreateReview from './components/reviews/FormCreateReview';
 import MyReviews from './components/reviews/myReviews/MyReviews';
 import FormEditReviews from './components/reviews/myReviews/FormEditReviews'
+
+import { Login } from "./components/login/Login";
+import { Registro } from "./components/login/Registro";
+
 
 function App() {
   return (
@@ -27,10 +32,15 @@ function App() {
         <Route exact path="/catalogo" element={<Catalogo/>}/>
         <Route exact path="/formulario" element={<FormCreateBook/>}/>
         <Route exact path="/dashboard" element={<Dashboard/>}/>
+
         <Route exact path="/reviews" element={<ContainerReviews/>}/>
         <Route exact path="/createReviews" element={<FormCreateReview/>}/>
         <Route exact path="/myReviews" element={<MyReviews/>}/>
         <Route exact path="/editReviews" element={<FormEditReviews/>}/>
+
+        <Route exact path="/ingresar" element={<Login/>}/>
+        <Route exact path="/registro" element={<Registro/>}/>
+
       </Routes>
       <Footer/>
     </>
