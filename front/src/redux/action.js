@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 // Action types
 
 export const GET_ALL_BOOKS = 'GET_ALL_BOOKS';
@@ -13,6 +12,7 @@ export const SET_DETAIL = "SET_DETAIL";
 export const FILTER_BY_GENRE = 'FILTER_BY_GENRE';
 export const FILTER_AUTHOR = 'FILTER_AUTHOR';
 export const POST_BOOK = "POST_BOOK";
+export const CREATE_USER = "CREATE_USER";
 
 
 export const getAllBooks = () => {
@@ -77,6 +77,13 @@ export const filterAuthor = (value) => {
 export const postBook = (book) => {
   return async function (dispatch) {
       let response = await axios.post('http://localhost:3001/books', book)
+      return response
+  }
+}
+
+export const createUser = (user) => {
+  return async function (dispatch) {
+      let response = await axios.post('RUTA DEL BACK', user)
       return response
   }
 }

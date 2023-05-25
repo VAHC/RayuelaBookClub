@@ -8,7 +8,8 @@ import {
   SET_DETAIL, 
   FILTER_BY_GENRE, 
   FILTER_AUTHOR,
-  POST_BOOK } from './action';
+  POST_BOOK,
+  CREATE_USER } from './action';
 
 
 // Initial state
@@ -137,6 +138,9 @@ const reducer = (state = initialState, action) => {
     }
     
     case POST_BOOK:
+      return { ...state }
+
+    case CREATE_USER:
       return { ...state }
 
     default:
