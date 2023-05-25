@@ -16,7 +16,7 @@ server.name = 'API'
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }))
 server.use(cookieParser('mi ultra passs'))  /// colocarlo EL ENV cuando este en produccion
 server.set('view engine', 'ejs') // eliminar cuando este el front
-server.use(session({ secret: 'cats', resave: false, saveUninitialized: true })) /// colocarlo EL ENV cuando este en produccion
+server.use(session({ secret: 'cats', resave: false, saveUninitialized: true })) //// colocarlo EL ENV cuando este en produccion
 server.use(passport.initialize())
 server.use(passport.session())
 server.use(bodyParser.json({ limit: '50mb' }))
