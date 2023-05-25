@@ -12,7 +12,9 @@ import { AboutUs } from "./components/aboutUs/AboutUs";
 import { FormCreateBook } from "./components/formCreateBook/formCreateBook";
 import Dashboard from "./components/adminDashboard/Dashboard";
 import { Login } from "./components/login/Login";
-import { Registro } from "./components/login/Registro";
+import { Registro } from "./components/login/Registro";;
+import MyReviews from './components/reviews/myReviews/MyReviews';
+
 
 function App() {
   return (
@@ -27,6 +29,7 @@ function App() {
         <Route exact path="/dashboard" element={<Dashboard/>}/>
         <Route exact path="/ingresar" element={<Login/>}/>
         <Route exact path="/registro" element={<Registro/>}/>
+        <Route exact path="/misReseñas" element={<MyReviews/>}/>
       </Routes>
       <Footer/>
     </>
