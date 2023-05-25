@@ -8,7 +8,9 @@ import {
   SET_DETAIL, 
   FILTER_BY_GENRE, 
   FILTER_AUTHOR,
-  POST_BOOK } from './action';
+  POST_BOOK,
+  GET_REVIEWS_BOOK,
+} from './action';
 
 
 // Initial state
@@ -23,6 +25,8 @@ const initialState = {
   books: [],
   //array original de todos los libros
   allBooks: [],
+  //array que trae todas la reseñas de un libro
+  reviewsBook: [],
 }
 
 // Reducer
@@ -138,6 +142,13 @@ const reducer = (state = initialState, action) => {
     
     case POST_BOOK:
       return { ...state }
+
+    //a descomentar una vez que la action este descomentada
+    // case GET_REVIEWS_BOOK:
+    //   return {
+    //     ...state, 
+    //     reviewsBook: action.payload
+    //   }
 
     default:
       return state;

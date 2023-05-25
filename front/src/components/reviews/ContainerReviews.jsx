@@ -1,4 +1,12 @@
+import React from 'react';
+
 const ContainerReviews = () => {
+
+    return(
+        <div>
+            
+        </div>
+    )
 
 };
 
