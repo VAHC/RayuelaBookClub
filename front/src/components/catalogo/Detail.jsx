@@ -3,12 +3,13 @@ import { Card, Button, Row, Col } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
 export const Detail = () => {
-    const detailData = useSelector((state) => state.detail_data);
+  const detailData = useSelector((state) => state.detail_data);
 
-    if (!detailData){return(
-        <Card style={{ width: "90%", height: "100%" }}>
+  if (!detailData) {
+    return (
+      <Card style={{ width: "100%", height: "100%" }}>
         <Card.Body className="d-flex flex-column justify-content-evenly">
-     <h1>Selecciona un libro para ver mas detalles.</h1>
+     <h1>Selecciona un libro para ver más detalles.</h1>
         </Card.Body>
     </Card>
     )}
@@ -41,40 +42,38 @@ export const Detail = () => {
                             <Card.Subtitle className="text-muted">
                                 Autor
                             </Card.Subtitle>
-                            {detailData.authors.map((author) => {
-                                return <Card.Text>{author}</Card.Text>;
+                            {detailData.authors.map((author, index) => {
+                                return <Card.Text key={index} >{author}</Card.Text>;
                             })}
                         </Col>
                         <Col>
                             <Card.Subtitle className="text-muted">
                                 Género
                             </Card.Subtitle>
-                            {detailData.gender.map((gender) => {
+                            {detailData.genders.map((gender) => {
                                 return <Card.Text>{gender}</Card.Text>;
                             })}
                         </Col>
                     </Row>
 
-                    <Card.Text style={{ overflow: "auto", height: "200px" }}>
-                        {detailData.description}
-                    </Card.Text>
+              <Card.Text style={{ overflow: "auto", height: "200px" }}>
+                {detailData.description}
+              </Card.Text>
 
-                    <div>
-                        <Row>
-                            <Col>
-                                <Button variant="primary">
-                                    Agregar al carrito
-                                </Button>
-                            </Col>
-                            <Col>
-                                <Button variant="outline-secondary">
-                                    Agregar a la Wishlist
-                                </Button>
-                            </Col>
-                        </Row>
-                    </div>
-                </Card.Body>
-            </Card>
-        );
-    }
+              <div>
+                <Row>
+                  <Col>
+                    <Button variant="primary">Agregar al carrito</Button>
+                  </Col>
+                  <Col>
+                    <Button variant="outline-secondary">
+                      Agregar a la Wishlist
+                    </Button>
+                  </Col>
+                </Row>
+              </div>
+            </Card.Body>
+          </Card>
+    );
+  }
 };
