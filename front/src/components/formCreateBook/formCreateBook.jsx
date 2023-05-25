@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {useNavigate } from 'react-router-dom';
 import { postBook, getAllBooks } from '../../redux/action';
-//import validation from './validation';
+import validation from './validation';
 
 
 export const FormCreateBook = () => {
@@ -46,17 +46,17 @@ export const FormCreateBook = () => {
         genders: []
     });
 
-    // const [errors, setErrors] = useState({ // estado local para manejar los errores     
-    //     title: '',
-    //     publisher: '',
-    //     description: '',
-    //     price: '',
-    //     stock: '',
-    //     publishedDate: '',
-    //     image: '',
-    //     authors: '',
-    //     genders: ''
-    // });
+    const [errors, setErrors] = useState({ // estado local para manejar los errores     
+        title: '',
+        publisher: '',
+        description: '',
+        price: '',
+        stock: '',
+        publishedDate: '',
+        image: '',
+        authors: '',
+        genders: ''
+    });
 
     const [formComplete, setFormComplete] = useState(false); //estodo local para manejar el boton del submit y el envio de datos
     const [success, setSuccess] = useState(false); // estado local para manejar la alerta de ok
@@ -81,17 +81,17 @@ export const FormCreateBook = () => {
                 [e.target.name] : e.target.value
             });
         }
-        // setErrors(validation({
-        //     ...input,
-        //     [e.target.name]: e.target.value
-        // }));
+        setErrors(validation({
+            ...input,
+            [e.target.name]: e.target.value
+        }));
     };
     
     //useEffect que escucha los estados locales input y errors para setear el estado FormComplete
     useEffect(() => {
         let values = Object.values(input);
         let notComplete = values.filter( value => value === "" || value.length === 0)
-       // let error = Object.keys(errors);
+       //let error = Object.keys(errors);
        if(!notComplete.length) setFormComplete(true)
     }, [input]) 
     //     if(!notComplete.length && !error.length) setFormComplete(true)
@@ -121,17 +121,17 @@ export const FormCreateBook = () => {
                 authors: [],
                 genders: []
             });
-            // setErrors({
-            //     title: '',
-            //     publisher: '',
-            //     description: '',
-            //     price: '',
-            //     stock: '',
-            //     publishedDate: '',
-            //     image: '',
-            //     authors: '',
-            //     genders: '' 
-            // });  
+            setErrors({
+                title: '',
+                publisher: '',
+                description: '',
+                price: '',
+                stock: '',
+                publishedDate: '',
+                image: '',
+                authors: '',
+                genders: '' 
+            });  
             setTimeout(function(){
                 navigate('/catalogo') //una vez enviado el form me redirige a catalogo  
             }, 2000)
@@ -153,6 +153,7 @@ export const FormCreateBook = () => {
                         <div className="col-auto">
                             <input className="form-control" id='title' type='text' value={input.title} name='title' placeholder='Título del libro' onChange={inputHandler} />
                             {/* {errors.name ? <p className={styles.vDanger}>{errors.name}</p> : null} */}
+                            <p>{errors.title}</p>
                         </div>
                     </div>
 
@@ -162,6 +163,7 @@ export const FormCreateBook = () => {
                         </div>
                         <div className="col-auto">
                             <input className="form-control" id='publisher' type='text' value={input.publisher} name='publisher' placeholder='Editorial del libro' onChange={inputHandler} />
+                            <p>{errors.publisher}</p>
                         </div>
                     </div>
 
@@ -171,6 +173,7 @@ export const FormCreateBook = () => {
                         </div>
                         <div className="col-auto">
                             <input className="form-control" id='description' type='textarea' value={input.description} name='description' placeholder='Sinopsis del libro' onChange={inputHandler} />
+                            <p>{errors.description}</p>
                         </div>
                     </div>
 
@@ -180,6 +183,7 @@ export const FormCreateBook = () => {
                         </div>
                         <div className="col-auto">
                             <input className="form-control" id='price' type='text' value={input.price} name='price' placeholder='$' onChange={inputHandler} />
+                            <p>{errors.price}</p>
                         </div>
                     </div>
 
@@ -189,6 +193,7 @@ export const FormCreateBook = () => {
                         </div>
                         <div className="col-auto">
                             <input className="form-control" id='stock' type='text' value={input.stock} name='stock' placeholder='Cantidad' onChange={inputHandler} />
+                            <p>{errors.stock}</p>
                         </div>
                     </div>
 
@@ -198,6 +203,7 @@ export const FormCreateBook = () => {
                         </div>
                         <div className="col-auto">
                             <input className="form-control" id='publishedDate' type='text' value={input.publishedDate} name='publishedDate' placeholder='mm/aaaa' onChange={inputHandler} />
+                            <p>{errors.publishedDate}</p>
                         </div>
                     </div>
 
@@ -207,6 +213,7 @@ export const FormCreateBook = () => {
                         </div>
                         <div className="col-auto">
                             <input className="form-control" id='image' type='text' value={input.image} name='image' placeholder='url' onChange={inputHandler} />
+                            <p>{errors.image}</p>
                         </div>
                     </div>
 
@@ -223,6 +230,7 @@ export const FormCreateBook = () => {
                                     )
                                 })}
                             </select>
+                            <p>{errors.genders}</p>
                         </div>
                     </div>
 
@@ -239,6 +247,7 @@ export const FormCreateBook = () => {
                                     )
                                 })}
                             </select>
+                            <p>{errors.authors}</p>
                         </div>
                     </div>
                 </div>}

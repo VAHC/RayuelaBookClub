@@ -1,6 +1,4 @@
-import { GET_DATA_REQUEST, 
-  GET_DATA_SUCCESS, 
-  GET_DATA_FAILURE, 
+import { 
   GET_ALL_BOOKS, 
   SORT_BY_PRICE, 
   SORT_BY_RATING, 
@@ -15,27 +13,21 @@ import { GET_DATA_REQUEST,
 
 // Initial state
 const initialState = {
-  loading: false,
-  data: null,
   //detail_data es en donde se guarda la data para renderizar en detail, tanto del searchbar como al clickear una portada. 
   detail_data: undefined,
+  //slice del Allbooks con la pagina pedida
   booksPage: [],
+  //Representa el numero de pagina que se renderiza en Posters.
   paginaActual: 1,
-  error: null,
+  //books sirve para renderizar los filtrados
   books: [],
+  //array original de todos los libros
   allBooks: [],
 }
 
 // Reducer
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_DATA_REQUEST:
-      return { ...state, loading: true, error: null };
-    case GET_DATA_SUCCESS:
-      return { ...state, loading: false, data: action.payload };
-    case GET_DATA_FAILURE:
-      return { ...state, loading: false, error: action.payload };
-
     case GET_ALL_BOOKS:
       return {
         ...state,
