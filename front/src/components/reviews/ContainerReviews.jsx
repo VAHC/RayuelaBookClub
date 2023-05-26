@@ -47,11 +47,10 @@ import {useSelector} from 'react-redux';
                 <Review 
                     id = {review.id}
                     key = {review.id}
-                    book = {review.book.title}
                     title = {review.title}
                     qualification = {review.qualification}
                     comment = {review.comment}
-                    user = {review.user.name}
+                    user = {review.user}
                 />
             })
             } */}
