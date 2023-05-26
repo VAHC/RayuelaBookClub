@@ -1,7 +1,7 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
 import Review from './Review';
-import { AiFillStar, AiOutLineStar } from 'react-icons/ai';
+//import { AiFillStar, AiOutLineStar } from 'react-icons/ai';
 
 const ContainerReviews = ({toggleModal}) => {
     const reviewsBook = useSelector(state => state.reviewsBook)

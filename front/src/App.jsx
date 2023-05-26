@@ -15,7 +15,6 @@ import UserDashboard from "./components/UserDashboard/UserDashboard";
 import { Login } from "./components/login/Login";
 import { Registro } from "./components/login/Registro";
 import { FAQs } from "./components/footer/FAQs";
-import { Registro } from "./components/login/Registro";;
 import MyReviews from './components/reviews/myReviews/MyReviews';
 
 function App() {
