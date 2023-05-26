@@ -47,16 +47,15 @@ const FindUser =async (username,password,done) =>{
   }  
 }
 
-passport.use(new PassPortLocal({ passReqToCallback: true }, async function (req, username, password, done) {
+passport.use(new PassPortLocal({ passReqToCallback: true,  usernameField: 'email' }, async function (req, email, password, done) {
   // entra por aca la info
    console.log('local js');
    const {name} = req.body
     if (name){
-      CreateUser(req,username,password,done)
+      CreateUser(req,email,password,done)
     }else
     {
-      FindUser(username,password,done)
+      FindUser(email,password,done)
     }
-   
 
 }));
