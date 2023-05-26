@@ -1,6 +1,7 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
 import Review from './Review';
+import { AiFillStar, AiOutLineStar } from 'react-icons/ai';
 
 const ContainerReviews = () => {
     const reviewsBook = useSelector(state => state.reviewsBook)
@@ -15,7 +16,26 @@ const ContainerReviews = () => {
       </div>
       <div className="modal-body">
       <div>
-            {!reviewsBook.length ? 
+        {/* hardcodedo */}
+        <div>
+            <h3>titulo reseña 1</h3>
+            {Array(5).fill().map((_, index) => <AiFillStar style={color='orange'}/>)}
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel egestas dolor, nec dignissim metus. Donec augue elit, rhoncus ac sodales id, porttitor vitae est. Donec laoreet rutrum libero sed pharetra. Donec vel egestas dolor, nec dignissim metus. Donec augue elit, rhoncus ac sodales id, porttitor vitae est. Donec laoreet rutrum libero sed pharetra. Duis a arcu convallis, gravida purus eget, mollis diam</p>
+            <h4>nombre usuario1</h4>
+        </div>
+        <div>
+            <h3>titulo reseña 2</h3>
+            {Array(5).fill().map((_, index) => <AiFillStar style={color='orange'}/>)}
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel egestas dolor, nec dignissim metus. Donec augue elit, rhoncus ac sodales id, porttitor vitae est. Donec laoreet rutrum libero sed pharetra. Donec vel egestas dolor, nec dignissim metus. Donec augue elit, rhoncus ac sodales id, porttitor vitae est. Donec laoreet rutrum libero sed pharetra. Duis a arcu convallis, gravida purus eget, mollis diam</p>
+            <h4>nombre usuario2</h4>
+        </div>
+        <div>
+            <h3>titulo reseña 3</h3>
+            {Array(5).fill().map((_, index) => <AiFillStar style={color='orange'}/>)}
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel egestas dolor, nec dignissim metus. Donec augue elit, rhoncus ac sodales id, porttitor vitae est. Donec laoreet rutrum libero sed pharetra. Donec vel egestas dolor, nec dignissim metus. Donec augue elit, rhoncus ac sodales id, porttitor vitae est. Donec laoreet rutrum libero sed pharetra. Duis a arcu convallis, gravida purus eget, mollis diam</p>
+            <h4>nombre usuario3</h4>
+        </div>
+            {/* {!reviewsBook.length ? 
             <div>
             <h6>Aún no hay reseñas...</h6>
             <h5>Sé el primero en dejar una!</h5>
@@ -31,7 +51,7 @@ const ContainerReviews = () => {
                     user = {review.user.name}
                 />
             })
-            }
+            } */}
         </div>
             
       </div>
