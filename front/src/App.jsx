@@ -9,7 +9,6 @@ import { Catalogo } from './components/catalogo/catalogo';
 import { Suscripcion } from './components/suscripcion/Suscripcion';
 import { Footer } from "./components/footer/Footer";
 import { AboutUs } from "./components/aboutUs/AboutUs";
-import { FormCreateBook } from "./components/formCreateBook/formCreateBook";
 import Dashboard from "./components/adminDashboard/Dashboard"
 import UserDashboard from "./components/UserDashboard/UserDashboard";
 import { Login } from "./components/login/Login";
@@ -29,7 +28,6 @@ function App() {
         <Route exact path="/nosotros" element={<AboutUs/>}/>
         <Route exact path="/suscripcion" element={<Suscripcion/>}/>
         <Route exact path="/catalogo" element={<Catalogo/>}/>
-        <Route exact path="/formulario" element={<FormCreateBook/>}/>
         <Route exact path="/admindashboard" element={<Dashboard/>}/>
         <Route exact path="/userdashboard" element={<UserDashboard/>}/>
         <Route exact path="/ingresar" element={<Login/>}/>

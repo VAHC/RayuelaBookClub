@@ -14,7 +14,7 @@ import {
   RESET_FILTERS,
   GET_AUTORES,
   GET_GENEROS,
- // GET_REVIEWS_BOOK,
+  GET_REVIEWS_BOOK,
 } from './action';
 
 
@@ -197,12 +197,12 @@ const reducer = (state = initialState, action) => {
 
       }
 
-    //a descomentar una vez que la action este descomentada
-    // case GET_REVIEWS_BOOK:
-    //   return {
-    //     ...state, 
-    //     reviewsBook: action.payload
-    //   }
+    //trae todas las reviewsde un libro
+    case GET_REVIEWS_BOOK:
+      return {
+        ...state, 
+        reviewsBook: action.payload.reviews
+      }
 
 
     default:

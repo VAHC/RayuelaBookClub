@@ -84,7 +84,6 @@ export const Registro = () => {
                         <div className="input-group">
                             <span className="input-group-text">@</span>
                             <input type="text" className="form-control" name="email" value={userInputs.email} onChange={handleInputChange} required />
-                            {errors.email && <p className="text-danger">{errors.email}</p>}
                         </div>
                     </div>
 
@@ -93,8 +92,15 @@ export const Registro = () => {
                         <div className="input-group">
                             <span className="input-group-text">@</span>
                             <input type="text" className="form-control" name="emailC" value={inputsConfirm.emailC} onChange={handleInputChange} required />
-                            {errors.emailConfirm && <p className="text-danger">{errors.emailConfirm}</p>}
                         </div>
+                    </div>
+
+                    <div className="col-md-6">
+                        {errors.email && <p className="text-danger">{errors.email}</p>}
+                    </div>
+
+                    <div className="col-md-6">
+                        {errors.emailConfirm && <p className="text-danger">{errors.emailConfirm}</p>}
                     </div>
 
                     <div className="col-md-4">
@@ -117,6 +123,12 @@ export const Registro = () => {
 
                     <div className="col-12 d-flex justify-content-center m-4">
                         <button className={Object.keys(errors).length === 0 ? "btn btn-dark" : "btn btn-dark disabled"} type="submit">Registrarme</button>
+                    </div>
+
+                    <div className="row d-flex justify-content-center">
+                        <div className='col-auto text-center'>
+                            <a href="http://localhost:3001/books/auth/authSocial" className="btn btn-outline-dark"><i className="bi bi-google fs-3 mx-2"></i>Registrarme con G-mail</a>
+                        </div>
                     </div>
 
                     <div className="row text-center m-3 mb-5">
