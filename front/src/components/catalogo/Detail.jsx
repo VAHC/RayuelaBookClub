@@ -1,9 +1,16 @@
 import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import ContainerReviews from "../reviews/ContainerReviews";
+import { useState } from 'react'
 
 export const Detail = () => {
   const detailData = useSelector((state) => state.detail_data);
+  const [showModal, setShowModal] = useState(false); //estdo local para mostrar o no el modal
+
+  const toggleModal = () => { //funcion que setea showModal al booleano contrario en el que esta
+    setShowModal(!showModal);
+  };
 
   if (!detailData) {
     return (
@@ -26,13 +33,14 @@ export const Detail = () => {
                         <h4 style={{ marginRight: "10px", maxWidth: "70%" }}>
                             {detailData.title}
                         </h4>
-                        <Button
+                        <Button 
                             variant="secondary"
                             style={{
                                 borderRadius: "50%",
                                 width: "70px",
                                 height: "70px",
                             }}
+                            onClick={toggleModal}
                         >
                             5/5 ★
                         </Button>
@@ -73,7 +81,17 @@ export const Detail = () => {
                 </Row>
               </div>
             </Card.Body>
+            {showModal && (
+              <div className="modal" tabIndex="-1" style={{ display: "block" }}>
+              <div className="modal-dialog modal-dialog-scrollable">
+              <div className="modal-content">
+                <ContainerReviews toggleModal={toggelModal}/>
+              </div>
+              </div>
+              </div>
+            )}
           </Card>
     );
   }
 };
+
