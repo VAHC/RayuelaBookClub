@@ -1,5 +1,4 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'
 
 export const Suscripcion = () => {
   return (
@@ -18,7 +17,6 @@ export const Suscripcion = () => {
                 <li>Vas a recibir en la comodidad de tu hogar el libro del mes</li>
                 <li>Junto con el libro recibirás regalos extra como señaladores, stickers, guías de lectura y mucho más</li>
                 <li>Podrás formar parte de la comunidad Rayuela en Slack y conectarte con otros lectores del club</li>
-                <li>Serás invitado a charlas on-line con autores destacados</li>
                 <li>¡Increíbles descuentos en la tienda!</li>
                 <li>Suscribirse es ideal para las personas a las que les apasiona la literatura pero les cuesta decidir cuál será su próxima lectura</li>
               </ul>
@@ -35,7 +33,7 @@ export const Suscripcion = () => {
             <img src="./images/paso1.png" className="card-img-top" alt="Paso 1" />
             <div className="card-body text-center">
               <h5 className="card-title fs-4 fw-bold text-danger">Registrarse</h5>
-              <p className="card-text">Completá tus datos <Link to="/registro">aquí</Link>. Sólo te tomará unos minutos</p>
+              <p className="card-text">Completá tus datos aquí. Sólo te tomará unos minutos</p>
             </div>
           </div>
         </div>
