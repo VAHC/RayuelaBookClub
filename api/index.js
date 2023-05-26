@@ -27,5 +27,5 @@ conn.sync({ force: false}).then(() => {
     console.log('%s listening at 3001') // eslint-disable-line no-console
   })
 }).then(async () => {
-  // LoadAllBooks() // cargo los generos cuando levanto el server
+  //LoadAllBooks() // cargo los generos cuando levanto el server
 })
