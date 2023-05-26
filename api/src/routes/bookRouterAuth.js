@@ -1,6 +1,6 @@
 const { Router } = require('express')
 
-const {ValidateUser,EroorUser,LogOut} = require ('../handlers/auth/loginHandler')
+const {ValidateUser,ErrorUserExist,LogOut,ErrorLogin} = require ('../handlers/auth/loginHandler')
 const bookRouterAuth = Router()
 
 require('../controllers/auth/gmail.js')
@@ -18,6 +18,9 @@ function isLoggedIn (req, res, next) {
   passport.serializeUser(function (user, done) {
     console.log('serializeUser');
     let dato=''
+
+    console.log(user);
+      
     if (user.provider) {
       dato={
         name:user.name.givenName,
@@ -39,18 +42,28 @@ function isLoggedIn (req, res, next) {
   })
   
   bookRouterAuth.get('/validate', isLoggedIn, ValidateUser)
-  bookRouterAuth.get('/error',EroorUser)
+
+  bookRouterAuth.get('/ErrorUserExist',ErrorUserExist)
+
+  bookRouterAuth.get('/ErrorLogin',ErrorLogin)
 
   bookRouterAuth.post('/login',  passport.authenticate('local', {
      successRedirect: '/books/auth/validate',
-     failureRedirect: '/books/auth/error'
+     failureRedirect: '/books/auth/ErrorLogin'
    }))
+
+   bookRouterAuth.post('/registro',  passport.authenticate('local', {
+    successRedirect: '/books/auth/validate',
+    failureRedirect: '/books/auth/ErrorUserExist' 
+  }))
+
+
 
  bookRouterAuth.get('/authSocial',
     passport.authenticate('google', { scope: ['email', 'profile'] }
     ))
 
-    bookRouterAuth.get('/authSocial/google',
+  bookRouterAuth.get('/authSocial/google',
     passport.authenticate('google', {
       successRedirect: '/books/auth/validate',
      failureRedirect: '/books/auth/error'
