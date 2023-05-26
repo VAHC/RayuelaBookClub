@@ -5,20 +5,24 @@ const { User } = require('../../db');
 
 const CreateUser= async (req,username,password,done)=>{
 
-      const {name} = req.body
-
       try {
-        const [user, created] = await User.findOrCreate({ where: { email: username },
-                       defaults: { password: password,
-                                    profile: 'usuario',
-                                    name: name
-                      }});
-        if (created) {
-          // El usuario se creó correctamente
-          return done(null, user);
-        } else {
-            // Las credenciales son válidas, autenticación exitosa
-            return done(null, false);
+        const {name} = req.body
+        if(name && username && password){
+          const [user, created] = await User.findOrCreate({ where: { email: username },
+            defaults: { password: password,
+                         profile: 'usuario',
+                         name: name
+           }});
+              if (created) {
+              // El usuario se creó correctamente
+              return done(null, user);
+              } else {
+              // Las credenciales son válidas, autenticación exitosa
+              return done(null, false);
+              }
+        }else{
+          // no existe alguna variable lo saco
+          return done(null, false);
         }
       } catch (err) {
         console.log(err);
