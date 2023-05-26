@@ -13,6 +13,7 @@ import {
   RESET_FILTERS,
   GET_AUTORES,
   GET_GENEROS,
+  POST_BOOK,
  // GET_REVIEWS_BOOK,
 } from './action';
 
