@@ -26,9 +26,11 @@ export const Login = () => {
     }
 
     const handleSubmit = (event) => {
-        event.preventDefault()
+        //event.preventDefault()
         if (Object.keys(errors).length === 0) {
-            alert("Funciona")
+        }
+        else{
+            alert("Error")
         }
     }
 
@@ -38,7 +40,7 @@ export const Login = () => {
             <div className="d-flex justify-content-center m-2">
                 <div className="card w-25 mb-5">
                     <div className="card-body">
-                        <form action='http://localhost:3001/books/auth/login' method='post' onSubmit={handleSubmit}>
+                        <form action='http://localhost:3001/books/auth/login' method='post' onSubmit={handleSubmit} >
                             <div className="mb-3 text-center">
                                 <label className="form-label" htmlFor="POST-name">Correo electrónico</label>
                                 <input className="form-control"
