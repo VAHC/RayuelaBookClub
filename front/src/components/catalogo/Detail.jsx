@@ -2,7 +2,8 @@ import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { useSelector } from "react-redux";
 // import ContainerReviews from "../reviews/ContainerReviews";
-// import { useState } from 'react'
+// import { useState } from 'react';
+import {useNavigate} from 'react-router-dom';
 
 export const Detail = () => {
   const detailData = useSelector((state) => state.detail_data);
@@ -12,6 +13,7 @@ export const Detail = () => {
   // const toggleModal = () => { //funcion que setea showModal al booleano contrario en el que esta
   //   setShowModal(!showModal);
   // };
+  const navigate = useNavigate()
 
   if (!detailData) {
     return (
@@ -42,6 +44,7 @@ export const Detail = () => {
                                 height: "70px",
                             }}
                             // onClick={toggleModal}
+                            onClick={() => navigate('/reseñas')}
                         >
                             5/5 ★
                         </Button>
