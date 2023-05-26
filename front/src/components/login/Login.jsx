@@ -74,16 +74,13 @@ export const Login = () => {
                             </div>
                         </form>
 
-                        <div className="row text-center mb-3">
-                            <div className="col-3">
-                                <i className="bi bi-google fs-3"></i>
-                            </div>
-                            <div className="col-9">
-                                <a href="" className="btn btn-outline-dark">Ingresar con G-mail</a>
-                            </div>
+                        <div className="row d-flex justify-content-center">
+                            <div className='col-auto text-center'>
+                                <a href="" className="btn btn-outline-dark"><i className="bi bi-google fs-3 mx-2"></i>Ingresar con G-mail</a>
+                        </div>
                         </div>
 
-                        <div className="row text-center">
+                        <div className="row text-center mt-2">
                             <p className="card-text">
                                 ¿No tenés cuenta? <Link to="/registro">Registrate</Link>
                             </p>
