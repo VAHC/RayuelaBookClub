@@ -1,13 +1,22 @@
 
 
 const ValidateUser = async (req, res) => {
+ 
+  console.log(req.user);
     res.send(`Hello ${req.user.name} <a href="/books/auth/logout">logout</a>`)
   }
 
-  const EroorUser = async (req, res) => {
+  const ErrorUserExist = async (req, res) => {
     // failureRedirect 
-    res.send('error')
+    res.send('usuario ya creado')
  }
+
+ const ErrorLogin = async (req, res) => {
+  // failureRedirect 
+  res.send(' error en nombbre usuario o password')
+}
+
+ 
 const LogOut = async (req, res) => {
   
     if (req.user) {
@@ -23,6 +32,7 @@ const LogOut = async (req, res) => {
 
 module.exports = {
     ValidateUser,
-    EroorUser,
+    ErrorUserExist,
+    ErrorLogin,
     LogOut
 };
