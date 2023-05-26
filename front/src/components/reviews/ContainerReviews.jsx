@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux';
 import Review from './Review';
 import { AiFillStar, AiOutLineStar } from 'react-icons/ai';
 
-const ContainerReviews = () => {
+const ContainerReviews = ({toggleModal}) => {
     const reviewsBook = useSelector(state => state.reviewsBook)
 
     return (
@@ -56,7 +56,7 @@ const ContainerReviews = () => {
             
       </div>
       <div className="modal-footer">
-        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={toggleModal}>Cerrar</button>
         <button type="button" className="btn btn-primary">Deja tu Comentario</button>
       </div>
     </div>
