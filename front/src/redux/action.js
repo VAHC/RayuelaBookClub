@@ -17,7 +17,7 @@ export const FILTER_FLAG = "FILTER_FLAG";
 export const RESET_FILTERS = "FILTER_FLAG";
 export const GET_GENEROS = "GET_GENEROS";
 export const GET_AUTORES = "GET_AUTORES";
-//export const GET_REVIEWS_BOOK = 'GET_REVIEWS_BOOK';
+export const GET_REVIEWS_BOOK = 'GET_REVIEWS_BOOK';
 
 export const getAllBooks = () => {
   return async (dispatch) => {
@@ -109,15 +109,12 @@ export const getAutores = () => {
   return { type: GET_AUTORES}
 }
 
-
-
-
-//A DESCOMENTAR CUANDO ESTE LA RUTA CREADA EN EL BACK
-// export const getReviewsBook = (bookId) => {
-//   return async (dispatch) => {
-//     const response = await axios.get('http://localhost:3001');
-//     const allReviews = response.data;
-//     dispatch({ type: GET_REVIEWS_BOOK, payload: allReviews })
-//   }
-// }
+//trae todas las reviews de un libro
+export const getReviewsBook = (bookId) => {
+  return async (dispatch) => {
+    const response = await axios.get(`http://localhost:3001/books/${bookId}`);
+    const allReviews = response.data;
+    dispatch({ type: GET_REVIEWS_BOOK, payload: allReviews })
+  }
+}
 
