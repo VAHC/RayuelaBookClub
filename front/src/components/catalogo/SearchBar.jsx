@@ -38,7 +38,6 @@ export const SearchBar = () => {
             <button className="btn btn-light btn-outline-secondary" onClick={handlerDispatch}>Buscar</button>
           </form>
           <Paginado/>
-          <Link to="/formulario"><button className="btn btn-light btn-outline-secondary">Agregar libro</button></Link>
           <i className="bi bi-cart text-light fs-3 mx-5"></i>
         </div>
       </nav>
