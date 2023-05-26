@@ -12,43 +12,14 @@ INSERT INTO public.users(
 
 PASO 2:
 
-Con thunder, o postman o similar, pueden hacer un PUT a la ruta http://localhost:3001/reviews para crear las reviews.
+Ejecuta este script con sql shell o pgAdmin4:
 
-[
-    {
-        "title": "Alto libro",
-        "qualification": 5,
-        "comment": "excelente",
-        "id_book": 1,
-        "id_user": 1
-    },
-    {
-
-        "title": "Aburrido",
-        "qualification": 2,
-        "comment": "buuu",
-        "id_book": 1,
-        "id_user": 2
-    },
-    {
-        "title": "lalalala",
-        "qualification": 4,
-        "comment": "lalalala",
-        "id_book": 2,
-        "id_user": 1
-    },
-    {
-        "title": "maso maso",
-        "qualification": 3,
-        "comment": "pasable",
-        "id_book": 3,
-        "id_user": 1
-    },
-    {
-        "title": "espectacular",
-        "qualification": 4,
-        "comment": "no lo podía dejar de leer",
-        "id_book": 3,
-        "id_user": 2
-    }
-]
+INSERT INTO public.reviews(
+	id, title, qualification, comment, "createdDb", deleted, id_book, id_user)
+	VALUES (1, 'Alto libro', 5, 'excelente', true, false, 1, 1),
+	(2, 'Aburrido', 2, 'buuu', true, false, 1, 2),
+	(3, 'Pasable', 3, 'podría ser mas corto', true, false, 2, 1),
+	(4, 'Maso', 3, 'difícil de leer', true, false, 3, 1),
+	(5, 'Muy divertido', 5, 'Para levantar el ánimo', true, false, 3, 2),
+	(5, 'Espectacular', 5, 'no lo podía dejar de leer', true, false, 2, 2)
+	;
