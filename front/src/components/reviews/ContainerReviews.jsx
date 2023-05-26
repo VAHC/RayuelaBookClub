@@ -2,10 +2,12 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 //import Review from './Review';
 //import { AiFillStar } from 'react-icons/ai';
+import {useNavigate} from 'react-router-dom';
 
 // const ContainerReviews = ({toggleModal}) => {
   const ContainerReviews = () => {
-    const reviewsBook = useSelector(state => state.reviewsBook)
+    const reviewsBook = useSelector(state => state.reviewsBook);
+    const navigate = useNavigate();
 
     return (
       <div>
@@ -54,8 +56,9 @@ import {useSelector} from 'react-redux';
                 />
             })
             } */}
+            <button onClick={() => navigate('/crearReseña')}>Deja tu reseña</button>
         </div>
-            
+        
 //       </div>
 //       <div className="modal-footer">
 //         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={toggleModal}>Cerrar</button>
