@@ -1,0 +1,54 @@
+Paso 1:
+
+Ejecuta este script con sql shell o pgAdmin4:
+
+INSERT INTO public.users(
+	id, name, email, password, phone, profile, "createdDb", deleted)
+	VALUES 
+(1, ‘Andres’, ‘andres@mail.com', '43443334', '453536536', 'user', true, false),
+(2, ‘Alejandro, ‘ale@mail.com', '43433ve4', '453652236', 'user', true, false),
+(3, ‘Juan’, ‘juan@mail.com', '434sv334', '452336536', 'user', true, false),
+(4, 'Victor', 'victor@mail.com', '434334', '4536536', 'user', true, false);
+
+PASO 2:
+
+Con thunder, o postman o similar, pueden hacer un PUT a la ruta http://localhost:3001/reviews para crear las reviews.
+
+[
+    {
+        "title": "Alto libro",
+        "qualification": 5,
+        "comment": "excelente",
+        "id_book": 1,
+        "id_user": 1
+    },
+    {
+
+        "title": "Aburrido",
+        "qualification": 2,
+        "comment": "buuu",
+        "id_book": 1,
+        "id_user": 2
+    },
+    {
+        "title": "lalalala",
+        "qualification": 4,
+        "comment": "lalalala",
+        "id_book": 2,
+        "id_user": 1
+    },
+    {
+        "title": "maso maso",
+        "qualification": 3,
+        "comment": "pasable",
+        "id_book": 3,
+        "id_user": 1
+    },
+    {
+        "title": "espectacular",
+        "qualification": 4,
+        "comment": "no lo podía dejar de leer",
+        "id_book": 3,
+        "id_user": 2
+    }
+]
