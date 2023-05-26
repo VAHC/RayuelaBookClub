@@ -12,6 +12,7 @@ passport.use(new GoogleStrategy({
 },
 function (request, accessToken, refreshToken, profile, done) {
   // aca busco en la base de datos o lo creo
+  // entra por aca la info
   /*
   const [user, created] = await User.findOrCreate({
   where: { username: 'sdepold' },
@@ -20,7 +21,9 @@ function (request, accessToken, refreshToken, profile, done) {
   }
 });
   */
-  console.log('//////// pas use')
+  console.log('//////// pas gmail')
+  console.log(profile);
+  console.log('//////// pas fin gmail')
   // console.log(profile);
   return done(null, profile)
 }))
