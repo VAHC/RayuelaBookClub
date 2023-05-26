@@ -9,13 +9,14 @@ import {
   FILTER_BY_GENRE,
   FILTER_AUTHOR,
   POST_BOOK,
+  CREATE_USER,
   FILTER_FLAG,
   RESET_FILTERS,
   GET_AUTORES,
   GET_GENEROS,
-  POST_BOOK,
  // GET_REVIEWS_BOOK,
 } from './action';
+
 
 
 // Initial state
@@ -143,6 +144,9 @@ const reducer = (state = initialState, action) => {
 
     case POST_BOOK:
       return { ...state }
+      
+    case CREATE_USER:
+      return { ...state }
 
     case FILTER_FLAG:
       return {
@@ -199,6 +203,7 @@ const reducer = (state = initialState, action) => {
     //     ...state, 
     //     reviewsBook: action.payload
     //   }
+
 
     default:
       return state;
