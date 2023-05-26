@@ -66,7 +66,7 @@ function isLoggedIn (req, res, next) {
   bookRouterAuth.get('/authSocial/google',
     passport.authenticate('google', {
       successRedirect: '/books/auth/validate',
-     failureRedirect: '/books/auth/error'
+     failureRedirect: '/books/auth/ErrorUserExist'
     })
   )
 
