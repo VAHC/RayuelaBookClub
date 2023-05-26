@@ -1,4 +1,4 @@
-const { Book, Gender, Author, Review } = require('../../db')
+const { Book, Gender, Author, Review, User } = require('../../db')
 
 const getBookById = async (id) => {
   const foundBook = await Book.findByPk(id, {
@@ -18,7 +18,13 @@ const getBookById = async (id) => {
     },
     {
       model: Review,
-      attributes: ['id', 'title', 'qualification', 'comment', 'id_user']
+      attributes: ['id', 'title', 'qualification', 'comment', 'id_user'],
+      include: [
+        {
+          model: User,
+          attributes: ['name'],
+        }
+      ]
     }
 
     ]
@@ -39,10 +45,21 @@ const getBookById = async (id) => {
     authors: foundBook.authors.map(el => el.name),
     genders: foundBook.genders.map(el => el.name),
     reviews: foundBook.reviews
+
+    .map(r => {
+      return {
+        id: r.id,
+        title: r.title,
+        qualification: r.qualification,
+        comment: r.comment,
+        id_user: r.id_user,
+        user: r.user.name
+      }
+    })
   }
   return Books;
-};
 
+};
 
 module.exports = { getBookById };
 
