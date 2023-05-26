@@ -69,14 +69,14 @@ const reducer = (state = initialState, action) => {
       };
 
     case SORT_BY_PRICE:
-      let arrayOrdenPrecio= state.filterFlag ? state.books : state.booksPage
+      let arrayOrdenPrecio = state.filterFlag ? state.books : state.booksPage
       let sortPriceArray = action.payload === 'Asc' ? arrayOrdenPrecio.sort((a, b) => {
         return a.price - b.price
       }) :
         arrayOrdenPrecio.sort((a, b) => {
           return b.price - a.price
         });
-        const returnPriceProp= state.filterFlag ? "books" : "booksPage"
+      const returnPriceProp = state.filterFlag ? "books" : "booksPage"
       return {
         ...state,
         [returnPriceProp]: [...sortPriceArray]
@@ -84,14 +84,14 @@ const reducer = (state = initialState, action) => {
 
     //el case SORT_BY_RATING esta hecho en base al precio, ya que aun no hay reseñas
     case SORT_BY_RATING:
-      let arrayOrdenadoRating= state.filterFlag ? state.books : state.booksPage
+      let arrayOrdenadoRating = state.filterFlag ? state.books : state.booksPage
       let sortRatingArray = action.payload === 'Asc' ? arrayOrdenadoRating.sort((a, b) => {
         return a.price - b.price
       }) :
         arrayOrdenadoRating.sort((a, b) => {
           return b.price - a.price
         });
-        const returnRatingProp= state.filterFlag ? "books" : "booksPage"
+      const returnRatingProp = state.filterFlag ? "books" : "booksPage"
       return {
         ...state,
         [returnRatingProp]: [...sortRatingArray]
@@ -121,7 +121,8 @@ const reducer = (state = initialState, action) => {
         return {
           ...state,
           books: genreFiltered
-        }
+        };
+      }
 
     case FILTER_AUTHOR: {
       const authorsFiltered = action.payload === 'All' ?
