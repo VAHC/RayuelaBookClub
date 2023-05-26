@@ -37,6 +37,12 @@ server.get('/login', (req, res) => {
   /// eliminar cuando este funcionando el front
   // elimnar carpeta views de API
 })
+server.get('/registro', (req, res) => {
+  res.render('registro')
+  /// eliminar cuando este funcionando el front
+  // elimnar carpeta views de API
+})
+
 
 // Error catching endware.
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
