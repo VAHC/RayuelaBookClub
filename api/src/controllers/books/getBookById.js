@@ -18,7 +18,7 @@ const getBookById = async (id) => {
     },
     {
       model: Review,
-      attributes: ['id', 'title', 'qualification', 'comment']
+      attributes: ['id', 'title', 'qualification', 'comment', 'id_user']
     }
 
     ]
