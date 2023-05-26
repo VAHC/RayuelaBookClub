@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 // Action types
 
 export const GET_ALL_BOOKS = 'GET_ALL_BOOKS';
@@ -13,10 +12,12 @@ export const SET_DETAIL = "SET_DETAIL";
 export const FILTER_BY_GENRE = 'FILTER_BY_GENRE';
 export const FILTER_AUTHOR = 'FILTER_AUTHOR';
 export const POST_BOOK = "POST_BOOK";
-export const FILTER_FLAG = "FILTER_FLAG"
-export const RESET_FILTERS = "FILTER_FLAG"
-export const GET_GENEROS = "GET_GENEROS"
-export const GET_AUTORES = "GET_AUTORES"
+export const CREATE_USER = "CREATE_USER";
+export const FILTER_FLAG = "FILTER_FLAG";
+export const RESET_FILTERS = "FILTER_FLAG";
+export const GET_GENEROS = "GET_GENEROS";
+export const GET_AUTORES = "GET_AUTORES";
+//export const GET_REVIEWS_BOOK = 'GET_REVIEWS_BOOK';
 
 export const getAllBooks = () => {
   return async (dispatch) => {
@@ -84,6 +85,13 @@ export const postBook = (book) => {
   }
 }
 
+export const createUser = (user) => {
+  return async function (dispatch) {
+      let response = await axios.post('RUTA DEL BACK', user)
+      return response
+  }
+}
+
 export const filterFlagToggle = (boolean) => {
   return { type: FILTER_FLAG,
     payload: boolean}
@@ -102,4 +110,14 @@ export const getAutores = () => {
 }
 
 
+
+
+//A DESCOMENTAR CUANDO ESTE LA RUTA CREADA EN EL BACK
+// export const getReviewsBook = (bookId) => {
+//   return async (dispatch) => {
+//     const response = await axios.get('http://localhost:3001');
+//     const allReviews = response.data;
+//     dispatch({ type: GET_REVIEWS_BOOK, payload: allReviews })
+//   }
+// }
 

@@ -9,11 +9,14 @@ import {
   FILTER_BY_GENRE,
   FILTER_AUTHOR,
   POST_BOOK,
+  CREATE_USER,
   FILTER_FLAG,
   RESET_FILTERS,
   GET_AUTORES,
-  GET_GENEROS
+  GET_GENEROS,
+ // GET_REVIEWS_BOOK,
 } from './action';
+
 
 
 // Initial state
@@ -33,7 +36,9 @@ const initialState = {
   //Array de generos
   generos: [],
   //Array de Autores
-  autores: []
+  autores: [],
+  //array que trae todas la reseñas de un libro
+  reviewsBook: [],
 }
 
 // Reducer
@@ -121,7 +126,7 @@ const reducer = (state = initialState, action) => {
         return {
           ...state,
           books: genreFiltered
-        };
+        }
       }
 
     case FILTER_AUTHOR: {
@@ -138,6 +143,9 @@ const reducer = (state = initialState, action) => {
     }
 
     case POST_BOOK:
+      return { ...state }
+      
+    case CREATE_USER:
       return { ...state }
 
     case FILTER_FLAG:
@@ -188,6 +196,14 @@ const reducer = (state = initialState, action) => {
         autores: sortAuthors
 
       }
+
+    //a descomentar una vez que la action este descomentada
+    // case GET_REVIEWS_BOOK:
+    //   return {
+    //     ...state, 
+    //     reviewsBook: action.payload
+    //   }
+
 
     default:
       return state;
