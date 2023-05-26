@@ -12,7 +12,9 @@ import {
   FILTER_FLAG,
   RESET_FILTERS,
   GET_AUTORES,
-  GET_GENEROS
+  GET_GENEROS,
+  POST_BOOK,
+ // GET_REVIEWS_BOOK,
 } from './action';
 
 
@@ -33,7 +35,9 @@ const initialState = {
   //Array de generos
   generos: [],
   //Array de Autores
-  autores: []
+  autores: [],
+  //array que trae todas la reseñas de un libro
+  reviewsBook: [],
 }
 
 // Reducer
@@ -122,6 +126,7 @@ const reducer = (state = initialState, action) => {
           ...state,
           books: genreFiltered
         }
+      }
 
     case FILTER_AUTHOR: {
       const authorsFiltered = action.payload === 'All' ?
@@ -187,6 +192,13 @@ const reducer = (state = initialState, action) => {
         autores: sortAuthors
 
       }
+
+    //a descomentar una vez que la action este descomentada
+    // case GET_REVIEWS_BOOK:
+    //   return {
+    //     ...state, 
+    //     reviewsBook: action.payload
+    //   }
 
     default:
       return state;
