@@ -3,7 +3,6 @@ const { Book, Author, Gender } = require('../../db');
 const updateBook = async (id, title, publisher, description, price, stock, publishedDate, image, genders, authors) => {
 
     const bookToUpdate = await Book.findByPk(id);
-    console.log(bookToUpdate)
 
     if (!bookToUpdate) {
         throw Error(`No book has been found matching the id: ${id}`)
@@ -36,10 +35,8 @@ const updateBook = async (id, title, publisher, description, price, stock, publi
             await bookToUpdate.addAuthors(authorsDb, { transaction });
             await bookToUpdate.addGenders(gendersDb, { transaction });
         });
-        
         await bookToUpdate.save()
     }
 }
-
 
 module.exports = updateBook;
