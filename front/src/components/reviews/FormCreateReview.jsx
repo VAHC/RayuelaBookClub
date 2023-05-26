@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { AiFillStar, AiOutLineStar } from 'react-icons/ai';
+//import { AiFillStar, AiOutLineStar } from 'react-icons/ai';
 // import {} from '../redux/action';
 // import validation from './validation';
 
