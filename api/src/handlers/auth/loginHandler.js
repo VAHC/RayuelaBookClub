@@ -1,31 +1,15 @@
 
 
 const ValidateUser = async (req, res) => {
-    /// si esta ok
-    let user=''
-    if (req.user.provider) {
-      user=req.user.name.givenName
-     
-    } else {
-      user=req.user.name
-      console.log(req.user)
-    }
-
-    res.send(`Hello ${user} <a href="/books/auth/logout">logout</a>`)
+    res.send(`Hello ${req.user.name} <a href="/books/auth/logout">logout</a>`)
   }
 
-const LoginUser = async (req, res) => {
-     // recibir credendiales y iniciar sesion
-    console.log('userrr');
-    }
-
   const EroorUser = async (req, res) => {
-    // recibir credendiales y iniciar sesion
+    // failureRedirect 
     res.send('error')
  }
-
- const LogOut = async (req, res) => {
-  // recibir credendiales y iniciar sesion
+const LogOut = async (req, res) => {
+  
     if (req.user) {
           req.logout(function (err) {
             if (err) { res.send('eroro!') }
@@ -39,7 +23,6 @@ const LoginUser = async (req, res) => {
 
 module.exports = {
     ValidateUser,
-    LoginUser,
     EroorUser,
     LogOut
 };
