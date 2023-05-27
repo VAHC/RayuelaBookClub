@@ -12,7 +12,16 @@ module.exports = (sequelize) => {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'El nombre del género no puede estar vacío.'
+        },
+        len: {
+          args: [5, 20],
+          msg: 'El nombre del género debe tener entre 5 y 20 caracteres.'
+        }
+      }
     }
   },
   {

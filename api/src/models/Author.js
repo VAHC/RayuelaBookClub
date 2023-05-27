@@ -12,7 +12,16 @@ module.exports = (sequelize) => {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'El nombre del autor no puede estar vacío.'
+        },
+        len: {
+          args: [5, 100],
+          msg: 'El nombre del autor debe tener entre 5 y 50 caracteres.'
+        }
+      }
     }
   },
   {
