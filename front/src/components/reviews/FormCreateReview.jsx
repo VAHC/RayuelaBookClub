@@ -99,15 +99,15 @@ const FormCreateReview = () => {
                         {success && <img className="w-50 p-3 h-50 d-inline-block" src='./images/libroCreado.jpg' alt='formulario enviado correctamente' />}
                         {!success && <div>
                             <div className="row g-3 align-items-center">
+                            <div className="d-flex flex-column align-items-center">
+                                <h5 className="text-center">{handlerText()}</h5>
                             <div>
-                                <h6>{handlerText()}</h6>
                                 {Array(5).fill().map((_, index) => {
-                                    return number >= index + 1 || hoverStar >= index + 1 
-                                    ?
-                                   <i class="bi bi-star-fill" onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => {setHoverStar(undefined)}}/> 
-                                :
-                                  <i class="bi bi-star" onClick={()=> {setNumber(index + 1), inputHandler()}} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => {setHoverStar(undefined)}}/>
+                                return number >= index + 1 || hoverStar >= index + 1 
+                                ? <i className="bi bi-star-fill" onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => {setHoverStar(undefined)}}/> 
+                                : <i className="bi bi-star" onClick={() => {setNumber(index + 1); inputHandler();}} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => {setHoverStar(undefined)}}/>
                                 })}
+                            </div>
                             </div>
                                 <div className="col-auto">
                                     <label className="col-form-label ms-3" htmlFor='title'>Título:</label>
