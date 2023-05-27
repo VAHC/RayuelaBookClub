@@ -2,11 +2,12 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
 import Review from './Review';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getReviewsBook } from '../../redux/action';
 
 const ContainerReviews = ({ bookId, toggleModal }) => {
+  //console.log('review' + bookId);
   const reviewsBook = useSelector((state) => state.reviewsBook);
   const navigate = useNavigate();
   const dispatch = useDispatch();
