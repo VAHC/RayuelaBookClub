@@ -21,5 +21,5 @@ INSERT INTO public.reviews(
 	(3, 'Pasable', 3, 'podría ser mas corto', true, false, 2, 1),
 	(4, 'Maso', 3, 'difícil de leer', true, false, 3, 1),
 	(5, 'Muy divertido', 5, 'Para levantar el ánimo', true, false, 3, 2),
-	(5, 'Espectacular', 5, 'no lo podía dejar de leer', true, false, 2, 2)
+	(6, 'Espectacular', 5, 'no lo podía dejar de leer', true, false, 2, 2)
 	;
