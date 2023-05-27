@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from "../../redux/action";
@@ -7,6 +7,7 @@ import { login } from "../../redux/action";
 export const Login = () => {
 
     const location = useLocation();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [userData, setUserData] = useState({
@@ -30,33 +31,60 @@ export const Login = () => {
         }))
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault()
-        // Envío solicitud de inicio de sesión al backend
-        fetch('http://localhost:3001/books/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(userData)
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                //Manejo de la respuesta del backend
-                if (data.message === "Inicio de sesión exitoso") {
-                    alert("Entraste")
-                    console.log(location)
-                    dispatch(login(data))
-                } else {
-                    // Login fallido
-                    alert(data.message)
-                    setUserData({
-                        ...userData,
-                        password: ""
-                    })
-                }
+        try {
+            // Envío solicitud de inicio de sesión al backend
+            const response = await fetch('http://localhost:3001/books/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(userData)
             })
-            .catch((error) => {
-                console.log(error)
-            })
+            const data = await response.json();
+            console.log(data)
+    
+            // Manejo de la respuesta del backend
+            if (!data.message) {
+                alert("Entraste")
+                dispatch(login(data))
+                navigate("/")
+            } else {
+                // Login fallido
+                alert(data.message);
+                setUserData({
+                    ...userData,
+                    password: ""
+                })
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
+
+        // fetch('http://localhost:3001/books/auth/login', {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify(userData)
+        // })
+        //     .then((response) => response.json())
+        //     .then((data) => {
+        //         //Manejo de la respuesta del backend
+        //         if (data.message === "Inicio de sesión exitoso") {
+        //             alert("Entraste")
+        //             console.log(location)
+        //             dispatch(login({user: "Pepe"}))
+        //         } else {
+        //             // Login fallido
+        //             alert(data.message)
+        //             setUserData({
+        //                 ...userData,
+        //                 password: ""
+        //             })
+        //         }
+        //     })
+        //     .catch((error) => {
+        //         console.log(error)
+        //     })
     }
 
     const handleClick = () => {
