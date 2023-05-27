@@ -48,8 +48,5 @@ export const Posters = () => {
         return renderElements
     };
 
-    const prueba = renderConditional();
-    //console.log(prueba);
-
-    return prueba;
+    return renderConditional();
 };
