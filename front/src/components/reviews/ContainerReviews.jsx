@@ -27,7 +27,7 @@ import {getReviewsBook} from '../../redux/action';
     }, []);
 
     return (
-      <div>
+      <div className="d-flex flex-column align-items-center">
         {!reviewsBook.length ? 
           <div>
             <h6>Aún no hay reseñas...</h6>
@@ -43,7 +43,7 @@ import {getReviewsBook} from '../../redux/action';
               key={r.id}
             />
           ))}
-        <button onClick={() => navigate('/crearReseña')}>Deja tu reseña</button>
+        <button className='btn btn-dark m-2' onClick={() => navigate('/crearReseña')}>Deja tu reseña</button>
       </div>
     )  
 };

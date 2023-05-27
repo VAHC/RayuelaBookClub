@@ -2,13 +2,27 @@ import React from 'react';
 
 
 const Review = (props) => {
+
+    const renderStars = (rating) => {
+        const stars = [];
+        for (let i = 1; i <= 5; i++) {
+          const starIcon = i <= rating ? <i className="bi bi-star-fill" /> : <i className="bi bi-star"/>;
+          stars.push(starIcon);
+        }
+        return stars;
+      };
+
     return (
-        <div>
-            <h3>{props.title}</h3>
-            <h3>{props.qualification}</h3>
-            <p>{props.comment}</p>
-            <h3>{props.user}</h3>
+        <div className="container-lg border border-2 rounded p-3 mb-3">
+        <div className="d-flex justify-content-between">
+          <h5>{props.title}</h5>
+          <div>{renderStars(props.qualification)}</div>
         </div>
+        <div className="comment-container border rounded mt-3 p-2 mx-auto" style={{ overflowY: 'scroll', maxHeight: '150px', width: '90%' }}>
+        <p>{props.comment}</p>
+      </div>
+        <h6 className="text-end">{props.user}</h6>
+      </div>
     )
 };
 
