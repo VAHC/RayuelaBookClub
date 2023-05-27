@@ -1,9 +1,45 @@
-const { User} = require('../../db');
+const { Review, User, Book } = require('../../db');
 
 const getAllUsers = async () => {
 
-    const Users = await User.findAll()
-    return Users;
+    const users = await User.findAll(
+        {
+            include: {
+                model: Review,
+                attributes: ['id', 'title', 'qualification', 'comment', 'deleted', 'id_book'],
+                include: {
+                    model: Book,
+                    attributes: ['title'],
+                }
+            }
+        })
+
+    const usersMapped = users.map(user => {
+        return {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            password: user.password,
+            phone: user.phone,
+            profile: user.profile,
+            createdDb: user.createdDb,
+            deleted: user.deleted,
+            reviews: user.reviews.map(r => {
+                return {
+                    id: r.id,
+                    title: r.title,
+                    qualification: r.qualification,
+                    comment: r.comment,
+                    deleted: r.deleted,
+                    id_book: r.id_book,
+                    book: r.book.title
+                }
+            })
+        }
+    })
+
+
+    return usersMapped;
 }
 
 module.exports = getAllUsers

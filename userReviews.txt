@@ -3,24 +3,24 @@ Paso 1:
 Ejecuta este script con sql shell o pgAdmin4:
 
 INSERT INTO public.users(
-	id, name, email, password, phone, profile, "createdDb", deleted)
+	name, email, password, phone, profile, "createdDb", deleted)
 	VALUES 
 
-	(1, 'Andres', 'andres@mail.com', 'conlse', 453536536, 'user', true, false),
-    (2, 'Alejandro', 'ale@mail.com', 'fefegf', 453652236, 'user', true, false),
-    (3, 'Juan', 'juan@mail.com', 'gefefe', 452336536, 'user', true, false),
-    (4, 'Victor', 'victor@mail.com', 'fefefe', 4536536, 'user', true, false);
+	('Andres', 'andres@mail.com', 'conlse', 453536536, 'user', true, false),
+    ('Alejandro', 'ale@mail.com', 'fefegf', 453652236, 'user', true, false),
+    ('Juan', 'juan@mail.com', 'gefefe', 452336536, 'user', true, false),
+    ('Victor', 'victor@mail.com', 'fefefe', 4536536, 'user', true, false);
 
 PASO 2:
 
 Ejecuta este script con sql shell o pgAdmin4:
 
 INSERT INTO public.reviews(
-	id, title, qualification, comment, "createdDb", deleted, id_book, id_user)
-	VALUES (1, 'Alto libro', 5, 'excelente', true, false, 1, 1),
-	(2, 'Aburrido', 2, 'buuu', true, false, 1, 2),
-	(3, 'Pasable', 3, 'podría ser mas corto', true, false, 2, 1),
-	(4, 'Maso', 3, 'difícil de leer', true, false, 3, 1),
-	(5, 'Muy divertido', 5, 'Para levantar el ánimo', true, false, 3, 2),
-	(5, 'Espectacular', 5, 'no lo podía dejar de leer', true, false, 2, 2)
-	;
+	title, qualification, comment, "createdDb", deleted, id_book, id_user)
+	VALUES ('Alto libro', 5, 'excelente', true, false, 1, 1),
+	('Aburrido', 2, 'buuu', true, false, 1, 2),
+	('Pasable', 3, 'podría ser mas corto', true, false, 2, 1),
+	('Maso', 3, 'difícil de leer', true, false, 3, 1),
+	('Muy divertido', 5, 'Para levantar el ánimo', true, false, 3, 2),
+	('Espectacular', 5, 'no lo podía dejar de leer', true, false, 2, 2)
+;
