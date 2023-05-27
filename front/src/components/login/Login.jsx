@@ -26,11 +26,11 @@ export const Login = () => {
     }
 
     const handleSubmit = (event) => {
-        event.preventDefault()
-        console.log(userData)
-        console.log(errors)
+        //event.preventDefault()
         if (Object.keys(errors).length === 0) {
-            alert("Funciona")
+        }
+        else{
+            alert("Error")
         }
     }
 
@@ -40,11 +40,11 @@ export const Login = () => {
             <div className="d-flex justify-content-center m-2">
                 <div className="card w-25 mb-5">
                     <div className="card-body">
-                        <form action='' method='post' onSubmit={handleSubmit}>
+                        <form action='http://localhost:3001/books/auth/login' method='post' onSubmit={handleSubmit} >
                             <div className="mb-3 text-center">
-                                <label className="form-label" htmlFor="POST-email">Correo electrónico</label>
+                                <label className="form-label" htmlFor="POST-name">Correo electrónico</label>
                                 <input className="form-control"
-                                    id="POST-email"
+                                    id="POST-name"
                                     type="email"
                                     name="email"
                                     placeholder="ejemplo@email.com"
@@ -59,7 +59,7 @@ export const Login = () => {
                                     Contraseña
                                 </label>
                                 <input className="form-control"
-                                    id="POST-password"
+                                    id="POST-pas"
                                     type="password"
                                     name="password"
                                     placeholder=""
@@ -70,14 +70,14 @@ export const Login = () => {
                             </div>
 
                             <div className="text-center mb-3">
-                                <button type="submit" value="Save" className="btn btn-dark w-50">Ingresar</button>
+                                <button className={Object.keys(errors).length === 0 ? "btn btn-dark w-50" : "btn btn-dark w-50 disabled"} type="submit" value="Save">Ingresar</button>
                             </div>
                         </form>
 
                         <div className="row d-flex justify-content-center">
                             <div className='col-auto text-center'>
-                                <a href="" className="btn btn-outline-dark"><i className="bi bi-google fs-3 mx-2"></i>Ingresar con G-mail</a>
-                        </div>
+                                <a href="http://localhost:3001/books/auth/authSocial" className="btn btn-outline-dark"><i className="bi bi-google fs-3 mx-2"></i>Ingresar con G-mail</a>
+                            </div>
                         </div>
 
                         <div className="row text-center mt-2">
