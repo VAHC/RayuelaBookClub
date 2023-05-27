@@ -10,18 +10,46 @@ module.exports = (sequelize) => {
       allowNull: false,
       primaryKey: true
     },
-    name: {
+    firstName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'El nombre es requerido.'
+        }
+      }
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'El apellido es requerido.'
+        }
+      }
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      isEmail: true
+      unique: true,
+      validate: {
+        isEmail: {
+          msg: 'El correo electrónico debe tener un formato válido.'
+        }
+      }
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'La contraseña es requerida.',
+        },
+        len: {
+          args: [8, 10],
+          msg: 'La contraseña debe tener entre 8 y 10 caracteres.',
+        }
+      }
     },
     phone: {
       type: DataTypes.INTEGER,

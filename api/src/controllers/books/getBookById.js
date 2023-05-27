@@ -22,7 +22,7 @@ const getBookById = async (id) => {
       include: [
         {
           model: User,
-          attributes: ['name'],
+          attributes: ['firstName', 'lastName'],
         }
       ]
     }
@@ -53,7 +53,8 @@ const getBookById = async (id) => {
         qualification: r.qualification,
         comment: r.comment,
         id_user: r.id_user,
-        user: r.user.name
+        userFirstName: r.user.firstName,
+        userLastName: r.user.lastName
       }
     })
   }

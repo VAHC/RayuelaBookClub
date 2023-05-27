@@ -3,14 +3,14 @@ const updateUser = require('../../controllers/users/updateUser')
 const updateUserHandler = async (req, res) => {
 
     const { id } = req.params
-    const { name, email, password, phone, profile } = req.body;
+    const { firstName, lastName, email, password, phone, profile } = req.body;
 
     try {
-        if (!name|| !email || !password || !phone || !profile) {
+        if (!firstName|| !lastName || !email || !password || !phone || !profile) {
             res.status(400).send('Please check that you have completed all the required fields')
 
         } else {
-            const updatedUser = await updateUser(id, name, email, password, phone, profile)
+            const updatedUser = await updateUser(id, firstName, lastName, email, password, phone, profile)
             res.status(200).send('Congratulations! The user has been updated!')
         }
     } catch (error) {
