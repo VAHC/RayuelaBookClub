@@ -100,12 +100,12 @@ const FormCreateReview = () => {
                         {!success && <div>
                             <div className="row g-3 align-items-center">
                             <div className="d-flex flex-column align-items-center">
-                                <h5 className="text-center">{handlerText()}</h5>
+                                <p className="text-center">{handlerText()}</p>
                             <div>
                                 {Array(5).fill().map((_, index) => {
                                 return number >= index + 1 || hoverStar >= index + 1 
-                                ? <i className="bi bi-star-fill" onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => {setHoverStar(undefined)}}/> 
-                                : <i className="bi bi-star" onClick={() => {setNumber(index + 1); inputHandler();}} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => {setHoverStar(undefined)}}/>
+                                ? <i className="bi bi-star-fill" onClick={() => setNumber(index + 1)} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => {setHoverStar(undefined)}}/> 
+                                : <i className="bi bi-star" onClick={() => {inputHandler}} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => {setHoverStar(undefined)}}/>
                                 })}
                             </div>
                             </div>
