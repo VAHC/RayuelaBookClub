@@ -41,34 +41,54 @@ function isLoggedIn (req, res, next) {
     done(null, user)
   })
   
-  bookRouterAuth.get('/validate', isLoggedIn, ValidateUser)
+  // bookRouterAuth.get('/validate', isLoggedIn, ValidateUser)
 
-  bookRouterAuth.get('/ErrorUserExist',ErrorUserExist)
+  // bookRouterAuth.get('/ErrorUserExist',ErrorUserExist)
 
-  bookRouterAuth.get('/ErrorLogin',ErrorLogin)
+  // bookRouterAuth.get('/ErrorLogin',ErrorLogin)
 
-  bookRouterAuth.post('/login',  passport.authenticate('local', {
-     successRedirect: '/books/auth/validate',
-     failureRedirect: '/books/auth/ErrorLogin'
-   }))
+  // bookRouterAuth.post('/login',  passport.authenticate('local', {
+  //    successRedirect: '/books/auth/validate',
+  //    failureRedirect: '/books/auth/ErrorLogin'
+  //  }))
 
-   bookRouterAuth.post('/registro',  passport.authenticate('local', {
-    successRedirect: '/books/auth/validate',
-    failureRedirect: '/books/auth/ErrorUserExist' 
-  }))
-
-
-
- bookRouterAuth.get('/authSocial',
-    passport.authenticate('google', { scope: ['email', 'profile'] }
-    ))
-
-  bookRouterAuth.get('/authSocial/google',
-    passport.authenticate('google', {
-      successRedirect: '/books/auth/validate',
-     failureRedirect: '/books/auth/ErrorUserExist'
+// Authentication routes
+bookRouterAuth.post('/login', (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      return res.status(500).json({ message: 'Error en el servidor ERR' })
+    }
+    if (!user) {
+      return res.status(401).json({ message: 'Credenciales inválidas 401' })
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        return res.status(500).json({ message: 'Error en el servidor ERR LOGin' })
+      }
+      return res.json({ message: 'Inicio de sesión exitoso' })
     })
-  )
+  })(req, res, next)
+})
+
+
+  //  bookRouterAuth.post('/registro',  passport.authenticate('local', {
+  //  // successRedirect: '/books/auth/validate',
+  //  // failureRedirect: '/books/auth/ErrorUserExist' 
+   
+  // }))
+
+
+
+//  bookRouterAuth.get('/authSocial',
+//     passport.authenticate('google', { scope: ['email', 'profile'] }
+//     ))
+
+//   bookRouterAuth.get('/authSocial/google',
+//     passport.authenticate('google', {
+//       successRedirect: '/books/auth/validate',
+//      failureRedirect: '/books/auth/ErrorUserExist'
+//     })
+//   )
 
   bookRouterAuth.get('/logout', LogOut)
 
