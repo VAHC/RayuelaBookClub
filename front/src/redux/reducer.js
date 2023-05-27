@@ -16,6 +16,7 @@ import {
   GET_GENEROS,
   GET_REVIEWS_BOOK,
   POST_REVIEW,
+  LOGIN_SUCCESS
 } from './action';
 
 
@@ -26,7 +27,7 @@ const initialState = {
   detail_data: undefined,
   //slice del Allbooks con la pagina pedida
   booksPage: [],
-  //Representa el numero de pagina que se renderiza en Posters.
+  //Representa el número de página que se renderiza en Posters
   paginaActual: 1,
   //books sirve para renderizar los filtrados
   books: [],
@@ -34,12 +35,14 @@ const initialState = {
   allBooks: [],
   //Flag para saber si se esta filtrando
   filterFlag: false,
-  //Array de generos
+  //Array de géneros
   generos: [],
-  //Array de Autores
+  //Array de autores
   autores: [],
   //array que trae todas la reseñas de un libro
   reviewsBook: [],
+  //Objeto con los datos del usuario logueado
+  user: null
 }
 
 // Reducer
@@ -75,14 +78,14 @@ const reducer = (state = initialState, action) => {
       };
 
     case SORT_BY_PRICE:
-      let arrayOrdenPrecio= state.filterFlag ? state.books : state.booksPage
+      let arrayOrdenPrecio = state.filterFlag ? state.books : state.booksPage
       let sortPriceArray = action.payload === 'Asc' ? arrayOrdenPrecio.sort((a, b) => {
         return a.price - b.price
       }) :
         arrayOrdenPrecio.sort((a, b) => {
           return b.price - a.price
         });
-        const returnPriceProp= state.filterFlag ? "books" : "booksPage"
+      const returnPriceProp = state.filterFlag ? "books" : "booksPage"
       return {
         ...state,
         [returnPriceProp]: [...sortPriceArray]
@@ -90,14 +93,14 @@ const reducer = (state = initialState, action) => {
 
     //el case SORT_BY_RATING esta hecho en base al precio, ya que aun no hay reseñas
     case SORT_BY_RATING:
-      let arrayOrdenadoRating= state.filterFlag ? state.books : state.booksPage
+      let arrayOrdenadoRating = state.filterFlag ? state.books : state.booksPage
       let sortRatingArray = action.payload === 'Asc' ? arrayOrdenadoRating.sort((a, b) => {
         return a.price - b.price
       }) :
         arrayOrdenadoRating.sort((a, b) => {
           return b.price - a.price
         });
-        const returnRatingProp= state.filterFlag ? "books" : "booksPage"
+      const returnRatingProp = state.filterFlag ? "books" : "booksPage"
       return {
         ...state,
         [returnRatingProp]: [...sortRatingArray]
@@ -145,7 +148,7 @@ const reducer = (state = initialState, action) => {
 
     case POST_BOOK:
       return { ...state }
-      
+
     case CREATE_USER:
       return { ...state }
 
@@ -159,7 +162,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         books: state.allBooks
-
       }
 
     //no se guarda en los arrays autores y generos.
@@ -201,14 +203,20 @@ const reducer = (state = initialState, action) => {
     //trae todas las reviewsde un libro
     case GET_REVIEWS_BOOK:
       return {
-        ...state, 
+        ...state,
         reviewsBook: action.payload.reviews
       }
 
-      case POST_REVIEW:
-        return {
-            ...state
-        };
+    case POST_REVIEW:
+      return {
+        ...state
+      };
+
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        user: action.payload,
+      }
 
     default:
       return state;
