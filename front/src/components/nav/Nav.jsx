@@ -29,7 +29,7 @@ export const Nav = () => {
                 <Link to="/nosotros" className="nav-link fs-4">Nosotros</Link>
                 <Link to="/suscripcion" className="nav-link fs-4">Suscribirme</Link>
                 <Link to="/catalogo" className="nav-link fs-4">Tienda</Link>
-                { user ? <div><Link to="/admindashboard" className="nav-link fs-4">Mi perfil</Link>
+                { user ? <div className="row d-flex align-items-center text-center"><Link to="/admindashboard" className="nav-link fs-4">Mi perfil</Link>
                 <button onClick={handleClick} className="btn btn-outline-dark">Salir</button></div>
                 : <Link to="/ingresar" className="nav-link fs-4">Ingresar</Link>}
           </div>

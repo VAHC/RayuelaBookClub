@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -31,6 +32,7 @@ export const Login = () => {
         }))
     }
 
+    //LOGIN COMÚN
     const handleSubmit = async (event) => {
         event.preventDefault()
         try {
@@ -41,6 +43,57 @@ export const Login = () => {
                 body: JSON.stringify(userData)
             })
             const data = await response.json();
+            console.log(data)
+    
+            // Manejo de la respuesta del backend
+            if (!data.message) {
+                dispatch(login(data))
+                navigate("/")
+            } else {
+                // Login fallido
+                alert(data.message);
+                setUserData({
+                    ...userData,
+                    password: ""
+                })
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    //LOGIN CON GOOGLE
+    // const handleClick = async () => {
+    //     try {
+    //         const response = await fetch('http://localhost:3001/books/auth/authSocial', {
+    //             method: 'GET',
+    //             mode: 'no-cors'
+    //           })
+    //         const data = await response.json()
+    //         console.log(data)
+    
+    //         // Manejo de la respuesta del backend
+    //         if (!data.message) {
+    //             alert("Entraste")
+    //             dispatch(login(data))
+    //             navigate("/")
+    //         } else {
+    //             // Login fallido
+    //             alert(data.message);
+    //             setUserData({
+    //                 ...userData,
+    //                 password: ""
+    //             })
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
+
+    const handleClick = async () => {
+        try {
+            const response = await axios('http://localhost:3001/books/auth/authSocial')
+            const data = await response.json()
             console.log(data)
     
             // Manejo de la respuesta del backend
@@ -59,36 +112,6 @@ export const Login = () => {
         } catch (error) {
             console.log(error);
         }
-
-
-        // fetch('http://localhost:3001/books/auth/login', {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify(userData)
-        // })
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         //Manejo de la respuesta del backend
-        //         if (data.message === "Inicio de sesión exitoso") {
-        //             alert("Entraste")
-        //             console.log(location)
-        //             dispatch(login({user: "Pepe"}))
-        //         } else {
-        //             // Login fallido
-        //             alert(data.message)
-        //             setUserData({
-        //                 ...userData,
-        //                 password: ""
-        //             })
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.log(error)
-        //     })
-    }
-
-    const handleClick = () => {
-
     }
 
     return (

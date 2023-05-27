@@ -17,7 +17,7 @@ import {
   GET_REVIEWS_BOOK,
   POST_REVIEW,
   LOGIN_SUCCESS,
-  LOGOUT
+  LOGOUT,
 } from './action';
 
 
