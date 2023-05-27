@@ -15,6 +15,7 @@ import {
   GET_AUTORES,
   GET_GENEROS,
   GET_REVIEWS_BOOK,
+  POST_REVIEW,
 } from './action';
 
 
@@ -203,6 +204,11 @@ const reducer = (state = initialState, action) => {
         ...state, 
         reviewsBook: action.payload.reviews
       }
+
+      case POST_REVIEW:
+        return {
+            ...state
+        };
 
     default:
       return state;

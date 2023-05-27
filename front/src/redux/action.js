@@ -18,6 +18,7 @@ export const RESET_FILTERS = "FILTER_FLAG";
 export const GET_GENEROS = "GET_GENEROS";
 export const GET_AUTORES = "GET_AUTORES";
 export const GET_REVIEWS_BOOK = 'GET_REVIEWS_BOOK';
+export const POST_REVIEW = 'POST_REVIEW';
 
 export const getAllBooks = () => {
   return async (dispatch) => {
@@ -116,6 +117,13 @@ export const getReviewsBook = (bookId) => {
     const response = await axios.get('http://localhost:3001/books/1');
     const allReviews = response.data;
     dispatch({ type: GET_REVIEWS_BOOK, payload: allReviews })
+  }
+}
+
+export const postReview = (review) => {
+  return async function (dispatch) {
+      let response = await axios.post('http://localhost:3001/reviews', review)
+      return response
   }
 }
 
