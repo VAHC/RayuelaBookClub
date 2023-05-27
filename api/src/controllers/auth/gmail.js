@@ -24,16 +24,16 @@ const findOrCreate= async (name,username,password,done)=>{
        console.log(created);
        if (created) {
         // El usuario se creó correctamente
-       // return done(null, user);
+        return done(null, user);
         } else {
         // Las credenciales son válidas, autenticación exitosa
           if(user.dataValues.createdDb)
           {
             // se creo usando el metodo local
-          //  return done(null, false);
+           return done(null, false);
           }else
           {
-          //  return done(null, user);
+            return done(null, user);
           }
         }
     }else{
@@ -55,12 +55,7 @@ passport.use(
       async (accessToken, refreshToken, profile, done) => {
         // Aquí puedes realizar acciones adicionales, como buscar o crear un usuario en tu base de datos
         // Luego, llama a `done` para pasar el perfil del usuario a Passport
-        console.log('+++++++++++++');
-        console.log(profile);
-        console.log('+++++++++++++');
-       // findOrCreate(profile.name.givenName,profile.email,'hsdhsye4y4aeae4se50s7s',done)
-     
-        return done(null, {'name':"pepe"});
+        findOrCreate(profile.name.givenName,profile.emails[0].value,'hsdhsye4y4aeae4se50s7s',done)
       }
     )
   );
