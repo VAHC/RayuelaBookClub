@@ -6,12 +6,15 @@ const { User } = require('../../db');
 const CreateUser= async (req,username,password,done)=>{
 
       try {
-        const {name} = req.body
-        if(name && username && password){
+        const {name,lastName,phone} = req.body
+        if(name && lastName && username && password && phone ){
           const [user, created] = await User.findOrCreate({ where: { email: username },
             defaults: { password: password,
                          profile: 'usuario',
-                         name: name
+                         firstName: name,
+                         lastName: lastName,
+                         phone: phone,
+
            }});
               if (created) {
               // El usuario se creó correctamente
