@@ -1,7 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from "../../redux/action";
 
 export const Nav = () => {
+
+  const user = useSelector((state) => state.user)
+  const dispatch = useDispatch()
+
+  const handleClick = () => {
+    dispatch(logout())
+  }
+
   return (
     <>
       <nav className="navbar navbar-expand-lg">
@@ -10,7 +20,6 @@ export const Nav = () => {
           <Link to='/'>
             <img src="./images/logo.png" alt="Logo" width="80" height="80" className="d-inline-block"/>
           </Link>
-            {/* <img src="./images/logo.png" alt="Logo" width="80" height="80" className="d-inline-block"/> */}
           </p>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
@@ -20,7 +29,9 @@ export const Nav = () => {
                 <Link to="/nosotros" className="nav-link fs-4">Nosotros</Link>
                 <Link to="/suscripcion" className="nav-link fs-4">Suscribirme</Link>
                 <Link to="/catalogo" className="nav-link fs-4">Tienda</Link>
-                <Link to="/ingresar" className="nav-link fs-4">Ingresar</Link>
+                { user ? <div className="row d-flex align-items-center text-center"><Link to="/admindashboard" className="nav-link fs-4">Mi perfil</Link>
+                <button onClick={handleClick} className="btn btn-outline-dark">Salir</button></div>
+                : <Link to="/ingresar" className="nav-link fs-4">Ingresar</Link>}
           </div>
         </div>
       </nav>
