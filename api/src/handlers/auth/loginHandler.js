@@ -1,9 +1,9 @@
 
 
 const ValidateUser = async (req, res) => {
- 
+  // la info la creo en serializeUser
   console.log(req.user);
-    res.send(`Hello ${req.user.name} <a href="/books/auth/logout">logout</a>`)
+  res.status(200).json({ message: `Hello ${req.user.name}` })
   }
 
 const LogOut = async (req, res) => {
