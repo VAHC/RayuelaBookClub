@@ -4,7 +4,7 @@ const PassPortLocal = require('passport-local').Strategy
 
 passport.use(new PassPortLocal({ passReqToCallback: true,  usernameField: 'email' }, async function (req, email, password, done) {
 //passport.use(new PassPortLocal(function (username, password, done) {
-  if (email === 'codigo' && password === '12345678') {
+  if (email === 'codigo@codigo.com' && password === '12345678') {
     return done(null, { id: 1, name: 'urial' })
   } else {
     return done(null, false)
