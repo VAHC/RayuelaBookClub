@@ -19,6 +19,8 @@ export const GET_GENEROS = "GET_GENEROS";
 export const GET_AUTORES = "GET_AUTORES";
 export const GET_REVIEWS_BOOK = 'GET_REVIEWS_BOOK';
 export const POST_REVIEW = 'POST_REVIEW';
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGOUT = "LOGOUT";
 
 export const getAllBooks = () => {
   return async (dispatch) => {
@@ -127,5 +129,10 @@ export const postReview = (review) => {
   }
 }
 
+export const login = (user) => {
+  return { type: LOGIN_SUCCESS, payload: user }
+}
 
-
+export const logout = () => {
+  return { type: LOGOUT }
+}
