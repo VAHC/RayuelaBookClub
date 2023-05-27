@@ -79,9 +79,14 @@ bookRouterAuth.post('/login', (req, res, next) => {
 
 
 
-//  bookRouterAuth.get('/authSocial',
-//     passport.authenticate('google', { scope: ['email', 'profile'] }
-//     ))
+ bookRouterAuth.get('/authSocial',
+    passport.authenticate('google', { scope: ['email', 'profile'] }
+    ))
+// Ruta para recibir el callback de Google después de la autenticación
+bookRouterAuth.get('/authSocial/google', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
+  // El usuario se ha autenticado correctamente, puedes redirigir o responder con una respuesta JSON de éxito
+  res.json({ success: true });
+});
 
 //   bookRouterAuth.get('/authSocial/google',
 //     passport.authenticate('google', {
