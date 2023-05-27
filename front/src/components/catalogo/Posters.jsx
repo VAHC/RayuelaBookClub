@@ -32,6 +32,7 @@ export const Posters = () => {
         booksGet();
     }, [pagina]);
 
+
     const renderConditional = () => {
         let renderElements = undefined
 
