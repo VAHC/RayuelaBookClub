@@ -16,7 +16,8 @@ import {
   GET_GENEROS,
   GET_REVIEWS_BOOK,
   POST_REVIEW,
-  LOGIN_SUCCESS
+  LOGIN_SUCCESS,
+  LOGOUT
 } from './action';
 
 
@@ -216,6 +217,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+      }
+
+      case LOGOUT:
+      return {
+        ...state,
+        user: null
       }
 
     default:
