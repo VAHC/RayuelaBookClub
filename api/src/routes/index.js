@@ -4,6 +4,7 @@ const bookRouterAuth = require('./bookRouterAuth')
 const genderRouter = require('./genderRouter')
 const authorRouter = require('./authorRouter')
 const reviewsRouter = require('./reviewsRouter')
+const usersRouter = require('./userRouter')
 
 
 // Importar todos los routers;
@@ -19,6 +20,7 @@ router.use('/books/auth', bookRouterAuth)
 router.use('/genres', genderRouter)
 router.use('/authors', authorRouter)
 router.use('/reviews', reviewsRouter)
+router.use('/users', usersRouter)
 
 
 module.exports = router
