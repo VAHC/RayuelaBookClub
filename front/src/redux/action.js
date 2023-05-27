@@ -112,10 +112,9 @@ export const getAutores = () => {
 
 //trae todas las reviews de un libro
 export const getReviewsBook = (bookId) => {
-  console.log(bookId);
+  //console.log('action' + bookId);
   return async (dispatch) => {
-    //const response = await axios.get(`http://localhost:3001/books/:${bookId}`);
-    const response = await axios.get('http://localhost:3001/books/1');
+    const response = await axios.get(`http://localhost:3001/books/${bookId}`);
     const allReviews = response.data;
     dispatch({ type: GET_REVIEWS_BOOK, payload: allReviews })
   }

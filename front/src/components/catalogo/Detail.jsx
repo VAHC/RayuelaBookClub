@@ -7,9 +7,10 @@ import {useNavigate} from 'react-router-dom';
 
 export const Detail = () => {
   const detailData = useSelector((state) => state.detail_data);
-  console.log(detailData);
+  //console.log(detailData);
   const bookId = detailData ? detailData.id : null;
-  console.log(bookId)
+  //console.log('detail' + bookId)
+  
   //codigo para modal
   const [showModal, setShowModal] = useState(false); //estdo local para mostrar o no el modal
 
