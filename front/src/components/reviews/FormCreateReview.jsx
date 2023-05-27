@@ -85,7 +85,7 @@ const FormCreateReview = ({handleToggleForm}) => {
             //     comment: '',
             // });  
             setTimeout(function(){
-                navigate('/reseña') //una vez enviado el form me redirige a catalogo  
+                handleToggleForm()//una vez enviado el form me redirige a reseñas
             }, 2000)    
         } else {
             alert('missing or incorrect data');
