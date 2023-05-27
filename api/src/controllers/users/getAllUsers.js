@@ -17,7 +17,8 @@ const getAllUsers = async () => {
     const usersMapped = users.map(user => {
         return {
             id: user.id,
-            name: user.name,
+            firstName: user.firstName,
+            lastName: user.lastName,
             email: user.email,
             password: user.password,
             phone: user.phone,

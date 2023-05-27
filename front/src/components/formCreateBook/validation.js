@@ -17,12 +17,12 @@ let errors = {};
   }
 
   // Validación para el campo "price"
-  if (!input.price) {
+  if (!input.price || input.price <= 0) {
     errors.price = 'El precio es obligatorio y debe ser un número positivo';
   }
 
   // Validación para el campo "stock"
-  if (!input.stock) {
+  if (!input.stock || input.stock <= 0) {
     errors.stock = 'El stock es obligatorio y debe ser un número positivo';
   }
 
@@ -34,18 +34,18 @@ let errors = {};
   // Validación para el campo "image"
   if (!input.image) {
     errors.image = 'La imagen de la portada es obligatoria';
-  } else if (!/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(input.image)) {
+  } else if (!/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/.test(input.image)) {
     errors.image = 'La imagen de la portada no tiene un formato de URL válido';
   }
 
   // Validación para el campo "authors"
-  if (!input.authors.length) {
-    errors.authors = 'Es obligatorio seleccionar un autor';
+  if (!input.authors || !input.authors.length) {
+    errors.authors = 'Es obligatorio seleccionar al menos un autor';
   }
 
   // Validación para el campo "genders"
-  if (!input.genders.length) {
-    errors.genders = 'es obligatorio seleccionar un género';
+  if (!input.genders || !input.genders.length) {
+    errors.genders = 'Es obligatorio seleccionar al menos un género';
   }
 
   // Retorna los errores del formulario
