@@ -34,6 +34,7 @@ function App() {
         <Route exact path="/registro" element={<Registro/>}/>
         <Route exact path="/preguntas-frecuentes" element={<FAQs/>}/>
         <Route exact path="/misReseñas" element={<MyReviews/>}/>
+        {/* <Route exact path="/reseñas/:bookId" element={<ContainerReviews/>}/> */}
         <Route exact path="/reseñas" element={<ContainerReviews/>}/>
         <Route exact path="/crearReseña" element={<FormCreateReview/>}/>
         <Route exact path="/editarReseña" element={<FormEditReviews/>}/>
