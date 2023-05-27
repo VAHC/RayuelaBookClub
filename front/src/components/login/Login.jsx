@@ -1,8 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { login } from "../../redux/action";
 
 export const Login = () => {
+
+    const location = useLocation();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [userData, setUserData] = useState({
         email: "",
@@ -25,12 +32,85 @@ export const Login = () => {
         }))
     }
 
-    const handleSubmit = (event) => {
-        //event.preventDefault()
-        if (Object.keys(errors).length === 0) {
+    //LOGIN COMÚN
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+        try {
+            // Envío solicitud de inicio de sesión al backend
+            const response = await fetch('http://localhost:3001/books/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(userData)
+            })
+            const data = await response.json();
+            console.log(data)
+    
+            // Manejo de la respuesta del backend
+            if (!data.message) {
+                dispatch(login(data))
+                navigate("/")
+            } else {
+                // Login fallido
+                alert(data.message);
+                setUserData({
+                    ...userData,
+                    password: ""
+                })
+            }
+        } catch (error) {
+            console.log(error);
         }
-        else{
-            alert("Error")
+    }
+
+    //LOGIN CON GOOGLE
+    // const handleClick = async () => {
+    //     try {
+    //         const response = await fetch('http://localhost:3001/books/auth/authSocial', {
+    //             method: 'GET',
+    //             mode: 'no-cors'
+    //           })
+    //         const data = await response.json()
+    //         console.log(data)
+    
+    //         // Manejo de la respuesta del backend
+    //         if (!data.message) {
+    //             alert("Entraste")
+    //             dispatch(login(data))
+    //             navigate("/")
+    //         } else {
+    //             // Login fallido
+    //             alert(data.message);
+    //             setUserData({
+    //                 ...userData,
+    //                 password: ""
+    //             })
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
+
+    const handleClick = async () => {
+        try {
+            const response = await axios('http://localhost:3001/books/auth/authSocial')
+            const data = await response.json()
+            console.log(data)
+    
+            // Manejo de la respuesta del backend
+            if (!data.message) {
+                alert("Entraste")
+                dispatch(login(data))
+                navigate("/")
+            } else {
+                // Login fallido
+                alert(data.message);
+                setUserData({
+                    ...userData,
+                    password: ""
+                })
+            }
+        } catch (error) {
+            console.log(error);
         }
     }
 
@@ -40,11 +120,10 @@ export const Login = () => {
             <div className="d-flex justify-content-center m-2">
                 <div className="card w-25 mb-5">
                     <div className="card-body">
-                        <form action='http://localhost:3001/books/auth/login' method='post' onSubmit={handleSubmit} >
+                        <form onSubmit={handleSubmit} >
                             <div className="mb-3 text-center">
-                                <label className="form-label" htmlFor="POST-name">Correo electrónico</label>
+                                <label className="form-label" htmlFor="email">Correo electrónico</label>
                                 <input className="form-control"
-                                    id="POST-name"
                                     type="email"
                                     name="email"
                                     placeholder="ejemplo@email.com"
@@ -55,11 +134,10 @@ export const Login = () => {
                             </div>
 
                             <div className="mb-3 text-center">
-                                <label className="form-label" htmlFor="POST-password">
+                                <label className="form-label" htmlFor="password">
                                     Contraseña
                                 </label>
                                 <input className="form-control"
-                                    id="POST-pas"
                                     type="password"
                                     name="password"
                                     placeholder=""
@@ -74,9 +152,15 @@ export const Login = () => {
                             </div>
                         </form>
 
-                        <div className="row d-flex justify-content-center">
+                        {/* <div className="row d-flex justify-content-center">
                             <div className='col-auto text-center'>
                                 <a href="http://localhost:3001/books/auth/authSocial" className="btn btn-outline-dark"><i className="bi bi-google fs-3 mx-2"></i>Ingresar con G-mail</a>
+                            </div>
+                        </div> */}
+
+                        <div className="row d-flex justify-content-center">
+                            <div className='col-auto text-center'>
+                                <button onClick={handleClick} className="btn btn-outline-dark"><i className="bi bi-google fs-3 mx-2"></i>Ingresar con G-mail</button>
                             </div>
                         </div>
 

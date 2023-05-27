@@ -11,6 +11,7 @@ INSERT INTO public.users(
     ('Juan', 'juan@mail.com', 'gefefe', 452336536, 'user', true, false),
     ('Victor', 'victor@mail.com', 'fefefe', 4536536, 'user', true, false);
 
+
 PASO 2:
 
 Ejecuta este script con sql shell o pgAdmin4:
@@ -24,3 +25,4 @@ INSERT INTO public.reviews(
 	('Muy divertido', 5, 'Para levantar el ánimo', true, false, 3, 2),
 	('Espectacular', 5, 'no lo podía dejar de leer', true, false, 2, 2)
 ;
+
