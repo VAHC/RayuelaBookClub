@@ -8,7 +8,7 @@ require('../controllers/auth/local.js')
 const passport = require('passport')
 
 function isLoggedIn (req, res, next) {
-    req.isAuthenticated() ? next() : res.redirect('/books/auth/error')
+    req.isAuthenticated() ? next() :  res.status(401).json({ message: 'Credenciales inválidas validate' })
      //res.sendStatus(401)
   }
   
@@ -41,16 +41,7 @@ function isLoggedIn (req, res, next) {
     done(null, user)
   })
   
-  // bookRouterAuth.get('/validate', isLoggedIn, ValidateUser)
-
-  // bookRouterAuth.get('/ErrorUserExist',ErrorUserExist)
-
-  // bookRouterAuth.get('/ErrorLogin',ErrorLogin)
-
-  // bookRouterAuth.post('/login',  passport.authenticate('local', {
-  //    successRedirect: '/books/auth/validate',
-  //    failureRedirect: '/books/auth/ErrorLogin'
-  //  }))
+   bookRouterAuth.get('/validate', isLoggedIn, ValidateUser)
 
 // Authentication routes
 bookRouterAuth.post('/login', (req, res, next) => {
@@ -63,6 +54,17 @@ bookRouterAuth.post('/login', (req, res, next) => {
     }
     console.log('-****--');
     console.log(user);
+    // user {
+    //   dataValues: {
+    //     id: 10,
+    //     name: 'zxcasd',
+    //     email: 'pepep@hot.com',
+    //     password: '12345678',
+    //     phone: null,
+    //     profile: 'usuario',
+    //     createdDb: true,
+    //     deleted: false
+    //   },
     console.log('--***-');
     req.logIn(user, (err) => {
       if (err) {
@@ -94,13 +96,6 @@ bookRouterAuth.post('/registro', (req, res, next) => {
   })(req, res, next)
 })
 
-  //  bookRouterAuth.post('/registro',  passport.authenticate('local', {
-  //  // successRedirect: '/books/auth/validate',
-  //  // failureRedirect: '/books/auth/ErrorUserExist' 
-  // }))
-
-
-
  bookRouterAuth.get('/authSocial',
     passport.authenticate('google', { scope: ['email', 'profile'] }
     ))
@@ -109,16 +104,10 @@ bookRouterAuth.get('/authSocial/google', passport.authenticate('google', { failu
   // El usuario se ha autenticado correctamente, puedes redirigir o responder con una respuesta JSON de éxito
  console.log('gggggggggggggg');
   console.log(req.user);
- console.log('gggggggggggggg');
+
   res.json({ success: true });
 });
 
-//   bookRouterAuth.get('/authSocial/google',
-//     passport.authenticate('google', {
-//       successRedirect: '/books/auth/validate',
-//      failureRedirect: '/books/auth/ErrorUserExist'
-//     })
-//   )
 
   bookRouterAuth.get('/logout', LogOut)
 
