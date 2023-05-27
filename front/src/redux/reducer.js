@@ -14,7 +14,8 @@ import {
   RESET_FILTERS,
   GET_AUTORES,
   GET_GENEROS,
- // GET_REVIEWS_BOOK,
+  GET_REVIEWS_BOOK,
+  POST_REVIEW,
 } from './action';
 
 
@@ -163,12 +164,12 @@ const reducer = (state = initialState, action) => {
 
     //no se guarda en los arrays autores y generos.
     case GET_GENEROS:
-      console.log("entra al reducer el get generos")
+      //console.log("entra al reducer el get generos")
       const genresNoRepeat = state.books
         .flatMap(book => book.genders)
         .filter((genre, index, self) => self.findIndex(g => g === genre) === index);
 
-      console.log(genresNoRepeat)
+      //console.log(genresNoRepeat)
 
       const sortGenres = genresNoRepeat.sort((a, b) => {
         if (a > b) { return 1 }
@@ -197,13 +198,17 @@ const reducer = (state = initialState, action) => {
 
       }
 
-    //a descomentar una vez que la action este descomentada
-    // case GET_REVIEWS_BOOK:
-    //   return {
-    //     ...state, 
-    //     reviewsBook: action.payload
-    //   }
+    //trae todas las reviewsde un libro
+    case GET_REVIEWS_BOOK:
+      return {
+        ...state, 
+        reviewsBook: action.payload.reviews
+      }
 
+      case POST_REVIEW:
+        return {
+            ...state
+        };
 
     default:
       return state;
