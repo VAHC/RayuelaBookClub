@@ -2,13 +2,14 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-//import { AiFillStar, AiOutLineStar } from 'react-icons/ai';
-// import {} from '../redux/action';
+import {postReview} from '../../redux/action';
 // import validation from './validation';
 
 const FormCreateReview = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [number, setNumber] = useState(0) // estado que sirve para controlar las estrellas
+    const [hoverStar, setHoverStar] = useState(undefined)
 
     const [input, setInput] = useState({ //estado,local para menejar los inputs
         title: '',
@@ -25,10 +26,30 @@ const FormCreateReview = () => {
     const [formComplete, setFormComplete] = useState(false); //estodo local para manejar el boton del submit y el envio de datos
     const [success, setSuccess] = useState(false); // estado local para manejar la alerta de ok
 
+    //handler que maneja el mensaje de las star
+    const handlerText = () => {
+        switch(number || hoverStar) {
+            case 0: 
+                return 'calificar';
+            case 1: 
+                return 'me defraudo';
+            case 2: 
+                return 'no me gusto';
+            case 3:
+                return 'neutral';
+            case 4:
+                return 'me gusto';
+            case 5:
+                return 'me encanto';
+            default:
+                return 'calificar'
+        }
+    }
         //handler que maneja el estado de los inputs
     const inputHandler = (e) => {
         setInput({
             ...input,
+            qualification: number,
             [e.target.name] : e.target.value
         });
     }
@@ -51,7 +72,7 @@ const FormCreateReview = () => {
     const submitHandler = (e) => {
         e.preventDefault();
         if(formComplete) {
-            // dispatch(action(input));
+            dispatch(postReview(input));
             setSuccess(true); // al setearse en true cambia el rederizado
             setInput({
                 title: '',
@@ -64,7 +85,7 @@ const FormCreateReview = () => {
             //     comment: '',
             // });  
             setTimeout(function(){
-                navigate('/catalogo') //una vez enviado el form me redirige a catalogo  
+                navigate('/reseña') //una vez enviado el form me redirige a catalogo  
             }, 2000)    
         } else {
             alert('missing or incorrect data');
@@ -78,6 +99,16 @@ const FormCreateReview = () => {
                         {success && <img className="w-50 p-3 h-50 d-inline-block" src='./images/libroCreado.jpg' alt='formulario enviado correctamente' />}
                         {!success && <div>
                             <div className="row g-3 align-items-center">
+                            <div className="d-flex flex-column align-items-center">
+                                <p className="text-center">{handlerText()}</p>
+                            <div>
+                                {Array(5).fill().map((_, index) => {
+                                return number >= index + 1 || hoverStar >= index + 1 
+                                ? <i className="bi bi-star-fill" onClick={() => setNumber(index + 1)} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => {setHoverStar(undefined)}}/> 
+                                : <i className="bi bi-star" onClick={() => {inputHandler}} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => {setHoverStar(undefined)}}/>
+                                })}
+                            </div>
+                            </div>
                                 <div className="col-auto">
                                     <label className="col-form-label ms-3" htmlFor='title'>Título:</label>
                                 </div>
