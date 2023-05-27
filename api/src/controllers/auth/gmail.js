@@ -5,32 +5,28 @@ const passport = require('passport')
 // const GoogleStrategy = require('passport-google-oauth2').Strategy
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-const findOrCreate= async (name,username,password,done)=>{
+const findOrCreate= async (firstName,lastName,username,password,phone,done)=>{
 
   try {
-    console.log(name);
-    console.log('#####');
-    console.log(username);
-    console.log('#####');
-    console.log(password);
-    if(name && username && password){
+    if(firstName && lastName && username && password ){
       const [user, created] = await User.findOrCreate({ where: { email: username },
         defaults: { password: password,
                      profile: 'usuario',
-                     name: name,
+                     firstName: firstName,
+                     lastName: lastName,
+                     phone: phone,
                      createdDb: false
        }});
-       console.log('siiii');
-       console.log(created);
+      // console.log(created);
        if (created) {
         // El usuario se creó correctamente
-        return done(null, user);
+              return done(null, user);
         } else {
         // Las credenciales son válidas, autenticación exitosa
           if(user.dataValues.createdDb)
           {
             // se creo usando el metodo local
-           return done(null, false);
+              return done(null, false);
           }else
           {
             return done(null, user);
@@ -38,7 +34,7 @@ const findOrCreate= async (name,username,password,done)=>{
         }
     }else{
       // no existe alguna variable lo saco
-     // return done(null, false);
+      return done(null, false);
     }
   } catch (err) {
     console.log(err);
@@ -55,7 +51,11 @@ passport.use(
       async (accessToken, refreshToken, profile, done) => {
         // Aquí puedes realizar acciones adicionales, como buscar o crear un usuario en tu base de datos
         // Luego, llama a `done` para pasar el perfil del usuario a Passport
-        findOrCreate(profile.name.givenName,profile.emails[0].value,'hsdhsye4y4aeae4se50s7s',done)
+      //  console.log(profile);
+         findOrCreate(profile.name.givenName,profile.name.familyName,
+          profile.emails[0].value,'aeae4se50s',
+          0,done
+        )
       }
     )
   );
