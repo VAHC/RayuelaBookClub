@@ -49,7 +49,7 @@ export const Posters = () => {
     };
 
     const prueba = renderConditional();
-    console.log(prueba);
+    //console.log(prueba);
 
     return prueba;
 };
