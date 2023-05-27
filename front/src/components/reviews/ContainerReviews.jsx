@@ -1,20 +1,26 @@
 // import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Accordion } from 'react-bootstrap';
 import Review from './Review';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getReviewsBook } from '../../redux/action';
+import FormCreateReview from './FormCreateReview';
 
 const ContainerReviews = ({ bookId, toggleModal }) => {
   //console.log('review' + bookId);
   const reviewsBook = useSelector((state) => state.reviewsBook);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     dispatch(getReviewsBook(bookId));
   }, [bookId]);
+
+  const handleToggleForm = () => {
+    setShowForm(!showForm);
+  };
 
   return (
     <Modal show={true} onHide={toggleModal}>
@@ -44,7 +50,17 @@ const ContainerReviews = ({ bookId, toggleModal }) => {
         <Button variant="secondary" onClick={toggleModal}>
           Cerrar
         </Button>
-        <Button variant="primary">Deja tu reseña</Button>
+        {/* <Button variant="primary">Deja tu reseña</Button> */}
+        <div className="d-flex justify-content-center align-items-center">
+        <Accordion>
+          <Accordion.Item eventKey="0">
+            <Accordion.Header>Deja tu reseña</Accordion.Header>
+            <Accordion.Body>
+              <FormCreateReview handleToggleForm={handleToggleForm} />
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
+        </div>
       </Modal.Footer>
     </Modal>
   );

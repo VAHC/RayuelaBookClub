@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import {postReview} from '../../redux/action';
 // import validation from './validation';
 
-const FormCreateReview = () => {
+const FormCreateReview = ({handleToggleForm}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [number, setNumber] = useState(0) // estado que sirve para controlar las estrellas
@@ -129,7 +129,7 @@ const FormCreateReview = () => {
                             </div>
                         </div>}
                         <div className="d-flex flex-row justify-content-evenly">
-                            <button className="btn btn-dark m-3" disabled={!formComplete} type='submit'>Enviar</button>
+                            <button className="btn btn-dark m-3" disabled={!formComplete} type='submit' onClick={handleToggleForm}>Enviar</button>
                             {/* <button className="btn btn-dark m-3" onClick={() => navigate('/catalogo')}>Volver</button> */}
                         </div>
                     </form>
