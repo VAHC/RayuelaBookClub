@@ -1,23 +1,34 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {postReview} from '../../redux/action';
+import Alert from 'react-bootstrap/Alert';
 // import validation from './validation';
 
-const FormCreateReview = ({handleToggleForm}) => {
+const FormCreateReview = ({handleToggleForm, bookId}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [number, setNumber] = useState(0) // estado que sirve para controlar las estrellas
-    const [hoverStar, setHoverStar] = useState(undefined)
+    const [number, setNumber] = useState(0); // estado que sirve para controlar las estrellas
+    const [hoverStar, setHoverStar] = useState(undefined);
+    const user = useSelector((state)  => state.user)
+    console.log(user);
 
     const [input, setInput] = useState({ //estado,local para menejar los inputs
+        id_book: '',
+        id_user: '',
+        "createdDb": '',
+        deleted: '',
         title: '',
         qualification: '',
         comment: '',
     });
 
     const [errors, setErrors] = useState({ //estado,local para menejar los errores
+        id_book: '',
+        id_user: '',
+        "createdDb": '',
+        deleted: '',
         title: '',
         qualification: '',
         comment: '',
@@ -49,6 +60,11 @@ const FormCreateReview = ({handleToggleForm}) => {
     const inputHandler = (e) => {
         setInput({
             ...input,
+            id_book: bookId,
+            // id_user: user.id,
+            id_user: 1,
+            "createdDb": true,
+            deleted: false,
             qualification: number,
             [e.target.name] : e.target.value
         });
@@ -71,18 +87,31 @@ const FormCreateReview = ({handleToggleForm}) => {
             // //handler del submit ==> si fomrComplete es true despacha la action PostActivity, setea Success en true, setea input y errors al estado inicial
     const submitHandler = (e) => {
         e.preventDefault();
-        if(formComplete) {
+        if(!user) {
+                alert('antes de dejar tu reseña debes loguearte')
+            setTimeout(function(){
+                navigate('/ingresar')//si no estoy logueado redirege al login
+            }, 2000)
+        } else if(formComplete) {
             dispatch(postReview(input));
             setSuccess(true); // al setearse en true cambia el rederizado
             setInput({
+                id_book: '',
+                id_user: '',
+                "createdDb": '',
+                deleted: '',
                 title: '',
                 qualification: '',
                 comment: '',
             });
             // setErrors({
-            //     title: '',
-            //     qualification: '',
-            //     comment: '',
+            //      id_book: '',
+            //      id_user: '',
+            //      "createdDb": '',
+            //      deleted: '',
+            //      title: '',
+            //      qualification: '',
+            //      comment: '',
             // });  
             setTimeout(function(){
                 handleToggleForm()//una vez enviado el form me redirige a reseñas
