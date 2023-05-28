@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import {postReview} from '../../redux/action';
 import validation from './validation'
 
-const FormCreateReview = ({handleToggleForm, bookId}) => {
+const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [number, setNumber] = useState(0); // estado que sirve para controlar las estrellas
