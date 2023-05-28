@@ -146,13 +146,14 @@ export const logout = () => {
   return { type: LOGOUT }
 }
 
-//trae todas las reviews de un libro
+//trae todas las reviews de un usuario
 export const getReviewsByUser = (userId) => {
-  //console.log('action' + bookId);
   return async (dispatch) => {
     const response = await axios.get(`http://localhost:3001/users/${userId}`);
     const userReviews = response.data;
     dispatch({ type: GET_REVIEWS_BY_USER, payload: userReviews })
+  }
+}
 
 export const modifyBook = (bookEdit) => {
   console.log(bookEdit)
