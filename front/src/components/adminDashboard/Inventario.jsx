@@ -255,7 +255,7 @@ const Inventario = () => {
                 <td>{book.stock}</td>
                 <td>
                     {editModal(index,book)}
-                    <Button variant="danger">Deshabilitar/Habilitar</Button>
+                    <Button variant="danger">Habilitación</Button>
                 </td>
             </tr>
         );
