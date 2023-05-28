@@ -42,7 +42,7 @@ module.exports = (sequelize) => {
       allowNull: false,
       validate: {
         min: {
-          args: 0,
+          args:[0],
           msg: 'El precio debe ser un valor positivo o cero.'
         }
       }
@@ -52,7 +52,7 @@ module.exports = (sequelize) => {
       allowNull: false,
       validate: {
         min: {
-          args: 0,
+          args: [0],
           msg: 'El stock debe ser un valor positivo o cero.'
         }
       }
