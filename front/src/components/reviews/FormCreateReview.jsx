@@ -136,7 +136,7 @@ return (
                               number >= index + 1 || hoverStar >= index + 1
                                 ? <i className="bi bi-star-fill" onClick={() => setNumber(index + 1)} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
                                 : <i className="bi bi-star" onClick={() => { inputHandler }} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
-                            );
+                            )
                           })}
                           {errors.qualification ? <p className="text-danger">{errors.qualification}</p> : null}
                         </div>
@@ -165,12 +165,12 @@ return (
                   <button className="btn btn-dark m-3" disabled={!formComplete} type='submit' onClick={handleToggleForm}>Enviar</button>
                   <button className="btn btn-dark m-3" onClick={() => navigate('/catalogo')}>Volver</button>
                 </div>
-            </form>
-        </>
+              </form>
+          </>
     )
 }
         
-export default FormCreateReview;
+export default FormCreateReview
 
 
 
