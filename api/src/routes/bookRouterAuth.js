@@ -43,9 +43,10 @@ function isLoggedIn (req, res, next) {
   
    bookRouterAuth.get('/validate', isLoggedIn, ValidateUser)
 
-  UserJson=(firstName,lastName,email,phone,profile)=>
+  UserJson=(id,firstName,lastName,email,phone,profile)=>
   {
       return({
+        id,
         firstName,
         lastName,
         email,
@@ -83,7 +84,9 @@ bookRouterAuth.post('/login', (req, res, next) => {
       if (err) {
         return res.status(500).json({ message: 'Error en el servidor ERR LOGin' })
       }
-      let dato= UserJson(user.dataValues.firstName,
+      let dato= UserJson(
+      user.dataValues.id,
+      user.dataValues.firstName,
       user.dataValues.lastName,
       user.dataValues.email,
       user.dataValues.phone,
@@ -134,7 +137,9 @@ bookRouterAuth.get('/authSocial/google', passport.authenticate('google', { failu
   //     createdDb: false,
   //     deleted: false
   //   },
-  let dato= UserJson(req.user.dataValues.firstName,
+  let dato= UserJson(
+    req.user.dataValues.id,
+    req.user.dataValues.firstName,
     req.user.dataValues.lastName,
     req.user.dataValues.email,
     req.user.dataValues.phone,
