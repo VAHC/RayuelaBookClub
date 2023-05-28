@@ -56,7 +56,7 @@ const ContainerReviews = ({ bookId, toggleModal }) => {
           <Accordion.Item eventKey="0">
             <Accordion.Header>Deja tu reseña</Accordion.Header>
             <Accordion.Body>
-              <FormCreateReview handleToggleForm={handleToggleForm} bookId={bookId}/>
+              <FormCreateReview handleToggleForm={handleToggleForm} bookId={bookId} toggleModal={toggleModal}/>
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>
