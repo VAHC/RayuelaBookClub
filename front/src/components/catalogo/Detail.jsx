@@ -10,6 +10,27 @@ export const Detail = () => {
   //console.log(detailData);
   const bookId = detailData ? detailData.id : null;
   //console.log('detail' + bookId)
+  const qualificationObtained = (detailData) => {
+    if (detailData.reviews && Array.isArray(detailData.reviews) && detailData.reviews.length > 0) {
+      let sum = 0;
+      for (let i = 0; i < detailData.reviews.length; i++) {
+        sum += detailData.reviews[i].qualification;
+      }
+      let average = sum / detailData.reviews.length;
+      return Math.round(average);
+    }
+    return 0; // Valor predeterminado si no hay reviews o no es un array válido
+  };
+
+
+  const renderStars = (rating) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      const starIcon = i <= rating ? <i className="bi bi-star-fill bi-sm" /> : <i className="bi bi-star bi-sm"/>;
+      stars.push(starIcon);
+    }
+    return stars;
+  };
 
   //codigo para modal
   const [showModal, setShowModal] = useState(false); //estdo local para mostrar o no el modal
@@ -43,13 +64,14 @@ export const Detail = () => {
                             variant="secondary"
                             style={{
                                 borderRadius: "50%",
-                                width: "70px",
-                                height: "70px",
+                                width: "80px",
+                                height: "80px",
                             }}
                             onClick={toggleModal}
                             //onClick={() => navigate(`/reseñas/${bookId}`)}
                         >
-                            5/5 ★
+                            {/* 5/5 ★ */}
+                            <div>{renderStars(qualificationObtained(detailData))}</div>
                         </Button>
                     </div>
                     <Row>
@@ -104,5 +126,4 @@ export const Detail = () => {
     );
   }
 };
-
 
