@@ -31,11 +31,11 @@ export const Nav = () => {
                 <Link to="/catalogo" className="nav-link fs-4">Tienda</Link>
 
                 {!user ? <Link to="/ingresar" className="nav-link fs-4">Ingresar</Link>
-                : user.profile === "user" ? <div className="row d-flex align-items-center text-center">
-                                              <Link to="/userdashboard" className="nav-link fs-4">Mi perfil</Link>
+                : user.profile === "admin" ? <div className="row d-flex align-items-center text-center">
+                                              <Link to="/admindashboard" className="nav-link fs-4">Administración</Link>
                                               <button onClick={handleClick} className="btn btn-outline-dark">Salir</button></div>
                 : <div className="row d-flex align-items-center text-center">
-                <Link to="/admindashboard" className="nav-link fs-4">Administración</Link>
+                <Link to="/perfil" className="nav-link fs-4">Mi perfil</Link>
                 <button onClick={handleClick} className="btn btn-outline-dark">Salir</button></div>}
           </div>
         </div>
