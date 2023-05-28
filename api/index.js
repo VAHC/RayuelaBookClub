@@ -28,4 +28,3 @@ conn.sync({ force: false}).then(() => {
   })
 }).then(async () => {
   // LoadAllBooks() // cargo los generos cuando levanto el server
-})
