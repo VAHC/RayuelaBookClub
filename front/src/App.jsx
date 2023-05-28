@@ -15,8 +15,6 @@ import { Login } from "./components/login/Login";
 import { Registro } from "./components/login/Registro";
 import { FAQs } from "./components/footer/FAQs";
 import MyReviews from './components/reviews/myReviews/MyReviews';
-import ContainerReviews from "./components/reviews/ContainerReviews";
-import FormCreateReview from "./components/reviews/FormCreateReview";
 import FormEditReviews from "./components/reviews/myReviews/FormEditReviews"
 
 function App() {
@@ -34,9 +32,6 @@ function App() {
         <Route exact path="/registro" element={<Registro/>}/>
         <Route exact path="/preguntas-frecuentes" element={<FAQs/>}/>
         <Route exact path="/misReseñas" element={<MyReviews/>}/>
-        {/* <Route exact path="/reseñas/:bookId" element={<ContainerReviews/>}/> */}
-        <Route exact path="/reseñas" element={<ContainerReviews/>}/>
-        <Route exact path="/crearReseña" element={<FormCreateReview/>}/>
         <Route exact path="/editarReseña" element={<FormEditReviews/>}/>
       </Routes>
       <Footer/>
