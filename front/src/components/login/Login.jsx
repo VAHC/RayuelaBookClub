@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from "../../redux/action";
 
@@ -64,6 +64,17 @@ export const Login = () => {
     const handleClick = async () => {
         window.location.href = 'http://localhost:3001/books/auth/authSocial';
     }
+
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const user = urlParams.get('user');
+        
+        if (user) {
+          const userData = JSON.parse(decodeURIComponent(user));
+          console.log('Usuario autenticado:', userData);
+          // Aquí puedes hacer lo que necesites con los datos del usuario autenticado
+        }
+      }, []);
 
     return (
         <>
