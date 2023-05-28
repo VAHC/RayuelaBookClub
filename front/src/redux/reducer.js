@@ -18,9 +18,9 @@ import {
   POST_REVIEW,
   LOGIN_SUCCESS,
   LOGOUT,
+  GET_REVIEWS_BY_USER,
+  PUT_BOOK
 } from './action';
-
-
 
 // Initial state
 const initialState = {
@@ -43,7 +43,9 @@ const initialState = {
   //array que trae todas la reseñas de un libro
   reviewsBook: [],
   //Objeto con los datos del usuario logueado
-  user: null
+  user: null,
+  //array que trae todas la reseñas de un usuario
+  userReviews: [],
 }
 
 // Reducer
@@ -224,10 +226,22 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: null
       }
+      
+      case GET_REVIEWS_BY_USER:
+        return {
+          ...state,
+          userReviews: action.payload.reviews
+        }
+
+      case PUT_BOOK:
+      return {
+        ...state
+      }
 
     default:
       return state;
   }
+
 }
 
 export default reducer;

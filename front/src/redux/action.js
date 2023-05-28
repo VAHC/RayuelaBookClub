@@ -22,6 +22,11 @@ export const POST_REVIEW = 'POST_REVIEW';
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGOUT = "LOGOUT";
 
+export const GET_REVIEWS_BY_USER = "GET_REVIEWS_BY_USER";
+
+export const PUT_BOOK = "PUT_BOOK";
+
+
 export const getAllBooks = () => {
   return async (dispatch) => {
     const response = await axios.get('http://localhost:3001/books');
@@ -38,12 +43,14 @@ export const getBooksPage = (pagNum) => {
 //se encarga de actualizar pagina actual
 export function changePagina(pagNum) {
   return {
-    type: CHANGE_PAGINA, payload: pagNum }
+    type: CHANGE_PAGINA, payload: pagNum
+  }
 }
 
 export const sortByPrice = (payload) => {
   return {
-    type: SORT_BY_PRICE, payload }
+    type: SORT_BY_PRICE, payload
+  }
 }
 
 export const sortByRating = (payload) => {
@@ -83,33 +90,35 @@ export const filterAuthor = (value) => {
 
 export const postBook = (book) => {
   return async function (dispatch) {
-      let response = await axios.post('http://localhost:3001/books', book)
-      return response
+    let response = await axios.post('http://localhost:3001/books', book)
+    return response
   }
 }
 
 export const createUser = (user) => {
   return async function (dispatch) {
-      let response = await axios.post('http://localhost:3001/books/auth/registro', user)
-      return response
+    let response = await axios.post('http://localhost:3001/books/auth/registro', user)
+    return response
   }
 }
 
 export const filterFlagToggle = (boolean) => {
-  return { type: FILTER_FLAG,
-    payload: boolean}
+  return {
+    type: FILTER_FLAG,
+    payload: boolean
+  }
 }
 
 export const resetFilter = () => {
-  return { type: RESET_FILTERS}
+  return { type: RESET_FILTERS }
 }
 
 export const getGeneros = () => {
-  return { type: GET_GENEROS}
+  return { type: GET_GENEROS }
 }
 
 export const getAutores = () => {
-  return { type: GET_AUTORES}
+  return { type: GET_AUTORES }
 }
 
 //trae todas las reviews de un libro
@@ -124,8 +133,8 @@ export const getReviewsBook = (bookId) => {
 
 export const postReview = (review) => {
   return async function (dispatch) {
-      let response = await axios.post('http://localhost:3001/reviews', review)
-      return response
+    let response = await axios.post('http://localhost:3001/reviews', review)
+    return response
   }
 }
 
@@ -135,4 +144,21 @@ export const login = (user) => {
 
 export const logout = () => {
   return { type: LOGOUT }
+}
+
+//trae todas las reviews de un usuario
+export const getReviewsByUser = (userId) => {
+  return async (dispatch) => {
+    const response = await axios.get(`http://localhost:3001/users/${userId}`);
+    const userReviews = response.data;
+    dispatch({ type: GET_REVIEWS_BY_USER, payload: userReviews })
+  }
+}
+
+export const modifyBook = (bookEdit) => {
+  console.log(bookEdit)
+  return async function (dispatch) {
+    await axios.put('http://localhost:3001/books/putbook', bookEdit)
+    dispatch({ type: PUT_BOOK })
+  }
 }

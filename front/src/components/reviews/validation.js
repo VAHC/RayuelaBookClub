@@ -15,6 +15,9 @@ const validation = (input) => {
       if (!input.qualification) {
         errors.qualification = 'Debes calificar el libro, elije una opción';
       }
+
+      // Retorna los errores del formulario
+      return errors;
 }
 
-export default validation
+export default validation;

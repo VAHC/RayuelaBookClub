@@ -52,6 +52,14 @@ passport.use(
         // Aquí puedes realizar acciones adicionales, como buscar o crear un usuario en tu base de datos
         // Luego, llama a `done` para pasar el perfil del usuario a Passport
       //  console.log(profile);
+           /////////
+           const cookieOptions = {
+            maxAge: 365 * 24 * 60 * 60 * 1000, // 1 año de duración en milisegundos
+            httpOnly: true // Opcional: para que la cookie solo sea accesible en el servidor
+          };
+      
+          req.session.cookie = cookieOptions;
+          ///////
          findOrCreate(profile.name.givenName,profile.name.familyName,
           profile.emails[0].value,'aeae4se50s',
           0,done
