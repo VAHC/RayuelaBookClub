@@ -21,9 +21,7 @@ export const GET_REVIEWS_BOOK = 'GET_REVIEWS_BOOK';
 export const POST_REVIEW = 'POST_REVIEW';
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGOUT = "LOGOUT";
-
 export const GET_REVIEWS_BY_USER = "GET_REVIEWS_BY_USER";
-
 export const PUT_BOOK = "PUT_BOOK";
 
 
