@@ -8,10 +8,10 @@ const Menu = () => {
         <Nav.Link  href="#panel">Perfil</Nav.Link>
       </Nav.Item>
       <Nav.Item className="sidebar-item">
-        <Nav.Link href="#reseñas">Mis Reseñas</Nav.Link>
+        <Nav.Link href="#reseñas">Mis reseñas</Nav.Link>
       </Nav.Item>
       <Nav.Item className="sidebar-item">
-        <Nav.Link href="#subscripcion">Mi Subscripcion</Nav.Link>
+        <Nav.Link href="#suscripcion">Mi suscripción</Nav.Link>
       </Nav.Item>
       <Nav.Item className="sidebar-item">
         <Nav.Link href="#configuracion">Configuración</Nav.Link>

@@ -32,6 +32,7 @@ export const Posters = () => {
         booksGet();
     }, [pagina]);
 
+
     const renderConditional = () => {
         let renderElements = undefined
 
@@ -48,8 +49,5 @@ export const Posters = () => {
         return renderElements
     };
 
-    const prueba = renderConditional();
-    //console.log(prueba);
-
-    return prueba;
+    return renderConditional();
 };

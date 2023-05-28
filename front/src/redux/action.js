@@ -90,7 +90,7 @@ export const postBook = (book) => {
 
 export const createUser = (user) => {
   return async function (dispatch) {
-      let response = await axios.post('RUTA DEL BACK', user)
+      let response = await axios.post('http://localhost:3001/books/auth/registro', user)
       return response
   }
 }
@@ -114,9 +114,9 @@ export const getAutores = () => {
 
 //trae todas las reviews de un libro
 export const getReviewsBook = (bookId) => {
+  //console.log('action' + bookId);
   return async (dispatch) => {
-    // const response = await axios.get(`http://localhost:3001/books/:${bookId}`);
-    const response = await axios.get('http://localhost:3001/books/1');
+    const response = await axios.get(`http://localhost:3001/books/${bookId}`);
     const allReviews = response.data;
     dispatch({ type: GET_REVIEWS_BOOK, payload: allReviews })
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import validation from "./validationRegistro";
 import { useDispatch } from 'react-redux';
@@ -8,22 +8,26 @@ import { createUser } from "../../redux/action";
 export const Registro = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
+    //Estado local para los inputs del form
     const [userInputs, setUserInputs] = useState({
-        name: "",
+        firstName: "",
         lastName: "",
         email: "",
         phone: "",
         password: ""
     })
 
+    //Estado local para los inputs de confirmación del form
     const [inputsConfirm, setInputsConfirm] = useState({
         emailC: "",
         passwordC: ""
     })
 
+    //Estado local para los errores
     const [errors, setErrors] = useState({
-        name: "",
+        firstName: "",
         lastName: "",
         email: "",
         emailConfirm: "",
@@ -32,11 +36,16 @@ export const Registro = () => {
         passwordConfirm: ""
     })
 
+    //Estado local para renderizado de una imagen de registro exitoso
+    const [userCreated, setUserCreated] = useState(false)
+
+    //UseEffect para controlar los estados
     useEffect(() => {
         const validationErrors = validation(userInputs, inputsConfirm);
         setErrors(validationErrors)
     }, [userInputs, inputsConfirm])
 
+    //Función para controlar los inputs
     const handleInputChange = (event) => {
         const { name, value } = event.target
 
@@ -54,23 +63,34 @@ export const Registro = () => {
         setErrors(validation(userInputs, inputsConfirm, { [name]: value }))
     }
 
+    //Función para despachar la action con la data y capturar la respuesta del back
     const handleSubmit = (event) => {
         event.preventDefault()
-        if (Object.keys(errors).length === 0) {
-            dispatch(createUser(userInputs))
-            alert("Funciona")
-        }
+        dispatch(createUser(userInputs))
+            .then((response) => {
+                if (response.status === 200) {
+                    setUserCreated(true);
+                    setTimeout(() => setUserCreated(false), 3000)
+                    setTimeout(() => navigate("/ingresar"), 3000)
+                } else alert("ERROR")
+            })
+            .catch((error) => {
+                alert("Server error")
+            })
     }
 
     return (
         <div>
             <h2 className='text-center fs-1'>Registro</h2>
-            <div className="d-flex justify-content-center m-2">
+            {userCreated && <div className="d-flex justify-content-center">
+                                <img src="./images/userSuccess.png" className="w-25" alt="success" />
+                            </div>}
+            {!userCreated && <div className="d-flex justify-content-center m-2">
                 <form className="row g-2 md-2 w-75" onSubmit={handleSubmit}>
                     <div className="col-md-6">
-                        <label htmlFor="name" className="form-label">Nombre</label>
-                        <input type="text" className="form-control" name="name" value={userInputs.name} onChange={handleInputChange} required />
-                        {errors.name && <p className="text-danger">{errors.name}</p>}
+                        <label htmlFor="firstName" className="form-label">Nombre</label>
+                        <input type="text" className="form-control" name="firstName" value={userInputs.firstName} onChange={handleInputChange} required />
+                        {errors.firstName && <p className="text-danger">{errors.firstName}</p>}
                     </div>
 
                     <div className="col-md-6">
@@ -137,7 +157,7 @@ export const Registro = () => {
                         </p>
                     </div>
                 </form>
-            </div>
+            </div>}
         </div>
     )
 }
