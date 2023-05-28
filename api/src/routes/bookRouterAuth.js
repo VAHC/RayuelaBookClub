@@ -6,6 +6,7 @@ const bookRouterAuth = Router()
 require('../controllers/auth/gmail.js')
 require('../controllers/auth/local.js')
 const passport = require('passport')
+const CLIENT_URL = "http://127.0.0.1:5173";
 
 function isLoggedIn (req, res, next) {
     req.isAuthenticated() ? next() :  res.status(401).json({ message: 'Credenciales inválidas validate' })
@@ -96,6 +97,31 @@ bookRouterAuth.post('/login', (req, res, next) => {
   })(req, res, next)
 })
 
+bookRouterAuth.get("/authSocial/success", (req, res) => {
+  //http://localhost:3001/books/auth/authSocial/success
+  
+    if (req.user) {
+     // let dato= UserJson(
+        //     req.user.dataValues.id,
+        //     req.user.dataValues.firstName,
+        //     req.user.dataValues.lastName,
+        //     req.user.dataValues.email,
+        //     req.user.dataValues.phone,
+        //     req.user.dataValues.profile)
+        //     res.status(200).json(dato);
+
+      res.status(200).json({
+        success: true,
+        message: "successfull",
+        user: req.user,
+        //   cookies: req.cookies
+      });
+    }
+  
+   res.send('siii')
+});
+
+
 
 bookRouterAuth.post('/registro', (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
@@ -117,35 +143,56 @@ bookRouterAuth.post('/registro', (req, res, next) => {
   })(req, res, next)
 })
 
+//router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
+
+// router.get(
+//   "/google/callback",
+//   passport.authenticate("google", {
+//     successRedirect: CLIENT_URL,
+//     failureRedirect: "/login/failed",
+//   })
+// );
+
+bookRouterAuth.get(
+  "authSocial/google",
+  passport.authenticate("google", {
+    successRedirect: CLIENT_URL,
+    failureRedirect: "/login/failed",
+  })
+);
+
+
  bookRouterAuth.get('/authSocial',
     passport.authenticate('google', { scope: ['email', 'profile'] }
     ))
 // Ruta para recibir el callback de Google después de la autenticación
-bookRouterAuth.get('/authSocial/google', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
-  // El usuario se ha autenticado correctamente, puedes redirigir o responder con una respuesta JSON de éxito
- console.log('gggggggggggggg');
-  console.log(req.user.dataValues.firstName);
-  // user {
-  //   dataValues: {
-  //     id: 3,
-  //     firstName: 'juan lorenzo',
-  //     lastName: 'tibiletti',
-  //     email: 'juanlorenzomdp@gmail.com',
-  //     password: 'aeae4se50s',
-  //     phone: 0,
-  //     profile: 'usuario',
-  //     createdDb: false,
-  //     deleted: false
-  //   },
-  let dato= UserJson(
-    req.user.dataValues.id,
-    req.user.dataValues.firstName,
-    req.user.dataValues.lastName,
-    req.user.dataValues.email,
-    req.user.dataValues.phone,
-    req.user.dataValues.profile)
-    res.status(200).json(dato);
-});
+// bookRouterAuth.get('/authSocial/google', passport.authenticate('google', 
+//     { successRedirect: CLIENT_URL,
+//       failureRedirect: '/login' }), (req, res) => {
+//   // El usuario se ha autenticado correctamente, puedes redirigir o responder con una respuesta JSON de éxito
+//  console.log('gggggggggggggg');
+//   console.log(req.user.dataValues.firstName);
+//   // user {
+//   //   dataValues: {
+//   //     id: 3,
+//   //     firstName: 'juan lorenzo',
+//   //     lastName: 'tibiletti',
+//   //     email: 'juanlorenzomdp@gmail.com',
+//   //     password: 'aeae4se50s',
+//   //     phone: 0,
+//   //     profile: 'usuario',
+//   //     createdDb: false,
+//   //     deleted: false
+//   //   },
+//   let dato= UserJson(
+//     req.user.dataValues.id,
+//     req.user.dataValues.firstName,
+//     req.user.dataValues.lastName,
+//     req.user.dataValues.email,
+//     req.user.dataValues.phone,
+//     req.user.dataValues.profile)
+//     res.status(200).json(dato);
+// });
 
 
   bookRouterAuth.get('/logout', LogOut)
