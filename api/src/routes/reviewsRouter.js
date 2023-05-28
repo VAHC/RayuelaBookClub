@@ -8,8 +8,8 @@ const reviewsRouter = Router();
 
 reviewsRouter.get('/', getAllReviewsHandler)
 reviewsRouter.post('/', createReviewHandler)
-reviewsRouter.put('/', editReviewHandler)
-reviewsRouter.put('/delete/', deleteReviewHandler)
+reviewsRouter.put('/:id', editReviewHandler)
+reviewsRouter.put('/delete/:id', deleteReviewHandler)
 
 
 module.exports = reviewsRouter

@@ -64,6 +64,13 @@ passport.use(new PassPortLocal({ passReqToCallback: true,  usernameField: 'email
       const {firstName} = req.body
       console.log('########');
       console.log(req.body);
+      /////////
+      const cookieOptions = {
+        maxAge: 365 * 24 * 60 * 60 * 1000, // 1 año de duración en milisegundos
+        httpOnly: true // Opcional: para que la cookie solo sea accesible en el servidor
+      };
+      req.session.cookie = cookieOptions;
+      ///////
         if (firstName){
           console.log('entre');
           CreateUser(req,email,password,done)
