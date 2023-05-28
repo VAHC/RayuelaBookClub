@@ -11,6 +11,7 @@ import {
     Modal,
 } from "react-bootstrap";
 import { FormCreateBook } from "../formCreateBook/formCreateBook";
+import FormEditBook from "./FormEditBook"
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBooks } from "../../redux/action";
 
@@ -18,6 +19,9 @@ const Inventario = () => {
     const allBooks = useSelector((state) => state.allBooks);
     const [addBookModalShow, setAddBookModalShow] = useState(false);
     const [descriptionModalshow, setDescriptionModalshow] = useState(
+        Array.from({ length: allBooks.length }, () => false)
+    );
+    const [editModalshow, seteditModalshowModalshow] = useState(
         Array.from({ length: allBooks.length }, () => false)
     );
     const [filterText, setFilterText] = useState("");
@@ -160,6 +164,60 @@ const Inventario = () => {
         );
     };
 
+    const editModal = (bookIndex, book) => {
+        return (
+            <>
+                <Button
+                    variant="primary"
+                    onClick={() => {
+                        const updatededitModalshow = [
+                            ...editModalshow,
+                        ];
+                        updatededitModalshow[bookIndex] = true;
+                        seteditModalshowModalshow(updatededitModalshow);
+                    }}
+                >
+                    Editar
+                </Button>
+                <Modal
+                    show={editModalshow[bookIndex]}
+                    onHide={() => seteditModalshowModalshow(bookIndex, false)}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                    backdrop="static"
+                    keyboard={false}
+                >
+                    <Modal.Header closeButton={false}>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            Editando {book.title}
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+
+                       <FormEditBook book={book} /> 
+                        
+                        </Modal.Body>
+                    <Modal.Footer>
+                        <Button
+                            onClick={() => {
+                                const newUpdatededitModalshow = [
+                                    ...editModalshow,
+                                ];
+                                newUpdatededitModalshow[bookIndex] = false;
+                                seteditModalshowModalshow(newUpdatededitModalshow);
+                            }}
+                        >
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            </>
+        );
+    };
+
+
+
     const inventarioMap = filteredBooksByAuthor.map((book, index) => {
         return (
             <tr key={index}>
@@ -196,8 +254,8 @@ const Inventario = () => {
                 <td>{book.price}</td>
                 <td>{book.stock}</td>
                 <td>
-                    <Button variant="primary">Editar</Button>
-                    <Button variant="danger">Deshabilitar/Habilitar</Button>
+                    {editModal(index,book)}
+                    <Button variant="danger">Habilitación</Button>
                 </td>
             </tr>
         );
@@ -279,7 +337,7 @@ const Inventario = () => {
                                 <th>Portada</th>
                                 <th>Titulo</th>
                                 <th>Autor</th>
-                                <th style={{ width: "1px" }}>Genero</th>
+                                <th>Genero</th>
                                 <th>Editorial</th>
                                 <th>Descripcion</th>
                                 <th>Precio</th>

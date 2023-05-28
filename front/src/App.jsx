@@ -20,8 +20,8 @@ import UserDashboard from "./components/UserDashboard/UserDashboard";
 import { Login } from "./components/login/Login";
 import { Registro } from "./components/login/Registro";
 import { FAQs } from "./components/footer/FAQs";
-import MyReviews from './components/reviews/myReviews/MyReviews';
-import FormEditReviews from "./components/reviews/myReviews/FormEditReviews"
+import MyReviews from "./components/UserDashboard/myReviews/MyReviewsContainer";
+import FormEditReviews from "./components/UserDashboard/myReviews/FormEditReviews"
 
 function App() {
 
