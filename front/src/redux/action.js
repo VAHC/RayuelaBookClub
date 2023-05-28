@@ -21,6 +21,7 @@ export const GET_REVIEWS_BOOK = 'GET_REVIEWS_BOOK';
 export const POST_REVIEW = 'POST_REVIEW';
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGOUT = "LOGOUT";
+export const GET_REVIEWS_BY_USER = "GET_REVIEWS_BY_USER";
 
 export const getAllBooks = () => {
   return async (dispatch) => {
@@ -135,4 +136,14 @@ export const login = (user) => {
 
 export const logout = () => {
   return { type: LOGOUT }
+}
+
+//trae todas las reviews de un libro
+export const getReviewsByUser = (userId) => {
+  //console.log('action' + bookId);
+  return async (dispatch) => {
+    const response = await axios.get(`http://localhost:3001/users/${userId}`);
+    const userReviews = response.data;
+    dispatch({ type: GET_REVIEWS_BY_USER, payload: userReviews })
+  }
 }
