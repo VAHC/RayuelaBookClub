@@ -21,6 +21,6 @@ INSERT INTO public.reviews(
 	VALUES ('Alto libro', 5, 'excelente', true, false, 1, 1),
 	('Aburrido', 2, 'buuu', true, false, 1, 2),
 	('Pasable', 3, 'podría ser mas corto', true, false, 2, 1),
-	('Maso', 3, 'difícil de leer', true, false, 3, 1),
+	('Maso', 3, 'difícil de leer', true, false, 3, 1)
 	;
-;
+
