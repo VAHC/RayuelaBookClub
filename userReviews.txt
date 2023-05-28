@@ -16,6 +16,7 @@ PASO 2:
 Ejecuta este script con sql shell o pgAdmin4:
 
 INSERT INTO public.reviews(
+
 	title, qualification, comment, "createdDb", deleted, id_book, id_user)
 	VALUES ('Alto libro', 5, 'excelente', true, false, 1, 1),
 	('Aburrido', 2, 'buuu', true, false, 1, 2),
@@ -23,4 +24,3 @@ INSERT INTO public.reviews(
 	('Maso', 3, 'difícil de leer', true, false, 3, 1),
 	;
 ;
-
