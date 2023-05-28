@@ -56,7 +56,7 @@ export const Registro = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        //dispatch(createUser(userInputs))
+        dispatch(createUser(userInputs))
         console.log(userInputs)
     }
 
