@@ -6,8 +6,13 @@ const { User } = require('../../db');
 const CreateUser= async (req,username,password,done)=>{
 
       try {
-        const {firstName,lastName,phone} = req.body
-        if(firstName && lastName && username && password && phone ){
+        const {firstName,lastName} = req.body
+        phone=req.body.phone
+        if(!phone)
+        {
+          phone=0
+        }
+        if(firstName && lastName && username && password  ){
           const [user, created] = await User.findOrCreate({ where: { email: username },
             defaults: { password: password,
                          profile: 'usuario',
@@ -16,6 +21,9 @@ const CreateUser= async (req,username,password,done)=>{
                          phone: phone,
 
            }});
+           console.log('----- valor created');
+           console.log(created);
+           console.log('-----');
               if (created) {
               // El usuario se creó correctamente
               return done(null, user);
@@ -54,6 +62,7 @@ passport.use(new PassPortLocal({ passReqToCallback: true,  usernameField: 'email
       // entra por aca la info
       console.log('local js');
       const {firstName} = req.body
+      console.log('########');
       console.log(req.body);
         if (firstName){
           console.log('entre');
