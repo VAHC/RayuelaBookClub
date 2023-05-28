@@ -1,7 +1,6 @@
 import React from 'react';
-import axios from 'axios';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from "../../redux/action";
 
@@ -43,7 +42,6 @@ export const Login = () => {
                 body: JSON.stringify(userData)
             })
             const data = await response.json();
-            console.log(data)
     
             // Manejo de la respuesta del backend
             if (!data.message) {
@@ -63,55 +61,8 @@ export const Login = () => {
     }
 
     //LOGIN CON GOOGLE
-    // const handleClick = async () => {
-    //     try {
-    //         const response = await fetch('http://localhost:3001/books/auth/authSocial', {
-    //             method: 'GET',
-    //             mode: 'no-cors'
-    //           })
-    //         const data = await response.json()
-    //         console.log(data)
-    
-    //         // Manejo de la respuesta del backend
-    //         if (!data.message) {
-    //             alert("Entraste")
-    //             dispatch(login(data))
-    //             navigate("/")
-    //         } else {
-    //             // Login fallido
-    //             alert(data.message);
-    //             setUserData({
-    //                 ...userData,
-    //                 password: ""
-    //             })
-    //         }
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
-
     const handleClick = async () => {
-        try {
-            const response = await axios('http://localhost:3001/books/auth/authSocial')
-            const data = await response.json()
-            console.log(data)
-    
-            // Manejo de la respuesta del backend
-            if (!data.message) {
-                alert("Entraste")
-                dispatch(login(data))
-                navigate("/")
-            } else {
-                // Login fallido
-                alert(data.message);
-                setUserData({
-                    ...userData,
-                    password: ""
-                })
-            }
-        } catch (error) {
-            console.log(error);
-        }
+        window.location.href = 'http://localhost:3001/books/auth/authSocial';
     }
 
     return (
@@ -151,12 +102,6 @@ export const Login = () => {
                                 <button className={Object.keys(errors).length === 0 ? "btn btn-dark w-50" : "btn btn-dark w-50 disabled"} type="submit" value="Save">Ingresar</button>
                             </div>
                         </form>
-
-                        {/* <div className="row d-flex justify-content-center">
-                            <div className='col-auto text-center'>
-                                <a href="http://localhost:3001/books/auth/authSocial" className="btn btn-outline-dark"><i className="bi bi-google fs-3 mx-2"></i>Ingresar con G-mail</a>
-                            </div>
-                        </div> */}
 
                         <div className="row d-flex justify-content-center">
                             <div className='col-auto text-center'>

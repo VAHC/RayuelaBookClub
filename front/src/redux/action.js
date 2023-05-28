@@ -90,7 +90,7 @@ export const postBook = (book) => {
 
 export const createUser = (user) => {
   return async function (dispatch) {
-      let response = await axios.post('RUTA DEL BACK', user)
+      let response = await axios.post('http://localhost:3001/books/auth/registro', user)
       return response
   }
 }
