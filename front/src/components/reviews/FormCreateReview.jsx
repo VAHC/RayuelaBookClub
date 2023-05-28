@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import {postReview} from '../../redux/action';
 // import validation from './validation'
 
-const FormCreateReview = ({handleToggleForm, bookId}) => {
+const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [number, setNumber] = useState(0); // estado que sirve para controlar las estrellas
@@ -111,9 +111,10 @@ const FormCreateReview = ({handleToggleForm, bookId}) => {
             //      qualification: '',
             //      comment: '',
             // });  
-            setTimeout(function(){
-                handleToggleForm()//una vez enviado el form me redirige a reseñas
-                setSuccess(false)
+            setTimeout(function() {
+                navigate('/catalogo');
+                handleToggleForm();//una vez enviado el form resete el form a false
+                toggleModal();
             }, 2000)    
         } else {
             alert('missing or incorrect data');
