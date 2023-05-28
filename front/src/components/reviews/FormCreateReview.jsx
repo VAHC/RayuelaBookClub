@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {postReview} from '../../redux/action';
-// import validation from './validation'
+import validation from './validation'
 
 const FormCreateReview = ({handleToggleForm, bookId}) => {
     const dispatch = useDispatch();
@@ -15,22 +15,22 @@ const FormCreateReview = ({handleToggleForm, bookId}) => {
     const [input, setInput] = useState({ //estado,local para menejar los inputs
         id_book: '',
         id_user: '',
-        "createdDb": '',
+        createdDb: '',
         deleted: '',
         title: '',
         qualification: '',
         comment: '',
     });
 
-    // const [errors, setErrors] = useState({ //estado,local para menejar los errores
-    //     // id_book: '',
-    //     // id_user: '',
-    //     // "createdDb": '',
-    //     // deleted: '',
-    //     title: '',
-    //     qualification: '',
-    //     comment: '',
-    // });
+    const [errors, setErrors] = useState({ //estado,local para menejar los errores
+        // id_book: '',
+        // id_user: '',
+        // "createdDb": '',
+        // deleted: '',
+        title: '',
+        qualification: '',
+        comment: '',
+    });
     
     const [formComplete, setFormComplete] = useState(false); //estodo local para manejar el boton del submit y el envio de datos
     const [success, setSuccess] = useState(false); // estado local para manejar la alerta de ok
@@ -61,15 +61,15 @@ const FormCreateReview = ({handleToggleForm, bookId}) => {
             id_book: bookId,
             // id_user: user.id,
             id_user: 1,
-            "createdDb": true,
+            createdDb: true,
             deleted: false,
             qualification: number,
             [e.target.name] : e.target.value
         });
-        // setErrors(validation({
-        //     ...input,
-        //     [e.target.name]: e.target.value
-        // }));
+        setErrors(validation({
+            ...input,
+            [e.target.name]: e.target.value
+        }));
     };
             //useEffect que escucha los estados locales input y errors para setear el estado FormComplete
     useEffect(() => {
@@ -96,21 +96,21 @@ const FormCreateReview = ({handleToggleForm, bookId}) => {
             setInput({
                 id_book: '',
                 id_user: '',
-                "createdDb": '',
+                createdDb: '',
                 deleted: '',
                 title: '',
                 qualification: '',
                 comment: '',
             });
-            // setErrors({
-            //     //  id_book: '',
-            //     //  id_user: '',
-            //     //  "createdDb": '',
-            //     //  deleted: '',
-            //      title: '',
-            //      qualification: '',
-            //      comment: '',
-            // });  
+            setErrors({
+                //  id_book: '',
+                //  id_user: '',
+                //  "createdDb": '',
+                //  deleted: '',
+                 title: '',
+                 qualification: '',
+                 comment: '',
+            });  
             setTimeout(function(){
                 handleToggleForm()//una vez enviado el form me redirige a reseñas
                 setSuccess(false)
@@ -120,53 +120,81 @@ const FormCreateReview = ({handleToggleForm, bookId}) => {
             }
         }
 
-    return (
-                <>
-                    <h4 className='text-center fs-3'>Deja tu reseña</h4>
-                    <form onSubmit={submitHandler}>
-                        {success && <img className="w-50 p-3 h-50 d-inline-block" src='./images/createdReview.png' alt='formulario enviado correctamente' />}
-                        {!success && <div>
-                            <div className="row g-3 align-items-center">
-                            <div className="d-flex flex-column align-items-center">
-                                <p className="text-center">{handlerText()}</p>
-                            <div>
-                                {Array(5).fill().map((_, index) => {
-                                return number >= index + 1 || hoverStar >= index + 1 
-                                ? <i className="bi bi-star-fill" onClick={() => setNumber(index + 1)} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => {setHoverStar(undefined)}}/> 
-                                : <i className="bi bi-star" onClick={() => {inputHandler}} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => {setHoverStar(undefined)}}/>
-                                })}
-                                {/* {errors.qualification ? <p className="text-danger">{errors.qualification}</p>} : null */}
-                            </div>
-                            </div>
-                                <div className="col-auto">
-                                    <label className="col-form-label ms-3" htmlFor='title'>Título:</label>
-                                </div>
-                                <div className="col-auto">
-                                    <input className="form-control" id='title' type='text' value={input.title} name='title' placeholder='Dale un titulo a tu reseña' onChange={inputHandler} />
-                                    {/* {errors.title ? <p className="text-danger">{errors.title}</p> : null} */}
-                                </div>
-                            </div>
-        
-                            <div className="row g-3 align-items-center">
-                                <div className="col-auto">
-                                    <label className="col-form-label ms-3" htmlFor='comment'>Reseña:</label>
-                                </div>
-                                <div className="col-auto">
-                                    <input className="form-control" id='comment' type='textarea' value={input.comment} name='comment' placeholder='Reseña...' onChange={inputHandler} />
-                                    {/* {errors.comment ? <p className="text-danger">{errors.comment}</p> : null} */}
-                                </div>
-                            </div>
-                        </div>}
-                        <div className="d-flex flex-row justify-content-evenly">
-                            <button className="btn btn-dark m-3" disabled={!formComplete} type='submit' onClick={handleToggleForm}>Enviar</button>
-                            {/* <button className="btn btn-dark m-3" onClick={() => navigate('/catalogo')}>Volver</button> */}
+return (
+        <>
+            <h4 className='text-center fs-3'>Deja tu reseña</h4>
+            <form onSubmit={submitHandler}>
+                {success && <img className="w-50 p-3 h-50 d-inline-block" src='./images/createdReview.png' alt='formulario enviado correctamente' />}
+                {!success && (
+                  <div>
+                    <div className="row g-3 align-items-center">
+                      <div className="d-flex flex-column align-items-center">
+                        <p className="text-center">{handlerText()}</p>
+                        <div>
+                          {Array(5).fill().map((_, index) => {
+                            return (
+                              number >= index + 1 || hoverStar >= index + 1
+                                ? <i className="bi bi-star-fill" onClick={() => setNumber(index + 1)} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
+                                : <i className="bi bi-star" onClick={() => { inputHandler }} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
+                            );
+                          })}
+                          {errors.qualification ? <p className="text-danger">{errors.qualification}</p> : null}
                         </div>
-                    </form>
-                </>
-            )
-};
+                      </div>
+                      <div className="col-auto">
+                        <label className="col-form-label ms-3" htmlFor='title'>Título:</label>
+                      </div>
+                      <div className="col-auto">
+                        <input className="form-control" id='title' type='text' value={input.title} name='title' placeholder='Dale un título a tu reseña' onChange={inputHandler} />
+                        {errors.title ? <p className="text-danger">{errors.title}</p> : null}
+                      </div>
+                    </div>
+        
+                    <div className="row g-3 align-items-center">
+                      <div className="col-auto">
+                        <label className="col-form-label ms-3" htmlFor='comment'>Reseña:</label>
+                      </div>
+                      <div className="col-auto">
+                        <input className="form-control" id='comment' type='textarea' value={input.comment} name='comment' placeholder='Reseña...' onChange={inputHandler} />
+                        {errors.comment ? <p className="text-danger">{errors.comment}</p> : null}
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <div className="d-flex flex-row justify-content-evenly">
+                  <button className="btn btn-dark m-3" disabled={!formComplete} type='submit' onClick={handleToggleForm}>Enviar</button>
+                  <button className="btn btn-dark m-3" onClick={() => navigate('/catalogo')}>Volver</button>
+                </div>
+            </form>
+        </>
+    )
+}
+        
+export default FormCreateReview;
 
-export default FormCreateReview
 
 
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
