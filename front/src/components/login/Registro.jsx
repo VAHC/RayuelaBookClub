@@ -10,7 +10,7 @@ export const Registro = () => {
     const dispatch = useDispatch();
 
     const [userInputs, setUserInputs] = useState({
-        name: "",
+        firstName: "",
         lastName: "",
         email: "",
         phone: "",
@@ -23,7 +23,7 @@ export const Registro = () => {
     })
 
     const [errors, setErrors] = useState({
-        name: "",
+        firstName: "",
         lastName: "",
         email: "",
         emailConfirm: "",
@@ -56,10 +56,8 @@ export const Registro = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        if (Object.keys(errors).length === 0) {
-            dispatch(createUser(userInputs))
-            alert("Funciona")
-        }
+        dispatch(createUser(userInputs))
+        console.log(userInputs)
     }
 
     return (
@@ -68,9 +66,9 @@ export const Registro = () => {
             <div className="d-flex justify-content-center m-2">
                 <form className="row g-2 md-2 w-75" onSubmit={handleSubmit}>
                     <div className="col-md-6">
-                        <label htmlFor="name" className="form-label">Nombre</label>
-                        <input type="text" className="form-control" name="name" value={userInputs.name} onChange={handleInputChange} required />
-                        {errors.name && <p className="text-danger">{errors.name}</p>}
+                        <label htmlFor="firstName" className="form-label">Nombre</label>
+                        <input type="text" className="form-control" name="firstName" value={userInputs.firstName} onChange={handleInputChange} required />
+                        {errors.firstName && <p className="text-danger">{errors.firstName}</p>}
                     </div>
 
                     <div className="col-md-6">
