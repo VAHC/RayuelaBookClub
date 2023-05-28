@@ -2,8 +2,8 @@ const updateBook = require('../../controllers/books/updateBook');
 
 const updateBookHandler = async (req, res) => {
 
-    const { id } = req.params
-    const { title, publisher, description, price, stock, publishedDate, image, genders, authors } = req.body;
+    // const { id } = req.params
+    const { id, title, publisher, description, price, stock, publishedDate, image, genders, authors } = req.body;
 
     try {
         if (!title || !publisher || !description || !price || !stock || !publishedDate || !image) {

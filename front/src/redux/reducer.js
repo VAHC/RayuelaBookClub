@@ -18,6 +18,7 @@ import {
   POST_REVIEW,
   LOGIN_SUCCESS,
   LOGOUT,
+  PUT_BOOK
 } from './action';
 
 
@@ -223,6 +224,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         user: null
+      }
+      
+      case PUT_BOOK:
+      return {
+        ...state
       }
 
     default:

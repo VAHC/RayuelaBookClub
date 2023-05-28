@@ -17,7 +17,8 @@ bookRouter.get('/:id', getBookByIdHandler)
 bookRouter.get('/page/:number', getPage)
 bookRouter.get('/load', LoadBooksHandler)
 bookRouter.post('/', createBookHandler)
-bookRouter.put('/:id', updateBookHandler)
+// bookRouter.put('/:id', updateBookHandler)
+bookRouter.put('/putbook', updateBookHandler)
 bookRouter.put('/delete/:id', deleteBookHandler)
 
 
