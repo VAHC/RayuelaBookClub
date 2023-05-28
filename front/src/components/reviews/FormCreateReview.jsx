@@ -3,16 +3,14 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {postReview} from '../../redux/action';
-import Alert from 'react-bootstrap/Alert';
-// import validation from './validation';
+// import validation from './validation'
 
 const FormCreateReview = ({handleToggleForm, bookId}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [number, setNumber] = useState(0); // estado que sirve para controlar las estrellas
     const [hoverStar, setHoverStar] = useState(undefined);
-    const user = useSelector((state)  => state.user)
-    console.log(user);
+    // const user = useSelector((state)  => state.user) //estado que comprueba que se esta logueado
 
     const [input, setInput] = useState({ //estado,local para menejar los inputs
         id_book: '',
@@ -24,15 +22,15 @@ const FormCreateReview = ({handleToggleForm, bookId}) => {
         comment: '',
     });
 
-    const [errors, setErrors] = useState({ //estado,local para menejar los errores
-        id_book: '',
-        id_user: '',
-        "createdDb": '',
-        deleted: '',
-        title: '',
-        qualification: '',
-        comment: '',
-    });
+    // const [errors, setErrors] = useState({ //estado,local para menejar los errores
+    //     // id_book: '',
+    //     // id_user: '',
+    //     // "createdDb": '',
+    //     // deleted: '',
+    //     title: '',
+    //     qualification: '',
+    //     comment: '',
+    // });
     
     const [formComplete, setFormComplete] = useState(false); //estodo local para manejar el boton del submit y el envio de datos
     const [success, setSuccess] = useState(false); // estado local para manejar la alerta de ok
@@ -68,31 +66,31 @@ const FormCreateReview = ({handleToggleForm, bookId}) => {
             qualification: number,
             [e.target.name] : e.target.value
         });
-    }
         // setErrors(validation({
         //     ...input,
         //     [e.target.name]: e.target.value
         // }));
-    // };
+    };
             //useEffect que escucha los estados locales input y errors para setear el estado FormComplete
     useEffect(() => {
         let values = Object.values(input);
         let notComplete = values.filter( value => value === "")
-        //let error = Object.keys(errors);
+        // let error = Object.keys(errors);
+    //     if(!notComplete.length && !error.length) setFormComplete(true)
+    // }, [input, errors])
         if(!notComplete.length) setFormComplete(true)
-    }, [input]) 
-            //     if(!notComplete.length && !error.length) setFormComplete(true)
-            // }, [input, errors])
+    }, [input])
         
-            // //handler del submit ==> si fomrComplete es true despacha la action PostActivity, setea Success en true, setea input y errors al estado inicial
+            // //handler del submit ==> si fomrComplete es true despacha la action, setea Success en true, setea input y errors al estado inicial
     const submitHandler = (e) => {
         e.preventDefault();
-        if(!user) {
-                alert('antes de dejar tu reseña debes loguearte')
-            setTimeout(function(){
-                navigate('/ingresar')//si no estoy logueado redirege al login
-            }, 2000)
-        } else if(formComplete) {
+        // if(!user) {
+        //         alert('antes de dejar tu reseña debes loguearte')
+        //     setTimeout(function(){
+        //         navigate('/ingresar')//si no estoy logueado redirege al login
+        //     }, 2000)
+        // } else if(formComplete) {
+         if(formComplete) {
             dispatch(postReview(input));
             setSuccess(true); // al setearse en true cambia el rederizado
             setInput({
@@ -105,16 +103,17 @@ const FormCreateReview = ({handleToggleForm, bookId}) => {
                 comment: '',
             });
             // setErrors({
-            //      id_book: '',
-            //      id_user: '',
-            //      "createdDb": '',
-            //      deleted: '',
+            //     //  id_book: '',
+            //     //  id_user: '',
+            //     //  "createdDb": '',
+            //     //  deleted: '',
             //      title: '',
             //      qualification: '',
             //      comment: '',
             // });  
             setTimeout(function(){
                 handleToggleForm()//una vez enviado el form me redirige a reseñas
+                setSuccess(false)
             }, 2000)    
         } else {
             alert('missing or incorrect data');
@@ -136,6 +135,7 @@ const FormCreateReview = ({handleToggleForm, bookId}) => {
                                 ? <i className="bi bi-star-fill" onClick={() => setNumber(index + 1)} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => {setHoverStar(undefined)}}/> 
                                 : <i className="bi bi-star" onClick={() => {inputHandler}} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => {setHoverStar(undefined)}}/>
                                 })}
+                                {/* {errors.qualification ? <p className="text-danger">{errors.qualification}</p>} : null */}
                             </div>
                             </div>
                                 <div className="col-auto">
@@ -143,7 +143,7 @@ const FormCreateReview = ({handleToggleForm, bookId}) => {
                                 </div>
                                 <div className="col-auto">
                                     <input className="form-control" id='title' type='text' value={input.title} name='title' placeholder='Dale un titulo a tu reseña' onChange={inputHandler} />
-                                    {/* {errors.title ? <p>{errors.title}</p> : null} */}
+                                    {/* {errors.title ? <p className="text-danger">{errors.title}</p> : null} */}
                                 </div>
                             </div>
         
@@ -153,7 +153,7 @@ const FormCreateReview = ({handleToggleForm, bookId}) => {
                                 </div>
                                 <div className="col-auto">
                                     <input className="form-control" id='comment' type='textarea' value={input.comment} name='comment' placeholder='Reseña...' onChange={inputHandler} />
-                                    <p>{errors.comment}</p>
+                                    {/* {errors.comment ? <p className="text-danger">{errors.comment}</p> : null} */}
                                 </div>
                             </div>
                         </div>}
