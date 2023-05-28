@@ -14,7 +14,7 @@ const Inventario = () => {
         <Container>
             <Row>
                 <Col>
-                    <h1>Product Management</h1>
+                    <h1>Mi perfil</h1>
                 </Col>
             </Row>
             <Row>

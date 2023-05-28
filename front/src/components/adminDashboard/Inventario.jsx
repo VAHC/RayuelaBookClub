@@ -172,22 +172,22 @@ const Inventario = () => {
                 </td>
                 <td>{book.title}</td>
                 <td>
-                    {book.authors.map((author) => {
+                    {book.authors.map((author, index) => {
                         return (
-                            <>
+                            <div key={index}>
                                 {author}
                                 <br />
-                            </>
+                            </div>
                         );
                     })}
                 </td>
                 <td>
-                    {book.genders.map((genre) => {
+                    {book.genders.map((genre, index) => {
                         return (
-                            <>
+                            <div key={index}>
                                 {genre}
                                 <br />
-                            </>
+                            </div>
                         );
                     })}
                 </td>
