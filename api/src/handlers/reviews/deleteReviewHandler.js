@@ -1,7 +1,7 @@
 const deleteReview = require('../../controllers/reviews/deleteReview')
 
 const deleteReviewHandler = async (req, res) => {
-    const { id } = req.body
+    const { id } = req.params
 
     try {
             const deletedReview = await deleteReview(id)
