@@ -29,31 +29,33 @@ function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const getUser = () => {
-  //     fetch("http://localhost:3001/books/auth/authSocial", {
-  //       method: "GET",
-  //       credentials: "include",
-  //       headers: {
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json",
-  //         "Access-Control-Allow-Credentials": true,
-  //       },
-  //     })
-  //       .then((response) => {
-  //         if (response.status === 200) return response.json();
-  //         throw new Error("authentication has been failed!");
-  //       })
-  //       .then((resObject) => {
-  //         dispatch(login(resObject.user))
-  //         navigate("/")
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   };
-  //   getUser();
-  // }, []);
+  useEffect(() => {
+    const getUser = () => {
+      fetch("http://localhost:3001/books/auth/authSocial/success", {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+        },
+      })
+        .then((response) => {
+          if (response.status === 200) return response.json();
+          console.log(response)
+          throw new Error("authentication has been failed!");
+        })
+        .then((resObject) => {
+          console.log(resObject.user)
+          dispatch(login(resObject.user))
+          navigate("/")
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    getUser();
+  }, []);
 
   return (
     //Descomentar para utilizar rutas protegidas
