@@ -19,9 +19,8 @@ import {
   LOGIN_SUCCESS,
   LOGOUT,
   GET_REVIEWS_BY_USER,
+  PUT_BOOK
 } from './action';
-
-
 
 // Initial state
 const initialState = {
@@ -233,6 +232,11 @@ const reducer = (state = initialState, action) => {
           ...state,
           userReviews: action.payload.reviews
         }
+
+      case PUT_BOOK:
+      return {
+        ...state
+      }
 
     default:
       return state;
