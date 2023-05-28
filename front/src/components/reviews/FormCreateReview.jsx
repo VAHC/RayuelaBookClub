@@ -114,6 +114,7 @@ const FormCreateReview = ({handleToggleForm, bookId}) => {
             setTimeout(function(){
                 handleToggleForm()//una vez enviado el form me redirige a reseñas
                 setSuccess(false)
+                navigate('/catalogo')
             }, 2000)    
         } else {
             alert('missing or incorrect data');
