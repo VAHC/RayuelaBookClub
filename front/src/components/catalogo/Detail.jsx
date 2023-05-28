@@ -1,19 +1,22 @@
 import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { useSelector } from "react-redux";
-// import ContainerReviews from "../reviews/ContainerReviews";
-// import { useState } from 'react';
-import {useNavigate} from 'react-router-dom';
+import ContainerReviews from "../reviews/ContainerReviews";
+import { useState } from 'react';
+
 
 export const Detail = () => {
   const detailData = useSelector((state) => state.detail_data);
-  //codigo para modal
-  // const [showModal, setShowModal] = useState(false); //estdo local para mostrar o no el modal
+  //console.log(detailData);
+  const bookId = detailData ? detailData.id : null;
+  //console.log('detail' + bookId)
 
-  // const toggleModal = () => { //funcion que setea showModal al booleano contrario en el que esta
-  //   setShowModal(!showModal);
-  // };
-  const navigate = useNavigate()
+  //codigo para modal
+  const [showModal, setShowModal] = useState(false); //estdo local para mostrar o no el modal
+
+  const toggleModal = () => { //funcion que setea showModal al booleano contrario en el que esta
+    setShowModal(prevShowModal => !prevShowModal);
+  };
 
   if (!detailData) {
     return (
@@ -43,8 +46,8 @@ export const Detail = () => {
                                 width: "70px",
                                 height: "70px",
                             }}
-                            // onClick={toggleModal}
-                            onClick={() => navigate('/reseñas')}
+                            onClick={toggleModal}
+                            //onClick={() => navigate(`/reseñas/${bookId}`)}
                         >
                             5/5 ★
                         </Button>
@@ -85,15 +88,18 @@ export const Detail = () => {
                 </Row>
               </div>
             </Card.Body>
-            {/* {showModal && (
+            {showModal && (
               <div className="modal" tabIndex="-1" style={{ display: "block" }}>
-              <div className="modal-dialog modal-dialog-scrollable">
-              <div className="modal-content">
-                <ContainerReviews toggleModal={toggleModal}/>
+                <div className="modal-dialog modal-dialog-scrollable">
+                  <div className="modal-content">
+                    <ContainerReviews 
+                      toggleModal={toggleModal}
+                      bookId={bookId} // Corrección: pasando bookId como propiedad
+                    />
+                  </div>
+                </div>
               </div>
-              </div>
-              </div>
-            )} */}
+            )}
           </Card>
     );
   }

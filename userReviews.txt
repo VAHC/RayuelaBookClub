@@ -2,14 +2,13 @@ Paso 1:
 
 Ejecuta este script con sql shell o pgAdmin4:
 
-INSERT INTO public.users(
-	name, email, password, phone, profile, "createdDb", deleted)
-	VALUES 
-
-	('Andres', 'andres@mail.com', 'conlse', 453536536, 'user', true, false),
-    ('Alejandro', 'ale@mail.com', 'fefegf', 453652236, 'user', true, false),
-    ('Juan', 'juan@mail.com', 'gefefe', 452336536, 'user', true, false),
-    ('Victor', 'victor@mail.com', 'fefefe', 4536536, 'user', true, false);
+INSERT INTO public.users (
+  "firstName", "lastName", email, password, phone, profile, "createdDb", deleted)
+VALUES 
+  ('Andres', 'Carola', 'andres@mail.com', 'conlse', 453536536, 'user', true, false),
+  ('Alejandro', 'Carola', 'ale@mail.com', 'fefegf', 453652236, 'user', true, false),
+  ('Juan', 'Tibiletti', 'juan@mail.com', 'gefefe', 452336536, 'user', true, false),
+  ('Victor', 'Hardoy', 'victor@mail.com', 'fefefe', 4536536, 'user', true, false);
 
 
 PASO 2:
@@ -22,7 +21,6 @@ INSERT INTO public.reviews(
 	('Aburrido', 2, 'buuu', true, false, 1, 2),
 	('Pasable', 3, 'podría ser mas corto', true, false, 2, 1),
 	('Maso', 3, 'difícil de leer', true, false, 3, 1),
-	('Muy divertido', 5, 'Para levantar el ánimo', true, false, 3, 2),
-	('Espectacular', 5, 'no lo podía dejar de leer', true, false, 2, 2)
+	;
 ;
 
