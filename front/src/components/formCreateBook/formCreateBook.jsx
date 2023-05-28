@@ -200,7 +200,8 @@ export const FormCreateBook = () => {
                                     onChange={inputHandler}
                                 />
                                 {/* {errors.name ? <p className={styles.vDanger}>{errors.name}</p> : null} */}
-                                <p>{errors.title}</p>
+                                {/* <p>{errors.title}</p> */}
+                                {errors.title ? <p className="text-danger">{errors.title}</p> : null}
                             </div>
                         </div>
 
@@ -229,7 +230,8 @@ export const FormCreateBook = () => {
                                     placeholder="Editorial del libro"
                                     onChange={inputHandler}
                                 />
-                                <p>{errors.publisher}</p>
+                                {/* <p>{errors.publisher}</p> */}
+                                {errors.publisher ? <p className="text-danger">{errors.publisher}</p> : null}
                             </div>
                         </div>
 
@@ -258,7 +260,8 @@ export const FormCreateBook = () => {
                                     placeholder="Sinopsis del libro"
                                     onChange={inputHandler}
                                 />
-                                <p>{errors.description}</p>
+                                {/* <p>{errors.description}</p> */}
+                                {errors.description ? <p className="text-danger">{errors.description}</p> : null}
                             </div>
                         </div>
 
@@ -287,7 +290,8 @@ export const FormCreateBook = () => {
                                     placeholder="$"
                                     onChange={inputHandler}
                                 />
-                                <p>{errors.price}</p>
+                                {/* <p>{errors.price}</p> */}
+                                {errors.price ? <p className="text-danger">{errors.price}</p> : null}
                             </div>
                         </div>
 
@@ -316,7 +320,8 @@ export const FormCreateBook = () => {
                                     placeholder="Cantidad"
                                     onChange={inputHandler}
                                 />
-                                <p>{errors.stock}</p>
+                                {/* <p>{errors.stock}</p> */}
+                                {errors.stock ? <p className="text-danger">{errors.stock}</p> : null}
                             </div>
                         </div>
 
@@ -345,7 +350,8 @@ export const FormCreateBook = () => {
                                     placeholder="mm/aaaa"
                                     onChange={inputHandler}
                                 />
-                                <p>{errors.publishedDate}</p>
+                                {/* <p>{errors.publishedDate}</p> */}
+                                {errors.publishedDate ? <p className="text-danger">{errors.publishedDate}</p> : null}
                             </div>
                         </div>
 
@@ -374,7 +380,8 @@ export const FormCreateBook = () => {
                                     placeholder="url"
                                     onChange={inputHandler}
                                 />
-                                <p>{errors.image}</p>
+                                {/* <p>{errors.image}</p> */}
+                                {errors.image ? <p className="text-danger">{errors.image}</p> : null}
                             </div>
                         </div>
 
@@ -414,7 +421,8 @@ export const FormCreateBook = () => {
                                             );
                                         })}
                                 </select>
-                                <p>{errors.genders}</p>
+                                {/* <p>{errors.genders}</p> */}
+                                {errors.genders ? <p className="text-danger">{errors.genders}</p> : null}
                             </div>
                         </div>
 
@@ -454,7 +462,8 @@ export const FormCreateBook = () => {
                                             );
                                         })}
                                 </select>
-                                <p>{errors.authors}</p>
+                                {/* <p>{errors.authors}</p> */}
+                                {errors.authors ? <p className="text-danger">{errors.authors}</p> : null}
                             </div>
                         </div>
                     </div>
