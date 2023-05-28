@@ -124,7 +124,7 @@ const FormCreateReview = ({handleToggleForm, bookId}) => {
                 <>
                     <h4 className='text-center fs-3'>Deja tu reseña</h4>
                     <form onSubmit={submitHandler}>
-                        {success && <img className="w-50 p-3 h-50 d-inline-block" src='./images/libroCreado.jpg' alt='formulario enviado correctamente' />}
+                        {success && <img className="w-50 p-3 h-50 d-inline-block" src='./images/createdReview.png' alt='formulario enviado correctamente' />}
                         {!success && <div>
                             <div className="row g-3 align-items-center">
                             <div className="d-flex flex-column align-items-center">
