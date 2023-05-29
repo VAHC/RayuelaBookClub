@@ -11,10 +11,10 @@ export const FAQs = () => {
       <p className="mx-5">No, podés darte de baja cuando lo desees. Solo tenes que escribirnos a nuestro correo y solicitarla.</p>
       <p className="fw-bold mt-4 mb-2 mx-5">¿Hacen envíos a todo el país?</p>
       <p className="mx-5">Sí, hacemos envíos a todo el país a través de Correo Argentino.</p>
-      <p className="fw-bold mt-4 mb-2 mx-5">¿Cuál es el costo de envío?</p>
-      <p className="mx-5">El valor del envío varía dependiendo del lugar de destino. Podés hacer el cálculo del costo ingresando tu código postal antes de realizar tu suscripción.</p>
+      {/* <p className="fw-bold mt-4 mb-2 mx-5">¿Cuál es el costo de envío?</p>
+      <p className="mx-5">El valor del envío varía dependiendo del lugar de destino. Podés hacer el cálculo del costo ingresando tu código postal antes de realizar tu suscripción.</p> */}
       <p className="fw-bold mt-4 mb-2 mx-5">¿Qué tipo de libro envían y cómo lo seleccionan?</p>
-      <p className="mx-5 mb-4">En Rayuela seleccionamos libros clásicos y modernos, te vas a encontrar con historias, personajes, escenarios variados, de autores nacionales y también internacionales.
+      <p className="mx-5 mb-5">En Rayuela seleccionamos libros clásicos y modernos, te vas a encontrar con historias, personajes, escenarios variados, de autores nacionales y también internacionales.
         Nos enfocamos en que sea un libro entretenido y atrapante y que sea de un gran valor literario.</p>
     </>
   )
