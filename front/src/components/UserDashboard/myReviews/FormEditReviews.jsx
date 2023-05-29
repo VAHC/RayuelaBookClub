@@ -54,16 +54,16 @@ const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
         });
     };
 
-    // useEffect(() => {
-    //   // Lógica que se ejecutará después de que el estado `success` se haya actualizado
-    //   if (success) {
-    //     console.log(success);
-    //     setTimeout(() => {
-    //       toggleModal();
-    //       setSuccess(false);
-    //     }, 4000);
-    //   }
-    // }, [success]);
+    useEffect(() => {
+      // Lógica que se ejecutará después de que el estado `success` se haya actualizado
+      if (success) {
+        console.log(success);
+        setTimeout(() => {
+          toggleModal();
+          setSuccess(false);
+        }, 2000);
+      }
+    }, [success]);
 
     console.log(success)
     const submitHandler =  (e) => {
@@ -73,12 +73,12 @@ const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
         //console.log('se despacha la action');
         //console.log('id del dispatch ' + reviewId);
         setSuccess(true); // al setearse en true cambia el rederizado 
-        console.log(success)         
-        setTimeout(function(){
-          toggleModal()//una vez enviado el form se cierra modal
-          setSuccess(false)
-          console.log(success);
-        }, 2000)    
+        // console.log(success)         
+        // setTimeout(function(){
+        //   toggleModal()//una vez enviado el form se cierra modal
+        //   setSuccess(false)
+        //   console.log(success);
+        // }, 2000)    
     }
 
 

@@ -15,9 +15,9 @@ import {
 
 const MyReviewsContainer = () => {
     const userReviews = useSelector((state) => state.userReviews);
-    //const userId = useSelector((state) => state.user.id);
-    //user hardcodeado para trabajar
-    const userId = 1;
+    const userId = useSelector((state) => state.user.id);
+    // //user hardcodeado para trabajar
+    // const userId = 1;
     const dispatch = useDispatch();
 
     const notDeletedReviews = userReviews.filter((review) => !review.deleted)
