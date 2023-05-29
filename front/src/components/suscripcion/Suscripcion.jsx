@@ -66,11 +66,11 @@ export const Suscripcion = () => {
         <div className="card-body">
           <h5 className="card-title">Suscripción mensual $3500</h5>
           <a href="#" className="btn btn-secondary btn-lg m-3">Suscribirme</a>
-          <p className="card-text mb-5">Calcular costo de envío</p>
+          {/* <p className="card-text mb-5">Calcular costo de envío</p>
           <div className="input-group mb-3 w-25 text-center position-absolute bottom-0 start-50 translate-middle-x">
             <input type="text" className="form-control" placeholder="Código postal" />
             <button className="btn btn-secondary">Calcular</button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
