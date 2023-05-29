@@ -108,7 +108,7 @@ const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
                 )}
                 <div className="d-flex flex-row justify-content-evenly">
                 <button className="btn btn-dark m-3"  type="submit" onClick={() => handleEditReview(review)}>Enviar</button>
-                  <button className="btn btn-dark m-3" onClick={() => toggleModal()}>Volver</button>
+                  <button className="btn btn-dark m-3" onClick={() => toggleModal()}>Cerrar</button>
                 </div>
               </form>
           </>

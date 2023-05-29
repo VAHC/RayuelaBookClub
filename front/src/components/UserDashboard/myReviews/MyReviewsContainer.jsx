@@ -81,9 +81,9 @@ const MyReviewsContainer = () => {
                             <td>{r.title}</td>
                             <td>{renderStars(r.qualification)}</td>
                             <td>{r.comment}</td>
-                            <td>
-                                    <Button variant="primary" onClick={() => handleEditReview(r)}>Editar</Button>
-                                    <Button variant="danger"><i class="bi bi-trash3"/></Button>
+                            <td className="d-flex justify-content-center align-items-center">
+                                    <Button variant="primary" className="btn btn-sm me-2" onClick={() => handleEditReview(r)}>Editar</Button>
+                                    <Button variant="danger" size="sm"><i class="bi bi-trash3"/></Button>
                             </td>
                         </tr>
 
@@ -95,7 +95,7 @@ const MyReviewsContainer = () => {
                         </tbody>
                         {showModal && (
                             <div className="modal" tabIndex="-1" style={{ display: "block" }}>
-                           <div className="modal-dialog modal-dialog-scrollable modal-dialog-centered ">
+                           <div className="modal-dialog modal-dialog-scrollable modal-dialog-centered " style={{ marginTop: "7%" }}>
                             <div className="modal-content bg-white border-4">
                             
                     <FormEditReviews 
