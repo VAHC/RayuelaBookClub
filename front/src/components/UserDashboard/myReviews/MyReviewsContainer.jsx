@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getReviewsByUser } from './../../../redux/action';
+import { getReviewsByUser, deleteReview } from './../../../redux/action';
 import FormEditReviews from "./FormEditReviews";
 import {
     Container,
@@ -49,6 +49,10 @@ const MyReviewsContainer = () => {
     toggleModal();
   };
 
+  const handlerDelete = (reviewId) => {
+    dispatch(deleteReview(reviewId))
+  }
+
     return (
         <Container>
             <Row>
@@ -83,7 +87,7 @@ const MyReviewsContainer = () => {
                             <td>{r.comment}</td>
                             <td className="d-flex justify-content-center align-items-center">
                                     <Button variant="primary" className="btn btn-sm me-2" onClick={() => handleEditReview(r)}>Editar</Button>
-                                    <Button variant="danger" size="sm"><i class="bi bi-trash3"/></Button>
+                                    <Button variant="danger" size="sm" onClick={() => handlerDelete(review.id)}><i class="bi bi-trash3"/></Button>
                             </td>
                         </tr>
 

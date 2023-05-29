@@ -24,6 +24,7 @@ export const LOGOUT = "LOGOUT";
 export const GET_REVIEWS_BY_USER = "GET_REVIEWS_BY_USER";
 export const PUT_BOOK = "PUT_BOOK";
 export const PUT_REVIEW = "PUT_REVIEW";
+export const DELETE_REVIEW = "DELETE_REVIEW";
 
 
 export const getAllBooks = () => {
@@ -165,6 +166,13 @@ export const modifyBook = (bookEdit) => {
 export const putReview = (review) => {
   return async function (dispatch) {
     let response = await axios.put(`http://localhost:3001/reviews/${review.id}`, review)
+    return response
+  }
+}
+
+export const deleteReview = (reviewId) => {
+  return async function (dispatch) {
+    let response = await axios.put(`http://localhost:3001/reviews/:delete/${review.id}`, reviewId)
     return response
   }
 }
