@@ -19,7 +19,9 @@ import {
   LOGIN_SUCCESS,
   LOGOUT,
   GET_REVIEWS_BY_USER,
-  PUT_BOOK
+  PUT_BOOK,
+  PUT_REVIEW,
+  DELETE_REVIEW,
 } from './action';
 
 // Initial state
@@ -237,6 +239,17 @@ const reducer = (state = initialState, action) => {
       return {
         ...state
       }
+      case PUT_REVIEW:
+        //console.log('entra la action en el reducer')
+        return {
+          ...state
+        }
+      case DELETE_REVIEW:
+        //console.log('entra la action en el reducer');
+        return {
+          ...state
+        }
+      
 
     default:
       return state;

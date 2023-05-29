@@ -171,30 +171,3 @@ return (
 }
         
 export default FormCreateReview
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
