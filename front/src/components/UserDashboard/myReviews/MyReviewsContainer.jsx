@@ -19,6 +19,9 @@ const MyReviewsContainer = () => {
     const userId = 1;
     const dispatch = useDispatch();
 
+    const notDeletedReviews = userReviews.filter((review) => !review.deleted)
+    console.log(notDeletedReviews);
+
     const renderStars = (rating) => {
         const stars = [];
         for (let i = 1; i <= 5; i++) {
@@ -52,13 +55,13 @@ const MyReviewsContainer = () => {
                         </thead>
                         <tbody>
                             
-            {!userReviews.length  ? (
+            {!notDeletedReviews.length  ? (
                 <div>
                 <h6>Aún no dejaste una reseña...</h6>
                 <h5>Elegi un libro y deja una!</h5>
                 </div>
             ) : (
-                userReviews.map((r) => { 
+                notDeletedReviews.map((r) => { 
                     return (
                         <tr id={r.id} key={r.id}> 
                             <td>{r.book}</td>
