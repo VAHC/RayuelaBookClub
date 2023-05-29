@@ -21,7 +21,7 @@ const MyReviewsContainer = () => {
     const dispatch = useDispatch();
 
     const notDeletedReviews = userReviews.filter((review) => !review.deleted)
-    console.log(notDeletedReviews);
+    //console.log(notDeletedReviews);
 
     const renderStars = (rating) => {
         const stars = [];
@@ -51,7 +51,7 @@ const MyReviewsContainer = () => {
 
   const handlerDelete = (reviewId) => {
     dispatch(deleteReview(reviewId))
-    console.log('despacho el delete');
+    //console.log('despacho el delete');
   }
 
     return (
@@ -90,7 +90,7 @@ const MyReviewsContainer = () => {
                                     <Button variant="primary" className="btn btn-sm me-2" onClick={() => handleEditReview(r)}>Editar</Button>
                                     <Button variant="danger" size="sm" onClick={() => handlerDelete(r.id)}><i class="bi bi-trash3"/></Button>
                             </td>
-                            {console.log('id recibido ' + r.id)}
+                            {/* {console.log('id recibido ' + r.id)} */}
                         </tr>
 
                     )
