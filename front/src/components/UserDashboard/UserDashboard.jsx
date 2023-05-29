@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import Menu from "./Menu";
 import { Profile } from "./Profile";
+import MyReviewsContainer from "./myReviews/MyReviewsContainer";
 
 const UserDashboard = () => {
 
@@ -12,8 +13,8 @@ const UserDashboard = () => {
                     <Menu />
                 </Col>
                 <Col xs={10} className="dashboard-content">
-                    {/* <MyReviewsContainer /> */}
                     <Profile/>
+                    <MyReviewsContainer />
                 </Col>
             </Row>
         </Container>

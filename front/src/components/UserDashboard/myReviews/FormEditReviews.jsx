@@ -54,17 +54,31 @@ const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
         });
     };
 
-    const submitHandler = (e) => {
+    useEffect(() => {
+      // Lógica que se ejecutará después de que el estado `success` se haya actualizado
+      if (success) {
+        console.log(success);
+        setTimeout(() => {
+          toggleModal();
+          setSuccess(false);
+        }, 2000);
+      }
+    }, [success]);
+
+    console.log(success)
+    const submitHandler =  (e) => {
         e.preventDefault();
         handleEditReview(review)
         dispatch(putReview(reviewId, input));
         //console.log('se despacha la action');
         //console.log('id del dispatch ' + reviewId);
-        setSuccess(true); // al setearse en true cambia el rederizado          
-        setTimeout(function(){
-            toggleModal()//una vez enviado el form se cierra modal
-            setSuccess(false)
-        }, 2000)    
+        setSuccess(true); // al setearse en true cambia el rederizado 
+        // console.log(success)         
+        // setTimeout(function(){
+        //   toggleModal()//una vez enviado el form se cierra modal
+        //   setSuccess(false)
+        //   console.log(success);
+        // }, 2000)    
     }
 
 
@@ -111,7 +125,7 @@ const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
                   </div>
                 )}
                 <div className="d-flex flex-row justify-content-evenly">
-                <button className="btn btn-dark m-3"  type="submit">Enviar</button>
+                <button className="btn btn-dark m-3"  type="submit" onClick={submitHandler}>Enviar</button>
                   <button className="btn btn-dark m-3" onClick={() => toggleModal()}>Cerrar</button>
                 </div>
               </form>
