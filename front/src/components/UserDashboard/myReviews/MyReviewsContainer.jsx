@@ -79,16 +79,16 @@ const MyReviewsContainer = () => {
                 <h5>Elegi un libro y deja una!</h5>
                 </div>
             ) : (
-                notDeletedReviews.map((r) => { 
+                notDeletedReviews.map((r, index) => { 
                     return (
-                        <tr id={r.id} key={r.id}> 
+                        <tr id={r.id} key={index}> 
                             <td>{r.book}</td>
                             <td>{r.title}</td>
                             <td>{renderStars(r.qualification)}</td>
                             <td>{r.comment}</td>
                             <td className="d-flex justify-content-center align-items-center">
                                     <Button variant="primary" className="btn btn-sm me-2" onClick={() => handleEditReview(r)}>Editar</Button>
-                                    <Button variant="danger" size="sm" onClick={() => handlerDelete(r.id)}><i class="bi bi-trash3"/></Button>
+                                    <Button variant="danger" size="sm" onClick={() => handlerDelete(r.id)}><i className="bi bi-trash3"/></Button>
                             </td>
                             {/* {console.log('id recibido ' + r.id)} */}
                         </tr>
