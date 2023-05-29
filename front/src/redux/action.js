@@ -21,10 +21,10 @@ export const GET_REVIEWS_BOOK = 'GET_REVIEWS_BOOK';
 export const POST_REVIEW = 'POST_REVIEW';
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGOUT = "LOGOUT";
-
 export const GET_REVIEWS_BY_USER = "GET_REVIEWS_BY_USER";
-
 export const PUT_BOOK = "PUT_BOOK";
+export const PUT_REVIEW = "PUT_REVIEW";
+export const DELETE_REVIEW = "DELETE_REVIEW";
 
 
 export const getAllBooks = () => {
@@ -160,5 +160,22 @@ export const modifyBook = (bookEdit) => {
   return async function (dispatch) {
     await axios.put('http://localhost:3001/books/putbook', bookEdit)
     dispatch({ type: PUT_BOOK })
+  }
+}
+
+export const putReview = (reviewId, review) => {
+  return async function (dispatch) {
+    let response = await axios.put(`http://localhost:3001/reviews/${reviewId}`, review)
+    dispatch({type: PUT_REVIEW})
+    //console.log('la action toma el dispatch');
+    return response
+  }
+}
+
+export const deleteReview = (reviewId) => {
+  return async function (dispatch) {
+    let response = await axios.put(`http://localhost:3001/reviews/delete/${reviewId}`)
+    dispatch({ type: DELETE_REVIEW })
+    return response
   }
 }
