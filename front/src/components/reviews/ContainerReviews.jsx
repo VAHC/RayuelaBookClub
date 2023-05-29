@@ -14,6 +14,8 @@ const ContainerReviews = ({ bookId, toggleModal }) => {
   const dispatch = useDispatch();
   const [showForm, setShowForm] = useState(false);
 
+  const notDeletedReviews = reviewsBook.filter(review => !review.deleted)
+
   useEffect(() => {
     dispatch(getReviewsBook(bookId));
   }, [bookId]);
@@ -28,13 +30,13 @@ const ContainerReviews = ({ bookId, toggleModal }) => {
         <Modal.Title>Reseñas</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {!reviewsBook.length ? (
+        {!notDeletedReviews.length ? (
           <div>
             <h6>Aún no hay reseñas...</h6>
             <h5>Sé el primero en dejar una!</h5>
           </div>
         ) : (
-          reviewsBook.map((r) => (
+          notDeletedReviews.map((r) => (
             <Review
               id={r.id}
               title={r.title}
