@@ -1,7 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getReviewsByUser } from './../../../redux/action';
+import FormEditReviews from "./FormEditReviews";
 import {
     Container,
     Row,
@@ -20,7 +21,7 @@ const MyReviewsContainer = () => {
     const dispatch = useDispatch();
 
     const notDeletedReviews = userReviews.filter((review) => !review.deleted)
-   // console.log(notDeletedReviews);
+    console.log(notDeletedReviews);
 
     const renderStars = (rating) => {
         const stars = [];
@@ -34,6 +35,19 @@ const MyReviewsContainer = () => {
     useEffect(() => {
         dispatch(getReviewsByUser(userId))
     }, [userId]);
+
+      //codigo para modal
+  const [showModal, setShowModal] = useState(false); //estdo local para mostrar o no el modal
+  const [selectedReview, setSelectedReview] = useState(null);
+
+  const toggleModal = () => { //funcion que setea showModal al booleano contrario en el que esta
+    setShowModal(prevShowModal => !prevShowModal);
+  };
+
+  const handleEditReview = (review) => {
+    setSelectedReview(review);
+    toggleModal();
+  };
 
     return (
         <Container>
@@ -53,8 +67,7 @@ const MyReviewsContainer = () => {
                                 <th>Comentario</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            
+                        <tbody>                           
             {!notDeletedReviews.length  ? (
                 <div>
                 <h6>Aún no dejaste una reseña...</h6>
@@ -69,7 +82,7 @@ const MyReviewsContainer = () => {
                             <td>{renderStars(r.qualification)}</td>
                             <td>{r.comment}</td>
                             <td>
-                                    <Button variant="primary">Editar</Button>{" "}
+                                    <Button variant="primary" onClick={() => handleEditReview(r)}>Editar</Button>
                                     <Button variant="danger"><i class="bi bi-trash3"/></Button>
                             </td>
                         </tr>
@@ -80,6 +93,22 @@ const MyReviewsContainer = () => {
             )
         }
                         </tbody>
+                        {showModal && (
+                            <div className="modal" tabIndex="-1" style={{ display: "block" }}>
+                           <div className="modal-dialog modal-dialog-scrollable modal-dialog-centered ">
+                            <div className="modal-content bg-white border-4">
+                            
+                    <FormEditReviews 
+                      review={selectedReview}
+                      toggleModal={toggleModal}
+                      handleEditReview={handleEditReview}
+                    />
+
+                            
+                  </div>
+                </div>
+              </div>
+            )}
                     </Table>
                 </Col>
             </Row>
