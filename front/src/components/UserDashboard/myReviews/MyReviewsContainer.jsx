@@ -51,6 +51,7 @@ const MyReviewsContainer = () => {
 
   const handlerDelete = (reviewId) => {
     dispatch(deleteReview(reviewId))
+    console.log('despacho el delete');
   }
 
     return (
@@ -87,8 +88,9 @@ const MyReviewsContainer = () => {
                             <td>{r.comment}</td>
                             <td className="d-flex justify-content-center align-items-center">
                                     <Button variant="primary" className="btn btn-sm me-2" onClick={() => handleEditReview(r)}>Editar</Button>
-                                    <Button variant="danger" size="sm" onClick={() => handlerDelete(review.id)}><i class="bi bi-trash3"/></Button>
+                                    <Button variant="danger" size="sm" onClick={() => handlerDelete(r.id)}><i class="bi bi-trash3"/></Button>
                             </td>
+                            {console.log('id recibido ' + r.id)}
                         </tr>
 
                     )
