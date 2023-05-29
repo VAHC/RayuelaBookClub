@@ -41,16 +41,6 @@ const EditBookForm = ({ book }) => {
                 ...input,
                 genders: [e.target.value], //traigo todo lo que esta en el array y le concateno el nuevo valor
             });
-        } else if (e.target.name === "price") {
-            setInput({
-                ...input,
-                price: parseInt(e.target.value),
-            });
-        } else if (e.target.name === "stock") {
-            setInput({
-                ...input,
-                stock: parseInt(e.target.value),
-            });
         } else {
             setInput({
                 ...input,
@@ -128,7 +118,7 @@ const EditBookForm = ({ book }) => {
 
             <label>Price:</label>
             <input
-                type="text"
+                type="number"
                 name="price"
                 value={input.price}
                 onChange={handleInputChange}
@@ -137,7 +127,7 @@ const EditBookForm = ({ book }) => {
 
             <label>Stock:</label>
             <input
-                type="text"
+                type="number"
                 name="stock"
                 value={input.stock}
                 onChange={handleInputChange}
