@@ -163,16 +163,17 @@ export const modifyBook = (bookEdit) => {
   }
 }
 
-export const putReview = (review) => {
+export const putReview = (reviewId, review) => {
   return async function (dispatch) {
-    let response = await axios.put(`http://localhost:3001/reviews/${review.id}`, review)
+    let response = await axios.put(`http://localhost:3001/reviews/${reviewId}`, review)
     return response
   }
 }
 
 export const deleteReview = (reviewId) => {
   return async function (dispatch) {
-    let response = await axios.put(`http://localhost:3001/reviews/:delete/${review.id}`, reviewId)
+    let response = await axios.put(`http://localhost:3001/reviews/delete/${reviewId}`)
+    dispatch({ type: DELETE_REVIEW })
     return response
   }
 }

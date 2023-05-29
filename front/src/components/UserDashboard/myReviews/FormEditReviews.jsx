@@ -11,6 +11,7 @@ const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
     const [number, setNumber] = useState(review.qualification);
     const [hoverStar, setHoverStar] = useState(undefined);
     const [success, setSuccess] = useState(false); // estado local para manejar la alerta de ok
+    const reviewId = review.id
     
     const handlerText = () => {
         switch(number || hoverStar) {
@@ -55,7 +56,7 @@ const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
     const submitHandler = (e) => {
         e.preventDefault();
         handleEditReview(review)
-        dispatch(putReview(input));
+        dispatch(putReview(reviewId, input));
         setSuccess(true); // al setearse en true cambia el rederizado          
         setTimeout(function(){
             toggleModal()//una vez enviado el form se cierra modal
