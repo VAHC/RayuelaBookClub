@@ -20,7 +20,7 @@ const MyReviewsContainer = () => {
     const dispatch = useDispatch();
 
     const notDeletedReviews = userReviews.filter((review) => !review.deleted)
-    console.log(notDeletedReviews);
+   // console.log(notDeletedReviews);
 
     const renderStars = (rating) => {
         const stars = [];
