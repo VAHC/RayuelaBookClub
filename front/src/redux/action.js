@@ -166,6 +166,8 @@ export const modifyBook = (bookEdit) => {
 export const putReview = (reviewId, review) => {
   return async function (dispatch) {
     let response = await axios.put(`http://localhost:3001/reviews/${reviewId}`, review)
+    dispatch({type: PUT_REVIEW})
+    //console.log('la action toma el dispatch');
     return response
   }
 }

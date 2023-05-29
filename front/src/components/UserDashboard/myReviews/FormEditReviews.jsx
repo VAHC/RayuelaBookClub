@@ -12,6 +12,7 @@ const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
     const [hoverStar, setHoverStar] = useState(undefined);
     const [success, setSuccess] = useState(false); // estado local para manejar la alerta de ok
     const reviewId = review.id
+    //console.log(review);
     
     const handlerText = () => {
         switch(number || hoverStar) {
@@ -57,6 +58,8 @@ const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
         e.preventDefault();
         handleEditReview(review)
         dispatch(putReview(reviewId, input));
+        //console.log('se despacha la action');
+        //console.log('id del dispatch ' + reviewId);
         setSuccess(true); // al setearse en true cambia el rederizado          
         setTimeout(function(){
             toggleModal()//una vez enviado el form se cierra modal
@@ -81,7 +84,7 @@ const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
                             return (
                               number >= index + 1 || hoverStar >= index + 1
                                 ? <i className="bi bi-star-fill" onClick={() => setNumber(index + 1)} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
-                                : <i className="bi bi-star" onClick={() => { inputHandler }} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
+                                : <i className="bi bi-star" onClick={inputHandler} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
                             )
                           })}
                           {/* {errors.qualification ? <p className="text-danger">{errors.qualification}</p> : null} */}
@@ -108,7 +111,7 @@ const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
                   </div>
                 )}
                 <div className="d-flex flex-row justify-content-evenly">
-                <button className="btn btn-dark m-3"  type="submit" onClick={() => handleEditReview(review)}>Enviar</button>
+                <button className="btn btn-dark m-3"  type="submit">Enviar</button>
                   <button className="btn btn-dark m-3" onClick={() => toggleModal()}>Cerrar</button>
                 </div>
               </form>

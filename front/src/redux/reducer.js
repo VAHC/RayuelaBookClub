@@ -240,11 +240,12 @@ const reducer = (state = initialState, action) => {
         ...state
       }
       case PUT_REVIEW:
+        //console.log('entra la action en el reducer')
         return {
           ...state
         }
       case DELETE_REVIEW:
-        console.log('entra la action en el reducer');
+        //console.log('entra la action en el reducer');
         return {
           ...state
         }
