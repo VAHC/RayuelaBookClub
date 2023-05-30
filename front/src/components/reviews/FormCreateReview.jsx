@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import {postReview} from '../../redux/action';
+import {postReview, getReviewsBook} from '../../redux/action';
 import validation from './validation'
 
 const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
@@ -75,7 +75,7 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
     }, [input])
         
             // //handler del submit ==> si fomrComplete es true despacha la action, setea Success en true, setea input y errors al estado inicial
-    const submitHandler = (e) => {
+    const submitHandler =  async (e) => {
         e.preventDefault();
         if(!user) {
                 alert('Antes de dejar tu reseña debés loguearte')
@@ -84,7 +84,8 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
             }, 2000)
         } else if(formComplete) {
         //  if(formComplete) {
-            dispatch(postReview(input));
+            await dispatch(postReview(input));
+            dispatch(getReviewsBook(bookId))
             setSuccess(true); // al setearse en true cambia el rederizado
             setInput({
                 id_book: '',
