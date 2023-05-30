@@ -1,21 +1,23 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { } from "../../redux/action";
+import { updateUser } from "../../redux/action";
 
 export const FormEditUser = ({user}) => {
 
     const dispatch = useDispatch();
 
     const [userData, setUserData] = useState({
-        email: "",
-        phone: "",
-        password: ""
+        email: user.email,
+        phone: user.phone,
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        profile: user.profile
     })
 
     const [errors, setErrors] = useState({
         email: "",
-        phone: "",
-        password: ""
+        phone: ""
     })
 
     const handleInputChange = (event) => {
@@ -30,7 +32,18 @@ export const FormEditUser = ({user}) => {
     }
 
     const handleSubmit = (event) => {
-        alert("datos modificados");
+        console.log(userData)
+        dispatch(updateUser(userData))
+        alert("Datos modificados con éxito")
+        // .then((response) => {
+        //         console.log(response)
+        //         if (response.status !== 400) {
+        //             alert("Datos modificados con éxito")
+        //         } else alert("ERROR")
+        //     })
+        //     .catch((error) => {
+        //         alert("Server error")
+        //     })
     }
 
     return (
@@ -53,13 +66,13 @@ export const FormEditUser = ({user}) => {
                         <input className="form-control"
                             type="number"
                             name="phone"
-                            placeholder={user.phone}
+                            placeholder={user.phone ? user.phone : "-"}
                             value={userData.phone}
                             onChange={handleInputChange}
                         />
                     </div>
                 </div>
-                <div className="row d-flex justify-content-center my-2">
+                {/* <div className="row d-flex justify-content-center my-2">
                     <div className="col-12 w-75 text-center">
                         <label className="form-label" htmlFor="email">Contraseña</label>
                         <input className="form-control"
@@ -71,7 +84,7 @@ export const FormEditUser = ({user}) => {
                         />
                         {errors.password && <p className="text-danger">{errors.password}</p>}
                     </div>
-                </div>
+                </div> */}
                 <button onClick={handleSubmit} className="btn btn-dark w-50 m-2">Guardar cambios</button>
             </div>
         </>
@@ -83,11 +96,11 @@ const validation = (userData) => {
     if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(userData.email)) {
         errors.email = "Escribí un email válido"
     }
-    if (!/\d/.test(userData.password)) {
-        errors.password = "Tu contraseña debe contener al menos un número"
-    }
-    if (userData.password.length < 8 || userData.password.length > 10) {
-        errors.password = "Tu contraseña debe tener entre 8 y 10 caracteres"
-    }
+    // if (!/\d/.test(userData.password)) {
+    //     errors.password = "Tu contraseña debe contener al menos un número"
+    // }
+    // if (userData.password.length < 8 || userData.password.length > 10) {
+    //     errors.password = "Tu contraseña debe tener entre 8 y 10 caracteres"
+    // }
     return errors
 }
