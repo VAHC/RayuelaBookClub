@@ -15,22 +15,22 @@ const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
     //console.log(review);
     
     const handlerText = () => {
-        switch(number || hoverStar) {
-            case 0: 
-                return 'calificar';
-            case 1: 
-                return 'me defraudo';
-            case 2: 
-                return 'no me gusto';
-            case 3:
-                return 'neutral';
-            case 4:
-                return 'me gusto';
-            case 5:
-                return 'me encanto';
-            default:
-                return 'calificar'
-        }
+      switch (number || hoverStar) {
+        case 0:
+          return 'Calificar';
+        case 1:
+          return 'Me defraudó';
+        case 2:
+          return 'No me gustó';
+        case 3:
+          return 'Neutral';
+        case 4:
+          return 'Bueno';
+        case 5:
+          return 'Maravilloso';
+        default:
+          return 'Calificar'
+      }
     }
     const [input, setInput] = useState({
         id: review.id,

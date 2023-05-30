@@ -39,19 +39,19 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
     const handlerText = () => {
         switch(number || hoverStar) {
             case 0: 
-                return 'calificar';
+                return 'Calificar';
             case 1: 
-                return 'me defraudo';
+                return 'Me defraudó';
             case 2: 
-                return 'no me gusto';
+                return 'No me gustó';
             case 3:
-                return 'neutral';
+                return 'Neutral';
             case 4:
-                return 'me gusto';
+                return 'Bueno';
             case 5:
-                return 'me encanto';
+                return 'Maravilloso';
             default:
-                return 'calificar'
+                return 'Calificar'
         }
     }
         //handler que maneja el estado de los inputs
@@ -85,7 +85,7 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
     const submitHandler = (e) => {
         e.preventDefault();
         if(!user) {
-                alert('antes de dejar tu reseña debes loguearte')
+                alert('Antes de dejar tu reseña debés loguearte')
             setTimeout(function(){
                 navigate('/ingresar')//si no estoy logueado redirege al login
             }, 2000)
@@ -116,7 +116,7 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
                 setSuccess(false)
             }, 2000)    
         } else {
-            alert('missing or incorrect data');
+            alert('Datos erróneos o incorrectos');
             }
         }
 
@@ -134,27 +134,27 @@ return (
                           {Array(5).fill().map((_, index) => {
                             return (
                               number >= index + 1 || hoverStar >= index + 1
-                                ? <i className="bi bi-star-fill" onClick={() => setNumber(index + 1)} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
-                                : <i className="bi bi-star" onClick={() => { inputHandler }} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
+                                ? <i key={index} className="bi bi-star-fill" onClick={() => setNumber(index + 1)} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
+                                : <i key={index} className="bi bi-star" onClick={() => { inputHandler }} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
                             )
                           })}
-                          {errors.qualification ? <p className="text-danger">{errors.qualification}</p> : null}
+                           {errors.qualification ? <p className="text-danger">{errors.qualification}</p> : null}
                         </div>
                       </div>
-                      <div className="col-auto">
+                      <div className="col-3 mb-3">
                         <label className="col-form-label ms-3" htmlFor='title'>Título:</label>
                       </div>
-                      <div className="col-auto">
+                      <div className="col-9">
                         <input className="form-control" id='title' type='text' value={input.title} name='title' placeholder='Dale un título a tu reseña' onChange={inputHandler} />
                         {errors.title ? <p className="text-danger">{errors.title}</p> : null}
                       </div>
                     </div>
         
                     <div className="row g-3 align-items-center">
-                      <div className="col-auto">
+                      <div className="col-3 mb-3">
                         <label className="col-form-label ms-3" htmlFor='comment'>Reseña:</label>
                       </div>
-                      <div className="col-auto">
+                      <div className="col-9">
                         <input className="form-control" id='comment' type='textarea' value={input.comment} name='comment' placeholder='Reseña...' onChange={inputHandler} />
                         {errors.comment ? <p className="text-danger">{errors.comment}</p> : null}
                       </div>
