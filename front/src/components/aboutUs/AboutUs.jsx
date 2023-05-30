@@ -7,7 +7,7 @@ export const AboutUs = () => {
         <div className="card h-100">
           <div className="card-body">
             <h5 className="card-title">Henry PT-11a Grupo 06</h5>
-            <p className="card-text my-4">Algo sobre nosotros</p>
+            <p className="card-text my-4">Somos un grupo de estudiantes de la carrera Desarrollo Full Stack de Henry que decidimos realizar "Rayuela" como proyecto final. Nos inspiramos en la posibilidad de ofrecer a los usuarios una experiencia completa, novedosa y amigable para que formen parte de nuestro Club de lectura.</p>
           </div>
         </div>
       </div>
