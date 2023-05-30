@@ -23,10 +23,6 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
     });
 
     const [errors, setErrors] = useState({ //estado,local para menejar los errores
-        // id_book: '',
-        // id_user: '',
-        // "createdDb": '',
-        // deleted: '',
         title: '',
         qualification: '',
         comment: '',
@@ -59,7 +55,7 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
         setInput({
             ...input,
             id_book: bookId,
-            id_user: user.id,
+            id_user: user.id ? user.id : null,
             // id_user: 1,
             createdDb: true,
             deleted: false,
@@ -75,9 +71,6 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
     useEffect(() => {
         let values = Object.values(input);
         let notComplete = values.filter( value => value === "")
-        // let error = Object.keys(errors);
-    //     if(!notComplete.length && !error.length) setFormComplete(true)
-    // }, [input, errors])
         if(!notComplete.length) setFormComplete(true)
     }, [input])
         
@@ -103,10 +96,6 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
                 comment: '',
             });
             setErrors({
-                //  id_book: '',
-                //  id_user: '',
-                //  "createdDb": '',
-                //  deleted: '',
                  title: '',
                  qualification: '',
                  comment: '',
@@ -162,8 +151,7 @@ return (
                   </div>
                 )}
                 <div className="d-flex flex-row justify-content-evenly">
-                  <button className="btn btn-dark m-3" disabled={!formComplete} type='submit' onClick={handleToggleForm}>Enviar</button>
-                  <button className="btn btn-dark m-3" onClick={() => navigate('/catalogo')}>Volver</button>
+                  <button className="btn btn-dark m-3"  type='submit' onClick={handleToggleForm}>Enviar</button>
                 </div>
               </form>
           </>
