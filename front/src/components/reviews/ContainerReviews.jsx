@@ -7,12 +7,14 @@ import { useEffect, useState } from 'react';
 import { getReviewsBook } from '../../redux/action';
 import FormCreateReview from './FormCreateReview';
 
+
 const ContainerReviews = ({ bookId, toggleModal }) => {
   //console.log('review' + bookId);
   const reviewsBook = useSelector((state) => state.reviewsBook);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [showForm, setShowForm] = useState(false);
+  const user = useSelector((state)  => state.user) //estado que comprueba que se esta logueado
 
   const notDeletedReviews = reviewsBook.filter(review => !review.deleted)
 
@@ -20,6 +22,13 @@ const ContainerReviews = ({ bookId, toggleModal }) => {
     dispatch(getReviewsBook(bookId));
   }, [bookId]);
 
+  // const notLogin = () => {
+  //     alert('Antes de dejar tu reseña debés loguearte')
+  //     setTimeout(function(){
+  //         navigate('/ingresar')//si no estoy logueado redirege al login
+  //     }, 2000) 
+  // }
+  
   const handleToggleForm = () => {
     setShowForm(!showForm);
   };
@@ -58,7 +67,9 @@ const ContainerReviews = ({ bookId, toggleModal }) => {
           <Accordion.Item eventKey="0">
             <Accordion.Header>Deja tu reseña</Accordion.Header>
             <Accordion.Body>
+              {/* {!user ? notLogin() :  */}
               <FormCreateReview handleToggleForm={handleToggleForm} bookId={bookId} toggleModal={toggleModal}/>
+            {/* } */}
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>
