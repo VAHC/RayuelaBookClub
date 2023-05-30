@@ -1,7 +1,6 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {putReview} from '../../../redux/action';
 
 
@@ -54,32 +53,16 @@ const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
         });
     };
 
-    useEffect(() => {
-      // Lógica que se ejecutará después de que el estado `success` se haya actualizado
-      if (success) {
-        console.log(success);
-        setTimeout(() => {
-          toggleModal();
-          setSuccess(false);
-        }, 2000);
+    // console.log(success)
+    const submitHandler = (e) => {
+      e.preventDefault();
+          dispatch(putReview(reviewId, input));
+          setSuccess(true); // al setearse en true cambia el rederizado  
+          setTimeout(function(){
+            toggleModal()//una vez enviado se ciera el modal
+              setSuccess(false)
+          }, 2000)    
       }
-    }, [success]);
-
-    console.log(success)
-    const submitHandler =  (e) => {
-        e.preventDefault();
-        handleEditReview(review)
-        dispatch(putReview(reviewId, input));
-        //console.log('se despacha la action');
-        //console.log('id del dispatch ' + reviewId);
-        setSuccess(true); // al setearse en true cambia el rederizado 
-        // console.log(success)         
-        // setTimeout(function(){
-        //   toggleModal()//una vez enviado el form se cierra modal
-        //   setSuccess(false)
-        //   console.log(success);
-        // }, 2000)    
-    }
 
 
     return (
@@ -101,7 +84,6 @@ const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
                                 : <i className="bi bi-star" onClick={inputHandler} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
                             )
                           })}
-                          {/* {errors.qualification ? <p className="text-danger">{errors.qualification}</p> : null} */}
                         </div>
                       </div>
                       <div className="col-auto">
@@ -109,10 +91,8 @@ const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
                       </div>
                       <div className="col-auto">
                         <input className="form-control" id='title' type='text' value={input.title} name='title' placeholder='Dale un título a tu reseña' onChange={inputHandler} />
-                        {/* {errors.title ? <p className="text-danger">{errors.title}</p> : null} */}
                       </div>
-                    </div>
-        
+                    </div>        
                     <div className="row g-3 align-items-center">
                       <div className="col-auto">
                         <label className="col-form-label ms-3" htmlFor='comment'>Reseña:</label>
