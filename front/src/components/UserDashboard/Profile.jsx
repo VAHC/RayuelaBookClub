@@ -1,12 +1,12 @@
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FormEditUser } from "./FormEditUser";
 
 export const Profile = () => {
 
     const user = useSelector((state) => state.user);
 
-    //const user = { id: 3, firstName: 'Juan', lastName: 'Topo', email: 'juan@mail.com', phone: 452336536 }
+    //const user = { id: 3, firstName: 'Juan', lastName: 'Topo', email: 'juan@mail.com', password: "gefefe11", phone: 0, profile: "user" }
 
     const [showModal, setShowModal] = useState(false); //estado local para mostrar o no el modal
 
@@ -34,7 +34,7 @@ export const Profile = () => {
                                     <p className="card-text fw-bold ms-3">Mi correo electrónico:</p>
                                     <p className="card-text ms-3">{user.email}</p>
                                     <p className="card-text fw-bold ms-3">Mi teléfono:</p>
-                                    <p className="card-text ms-3">{user.phone}</p>
+                                    <p className="card-text ms-3">{user.phone ? user.phone : "-"}</p>
                                     <div className="d-flex justify-content-center">
                                         <button onClick={toggleModal} className="btn btn-dark w-50">Editar</button>
                                     </div>

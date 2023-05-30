@@ -25,7 +25,7 @@ export const GET_REVIEWS_BY_USER = "GET_REVIEWS_BY_USER";
 export const PUT_BOOK = "PUT_BOOK";
 export const PUT_REVIEW = "PUT_REVIEW";
 export const DELETE_REVIEW = "DELETE_REVIEW";
-
+export const UPDATE_USER = "UPDATE_USER";
 
 export const getAllBooks = () => {
   return async (dispatch) => {
@@ -156,7 +156,7 @@ export const getReviewsByUser = (userId) => {
 }
 
 export const modifyBook = (bookEdit) => {
-  console.log(bookEdit)
+  //console.log(bookEdit)
   return async function (dispatch) {
     await axios.put('http://localhost:3001/books/putbook', bookEdit)
     dispatch({ type: PUT_BOOK })
@@ -177,5 +177,12 @@ export const deleteReview = (reviewId) => {
     let response = await axios.put(`http://localhost:3001/reviews/delete/${reviewId}`)
     dispatch({ type: DELETE_REVIEW })
     return response
+  }
+}
+
+export const updateUser = (user) => {
+  return async function (dispatch) {
+    await axios.put('http://localhost:3001/users', user)
+    dispatch({ type: UPDATE_USER })
   }
 }
