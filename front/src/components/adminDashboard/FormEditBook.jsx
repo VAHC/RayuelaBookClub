@@ -72,90 +72,149 @@ const EditBookForm = ({ book }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>Title:</label>
-            <input
-                type="text"
-                name="title"
-                value={input.title}
-                onChange={handleInputChange}
-            />
-            <br />
-            <label>Genero:</label>
-            <input
-                type="text"
-                name="genders"
-                value={input.genders}
-                onChange={handleInputChange}
-            />
-            <br />
-            <label>Autor:</label>
-            <input
-                type="text"
-                name="authors"
-                value={input.authors}
-                onChange={handleInputChange}
-            />
-            <br />
+        <div className="row d-flex justify-content-center m-2">
+            <form className="w-75" onSubmit={handleSubmit}>
+                <div className="row">
+                    <div className="col-3 text-start">
+                        <label className="form-label">Título:</label>
+                    </div>
+                    <div className="col-9">
+                        <input
+                            className="form-control"
+                            type="text"
+                            name="title"
+                            value={input.title}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                </div>
 
-            <label>Publisher:</label>
-            <input
-                type="text"
-                name="publisher"
-                value={input.publisher}
-                onChange={handleInputChange}
-            />
-            <br />
+                <div className="row">
+                    <div className="col-3 text-start">
+                        <label className="form-label">Género:</label>
+                    </div>
+                    <div className="col-9">
+                        <input
+                            className="form-control"
+                            type="text"
+                            name="genders"
+                            value={input.genders}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                </div>
 
-            <label>Description:</label>
-            <input
-                type="text"
-                name="description"
-                value={input.description}
-                onChange={handleInputChange}
-            />
-            <br />
+                <div className="row">
+                    <div className="col-3 text-start">
+                        <label className="form-label">Autor:</label>
+                    </div>
+                    <div className="col-9">
+                        <input
+                            className="form-control"
+                            type="text"
+                            name="authors"
+                            value={input.authors}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                </div>
 
-            <label>Price:</label>
-            <input
-                type="number"
-                name="price"
-                value={input.price}
-                onChange={handleInputChange}
-            />
-            <br />
+                <div className="row">
+                    <div className="col-3 text-start">
+                        <label className="form-label">Editorial:</label>
+                    </div>
+                    <div className="col-9">
+                        <input
+                            className="form-control"
+                            type="text"
+                            name="publisher"
+                            value={input.publisher}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                </div>
 
-            <label>Stock:</label>
-            <input
-                type="number"
-                name="stock"
-                value={input.stock}
-                onChange={handleInputChange}
-            />
-            <br />
+                <div className="row">
+                    <div className="col-3 text-start">
+                        <label className="form-label">Descripción:</label>
+                    </div>
+                    <div className="col-9">
+                        <input
+                            className="form-control"
+                            type="text"
+                            name="description"
+                            value={input.description}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                </div>
 
-            <label>Published Date:</label>
-            <input
-                type="text"
-                name="publishedDate"
-                value={input.publishedDate}
-                onChange={handleInputChange}
-            />
-            <br />
+                <div className="row">
+                    <div className="col-3 text-start">
+                        <label className="form-label">Precio:</label>
+                    </div>
+                    <div className="col-9">
+                        <input
+                            className="form-control"
+                            type="number"
+                            name="price"
+                            value={input.price}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                </div>
 
-            <label>Image:</label>
-            <input
-                type="text"
-                name="image"
-                value={input.image}
-                onChange={handleInputChange}
-            />
-            <br />
+                <div className="row">
+                    <div className="col-3 text-start">
+                        <label className="form-label">Stock:</label>
+                    </div>
+                    <div className="col-9">
+                        <input
+                            className="form-control"
+                            type="number"
+                            name="stock"
+                            value={input.stock}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                </div>
 
-            <button disabled={!formComplete} type="submit">
-                Submit
-            </button>
-        </form>
+                <div className="row">
+                    <div className="col-3 text-start">
+                        <label className="form-label">Fecha de publicación:</label>
+                    </div>
+                    <div className="col-9">
+                        <input
+                            className="form-control"
+                            type="text"
+                            name="publishedDate"
+                            value={input.publishedDate}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-3 text-start">
+                        <label className="form-label">Imagen:</label>
+                    </div>
+                    <div className="col-9">
+                        <input
+                            className="form-control"
+                            type="text"
+                            name="image"
+                            value={input.image}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                </div>
+                <div className="row d-flex justify-content-center m-2">
+                    <button className="btn btn-dark w-25" disabled={!formComplete} type="submit">
+                        Enviar
+                    </button>
+                </div>
+            </form>
+        </div>
     );
 };
 
