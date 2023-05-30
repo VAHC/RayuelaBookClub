@@ -14,7 +14,7 @@ const UserDashboard = () => {
                 </Col>
                 <Col xs={10} className="dashboard-content">
                     <Profile/>
-                    <MyReviewsContainer />
+                    {/* <MyReviewsContainer /> */}
                 </Col>
             </Row>
         </Container>

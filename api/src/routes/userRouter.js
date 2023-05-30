@@ -9,6 +9,6 @@ const usersRouter = Router();
 usersRouter.get('/', getAllUsersHandler)
 usersRouter.get('/:id', getUserByIdHandler)
 usersRouter.put('/delete/:id', deleteUserHandler)
-usersRouter.put('/:id', updateUserHandler)
+usersRouter.put('/', updateUserHandler)
 
 module.exports = usersRouter
