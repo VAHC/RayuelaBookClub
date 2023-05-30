@@ -1,15 +1,16 @@
 import React from 'react';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import {putReview} from '../../../redux/action';
+import { useDispatch, useSelector } from 'react-redux';
+import {putReview, getReviewsByUser} from '../../../redux/action';
 
-
+ 
 
 const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
     const dispatch = useDispatch();
     const [number, setNumber] = useState(review.qualification);
     const [hoverStar, setHoverStar] = useState(undefined);
     const [success, setSuccess] = useState(false); // estado local para manejar la alerta de ok
+    const userId = useSelector((state) => state.user.id);
     const reviewId = review.id
     //console.log(review);
     
@@ -54,16 +55,17 @@ const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
     };
 
     // console.log(success)
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
       e.preventDefault();
-          dispatch(putReview(reviewId, input));
+          await dispatch(putReview(reviewId, input));
+          dispatch(getReviewsByUser(userId))
           setSuccess(true); // al setearse en true cambia el rederizado  
           setTimeout(function(){
             toggleModal()//una vez enviado se ciera el modal
               setSuccess(false)
           }, 2000)    
       }
-
+//prueba para push
 
     return (
         <>
