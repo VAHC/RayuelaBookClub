@@ -76,7 +76,7 @@ const MyReviewsContainer = () => {
             {!notDeletedReviews.length  ? (
                 <div>
                 <h6>Aún no dejaste una reseña...</h6>
-                <h5>Elegi un libro y deja una!</h5>
+                <h5>Elegí un libro y dejá una!</h5>
                 </div>
             ) : (
                 notDeletedReviews.map((r, index) => { 

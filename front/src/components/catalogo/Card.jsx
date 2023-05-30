@@ -19,12 +19,12 @@ const bookCard = ({book}) => {
     return 0; // Valor predeterminado si no hay reviews o no es un array válido
   };
 
-  console.log(qualificationObtained(book));
+  //console.log(qualificationObtained(book));
 
   const renderStars = (rating) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
-      const starIcon = i <= rating ? <i className="bi bi-star-fill" /> : <i className="bi bi-star"/>;
+      const starIcon = i <= rating ? <i key={i} className="bi bi-star-fill" /> : <i key={i} className="bi bi-star"/>;
       stars.push(starIcon);
     }
     return stars;
