@@ -31,7 +31,7 @@ export const FormEditUser = ({user}) => {
         }))
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit =  (event) => {
         console.log(userData)
         dispatch(updateUser(userData))
         alert("Datos modificados con éxito")
