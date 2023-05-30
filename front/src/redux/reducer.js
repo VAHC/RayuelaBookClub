@@ -22,6 +22,7 @@ import {
   PUT_BOOK,
   PUT_REVIEW,
   DELETE_REVIEW,
+  UPDATE_USER
 } from './action';
 
 // Initial state
@@ -202,7 +203,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         autores: sortAuthors
-
       }
 
     //trae todas las reviewsde un libro
@@ -249,7 +249,8 @@ const reducer = (state = initialState, action) => {
         return {
           ...state
         }
-      
+      case UPDATE_USER:
+        return { ...state }
 
     default:
       return state;
