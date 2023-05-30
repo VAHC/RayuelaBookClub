@@ -162,8 +162,8 @@ return (
                   </div>
                 )}
                 <div className="d-flex flex-row justify-content-evenly">
-                  <button className="btn btn-dark m-3" disabled={!formComplete} type='submit' onClick={handleToggleForm}>Enviar</button>
-                  <button className="btn btn-dark m-3" onClick={() => navigate('/catalogo')}>Volver</button>
+                  <button className="btn btn-dark m-3"  type='submit' onClick={handleToggleForm}>Enviar</button>
+                  {/* <button className="btn btn-dark m-3" onClick={() => navigate('/catalogo')}>Volver</button> */}
                 </div>
               </form>
           </>
