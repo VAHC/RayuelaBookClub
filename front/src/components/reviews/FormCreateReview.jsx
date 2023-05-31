@@ -103,6 +103,7 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
             });  
             setTimeout(function(){
                 handleToggleForm()//una vez enviado el form me redirige a reseñas
+                toggleModal()
                 setSuccess(false)
             }, 2000)    
         } else {
@@ -114,6 +115,14 @@ return (
         <>
             <h4 className='text-center fs-3'>Deja tu reseña</h4>
             <form onSubmit={submitHandler}>
+                {!user && (
+                  <div>
+                    <img className="w-50 p-3 h-50 d-inline-block" src='./images/userSuccess.png' alt='debes estar registrado para crear una reseña' />
+                    {setTimeout(() => {
+                      navigate('/ingresar')
+                    }, 3000)}
+                  </div>)
+                }
                 {success && <img className="w-50 p-3 h-50 d-inline-block" src='./images/createdReview.png' alt='formulario enviado correctamente' />}
                 {!success && (
                   <div>
