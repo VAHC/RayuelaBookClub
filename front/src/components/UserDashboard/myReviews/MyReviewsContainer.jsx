@@ -17,7 +17,7 @@ const MyReviewsContainer = () => {
     // //user hardcodeado para trabajar
     // const userId = 1;
     const dispatch = useDispatch();
-
+//prueba pr
     const notDeletedReviews = userReviews.filter((review) => !review.deleted)
     //console.log(notDeletedReviews);
 
