@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react';
 import validation from "./validationRegistro";
 import { useDispatch } from 'react-redux';
 import { createUser } from "../../redux/action";
+import {URL_Railway} from '../../../ruta'
 
 export const Registro = () => {
 
+    const URL = URL_Railway+"/books/auth/authSocial"
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -81,7 +83,7 @@ export const Registro = () => {
 
     //REGISTRO CON GOOGLE
     const handleClick = async () => {
-        window.location.href = 'http://localhost:3001/auth/google';
+        window.location.href = `${URL_Railway}/auth/google`;
     }
 
     return (
