@@ -11,12 +11,15 @@ export const Detail = () => {
   const bookId = detailData ? detailData.id : null;
   //console.log('detail' + bookId)
   const qualificationObtained = (detailData) => {
-    if (detailData.reviews && Array.isArray(detailData.reviews) && detailData.reviews.length > 0) {
+    const reviews = detailData.reviews;
+    const notDeletedReviews = reviews.filter(review => !review.deleted);
+
+    if (notDeletedReviews && Array.isArray(notDeletedReviews) && notDeletedReviews.length > 0) {
       let sum = 0;
-      for (let i = 0; i < detailData.reviews.length; i++) {
-        sum += detailData.reviews[i].qualification;
+      for (let i = 0; i < notDeletedReviews.length; i++) {
+        sum += notDeletedReviews[i].qualification;
       }
-      let average = sum / detailData.reviews.length;
+      let average = sum / notDeletedReviews.length;
       return Math.round(average);
     }
     return 0; // Valor predeterminado si no hay reviews o no es un array válido
