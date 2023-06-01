@@ -97,12 +97,12 @@ const MyReviewsContainer = () => {
                             {showModal && (
                                 <div className="modal" tabIndex="-1" style={{ display: "block" }}>
                                     <div className="modal-dialog modal-dialog-scrollable modal-dialog-centered " style={{ marginTop: "7%" }}>
-                                        <div className="modal-content bg-white border-4">        
-                                            <FormEditReviews 
+                                        <div className="modal-content bg-white border-4">
+                                                <FormEditReviews 
                                                 review={selectedReview}
                                                 toggleModal={toggleModal}
                                                 // handleEditReview={handleEditReview}
-                                            />            
+                                                />                  
                                         </div>
                                     </div>
                                 </div>
@@ -111,7 +111,7 @@ const MyReviewsContainer = () => {
                                 <div className="modal" tabIndex="-1" style={{ display: "block" }}>
                                     <div className="modal-dialog modal-dialog-centered" style={{ marginTop: "7%" }}>
                                         <div className="modal-content bg-white border-4">
-                                            <div className="modal-body">
+                                            <div className="modal-body d-flex justify-content-center align-items-center">
                                                 <img img className="w-50 p-3 h-50 d-inline-block" src='.\images\editedReview.png' alt='reseña borrada' /> {/* Reemplaza "ruta-de-la-imagen.jpg" con la ruta de tu imagen */}
                                             </div>
                                         </div>
