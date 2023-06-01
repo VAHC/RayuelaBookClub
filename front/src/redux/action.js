@@ -174,6 +174,7 @@ export const putReview = (reviewId, review) => {
 
 export const deleteReview = (reviewId) => {
   return async function (dispatch) {
+    //console.log('llega el dispatch a la action');
     let response = await axios.put(`http://localhost:3001/reviews/delete/${reviewId}`)
     dispatch({ type: DELETE_REVIEW })
     return response

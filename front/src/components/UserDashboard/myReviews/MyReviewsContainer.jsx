@@ -47,10 +47,13 @@ const MyReviewsContainer = () => {
     toggleModal();
   };
 
-  const handlerDelete = async () => {
+
+  const handlerDelete = async (reviewId) => {
     await dispatch(deleteReview(reviewId))
+    //console.log('review ' + reviewId);
     dispatch(getReviewsByUser(userId))
-    //console.log('despacho el delete');
+    // console.log('user ' + userId);
+    // console.log('despacho el delete');
   }
 
     return (
