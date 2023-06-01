@@ -133,6 +133,8 @@ export const getReviewsBook = (bookId) => {
 }
 
 export const postReview = (review) => {
+  console.log(review);
+  console.log('se despacha la action');
   return async function (dispatch) {
     let response = await axios.post(`${URL_Railway}/reviews`, review)
     return response
