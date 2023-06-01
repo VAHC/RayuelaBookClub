@@ -4,11 +4,11 @@ const {
   LoadBooksHandler,
   getBooksHandler,
   getPage
-
-} = require('../handlers/bookHandler')
-const {getBookByIdHandler} = require('../handlers/getBookByIdHandler')
-const createBookHandler = require('../handlers/createBookHandler')
-// const router = require(".");
+} = require('../handlers/book/bookHandler')
+const {getBookByIdHandler} = require('../handlers/book/getBookByIdHandler')
+const createBookHandler = require('../handlers/book/createBookHandler')
+const updateBookHandler = require('../handlers/book/updateBookHandler')
+const deleteBookHandler = require('../handlers/book/deleteBookHandler')
 
 const bookRouter = Router()
 
@@ -17,6 +17,9 @@ bookRouter.get('/:id', getBookByIdHandler)
 bookRouter.get('/page/:number', getPage)
 bookRouter.get('/load', LoadBooksHandler)
 bookRouter.post('/', createBookHandler)
+// bookRouter.put('/:id', updateBookHandler)
+bookRouter.put('/putbook', updateBookHandler)
+bookRouter.put('/delete/:id', deleteBookHandler)
 
 
 

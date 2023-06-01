@@ -19,7 +19,7 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js')
 const { conn } = require('./src/db.js')
-const { LoadAllBooks } = require('../api/src/controllers/books/LoadBooks.js')
+const { LoadAllBooks } = require('./src/controllers/books/LoadBooks.js')
 
 // Syncing all the models at once.
 conn.sync({ force: false}).then(() => {
@@ -27,5 +27,5 @@ conn.sync({ force: false}).then(() => {
     console.log('%s listening at 3001') // eslint-disable-line no-console
   })
 }).then(async () => {
-  //LoadAllBooks() // cargo los generos cuando levanto el server
+  // LoadAllBooks() // cargo los generos cuando levanto el server
 })
