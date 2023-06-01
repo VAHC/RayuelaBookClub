@@ -15,8 +15,8 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
     const [input, setInput] = useState({ //estado,local para menejar los inputs
         id_book: '',
         id_user: '',
-        createdDb: '',
-        deleted: '',
+        createdDb: true,
+        deleted: false,
         title: '',
         qualification: '',
         comment: '',
@@ -67,6 +67,7 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
             [e.target.name]: e.target.value
         }));
     };
+
             //useEffect que escucha los estados locales input y errors para setear el estado FormComplete
     useEffect(() => {
         let values = Object.values(input);
@@ -90,8 +91,8 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
             setInput({
                 id_book: '',
                 id_user: '',
-                createdDb: '',
-                deleted: '',
+                createdDb: true,
+                deleted: false,
                 title: '',
                 qualification: '',
                 comment: '',
