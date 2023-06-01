@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react';
 import validation from "./validationRegistro";
 import { useDispatch } from 'react-redux';
 import { createUser } from "../../redux/action";
+import {URL_Railway} from '../../../ruta'
 
 export const Registro = () => {
 
+    const URL = URL_Railway+"/books/auth/authSocial"
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -147,7 +149,7 @@ export const Registro = () => {
                         </div>
 
                         <div className="col-12 d-flex justify-content-center m-1">
-                            <a href="http://localhost:3001/books/auth/authSocial" className="btn btn-outline-dark">
+                            <a href={URL} className="btn btn-outline-dark">
                                 <i className="bi bi-google fs-3 mx-2"></i>Registrarme con G-mail
                             </a>
                         </div>
