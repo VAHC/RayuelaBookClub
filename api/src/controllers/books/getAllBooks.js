@@ -19,7 +19,7 @@ const getAllBooks = async () => {
             },
             {
                 model: Review,
-                attributes: ['id', 'title', 'qualification', 'comment', 'id_user'],
+                attributes: ['id', 'title', 'qualification', 'comment', 'deleted', 'id_user'],
                 include: [
                     {
                         model: User,
@@ -51,9 +51,10 @@ const getAllBooks = async () => {
                     title: r.title,
                     qualification: r.qualification,
                     comment: r.comment,
+                    deleted: r.deleted,
                     id_user: r.id_user,
                     userFirstName: r.user.firstName,
-                    userLastName: r.user.lastName
+                    userLastName: r.user.lastName, 
                 }
             })
         }
