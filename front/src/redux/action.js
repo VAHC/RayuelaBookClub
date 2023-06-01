@@ -1,10 +1,8 @@
 import axios from 'axios';
-
+import { URL_Railway } from '../../ruta';
 
 // Action types
-export const GET_DATA_REQUEST = 'GET_DATA_REQUEST';
-export const GET_DATA_SUCCESS = 'GET_DATA_SUCCESS';
-export const GET_DATA_FAILURE = 'GET_DATA_FAILURE';
+
 export const GET_ALL_BOOKS = 'GET_ALL_BOOKS';
 export const SORT_BY_PRICE = 'SORT_BY_PRICE';
 export const SORT_BY_RATING = 'SORT_BY_RATING';
@@ -15,39 +13,24 @@ export const SET_DETAIL = "SET_DETAIL";
 export const FILTER_BY_GENRE = 'FILTER_BY_GENRE';
 export const FILTER_AUTHOR = 'FILTER_AUTHOR';
 export const POST_BOOK = "POST_BOOK";
-
-// Action creators
-export const getDataRequest = () => ({
-  type: GET_DATA_REQUEST,
-});
-
-export const getDataSuccess = (data) => ({
-  type: GET_DATA_SUCCESS,
-  payload: data,
-});
-
-export const getDataFailure = (error) => ({
-  type: GET_DATA_FAILURE,
-  payload: error,
-});
-
-// Thunk action
-export const fetchData = () => {
-  return (dispatch) => {
-    dispatch(getDataRequest());
-    axios.get('https://pi-henry-woad.vercel.app/imagen/jsonL.json')
-      .then((response) => {
-        dispatch(getDataSuccess(response.data));
-      })
-      .catch((error) => {
-        dispatch(getDataFailure(error.message));
-      });
-  };
-};
+export const CREATE_USER = "CREATE_USER";
+export const FILTER_FLAG = "FILTER_FLAG";
+export const RESET_FILTERS = "FILTER_FLAG";
+export const GET_GENEROS = "GET_GENEROS";
+export const GET_AUTORES = "GET_AUTORES";
+export const GET_REVIEWS_BOOK = 'GET_REVIEWS_BOOK';
+export const POST_REVIEW = 'POST_REVIEW';
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGOUT = "LOGOUT";
+export const GET_REVIEWS_BY_USER = "GET_REVIEWS_BY_USER";
+export const PUT_BOOK = "PUT_BOOK";
+export const PUT_REVIEW = "PUT_REVIEW";
+export const DELETE_REVIEW = "DELETE_REVIEW";
+export const UPDATE_USER = "UPDATE_USER";
 
 export const getAllBooks = () => {
   return async (dispatch) => {
-    const response = await axios.get('http://localhost:3001/books');
+    const response = await axios.get(`${URL_Railway}/books`);
     const allBooks = response.data;
     dispatch({ type: GET_ALL_BOOKS, payload: allBooks })
   }
@@ -61,12 +44,14 @@ export const getBooksPage = (pagNum) => {
 //se encarga de actualizar pagina actual
 export function changePagina(pagNum) {
   return {
-    type: CHANGE_PAGINA, payload: pagNum }
+    type: CHANGE_PAGINA, payload: pagNum
+  }
 }
 
 export const sortByPrice = (payload) => {
   return {
-    type: SORT_BY_PRICE, payload }
+    type: SORT_BY_PRICE, payload
+  }
 }
 
 export const sortByRating = (payload) => {
@@ -81,7 +66,7 @@ export const searchByNameOrAuthor = (name) => {
   // }
   return async (dispatch) => {
     try {
-      const response = await axios.get(`http://localhost:3001/books?title=${name}`)
+      const response = await axios.get(`${URL_Railway}/books?title=${name}`)
       return dispatch({
         type: SEARCH_BY_NAME_OR_AUTHOR,
         payload: response.data
@@ -106,7 +91,101 @@ export const filterAuthor = (value) => {
 
 export const postBook = (book) => {
   return async function (dispatch) {
-      let response = await axios.post('http://localhost:3001/books', book)
-      return response
+    let response = await axios.post(`${URL_Railway}/books`, book)
+    return response
+  }
+}
+
+export const createUser = (user) => {
+  return async function (dispatch) {
+    let response = await axios.post(`${URL_Railway}/books/auth/registro`, user)
+    return response
+  }
+}
+
+export const filterFlagToggle = (boolean) => {
+  return {
+    type: FILTER_FLAG,
+    payload: boolean
+  }
+}
+
+export const resetFilter = () => {
+  return { type: RESET_FILTERS }
+}
+
+export const getGeneros = () => {
+  return { type: GET_GENEROS }
+}
+
+export const getAutores = () => {
+  return { type: GET_AUTORES }
+}
+
+//trae todas las reviews de un libro
+export const getReviewsBook = (bookId) => {
+  //console.log('action' + bookId);
+  return async (dispatch) => {
+    const response = await axios.get(`${URL_Railway}/books/${bookId}`);
+    const allReviews = response.data;
+    dispatch({ type: GET_REVIEWS_BOOK, payload: allReviews })
+  }
+}
+
+export const postReview = (review) => {
+  console.log(review);
+  console.log('se despacha la action');
+  return async function (dispatch) {
+    let response = await axios.post(`${URL_Railway}/reviews`, review)
+    return response
+  }
+}
+
+export const login = (user) => {
+  return { type: LOGIN_SUCCESS, payload: user }
+}
+
+export const logout = () => {
+  return { type: LOGOUT }
+}
+
+//trae todas las reviews de un usuario
+export const getReviewsByUser = (userId) => {
+  return async (dispatch) => {
+    const response = await axios.get(`${URL_Railway}/users/${userId}`);
+    const userReviews = response.data;
+    dispatch({ type: GET_REVIEWS_BY_USER, payload: userReviews })
+  }
+}
+
+export const modifyBook = (bookEdit) => {
+  //console.log(bookEdit)
+  return async function (dispatch) {
+    await axios.put(`${URL_Railway}/books/putbook`, bookEdit)
+    dispatch({ type: PUT_BOOK })
+  }
+}
+
+export const putReview = (reviewId, review) => {
+  return async function (dispatch) {
+    let response = await axios.put(`${URL_Railway}/reviews/${reviewId}`, review)
+    dispatch({type: PUT_REVIEW})
+    //console.log('la action toma el dispatch');
+    return response
+  }
+}
+
+export const deleteReview = (reviewId) => {
+  return async function (dispatch) {
+    let response = await axios.put(`${URL_Railway}/reviews/delete/${reviewId}`)
+    dispatch({ type: DELETE_REVIEW })
+    return response
+  }
+}
+
+export const updateUser = (user) => {
+  return async function (dispatch) {
+    await axios.put(`${URL_Railway}/users`, user)
+    dispatch({ type: UPDATE_USER })
   }
 }
