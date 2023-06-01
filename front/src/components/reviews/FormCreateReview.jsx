@@ -116,14 +116,16 @@ return (
             <h4 className='text-center fs-3'>Deja tu reseña</h4>
             <form onSubmit={submitHandler}>
                 {!user && (
-                  <div>
+                  <div className="d-flex justify-content-center">
                     <img className="w-50 p-3 h-50 d-inline-block" src='./images/userSuccess.png' alt='debes estar registrado para crear una reseña' />
                     {setTimeout(() => {
                       navigate('/ingresar')
                     }, 3000)}
                   </div>)
                 }
-                {success && <img className="w-50 p-3 h-50 d-inline-block" src='./images/createdReview.png' alt='formulario enviado correctamente' />}
+                {success && <div className="d-flex justify-content-center">
+                  <img className="w-50 p-3 h-50 d-inline-block" src='./images/createdReview.png' alt='formulario enviado correctamente' />
+                </div>}
                 {!success && (
                   <div>
                     <div className="row g-3 align-items-center">
