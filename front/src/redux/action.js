@@ -132,8 +132,11 @@ export const getReviewsBook = (bookId) => {
 }
 
 export const postReview = (review) => {
+  console.log(review);
+  console.log('se despacha la action');
   return async function (dispatch) {
     let response = await axios.post('http://localhost:3001/reviews', review)
+    console.log(response.data);
     return response
   }
 }
