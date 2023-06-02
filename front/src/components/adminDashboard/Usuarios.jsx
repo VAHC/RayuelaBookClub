@@ -1,21 +1,25 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Menu from "./Menu";
-import PanelControl from "./PanelControl";
 
-const Dashboard = () => {
+const Usuarios = () => {
+
+    const usuarios = async () => {
+        
+    }
+
     return (
         <Container fluid>
             <Row>
                 <Col xs={2} className="sidebar mb-4">
-                    <Menu/>
+                    <Menu />
                 </Col>
                 <Col xs={10} className="dashboard-content">
-                    <PanelControl/>
+                    Esto sería la parte de usuarios
                 </Col>
             </Row>
         </Container>
     );
 };
 
-export default Dashboard;
+export default Usuarios;
