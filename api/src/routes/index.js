@@ -5,7 +5,7 @@ const genderRouter = require('./genderRouter')
 const authorRouter = require('./authorRouter')
 const reviewsRouter = require('./reviewsRouter')
 const usersRouter = require('./userRouter')
-
+const MailingRouter = require('./MailingRouter')
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -21,6 +21,7 @@ router.use('/genres', genderRouter)
 router.use('/authors', authorRouter)
 router.use('/reviews', reviewsRouter)
 router.use('/users', usersRouter)
+router.use('/mailing', MailingRouter)
 
 
 module.exports = router
