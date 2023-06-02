@@ -1,7 +1,7 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
 
-const Menu = ({setCompoActivo},{compoActivo}) => {
+const Menu = ({setCompoActivo}) => {
 
   const navHandler=(nombreCompo)=>{
     setCompoActivo(nombreCompo)
