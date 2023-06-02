@@ -53,7 +53,17 @@ module.exports = (sequelize) => {
     },
     phone: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: true,
+      validate: {
+        isNumeric: {
+          args: true,
+          msg: 'El número de teléfono debe ser numérico'
+        },
+        len: {
+          args: [10, 15],
+          msg: 'El número de teléfono debe tener entre 10 y 15 dígitos'
+        }
+      }
     },
     profile: {
       type: DataTypes.STRING,
@@ -68,7 +78,27 @@ module.exports = (sequelize) => {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false
-    }
+    },
+    state: {
+      type: DataTypes.ENUM,
+      values: ["New", "Active", "Inactive", "Blocked"],
+      defaultValue: "New",
+      allowNull: false,
+    },
+    suscribed: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
+    },
+    date_suscription: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'La fecha de suscripción es requerida.'
+        }
+      }
+    },
   },
   {
     timestamps: false
