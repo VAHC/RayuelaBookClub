@@ -99,7 +99,7 @@ const reducer = (state = initialState, action) => {
         [returnPriceProp]: [...sortPriceArray]
       }
 
-    //el case SORT_BY_RATING esta hecho en base al precio, ya que aun no hay reseñas
+
     case SORT_BY_RATING:
       let arrayOrdenadoRating = state.filterFlag ? state.books : state.booksPage
       let sortRatingArray = action.payload === 'Asc' ? arrayOrdenadoRating.sort((a, b) => {
