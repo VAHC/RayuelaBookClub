@@ -1,4 +1,4 @@
-export const URL_Railway = 'rayuelabookclub-production.up.railway.app'
+export const URL_Railway = 'https://rayuelabookclub-production.up.railway.app'
 
 // export const URL_Railway = 'http://localhost:3001'
 
