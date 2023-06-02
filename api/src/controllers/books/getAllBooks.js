@@ -42,6 +42,7 @@ const getAllBooks = async () => {
             stock: b.stock,
             publishedDate: b.publishedDate,
             image: b.image,
+            deleted:b.deleted,
             createdDb: b.createdDb,
             authors: b.authors.map(el => el.name),
             genders: b.genders.map(el => el.name),
