@@ -147,8 +147,16 @@ export const login = (user) => {
   return { type: LOGIN_SUCCESS, payload: user }
 }
 
+// export const logout = () => {
+//   return { type: LOGOUT }
+// }
+
 export const logout = () => {
-  return { type: LOGOUT }
+  return async (dispatch) => {
+    const response = await axios.get('http://localhost:3001/books/auth/logout');
+    const userlogout = response.data;
+    dispatch({ type: LOGOUT, payload: userlogout })
+  }
 }
 
 //trae todas las reviews de un usuario

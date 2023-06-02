@@ -81,6 +81,11 @@ export const Registro = () => {
             })
     }
 
+    //REGISTRO CON GOOGLE
+    const handleClick = async () => {
+        window.location.href = `${URL_Railway}/auth/google`;
+    }
+
     return (
         <div>
             <h2 className='text-center fs-1'>Registro</h2>
@@ -149,9 +154,11 @@ export const Registro = () => {
                         </div>
 
                         <div className="col-12 d-flex justify-content-center m-1">
-                            <a href={URL} className="btn btn-outline-dark">
-                                <i className="bi bi-google fs-3 mx-2"></i>Registrarme con G-mail
-                            </a>
+                            <div className='col-auto text-center'>
+                                <button onClick={handleClick} className="btn btn-outline-dark">
+                                    <i className="bi bi-google fs-3 mx-2"></i>Registrarme con G-mail
+                                </button>
+                            </div>
                         </div>
 
                         <div className="row text-center m-2">
