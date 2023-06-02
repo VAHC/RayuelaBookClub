@@ -21,7 +21,13 @@ export const GET_REVIEWS_BOOK = 'GET_REVIEWS_BOOK';
 export const POST_REVIEW = 'POST_REVIEW';
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGOUT = "LOGOUT";
+export const GET_REVIEWS_BY_USER = "GET_REVIEWS_BY_USER";
 export const PUT_BOOK = "PUT_BOOK";
+export const PUT_REVIEW = "PUT_REVIEW";
+export const DELETE_REVIEW = "DELETE_REVIEW";
+export const DELETE_BOOK = "DELETE_BOOK";
+
+
 
 export const getAllBooks = () => {
   return async (dispatch) => {
@@ -142,6 +148,14 @@ export const logout = () => {
   return { type: LOGOUT }
 }
 
+//trae todas las reviews de un usuario
+export const getReviewsByUser = (userId) => {
+  return async (dispatch) => {
+    const response = await axios.get(`http://localhost:3001/users/${userId}`);
+    const userReviews = response.data;
+    dispatch({ type: GET_REVIEWS_BY_USER, payload: userReviews })
+  }
+}
 
 export const modifyBook = (bookEdit) => {
   console.log(bookEdit)
@@ -149,4 +163,27 @@ export const modifyBook = (bookEdit) => {
     await axios.put('http://localhost:3001/books/putbook', bookEdit)
     dispatch({ type: PUT_BOOK })
   }
+}
+
+export const putReview = (reviewId, review) => {
+  return async function (dispatch) {
+    let response = await axios.put(`http://localhost:3001/reviews/${reviewId}`, review)
+    dispatch({ type: PUT_REVIEW })
+    //console.log('la action toma el dispatch');
+    return response
+  }
+}
+
+export const deleteReview = (reviewId) => {
+  return async function (dispatch) {
+    let response = await axios.put(`http://localhost:3001/reviews/delete/${reviewId}`)
+    dispatch({ type: DELETE_REVIEW })
+    return response
+  }
+}
+
+export const deleteBook = async (bookId, dispatch) => {
+  console.log("esta es la action")
+  await axios.put(`http://localhost:3001/books/delete/${bookId}`)
+  dispatch({ type: DELETE_BOOK })
 }

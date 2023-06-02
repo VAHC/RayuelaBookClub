@@ -13,9 +13,6 @@ const Menu = () => {
       <Nav.Item className="sidebar-item">
         <Nav.Link href="#suscripcion">Mi suscripción</Nav.Link>
       </Nav.Item>
-      <Nav.Item className="sidebar-item">
-        <Nav.Link href="#configuracion">Configuración</Nav.Link>
-      </Nav.Item>
     </Nav>
   );
 };

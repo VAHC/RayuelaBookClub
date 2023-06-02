@@ -10,7 +10,7 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
     const navigate = useNavigate();
     const [number, setNumber] = useState(0); // estado que sirve para controlar las estrellas
     const [hoverStar, setHoverStar] = useState(undefined);
-    // const user = useSelector((state)  => state.user) //estado que comprueba que se esta logueado
+    const user = useSelector((state)  => state.user) //estado que comprueba que se esta logueado
 
     const [input, setInput] = useState({ //estado,local para menejar los inputs
         id_book: '',
@@ -59,8 +59,8 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
         setInput({
             ...input,
             id_book: bookId,
-            // id_user: user.id,
-            id_user: 1,
+            id_user: user.id,
+            // id_user: 1,
             createdDb: true,
             deleted: false,
             qualification: number,
@@ -84,13 +84,13 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
             // //handler del submit ==> si fomrComplete es true despacha la action, setea Success en true, setea input y errors al estado inicial
     const submitHandler = (e) => {
         e.preventDefault();
-        // if(!user) {
-        //         alert('antes de dejar tu reseña debes loguearte')
-        //     setTimeout(function(){
-        //         navigate('/ingresar')//si no estoy logueado redirege al login
-        //     }, 2000)
-        // } else if(formComplete) {
-         if(formComplete) {
+        if(!user) {
+                alert('antes de dejar tu reseña debes loguearte')
+            setTimeout(function(){
+                navigate('/ingresar')//si no estoy logueado redirege al login
+            }, 2000)
+        } else if(formComplete) {
+        //  if(formComplete) {
             dispatch(postReview(input));
             setSuccess(true); // al setearse en true cambia el rederizado
             setInput({
@@ -171,30 +171,3 @@ return (
 }
         
 export default FormCreateReview
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
