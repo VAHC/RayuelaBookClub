@@ -22,6 +22,7 @@ import {
   PUT_BOOK,
   PUT_REVIEW,
   DELETE_REVIEW,
+  DELETE_BOOK
 } from './action';
 
 // Initial state
@@ -48,6 +49,7 @@ const initialState = {
   user: null,
   //array que trae todas la reseñas de un usuario
   userReviews: [],
+
 }
 
 // Reducer
@@ -249,6 +251,11 @@ const reducer = (state = initialState, action) => {
         return {
           ...state
         }
+        
+        case DELETE_BOOK:
+          return {
+            ...state
+          }
       
 
     default:
