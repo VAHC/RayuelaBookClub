@@ -32,13 +32,8 @@ const Inventario = () => {
 
     useEffect(() => {
         dispatch(getAllBooks());
-<<<<<<< HEAD
-        //console.log("se hace el dispatch para buscar allBooks");
-    }, [allBooks]);
-=======
         //console.log("se hace el dispatch para buscar allBooks");  
     }, [dispatch]);
->>>>>>> develop
 
     const handleGenreFilterChange = (e) => {
         const genreValue = e.target.value;
