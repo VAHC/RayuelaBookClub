@@ -31,7 +31,7 @@ server.use(
     saveUninitialized: true,
   })
 );
-// En caso de ser usado localmente el rpyecto, se debe descomentar la linea 39 y comentar la linea 38
+// En caso de ser usado localmente el proyecto, se debe descomentar la linea 41 y comentar la linea 40
 // 'Access-Control-Allow-Origin'
 
 
