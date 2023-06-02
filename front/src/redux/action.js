@@ -26,7 +26,9 @@ export const GET_REVIEWS_BY_USER = "GET_REVIEWS_BY_USER";
 export const PUT_BOOK = "PUT_BOOK";
 export const PUT_REVIEW = "PUT_REVIEW";
 export const DELETE_REVIEW = "DELETE_REVIEW";
+export const DELETE_BOOK = "DELETE_BOOK";
 export const UPDATE_USER = "UPDATE_USER";
+
 
 export const getAllBooks = () => {
   return async (dispatch) => {
@@ -177,7 +179,7 @@ export const modifyBook = (bookEdit) => {
 export const putReview = (reviewId, review) => {
   return async function (dispatch) {
     let response = await axios.put(`${URL_Railway}/reviews/${reviewId}`, review)
-    dispatch({type: PUT_REVIEW})
+    dispatch({ type: PUT_REVIEW })
     //console.log('la action toma el dispatch');
     return response
   }
@@ -191,9 +193,14 @@ export const deleteReview = (reviewId) => {
   }
 }
 
-export const updateUser = (user) => {
-  return async function (dispatch) {
-    await axios.put(`${URL_Railway}/users`, user)
-    dispatch({ type: UPDATE_USER })
+export const deleteBook = async (bookId, dispatch) => {
+  console.log("esta es la action")
+  await axios.put(`http://localhost:3001/books/delete/${bookId}`)
+  dispatch({ type: DELETE_BOOK })}
+
+  export const updateUser = (user) => {
+    return async function (dispatch) {
+      await axios.put(`${URL_Railway}/users`, user)
+      dispatch({ type: UPDATE_USER })
+    }
   }
-}
