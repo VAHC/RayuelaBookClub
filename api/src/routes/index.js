@@ -16,7 +16,7 @@ const router = Router()
 // Ejemplo: router.use('/auth', authRouter);
 
 router.use('/books', bookRouter)
-router.use('/books/auth', bookRouterAuth)
+router.use('/auth', bookRouterAuth)
 router.use('/genres', genderRouter)
 router.use('/authors', authorRouter)
 router.use('/reviews', reviewsRouter)
