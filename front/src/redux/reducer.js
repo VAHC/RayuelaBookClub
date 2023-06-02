@@ -103,10 +103,10 @@ const reducer = (state = initialState, action) => {
     case SORT_BY_RATING:
       let arrayOrdenadoRating = state.filterFlag ? state.books : state.booksPage
       let sortRatingArray = action.payload === 'Asc' ? arrayOrdenadoRating.sort((a, b) => {
-        return a.price - b.price
+        return a.reviews.qualification - b.reviews.qualification
       }) :
         arrayOrdenadoRating.sort((a, b) => {
-          return b.price - a.price
+          return b.reviews.qualification - a.reviews.qualification
         });
       const returnRatingProp = state.filterFlag ? "books" : "booksPage"
       return {
