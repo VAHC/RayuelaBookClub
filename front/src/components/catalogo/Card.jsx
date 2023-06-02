@@ -6,25 +6,27 @@ import { useDispatch } from "react-redux";
 import { setDetail } from "../../redux/action";
 
 const bookCard = ({book}) => {
-
+  
   const qualificationObtained = (book) => {
-    if (book.reviews && Array.isArray(book.reviews) && book.reviews.length > 0) {
+    const reviews = book.reviews
+    const notDeletedReviews = reviews.filter(review => !review.deleted)
+    if (notDeletedReviews && Array.isArray(notDeletedReviews) && notDeletedReviews.length > 0) {
       let sum = 0;
-      for (let i = 0; i < book.reviews.length; i++) {
-        sum += book.reviews[i].qualification;
+      for (let i = 0; i < notDeletedReviews.length; i++) {
+        sum += notDeletedReviews[i].qualification;
       }
-      let average = sum / book.reviews.length;
+      let average = sum / notDeletedReviews.length;
       return Math.round(average);
     }
     return 0; // Valor predeterminado si no hay reviews o no es un array válido
   };
 
-  console.log(qualificationObtained(book));
+  //console.log(qualificationObtained(book));
 
   const renderStars = (rating) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
-      const starIcon = i <= rating ? <i className="bi bi-star-fill" /> : <i className="bi bi-star"/>;
+      const starIcon = i <= rating ? <i key={i} className="bi bi-star-fill" /> : <i key={i} className="bi bi-star"/>;
       stars.push(starIcon);
     }
     return stars;

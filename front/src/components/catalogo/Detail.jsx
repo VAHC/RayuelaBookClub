@@ -11,12 +11,15 @@ export const Detail = () => {
   const bookId = detailData ? detailData.id : null;
   //console.log('detail' + bookId)
   const qualificationObtained = (detailData) => {
-    if (detailData.reviews && Array.isArray(detailData.reviews) && detailData.reviews.length > 0) {
+    const reviews = detailData.reviews;
+    const notDeletedReviews = reviews.filter(review => !review.deleted);
+
+    if (notDeletedReviews && Array.isArray(notDeletedReviews) && notDeletedReviews.length > 0) {
       let sum = 0;
-      for (let i = 0; i < detailData.reviews.length; i++) {
-        sum += detailData.reviews[i].qualification;
+      for (let i = 0; i < notDeletedReviews.length; i++) {
+        sum += notDeletedReviews[i].qualification;
       }
-      let average = sum / detailData.reviews.length;
+      let average = sum / notDeletedReviews.length;
       return Math.round(average);
     }
     return 0; // Valor predeterminado si no hay reviews o no es un array válido
@@ -26,7 +29,7 @@ export const Detail = () => {
   const renderStars = (rating) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
-      const starIcon = i <= rating ? <i className="bi bi-star-fill bi-sm" /> : <i className="bi bi-star bi-sm"/>;
+      const starIcon = i <= rating ? <i key={i} className="bi bi-star-fill bi-sm" /> : <i key={i} className="bi bi-star bi-sm"/>;
       stars.push(starIcon);
     }
     return stars;
@@ -62,15 +65,10 @@ export const Detail = () => {
                         </h4>
                         <Button 
                             variant="secondary"
-                            style={{
-                                borderRadius: "50%",
-                                width: "80px",
-                                height: "80px",
-                            }}
                             onClick={toggleModal}
                             //onClick={() => navigate(`/reseñas/${bookId}`)}
                         >
-                            {/* 5/5 ★ */}
+                            <p className="mb-1">Reseñas</p>
                             <div>{renderStars(qualificationObtained(detailData))}</div>
                         </Button>
                     </div>
@@ -80,15 +78,15 @@ export const Detail = () => {
                                 Autor
                             </Card.Subtitle>
                             {detailData.authors.map((author, index) => {
-                                return <Card.Text key={index} >{author}</Card.Text>;
+                                return <Card.Text key={index}>{author}</Card.Text>;
                             })}
                         </Col>
                         <Col>
                             <Card.Subtitle className="text-muted">
                                 Género
                             </Card.Subtitle>
-                            {detailData.genders.map((gender) => {
-                                return <Card.Text>{gender}</Card.Text>;
+                            {detailData.genders.map((gender, index) => {
+                                return <Card.Text key={index}>{gender}</Card.Text>;
                             })}
                         </Col>
                     </Row>
@@ -98,15 +96,15 @@ export const Detail = () => {
               </Card.Text>
 
               <div>
-                <Row>
-                  <Col>
-                    <Button variant="primary">Agregar al carrito</Button>
+                <Row className="d-flex justify-content-center">
+                  <Col className="text-center">
+                    <Button variant="dark">Agregar al carrito</Button>
                   </Col>
-                  <Col>
+                  {/* <Col>
                     <Button variant="outline-secondary">
                       Agregar a la Wishlist
                     </Button>
-                  </Col>
+                  </Col> */}
                 </Row>
               </div>
             </Card.Body>
