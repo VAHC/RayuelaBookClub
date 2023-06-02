@@ -7,7 +7,6 @@ import { URL_Railway } from '../../../ruta';
 
 export const Login = () => {
 
-    const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -47,7 +46,7 @@ export const Login = () => {
             // Manejo de la respuesta del backend
             if (!data.message) {
                 dispatch(login(data))
-                navigate("/")
+                navigate(-1)
             } else {
                 // Login fallido
                 alert(data.message);
@@ -63,19 +62,19 @@ export const Login = () => {
 
     //LOGIN CON GOOGLE
     const handleClick = async () => {
-        window.location.href = `${URL_Railway}/books/auth/authSocial`;
+        window.location.href = `${URL_Railway}/books/auth/google`;
     }
 
-    useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const user = urlParams.get('user');
-        
-        if (user) {
-          const userData = JSON.parse(decodeURIComponent(user));
-          console.log('Usuario autenticado:', userData);
-          // Aquí puedes hacer lo que necesites con los datos del usuario autenticado
-        }
-      }, []);
+    // useEffect ( async () => {
+    //     try {
+    //         const response = await axios.get(''
+    //         //, { withCredentials: true }
+    //         )
+    //         console.log(response.data)
+    //       } catch (error) {
+    //         console.error(error)
+    //       }
+    //   }, []);
 
     return (
         <>
@@ -117,7 +116,9 @@ export const Login = () => {
 
                         <div className="row d-flex justify-content-center">
                             <div className='col-auto text-center'>
-                                <button onClick={handleClick} className="btn btn-outline-dark"><i className="bi bi-google fs-3 mx-2"></i>Ingresar con G-mail</button>
+                                <button onClick={handleClick} className="btn btn-outline-dark">
+                                    <i className="bi bi-google fs-3 mx-2"></i>Ingresar con G-mail
+                                </button>
                             </div>
                         </div>
 
@@ -142,6 +143,9 @@ const validation = (userData) => {
         errors.password = "Escribí tu contraseña"
     }
     if (userData.password.length < 8 && userData.password.length >= 1) {
+        errors.password = "Contraseña no válida"
+    }
+    if (userData.password.length > 10) {
         errors.password = "Contraseña no válida"
     }
     return errors
