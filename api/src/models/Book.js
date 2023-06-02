@@ -68,7 +68,16 @@ module.exports = (sequelize) => {
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isUrl: {
+          msg: 'La URL de la imagen debe ser válida'
+        },
+        len: {
+          args: [5, 100],
+          msg: 'La URL de la imagen debe tener entre 5 y 100 caracteres'
+        }
+      }
     },
     createdDb: {
       type: DataTypes.BOOLEAN,
@@ -79,7 +88,11 @@ module.exports = (sequelize) => {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false
-    }
+    },
+    imageId: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
     timestamps: false
