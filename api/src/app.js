@@ -6,13 +6,13 @@ const routes = require('./routes/index.js');
 const passport = require('passport');
 const session = require('express-session');
 const cors = require('cors');
-const URL_Vercel = require('../../rutas');
+
 
 const server = express();
 
 // Configuración básica de CORS
 const corsOptions = {
-  origin: URL_Vercel,
+  origin: 'http://127.0.0.1:5173',
   credentials: true,
 };
 
