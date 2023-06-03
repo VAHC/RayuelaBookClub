@@ -125,18 +125,18 @@ const MailgmailPassword = async (Cabezara, Url, Titulo, Intro, To, subject) => {
     let response = {
       body: {
         name: Titulo,
-        intro: Intro,
+        intro: 'Le enviamos este correo porque ha solicitado restablecer su contraseña',
         greeting: 'Estimado',
         signature: 'Atentamente',
         action: {
-          instructions: 'Haz click en el siguiente botón para reestablecer tu contraseña',
+          instructions: 'Haz click en el siguiente botón para continuar',
           button: {
             color: '#DC4D2F',
-            text: 'Restaura tu contraseña',
+            text: 'Restaurar contraseña',
             link: Url
           }
         },
-        outro: 'Si no solicitaste restaurar tu contraseña, no debes realizar ninguna acción'
+        outro: 'Si no solicitaste restablecer tu contraseña, no debes realizar ninguna acción'
       }
     }
   

@@ -11,16 +11,17 @@ const passwordResetReq = async (email) => {
 
     if (!userToReset) {
         throw Error(`No user has been found matching the email: ${email}`)
-    } else {
+    
+    } if(userToReset.createdDb === true) {
 
         const token = jwt.sign({ userId: userToReset.id}, secretKey)
         console.log(token)
 
-        const mail = await MailgmailPassword("Reestablece tu constraseña", `http://127.0.0.1:5173/ingresar?token=${token}`,'Titulo', 'Intro', email, 'subject')
-        
-       console.log(mail);
+        await MailgmailPassword("Rayuela", `http://127.0.0.1:5173/ingresar?token=${token}`,`${userToReset.firstName}`, 'Intro', email, 'subject')
     }
-
+    else {
+        throw Error(`this account has been created through Gmail`)
+    }
 }
 
 
