@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchByNameOrAuthor,changePagina } from '../../redux/action';
 import { Paginado } from './Paginado';
+import { Link } from 'react-router-dom';
 
 export const SearchBar = () => {
   const dispatch = useDispatch();
@@ -37,7 +38,10 @@ export const SearchBar = () => {
             <button className="btn btn-light btn-outline-secondary" onClick={handlerDispatch}>Buscar</button>
           </form>
           <Paginado/>
+          {/* <i className="bi bi-cart text-light fs-3 mx-5"></i> */}
+          <Link to="/carrito">
           <i className="bi bi-cart text-light fs-3 mx-5"></i>
+          </Link>
         </div>
       </nav>
     </div>
