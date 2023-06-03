@@ -8,7 +8,7 @@ import {URL_Railway} from '../../../ruta'
 
 export const Registro = () => {
 
-    const URL = URL_Railway+"/books/auth/authSocial"
+    //const URL = URL_Railway+"/books/auth/authSocial"
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
