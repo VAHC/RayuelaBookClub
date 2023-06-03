@@ -92,7 +92,7 @@ export const Registro = () => {
             {userCreated && <div className="d-flex justify-content-center">
                                 <img src="./images/userSuccess.png" className="w-25" alt="success" />
                             </div>}
-            {!userCreated && <div class="card mx-5 my-3">
+            {!userCreated && <div className="card mx-5 my-3">
                 <div className="d-flex justify-content-center m-2">
                     <form className="row g-2 md-2 w-75" onSubmit={handleSubmit}>
                         <div className="col-md-6">
