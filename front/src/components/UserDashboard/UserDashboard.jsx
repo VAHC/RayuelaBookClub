@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import Menu from "./Menu";
 import { Profile } from "./Profile";
-import { Suscripcion } from "./suscripcion";
+import { MiSuscripcion } from "./MiSuscripcion";
 import MyReviewsContainer from "./myReviews/MyReviewsContainer";
 
 const UserDashboard = () => {
-    const [compoActivo, setCompoActivo] = useState("")
+    const [compoActivo, setCompoActivo] = useState("profile")
 
     const compoRender= ()=>{
         if (compoActivo === "profile") return <Profile/>
         if (compoActivo=== "reviews") return <MyReviewsContainer/>
-        if (compoActivo=== "suscripcion") return <Suscripcion/> 
+        if (compoActivo=== "suscripcion") return <MiSuscripcion/>
     }
 
     return (
