@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Suscripcion = () => {
+export const MiSuscripcion = () => {
   return (
     <div>suscripcion</div>
   )
