@@ -151,10 +151,10 @@ export const login = (user) => {
 //   return { type: LOGOUT }
 // }
 
-export const logout = () => {
+export const logout = (userlogout) => {
   return async (dispatch) => {
-    const response = await axios.get('http://localhost:3001/books/auth/logout');
-    const userlogout = response.data;
+    //const response = await axios.get(`${URL_Railway}/auth/logout`);
+    //const userlogout = response.data;
     dispatch({ type: LOGOUT, payload: userlogout })
   }
 }
