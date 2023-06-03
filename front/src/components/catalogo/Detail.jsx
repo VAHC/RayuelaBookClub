@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import ContainerReviews from "../reviews/ContainerReviews";
 import { useState } from 'react';
 
-
 export const Detail = () => {
   const detailData = useSelector((state) => state.detail_data);
   //console.log(detailData);
@@ -46,7 +45,7 @@ export const Detail = () => {
     return (
       <Card style={{ width: "100%", height: "100%"}}>
         <Card.Body className="d-flex flex-column justify-content-evenly">
-     <h1>Selecciona un libro para ver más detalles.</h1>
+     <h1>Seleccioná un libro para ver más detalles.</h1>
         </Card.Body>
     </Card>
     )}
