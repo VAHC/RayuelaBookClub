@@ -51,7 +51,7 @@ export const Nav = () => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg">
+      <nav className="navbar navbar-expand-lg px-2">
         <div className="container-fluid">
           <p className="navbar-brand ms-auto mb-2 mb-lg-0 fs-4 d-flex align-items-center pb-4">
             <Link to='/'>

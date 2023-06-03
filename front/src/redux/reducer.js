@@ -23,7 +23,11 @@ import {
   PUT_REVIEW,
   DELETE_REVIEW,
   DELETE_BOOK,
-  UPDATE_USER
+  UPDATE_USER,
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  REMOVE_ITEMS,
+  EMPTY_CART
 } from './action';
 
 // Initial state
@@ -50,7 +54,8 @@ const initialState = {
   user: null,
   //array que trae todas la reseñas de un usuario
   userReviews: [],
-
+  //array para el carrito
+  cart: []
 }
 
 // Reducer
@@ -102,7 +107,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         [returnPriceProp]: [...sortPriceArray]
       }
-
 
     case SORT_BY_RATING:
       let arrayOrdenadoRating = state.filterFlag ? state.books : state.booksPage
@@ -264,6 +268,42 @@ const reducer = (state = initialState, action) => {
 
     case UPDATE_USER:
       return { ...state }
+
+    case ADD_TO_CART:
+      const cartCopy = [...state.cart]
+      const findItem = cartCopy.find(i => i.id === action.payload.id)
+      if (findItem.length) {
+        findItem.quantity += 1
+      } else {
+        cartCopy.push({ ...action.payload, quantity: 1 })
+      }
+      return {
+        ...state,
+        cart: cartCopy
+      }
+
+    case REMOVE_FROM_CART:
+      const cartCopi = [...state.cart]
+      const findI = cartCopi.find(i => i.id === action.payload.id)
+      if (findI.length) {
+        findItem.quantity - 1
+      }
+      return {
+        ...state
+      }
+
+    case REMOVE_ITEMS:
+      const deletedItem = state.cart.filter(i => i.id !== action.payload)
+      return {
+        ...state,
+        cart: [...deletedItem]
+      }
+
+    case EMPTY_CART:
+      return {
+        ...state,
+        cart: []
+      }
 
     default:
       return state;
