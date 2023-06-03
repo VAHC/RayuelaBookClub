@@ -10,17 +10,7 @@ module.exports = (sequelize) => {
       allowNull: false,
       primaryKey: true
     },
-    price_unit: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        min: {
-          args:[0],
-          msg: 'El precio unitario debe ser un valor positivo o cero.'
-        }
-      }
-    },
-    amount: {
+    quantity: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {

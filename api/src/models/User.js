@@ -69,11 +69,6 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    createdDb: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: true
-    },
     deleted: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
@@ -98,6 +93,11 @@ module.exports = (sequelize) => {
           msg: 'La fecha de suscripción es requerida.'
         }
       }
+    },
+    createdDb: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
     },
   },
   {

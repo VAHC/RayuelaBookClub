@@ -79,11 +79,6 @@ module.exports = (sequelize) => {
         }
       }
     },
-    createdDb: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: true
-    },
     deleted: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
@@ -92,6 +87,12 @@ module.exports = (sequelize) => {
     imageId: {
       type: DataTypes.STRING,
       allowNull: false,
+      defaultValue: ''
+    },
+    createdDb: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
     },
   },
   {
