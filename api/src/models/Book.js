@@ -93,20 +93,6 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    amount: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 1,
-      validate: {
-        isInt: {
-          msg: 'La cantidad debe ser un valor entero.',
-        },
-        min: {
-          args: [1],
-          msg: 'La cantidad debe ser mayor o igual a 1.',
-        },
-      },
-    },
   },
   {
     timestamps: false
