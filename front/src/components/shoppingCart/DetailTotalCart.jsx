@@ -1,15 +1,15 @@
 import React from "react";
+import { totalByitem } from "./helpers";
 
-const DetailTotalCart = (props) => {
-    const totalByitem = (quantity, price) => {
-       return quantity * price
-    } 
+const DetailTotalCart = ({title, quantity, price}) => {
+    console.log(quantity);
+    console.log(price);
     return (
-        <>
-            <h6>{props.title}</h6>
-            <span>{props.quantity} und</span>
-            <h5>${totalByitem(props.quantity, props.price)}</h5>
-        </>
+        <div className="d-flex justify-content-between px-2">
+            <h6 className="d-inline">{title}</h6>
+            <span className="d-inline">{quantity} und</span>
+            <h5 className="d-inline">${totalByitem(quantity, price)}</h5>
+        </div>
     )
 
 }
