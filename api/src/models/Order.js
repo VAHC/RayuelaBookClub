@@ -21,11 +21,21 @@ module.exports = (sequelize) => {
     },
     state: {
       type: DataTypes.ENUM,
-      values: ["Created", "Processing", "Shipped", "Cancelled", "Completed"],
+      values: ["Created", "Processing", "Pending", "Cancelled", "Completed"],
       defaultValue: "Created",
       allowNull: false,
     },
-    total: {
+    quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        min: {
+          args: [0],
+          msg: 'La cantidad debe ser un valor positivo o cero.'
+        }
+      }
+    },
+    price_total: {
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
       validate: {
@@ -42,15 +52,10 @@ module.exports = (sequelize) => {
         }
       }
     },
-    amount: {
-      type: DataTypes.INTEGER,
+    deleted: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
-      validate: {
-        min: {
-          args: [0],
-          msg: 'La cantidad debe ser un valor positivo o cero.'
-        }
-      }
+      defaultValue: false
     },
     createdDb: {
       type: DataTypes.BOOLEAN,
