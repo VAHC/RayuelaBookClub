@@ -55,7 +55,7 @@ export const Nav = () => {
         <div className="container-fluid">
           <p className="navbar-brand ms-auto mb-2 mb-lg-0 fs-4 d-flex align-items-center pb-4">
             <Link to='/'>
-              <img src="./images/logo.png" alt="Logo" width="80" height="80" className="d-inline-block" />
+              <img src="./images/logo.png" alt="Logo" width="100" height="100" className="d-inline-block" />
             </Link>
           </p>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
