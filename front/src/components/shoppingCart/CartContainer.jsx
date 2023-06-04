@@ -16,6 +16,18 @@ const CartContainer = () => {
 
     }, [cart]);
 
+    const incrementQuantityHandler = (item) => {
+        //console.log(item);
+        //console.log('despacha la action');
+        dispatch(addToCart(item))
+    }
+
+    const decrementQuantityHandler = (item) => {
+        //console.log(item);
+        //console.log('despacha la action');
+        dispatch(removeFromCart(item))
+    }
+
     const cleanCartHandler = () => {
         dispatch(emptyCart())
     }
@@ -24,7 +36,7 @@ const CartContainer = () => {
         dispatch(removeItems(id))
     }
 
-    
+
 
     
     return (
@@ -49,7 +61,7 @@ const CartContainer = () => {
                                 <Col>
                                     <Table striped bordered hover>
                                         <tbody>
-                                            {!cart ? (
+                                            {!cart.length ? (
                                                 <tr>
                                                     <td colSpan="3">
                                                         <div>
@@ -70,9 +82,9 @@ const CartContainer = () => {
                                                                 </div>
                                                                 <div className="d-flex align-items-center">
                                                                     <div className="d-flex align-items-center">
-                                                                        <Button variant="primary" className="btn btn-sm me-2"><i className="bi bi-arrow-down-square" /></Button>
+                                                                        <Button variant="primary" className="btn btn-sm me-2" onClick={() =>{decrementQuantityHandler(item)}}><i className="bi bi-arrow-down-square" /></Button>
                                                                         <span className="me-2">{item.quantity}</span>
-                                                                        <Button variant="primary" className="btn btn-sm me-2"><i className="bi bi-arrow-up-square" /></Button>
+                                                                        <Button variant="primary" className="btn btn-sm me-2" onClick={() =>{incrementQuantityHandler(item)}}><i className="bi bi-arrow-up-square" /></Button>
                                                                     </div>
                                                                     <Button variant="danger" size="sm" onClick={(id) => {deleteItemHandler(item.id)}}><i className="bi bi-trash3" /></Button>
                                                                 </div>
@@ -90,7 +102,7 @@ const CartContainer = () => {
                     <div className="col-4">
                         <h4>Tu compra</h4>
                         <hr />
-                        {!cart ? (<h5>Aún no agregaste nada al carrito</h5>) : (
+                        {!cart.length ? (<h5>Aún no agregaste nada al carrito</h5>) : (
                             <div>
                                 {cart.map((detail, index) => (
                                     <DetailTotalCart
