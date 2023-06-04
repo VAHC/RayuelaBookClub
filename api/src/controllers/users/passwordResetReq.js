@@ -17,7 +17,7 @@ const passwordResetReq = async (email) => {
         const token = jwt.sign({ userId: userToReset.id}, secretKey)
         console.log(token)
 
-        await MailgmailPassword("Rayuela", `http://127.0.0.1:5173/ingresar?token=${token}`,`${userToReset.firstName}`, 'Intro', email, 'subject')
+        await MailgmailPassword("Rayuela", `http://127.0.0.1:5173/ingresar?token=${token}`,`${userToReset.firstName}`, 'Intro', email, 'Restablecer Contraseña')
     }
     else {
         throw Error(`this account has been created through Gmail`)
