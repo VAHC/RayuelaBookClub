@@ -1,3 +1,5 @@
+**Cargar los books_authors:
+
 INSERT INTO public.books_authors(
 	"bookId", "authorId")
 	VALUES 
