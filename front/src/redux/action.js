@@ -209,6 +209,7 @@ export const updateUser = (user) => {
 }
 
 export const addToCart = (book) => {
+  console.log('toma la action');
   return { type: ADD_TO_CART, payload: book }
 }
 

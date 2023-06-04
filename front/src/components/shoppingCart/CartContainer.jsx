@@ -1,14 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import DetailTotalCart from "./DetailTotalCart";
 import { totalByitem } from "./helpers";
 import { Container, Row, Col, Button, Table } from "react-bootstrap";
 import { totalPrice, totalItems } from "./helpers";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart, removeFromCart, removeItems, emptyCart } from "../../redux/action";
 
 const CartContainer = () => {
 
-    const cart = useSelector((state) => {state.cart})
+    const cart = useSelector((state) => state.cart)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+
+    }, [cart]);
+
+    const cleanCartHandler = () => {
+        dispatch(emptyCart())
+    }
+
+    const deleteItemHandler = (id) => {
+        dispatch(removeItems(id))
+    }
+
+    
+
     
     return (
         <>
@@ -16,7 +33,7 @@ const CartContainer = () => {
                 <div style={{ display: 'flex', justifyContent: 'space-evenly', }} className="container-fluid">
                     <h3 className="text-light">Tu carrito</h3>
                     <Link to="/catalogo"><button className="btn btn-light">Seguir comprando</button></Link>
-                    <button className="btn btn-light">Vaciar carrito</button>
+                    <button className="btn btn-light" onClick={cleanCartHandler}>Vaciar carrito</button>
                     <div>
                         <i className="bi bi-cart text-light fs-3"></i>
                         <span className="badge bg-danger ms-1 rounded-circle">{totalItems(cart)}</span>
@@ -57,7 +74,7 @@ const CartContainer = () => {
                                                                         <span className="me-2">{item.quantity}</span>
                                                                         <Button variant="primary" className="btn btn-sm me-2"><i className="bi bi-arrow-up-square" /></Button>
                                                                     </div>
-                                                                    <Button variant="danger" size="sm"><i className="bi bi-trash3" /></Button>
+                                                                    <Button variant="danger" size="sm" onClick={(id) => {deleteItemHandler(item.id)}}><i className="bi bi-trash3" /></Button>
                                                                 </div>
                                                             </div>
                                                         </td>
