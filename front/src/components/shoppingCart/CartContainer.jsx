@@ -1,50 +1,43 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import DetailTotalCart from "./DetailTotalCart";
 import { totalByitem } from "./helpers";
 import { Container, Row, Col, Button, Table } from "react-bootstrap";
+import { totalPrice, totalItems } from "./helpers";
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart, removeFromCart, removeItems, emptyCart } from "../../redux/action";
 
 const CartContainer = () => {
-    const [cart, setCart] = useState([
-        {
-            id: 1,
-            title: 'Rayuela',
-            authors: ['Julio Cortazar'],
-            price: 30,
-            quantity: 2
-        },
-        {
-            id: 2,
-            title: 'Rayuela',
-            authors: ['Julio Cortazar', 'Ernesto Sabato'],
-            price: 20,
-            quantity: 1
-        },
-        {
-            id: 3,
-            title: 'Rayuela',
-            authors: ['Julio Cortazar'],
-            price: 30,
-            quantity: 1
-        },
-        {
-            id: 4,
-            title: 'Rayuela',
-            authors: ['Julio Cortazar', 'Ernesto Sabato'],
-            price: 40,
-            quantity: 1
-        }
-    ])
 
-    const totalPrice = (cart) => {
-        if (!cart) {
-          return 0
-        }
-        const total = cart.reduce((acumulador, book) => {
-          return acumulador + totalByitem(book.quantity, book.price)
-        }, 0);
-        return total
-      }
+    const cart = useSelector((state) => state.cart)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+
+    }, [cart]);
+
+    const incrementQuantityHandler = (item) => {
+        //console.log(item);
+        //console.log('despacha la action');
+        dispatch(addToCart(item))
+    }
+
+    const decrementQuantityHandler = (item) => {
+        //console.log(item);
+        //console.log('despacha la action');
+        dispatch(removeFromCart(item))
+    }
+
+    const cleanCartHandler = () => {
+        dispatch(emptyCart())
+    }
+
+    const deleteItemHandler = (id) => {
+        dispatch(removeItems(id))
+    }
+
+
+
     
     return (
         <>
@@ -52,10 +45,10 @@ const CartContainer = () => {
                 <div style={{ display: 'flex', justifyContent: 'space-evenly', }} className="container-fluid">
                     <h3 className="text-light">Tu carrito</h3>
                     <Link to="/catalogo"><button className="btn btn-light">Seguir comprando</button></Link>
-                    <button className="btn btn-light">Vaciar carrito</button>
+                    <button className="btn btn-light" onClick={cleanCartHandler}>Vaciar carrito</button>
                     <div>
                         <i className="bi bi-cart text-light fs-3"></i>
-                        <span className="badge bg-danger ms-1 rounded-circle">9</span>
+                        <span className="badge bg-danger ms-1 rounded-circle">{totalItems(cart)}</span>
                     </div>
                 </div>
             </nav>
@@ -89,11 +82,11 @@ const CartContainer = () => {
                                                                 </div>
                                                                 <div className="d-flex align-items-center">
                                                                     <div className="d-flex align-items-center">
-                                                                        <Button variant="primary" className="btn btn-sm me-2"><i className="bi bi-arrow-down-square" /></Button>
+                                                                        <Button variant="primary" className="btn btn-sm me-2" onClick={() =>{decrementQuantityHandler(item)}}><i className="bi bi-arrow-down-square" /></Button>
                                                                         <span className="me-2">{item.quantity}</span>
-                                                                        <Button variant="primary" className="btn btn-sm me-2"><i className="bi bi-arrow-up-square" /></Button>
+                                                                        <Button variant="primary" className="btn btn-sm me-2" onClick={() =>{incrementQuantityHandler(item)}}><i className="bi bi-arrow-up-square" /></Button>
                                                                     </div>
-                                                                    <Button variant="danger" size="sm"><i className="bi bi-trash3" /></Button>
+                                                                    <Button variant="danger" size="sm" onClick={(id) => {deleteItemHandler(item.id)}}><i className="bi bi-trash3" /></Button>
                                                                 </div>
                                                             </div>
                                                         </td>

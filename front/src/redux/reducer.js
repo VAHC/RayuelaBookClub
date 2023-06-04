@@ -223,7 +223,7 @@ const reducer = (state = initialState, action) => {
       }
 
     case POST_REVIEW:
-      console.log('llega la action al reducer');
+      //console.log('llega la action al reducer');
       return {
         ...state
       };
@@ -270,23 +270,41 @@ const reducer = (state = initialState, action) => {
       return { ...state }
 
     case ADD_TO_CART:
-      const cartCopy = [...state.cart]
-      const findItem = cartCopy.find(i => i.id === action.payload.id)
-      if (findItem.length) {
-        findItem.quantity += 1
+      console.log('entra al reducer');
+    // Copiamos el array cart
+      const cartCopy = state.cart
+      const findItemIndex = cartCopy.findIndex(i => i.id === action.payload.id);
+        if (findItemIndex !== -1) {
+          const findItem = cartCopy[findItemIndex];
+          if (findItem.quantity < findItem.stock) {
+            findItem.quantity += 1;
+        } else {
+          window.alert('No hay stock suficiente');
+        }
       } else {
-        cartCopy.push({ ...action.payload, quantity: 1 })
-      }
-      return {
+        cartCopy.push({ ...action.payload, quantity: 1 });
+    }
+    return {
         ...state,
-        cart: cartCopy
-      }
+        cart: cartCopy,
+    }
 
     case REMOVE_FROM_CART:
       const cartCopi = [...state.cart]
       const findI = cartCopi.find(i => i.id === action.payload.id)
-      if (findI.length) {
-        findItem.quantity - 1
+      if (findI && findI.quantity > 1) { 
+        findI.quantity -= 1
+        return {
+          ...state,
+          cart: cartCopi
+        }
+      }
+      if (findI && findI.quantity === 1) {
+        const filterItem = cartCopi.filter(i => i.id !== action.payload.id)
+        return {
+          ...state,
+          cart: filterItem
+        }
       }
       return {
         ...state
