@@ -197,8 +197,8 @@ export const deleteReview = (reviewId) => {
 }
 
 export const deleteBook = async (bookId, dispatch) => {
-  console.log("esta es la action")
-  await axios.put(`http://localhost:3001/books/delete/${bookId}`)
+  //console.log("esta es la action")
+  await axios.put(`${URL_Railway}/books/delete/${bookId}`)
   dispatch({ type: DELETE_BOOK })}
 
 export const updateUser = (user) => {
