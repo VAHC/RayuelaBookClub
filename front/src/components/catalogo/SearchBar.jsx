@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -69,6 +70,7 @@ export const SearchBar = () => {
                     <i className="bi bi-cart text-light fs-3 mx-5"></i>
                 </div>
             </nav>
+
         </div>
     );
 };

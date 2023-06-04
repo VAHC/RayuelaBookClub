@@ -1,14 +1,18 @@
 import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from "../../redux/action";
 import { URL_Railway } from '../../../ruta';
+import axios from 'axios';
+import { decode } from 'jsonwebtoken-esm';
 
-export const Login = () => {
+export const Login = ({setCompoActivo}) => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const onClickHandler = (nombreCompo)=> {return setCompoActivo(nombreCompo)}
 
     const [userData, setUserData] = useState({
         email: "",
@@ -35,21 +39,21 @@ export const Login = () => {
     const handleSubmit = async (event) => {
         event.preventDefault()
         try {
-            // Envío solicitud de inicio de sesión al backend
-            const response = await fetch(`${URL_Railway}/books/auth/login`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(userData)
-            })
-            const data = await response.json();
-    
-            // Manejo de la respuesta del backend
-            if (!data.message) {
+            const response = await axios.post(`${URL_Railway}/auth/login`, userData, {
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const { token, message } = response.data;
+            if (token) {
+                // Almacena el token JWT en el almacenamiento local del navegador
+                localStorage.setItem('token', token);
+                const decodedToken = decode(token);
+                let data = decodedToken.info.datos
                 dispatch(login(data))
                 navigate(-1)
-            } else {
+            }
+            if (message) {
                 // Login fallido
-                alert(data.message);
+                alert(message);
                 setUserData({
                     ...userData,
                     password: ""
@@ -62,25 +66,25 @@ export const Login = () => {
 
     //LOGIN CON GOOGLE
     const handleClick = async () => {
-        window.location.href = `${URL_Railway}/books/auth/google`;
+        window.location.href = `${URL_Railway}/auth/google`;
     }
 
-    // useEffect ( async () => {
-    //     try {
-    //         const response = await axios.get(''
-    //         //, { withCredentials: true }
-    //         )
-    //         console.log(response.data)
-    //       } catch (error) {
-    //         console.error(error)
-    //       }
+    // useEffect(() => {
+    //     const urlParams = new URLSearchParams(window.location.search);
+    //     const user = urlParams.get('user');
+        
+    //     if (user) {
+    //       const userData = JSON.parse(decodeURIComponent(user));
+    //       console.log('Usuario autenticado:', userData);
+    //       // Aquí puedes hacer lo que necesites con los datos del usuario autenticado
+    //     }
     //   }, []);
 
     return (
         <>
-            <h2 className='text-center fs-1 mb-3'>Ingresar</h2>
+            <h2 className='text-center fs-1 my-3'>Ingresar</h2>
             <div className="d-flex justify-content-center m-2">
-                <div className="card w-25 mb-5">
+                <div className="card w-75 mb-5">
                     <div className="card-body">
                         <form onSubmit={handleSubmit} >
                             <div className="mb-3 text-center">
@@ -107,6 +111,12 @@ export const Login = () => {
                                     onChange={handleInputChange}
                                 />
                                 {errors.password && <p className="text-danger">{errors.password}</p>}
+                            </div>
+
+                            <div className="row text-center my-2">
+                                <Link className="card-text" onClick={() => onClickHandler('formPass')}>
+                                    Olvidé mi contraseña
+                                </Link>
                             </div>
 
                             <div className="text-center mb-3">

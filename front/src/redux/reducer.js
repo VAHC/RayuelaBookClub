@@ -23,7 +23,11 @@ import {
   PUT_REVIEW,
   DELETE_REVIEW,
   DELETE_BOOK,
-  UPDATE_USER
+  UPDATE_USER,
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  REMOVE_ITEMS,
+  EMPTY_CART
 } from './action';
 
 // Initial state
@@ -52,6 +56,8 @@ const initialState = {
   userReviews: [],
   //array de la busqueda
   searchData: []
+  //array para el carrito
+  cart: []
 
 }
 
@@ -118,14 +124,13 @@ const reducer = (state = initialState, action) => {
         [returnPriceProp]: [...sortPriceArray]
       }
 
-    //el case SORT_BY_RATING esta hecho en base al precio, ya que aun no hay reseñas
     case SORT_BY_RATING:
       let arrayOrdenadoRating = state.filterFlag ? state.books : state.booksPage
       let sortRatingArray = action.payload === 'Asc' ? arrayOrdenadoRating.sort((a, b) => {
-        return a.price - b.price
+        return a.reviews.qualification - b.reviews.qualification
       }) :
         arrayOrdenadoRating.sort((a, b) => {
-          return b.price - a.price
+          return b.reviews.qualification - a.reviews.qualification
         });
       const returnRatingProp = state.filterFlag ? "books" : "booksPage"
       return {
@@ -235,7 +240,7 @@ const reducer = (state = initialState, action) => {
       }
 
     case POST_REVIEW:
-      console.log('llega la action al reducer');
+      //console.log('llega la action al reducer');
       return {
         ...state
       };
@@ -280,6 +285,60 @@ const reducer = (state = initialState, action) => {
 
     case UPDATE_USER:
       return { ...state }
+
+    case ADD_TO_CART:
+      console.log('entra al reducer');
+    // Copiamos el array cart
+      const cartCopy = state.cart
+      const findItemIndex = cartCopy.findIndex(i => i.id === action.payload.id);
+        if (findItemIndex !== -1) {
+          const findItem = cartCopy[findItemIndex];
+          if (findItem.quantity < findItem.stock) {
+            findItem.quantity += 1;
+        } else {
+          window.alert('No hay stock suficiente');
+        }
+      } else {
+        cartCopy.push({ ...action.payload, quantity: 1 });
+    }
+    return {
+        ...state,
+        cart: cartCopy,
+    }
+
+    case REMOVE_FROM_CART:
+      const cartCopi = [...state.cart]
+      const findI = cartCopi.find(i => i.id === action.payload.id)
+      if (findI && findI.quantity > 1) { 
+        findI.quantity -= 1
+        return {
+          ...state,
+          cart: cartCopi
+        }
+      }
+      if (findI && findI.quantity === 1) {
+        const filterItem = cartCopi.filter(i => i.id !== action.payload.id)
+        return {
+          ...state,
+          cart: filterItem
+        }
+      }
+      return {
+        ...state
+      }
+
+    case REMOVE_ITEMS:
+      const deletedItem = state.cart.filter(i => i.id !== action.payload)
+      return {
+        ...state,
+        cart: [...deletedItem]
+      }
+
+    case EMPTY_CART:
+      return {
+        ...state,
+        cart: []
+      }
 
     default:
       return state;
