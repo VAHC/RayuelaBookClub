@@ -82,7 +82,15 @@ const bookCard = ({book}) => {
             flexDirection: "column",
           }}
         >
-          <div className="overlay-container">
+                    <div
+            className="position-absolute bottom-0"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-end",
+              padding: "10px",
+            }}
+          >
           <button className='btn btn-dark m-2' onClick={() => {addToCartHandler(book)}}><i className="bi bi-cart-check"style={{ fontSize: "1 rem" }}/></button>
           </div>
           <div
