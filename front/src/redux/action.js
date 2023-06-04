@@ -15,7 +15,7 @@ export const FILTER_AUTHOR = 'FILTER_AUTHOR';
 export const POST_BOOK = "POST_BOOK";
 export const CREATE_USER = "CREATE_USER";
 export const FILTER_FLAG = "FILTER_FLAG";
-export const RESET_FILTERS = "FILTER_FLAG";
+export const RESET_FILTERS = "RESET_FILTERS";
 export const GET_GENEROS = "GET_GENEROS";
 export const GET_AUTORES = "GET_AUTORES";
 export const GET_REVIEWS_BOOK = 'GET_REVIEWS_BOOK';
@@ -60,7 +60,7 @@ export const sortByRating = (payload) => {
   return { type: SORT_BY_RATING, payload }
 }
 
-export const searchByNameOrAuthor = (name) => {
+export const searchByNameOrAuthor = (name,) => {
   // return async (dispatch) => {
   //   const response = await axios.get(`http://localhost:3001/books?title=${name}`);
   //   const searchArray = response.data;
@@ -113,6 +113,7 @@ export const filterFlagToggle = (boolean) => {
 }
 
 export const resetFilter = () => {
+  console.log("entra el reset a la action de redux")
   return { type: RESET_FILTERS }
 }
 
