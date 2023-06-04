@@ -11,7 +11,8 @@ const passwordResetReq = async (email) => {
 
     if (!userToReset) {
         throw Error(`No user has been found matching the email: ${email}`)
-    } else {
+    
+    } if(userToReset.createdDb === true) {
 
         const token = jwt.sign({ userId: userToReset.id}, secretKey)
         console.log(token)
@@ -20,7 +21,6 @@ const passwordResetReq = async (email) => {
         
        console.log(mail);
     }
-
 }
 
 
