@@ -3,23 +3,20 @@ const { DataTypes } = require('sequelize')
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define('author', {
+  sequelize.define('orderDetail', {
     id: {
       type: DataTypes.INTEGER,
+      autoIncrement: true,
       allowNull: false,
-      primaryKey: true,
-      autoIncrement: true
+      primaryKey: true
     },
-    name: {
-      type: DataTypes.STRING,
+    quantity: {
+      type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        notEmpty: {
-          msg: 'El nombre del autor no puede estar vacío.'
-        },
-        len: {
-          args: [5, 100],
-          msg: 'El nombre del autor debe tener entre 5 y 50 caracteres.'
+        min: {
+          args: [0],
+          msg: 'La cantidad debe ser un valor positivo o cero.'
         }
       }
     },
