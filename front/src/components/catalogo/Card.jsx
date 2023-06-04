@@ -67,6 +67,10 @@ const handleClick = ()=> {dispatch(setDetail(book))}
   return (
     <Card style={{ width: "11rem" }} onClick={handleClick}>
       <Card.Img variant="top" src={book.image} />
+      <div className="overlay-container">
+      <button className='btn btn-dark m-2'><i className="bi bi-cart-check"style={{ fontSize: "1 rem" }}/></button>
+
+      </div>
       <OverlayTrigger placement="top" overlay={renderTooltip()}>
         <Card.ImgOverlay
           style={{

@@ -223,7 +223,7 @@ const reducer = (state = initialState, action) => {
       }
 
     case POST_REVIEW:
-      console.log('llega la action al reducer');
+      //console.log('llega la action al reducer');
       return {
         ...state
       };
