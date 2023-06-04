@@ -32,7 +32,7 @@ const findOrCreate= async (firstName,lastName,username,password,phone,done)=>{
                      profile: 'usuario',
                      firstName: firstName,
                      lastName: lastName,
-                     phone: phone,
+                    //  phone: phone,
                      createdDb: false
        }});
        console.log(created);
@@ -137,7 +137,7 @@ bookRouterAuth.get(
         req.user.dataValues.firstName,
         req.user.dataValues.lastName,
         req.user.dataValues.email,
-        req.user.dataValues.phone,
+        // req.user.dataValues.phone,
         req.user.dataValues.profile)
         info={
           datos:dato,
