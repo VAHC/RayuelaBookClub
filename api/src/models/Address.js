@@ -3,57 +3,60 @@ const { DataTypes } = require('sequelize')
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define('review', {
+  sequelize.define('address', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       allowNull: false,
       primaryKey: true
     },
-    title: {
+    street_and_number: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: 'El título de la reseña no puede estar vacío.'
-        },
-        len: {
-          args: [2, 100],
-          msg: 'El título de la reseña debe tener entre 2 y 100 caracteres.'
+          msg: 'La calle y número no puede estar vacía'
         }
       }
     },
-    qualification: {
+    floor_and_department: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'El piso y departamento no puede estar vacío'
+        }
+      }
+    },
+    city: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'La ciudad no puede estar vacía'
+        }
+      }
+    },
+    CP: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        min: {
-          args: [1],
-          msg: 'La calificación debe ser un número entero positivo.'
+        isInt: {
+          msg: 'El código postal debe ser un número entero'
         },
-        max: {
-          args: [5],
-          msg: 'La calificación debe ser un número entero menor o igual a 5.'
+        notEmpty: {
+          msg: 'El código postal no puede estar vacío'
         }
       }
     },
-    comment: {
+    province: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: 'El comentario no puede estar vacío.'
-        },
-        len: {
-          args: [2, 1000],
-          msg: 'El comentario debe tener entre 2 y 1000 caracteres.'
+          msg: 'La provincia no puede estar vacía'
         }
       }
-    },
-    deleted: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
     },
     createdDb: {
       type: DataTypes.BOOLEAN,
