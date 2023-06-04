@@ -19,6 +19,8 @@ export const Posters = () => {
     //flag para no cargar todos los libros con cada render
     const [allBooksLoaded, setAllBooksLoaded] = useState(false);
 
+    const searchData = useSelector((state) => state.searchData);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -27,7 +29,8 @@ export const Posters = () => {
                 await dispatch(getAllBooks());
                 setAllBooksLoaded(true);
             }
-            dispatch(getBooksPage(pagina));
+            if(searchData.length > 0) dispatch(getBooksPage(pagina))
+            else dispatch(getBooksPage(pagina));
         };
         booksGet();
     }, [pagina]);

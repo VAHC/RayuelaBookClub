@@ -50,6 +50,8 @@ const initialState = {
   user: null,
   //array que trae todas la reseñas de un usuario
   userReviews: [],
+  //array de la busqueda
+  searchData: []
 
 }
 
@@ -60,7 +62,7 @@ const reducer = (state = initialState, action) => {
 
       let notDeletetedBooksArray = action.payload.filter((book) => {
         return book.deleted === false
-       })
+      })
 
       return {
         ...state,
@@ -79,15 +81,28 @@ const reducer = (state = initialState, action) => {
       const pageNumber = action.payload
       const indiceInicio = (pageNumber - 1) * pageSize;
       const indiceFinal = indiceInicio + pageSize;
+      let notDeletetedBooks;
 
-      let notDeletetedBooks = state.allBooks.filter((book) => {
-        return book.deleted === false
-      })
+      if (state.searchData.length > 0) {
+        notDeletetedBooks = state.searchData.filter((book) => {
+          return book.deleted === false
+        })
 
-      return {
-        ...state,
-        booksPage: notDeletetedBooks.slice(indiceInicio, indiceFinal)
-      };
+        return {
+          ...state,
+          booksPage: notDeletetedBooks.slice(indiceInicio, indiceFinal)
+        }
+      } else {
+        notDeletetedBooks = state.allBooks.filter((book) => {
+          return book.deleted === false
+        })
+        return {
+          ...state,
+          booksPage: notDeletetedBooks.slice(indiceInicio, indiceFinal)
+        };
+      }
+
+
 
     case SORT_BY_PRICE:
       let arrayOrdenPrecio = state.filterFlag ? state.books : state.booksPage
@@ -121,8 +136,7 @@ const reducer = (state = initialState, action) => {
     case SEARCH_BY_NAME_OR_AUTHOR:
       return {
         ...state,
-        booksPage: action.payload,
-        allBooks: action.payload,
+        searchData: action.payload
       };
 
     case SET_DETAIL:
@@ -171,8 +185,10 @@ const reducer = (state = initialState, action) => {
       }
 
     case RESET_FILTERS:
+      console.log("entra el reducer de redux")
       return {
         ...state,
+        searchData: [],
         books: state.allBooks
       }
 
