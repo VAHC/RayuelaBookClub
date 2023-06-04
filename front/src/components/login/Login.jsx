@@ -7,10 +7,12 @@ import { URL_Railway } from '../../../ruta';
 import axios from 'axios';
 import { decode } from 'jsonwebtoken-esm';
 
-export const Login = () => {
+export const Login = ({setCompoActivo}) => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const onClickHandler = (nombreCompo)=> {return setCompoActivo(nombreCompo)}
 
     const [userData, setUserData] = useState({
         email: "",
@@ -80,9 +82,9 @@ export const Login = () => {
 
     return (
         <>
-            <h2 className='text-center fs-1 mb-3'>Ingresar</h2>
+            <h2 className='text-center fs-1 my-3'>Ingresar</h2>
             <div className="d-flex justify-content-center m-2">
-                <div className="card w-25 mb-5">
+                <div className="card w-75 mb-5">
                     <div className="card-body">
                         <form onSubmit={handleSubmit} >
                             <div className="mb-3 text-center">
@@ -109,6 +111,12 @@ export const Login = () => {
                                     onChange={handleInputChange}
                                 />
                                 {errors.password && <p className="text-danger">{errors.password}</p>}
+                            </div>
+
+                            <div className="row text-center my-2">
+                                <Link className="card-text" onClick={() => onClickHandler('formPass')}>
+                                    Olvidé mi contraseña
+                                </Link>
                             </div>
 
                             <div className="text-center mb-3">

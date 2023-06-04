@@ -103,7 +103,7 @@ export const postBook = (book) => {
 
 export const createUser = (user) => {
   return async function (dispatch) {
-    let response = await axios.post(`${URL_Railway}/books/auth/registro`, user)
+    let response = await axios.post(`${URL_Railway}/auth/registro`, user)
     return response
   }
 }
