@@ -1,11 +1,13 @@
 import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import ContainerReviews from "../reviews/ContainerReviews";
 import { useState } from 'react';
+import { addToCart } from "../../redux/action";
 
 export const Detail = () => {
   const detailData = useSelector((state) => state.detail_data);
+  const dispatch = useDispatch();
   //console.log(detailData);
   const bookId = detailData ? detailData.id : null;
   //console.log('detail' + bookId)
@@ -24,7 +26,6 @@ export const Detail = () => {
     return 0; // Valor predeterminado si no hay reviews o no es un array válido
   };
 
-
   const renderStars = (rating) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -40,6 +41,10 @@ export const Detail = () => {
   const toggleModal = () => { //funcion que setea showModal al booleano contrario en el que esta
     setShowModal(prevShowModal => !prevShowModal);
   };
+
+  const addToCartHandler = () => {
+    dispatch(addToCart(detailData))
+  }
 
   if (!detailData) {
     return (
@@ -97,7 +102,7 @@ export const Detail = () => {
               <div>
                 <Row className="d-flex justify-content-center">
                   <Col className="text-center">
-                    <Button variant="dark">Agregar al carrito</Button>
+                    <Button variant="dark" onClick={() => {addToCartHandler(detailData)}}>Agregar al carrito</Button>
                   </Col>
                   {/* <Col>
                     <Button variant="outline-secondary">
