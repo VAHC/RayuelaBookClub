@@ -21,12 +21,6 @@ module.exports = (sequelize) => {
     },
     floor_and_department: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: {
-          msg: 'El piso y departamento no puede estar vacío'
-        }
-      }
     },
     city: {
       type: DataTypes.STRING,

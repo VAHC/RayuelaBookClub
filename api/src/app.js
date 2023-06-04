@@ -32,9 +32,11 @@ server.use(
   })
 );
 
-// En caso de ser usado localmente el proyecto, se debe descomentar la linea 41 y comentar la linea 40
-// 'Access-Control-Allow-Origin'
+server.use(passport.initialize());
+server.use(passport.session()); // aca es donde se deberia crear la cookie
 
+// En caso de ser usado localmente el proyecto, se debe descomentar la linea 44 y comentar la linea 43
+// 'Access-Control-Allow-Origin'
 
 server.use(morgan('dev'));
 server.use((req, res, next) => {

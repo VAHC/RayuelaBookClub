@@ -87,7 +87,6 @@ module.exports = (sequelize) => {
     },
     date_suscription: {
       type: DataTypes.STRING,
-      allowNull: false,
       validate: {
         notEmpty: {
           msg: 'La fecha de suscripción es requerida.'
