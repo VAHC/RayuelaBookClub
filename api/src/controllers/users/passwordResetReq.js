@@ -16,7 +16,7 @@ const passwordResetReq = async (email) => {
         const token = jwt.sign({ userId: userToReset.id}, secretKey)
         console.log(token)
 
-        const mail = await MailgmailPassword("Reestablece tu constraseña", `http://127.0.0.1:5173/ingresar?token=${token}`,'Titulo', 'Intro', email, 'subject')
+        const mail = await MailgmailPassword("Reestablece tu constraseña", `http://127.0.0.1:5173/restablecer-contraseña?token=${token}`,'Titulo', 'Intro', email, 'subject')
         
        console.log(mail);
     }
