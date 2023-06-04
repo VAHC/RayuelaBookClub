@@ -82,13 +82,15 @@ const bookCard = ({book}) => {
             flexDirection: "column",
           }}
         >
-                    <div
-            className="position-absolute bottom-0"
+         <div
+            className="position-absolute"
             style={{
+              bottom: "0px",
+              right: "0px",
+              padding: "1px",
               display: "flex",
-              flexDirection: "column",
+              justifyContent: "flex-end",
               alignItems: "flex-end",
-              padding: "10px",
             }}
           >
           <button className='btn btn-dark m-2' onClick={() => {addToCartHandler(book)}}><i className="bi bi-cart-check"style={{ fontSize: "1 rem" }}/></button>
