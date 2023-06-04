@@ -28,7 +28,10 @@ export const PUT_REVIEW = "PUT_REVIEW";
 export const DELETE_REVIEW = "DELETE_REVIEW";
 export const DELETE_BOOK = "DELETE_BOOK";
 export const UPDATE_USER = "UPDATE_USER";
-
+export const ADD_TO_CART = "ADD_TO_CART";
+export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
+export const REMOVE_ITEMS = "REMOVE_ITEMS";
+export const EMPTY_CART = "EMPTY_CART";
 
 export const getAllBooks = () => {
   return async (dispatch) => {
@@ -198,9 +201,25 @@ export const deleteBook = async (bookId, dispatch) => {
   await axios.put(`http://localhost:3001/books/delete/${bookId}`)
   dispatch({ type: DELETE_BOOK })}
 
-  export const updateUser = (user) => {
-    return async function (dispatch) {
-      await axios.put(`${URL_Railway}/users`, user)
-      dispatch({ type: UPDATE_USER })
-    }
+export const updateUser = (user) => {
+  return async function (dispatch) {
+    await axios.put(`${URL_Railway}/users`, user)
+    dispatch({ type: UPDATE_USER })
   }
+}
+
+export const addToCart = (book) => {
+  return { type: ADD_TO_CART, payload: book }
+}
+
+export const removeFromCart = (book) => {
+  return { type: REMOVE_FROM_CART, payload: book }
+}
+
+export const removeItems = (id) => {
+  return { type: REMOVE_ITEMS, payload: id }
+}
+
+export const emptyCart = () => {
+  return { type: EMPTY_CART }
+}
