@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import { useDispatch } from "react-redux";
-import { setDetail } from "../../redux/action";
+import { setDetail, addToCart } from "../../redux/action";
 
 const bookCard = ({book}) => {
   
@@ -33,7 +33,14 @@ const bookCard = ({book}) => {
   };
 
   const dispatch = useDispatch()
-const handleClick = ()=> {dispatch(setDetail(book))}
+  //console.log(book);
+  const handleClick = ()=> {dispatch(setDetail(book))}
+
+  const addToCartHandler = (book) => {
+    console.log(book);
+    console.log('despacha la action');
+    dispatch(addToCart(book))
+  }
 
   const renderTooltip = () => (
     <Tooltip>
@@ -67,10 +74,6 @@ const handleClick = ()=> {dispatch(setDetail(book))}
   return (
     <Card style={{ width: "11rem" }} onClick={handleClick}>
       <Card.Img variant="top" src={book.image} />
-      <div className="overlay-container">
-      <button className='btn btn-dark m-2'><i className="bi bi-cart-check"style={{ fontSize: "1 rem" }}/></button>
-
-      </div>
       <OverlayTrigger placement="top" overlay={renderTooltip()}>
         <Card.ImgOverlay
           style={{
@@ -79,6 +82,9 @@ const handleClick = ()=> {dispatch(setDetail(book))}
             flexDirection: "column",
           }}
         >
+          <div className="overlay-container">
+          <button className='btn btn-dark m-2' onClick={() => {addToCartHandler(book)}}><i className="bi bi-cart-check"style={{ fontSize: "1 rem" }}/></button>
+          </div>
           <div
             style={{
               visibility: "hidden",

@@ -270,9 +270,10 @@ const reducer = (state = initialState, action) => {
       return { ...state }
 
     case ADD_TO_CART:
+      console.log('entra al reducer');
       const cartCopy = [...state.cart]
       const findItem = cartCopy.find(i => i.id === action.payload.id)
-      if (findItem.length) {
+      if (findItem) {
         if(findItem.quantity < findItem.stock) {
           findItem.quantity += 1
         } else {
@@ -289,14 +290,14 @@ const reducer = (state = initialState, action) => {
     case REMOVE_FROM_CART:
       const cartCopi = [...state.cart]
       const findI = cartCopi.find(i => i.id === action.payload.id)
-      if (findI.length && findI.quantity > 1) { 
+      if (findI && findI.quantity > 1) { 
         findI.quantity -= 1
         return {
           ...state,
           cart: cartCopi
         }
       }
-      if (findI.length && findI.quantity === 1) {
+      if (findI && findI.quantity === 1) {
         const filterItem = cartCopi.filter(i => i.id !== action.payload.id)
         return {
           ...state,
