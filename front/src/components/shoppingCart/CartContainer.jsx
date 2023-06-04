@@ -3,48 +3,12 @@ import { Link } from "react-router-dom";
 import DetailTotalCart from "./DetailTotalCart";
 import { totalByitem } from "./helpers";
 import { Container, Row, Col, Button, Table } from "react-bootstrap";
+import { totalPrice, totalItems } from "./helpers";
+import { useSelector } from "react-redux";
 
 const CartContainer = () => {
-    const [cart, setCart] = useState([
-        {
-            id: 1,
-            title: 'Rayuela',
-            authors: ['Julio Cortazar'],
-            price: 30,
-            quantity: 2
-        },
-        {
-            id: 2,
-            title: 'Rayuela',
-            authors: ['Julio Cortazar', 'Ernesto Sabato'],
-            price: 20,
-            quantity: 1
-        },
-        {
-            id: 3,
-            title: 'Rayuela',
-            authors: ['Julio Cortazar'],
-            price: 30,
-            quantity: 1
-        },
-        {
-            id: 4,
-            title: 'Rayuela',
-            authors: ['Julio Cortazar', 'Ernesto Sabato'],
-            price: 40,
-            quantity: 1
-        }
-    ])
 
-    const totalPrice = (cart) => {
-        if (!cart) {
-          return 0
-        }
-        const total = cart.reduce((acumulador, book) => {
-          return acumulador + totalByitem(book.quantity, book.price)
-        }, 0);
-        return total
-      }
+    const cart = useSelector((state) => {state.cart})
     
     return (
         <>
@@ -55,7 +19,7 @@ const CartContainer = () => {
                     <button className="btn btn-light">Vaciar carrito</button>
                     <div>
                         <i className="bi bi-cart text-light fs-3"></i>
-                        <span className="badge bg-danger ms-1 rounded-circle">9</span>
+                        <span className="badge bg-danger ms-1 rounded-circle">{totalItems(cart)}</span>
                     </div>
                 </div>
             </nav>
@@ -68,7 +32,7 @@ const CartContainer = () => {
                                 <Col>
                                     <Table striped bordered hover>
                                         <tbody>
-                                            {!cart.length ? (
+                                            {!cart ? (
                                                 <tr>
                                                     <td colSpan="3">
                                                         <div>
@@ -109,7 +73,7 @@ const CartContainer = () => {
                     <div className="col-4">
                         <h4>Tu compra</h4>
                         <hr />
-                        {!cart.length ? (<h5>Aún no agregaste nada al carrito</h5>) : (
+                        {!cart ? (<h5>Aún no agregaste nada al carrito</h5>) : (
                             <div>
                                 {cart.map((detail, index) => (
                                     <DetailTotalCart
