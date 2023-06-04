@@ -271,21 +271,23 @@ const reducer = (state = initialState, action) => {
 
     case ADD_TO_CART:
       console.log('entra al reducer');
-      const cartCopy = [...state.cart]
-      const findItem = cartCopy.find(i => i.id === action.payload.id)
-      if (findItem) {
-        if(findItem.quantity < findItem.stock) {
-          findItem.quantity += 1
+    // Copiamos el array cart
+      const cartCopy = state.cart
+      const findItemIndex = cartCopy.findIndex(i => i.id === action.payload.id);
+        if (findItemIndex !== -1) {
+          const findItem = cartCopy[findItemIndex];
+          if (findItem.quantity < findItem.stock) {
+            findItem.quantity += 1;
         } else {
-          window.alert('no hay stock suficiente')
+          window.alert('No hay stock suficiente');
         }
       } else {
-        cartCopy.push({ ...action.payload, quantity: 1 })
-      }
-      return {
+        cartCopy.push({ ...action.payload, quantity: 1 });
+    }
+    return {
         ...state,
-        cart: cartCopy
-      }
+        cart: cartCopy,
+    }
 
     case REMOVE_FROM_CART:
       const cartCopi = [...state.cart]
