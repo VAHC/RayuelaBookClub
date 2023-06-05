@@ -6,8 +6,11 @@ import { useState } from 'react';
 import { addToCart } from "../../redux/action";
 
 export const Detail = () => {
+
   const detailData = useSelector((state) => state.detail_data);
   const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart)
+
   //console.log(detailData);
   const bookId = detailData ? detailData.id : null;
   //console.log('detail' + bookId)
@@ -43,7 +46,7 @@ export const Detail = () => {
   };
 
   const addToCartHandler = () => {
-    dispatch(addToCart(detailData))
+    dispatch(addToCart(detailData));
   }
 
   if (!detailData) {

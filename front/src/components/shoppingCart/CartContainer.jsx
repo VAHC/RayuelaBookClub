@@ -1,44 +1,46 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import DetailTotalCart from "./DetailTotalCart";
 import { totalByitem } from "./helpers";
 import { Container, Row, Col, Button, Table } from "react-bootstrap";
 import { totalPrice, totalItems } from "./helpers";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart, removeFromCart, removeItems, emptyCart } from "../../redux/action";
+import { addToCart, removeFromCart, removeItems, emptyCart, fillCart } from "../../redux/action";
 
 const CartContainer = () => {
 
     const cart = useSelector((state) => state.cart)
     const dispatch = useDispatch()
+ 
+    console.log(cart);
 
     useEffect(() => {
-
-    }, [cart]);
+        const items = JSON.parse(localStorage.getItem("items"))
+        if(items) {
+            dispatch(fillCart(items))
+        } 
+    }, [])
 
     const incrementQuantityHandler = (item) => {
-        //console.log(item);
-        //console.log('despacha la action');
+        console.log('add inicio' + item.quantity);
         dispatch(addToCart(item))
+        console.log('despacha la action');
+        console.log('add final ' + item.quantity);
     }
 
     const decrementQuantityHandler = (item) => {
-        //console.log(item);
-        //console.log('despacha la action');
-        dispatch(removeFromCart(item))
+        dispatch(removeFromCart(item));
     }
 
     const cleanCartHandler = () => {
         dispatch(emptyCart())
+        localStorage.removeItem('items')
     }
 
     const deleteItemHandler = (id) => {
         dispatch(removeItems(id))
     }
-
-
-
-    
+ 
     return (
         <>
             <nav className="navbar navbar-light bg-dark mb-3">
@@ -84,9 +86,10 @@ const CartContainer = () => {
                                                                     <div className="d-flex align-items-center">
                                                                         <Button variant="primary" className="btn btn-sm me-2" onClick={() =>{decrementQuantityHandler(item)}}><i className="bi bi-arrow-down-square" /></Button>
                                                                         <span className="me-2">{item.quantity}</span>
+                                                                        {console.log('log en item ' + item.quantity)}
                                                                         <Button variant="primary" className="btn btn-sm me-2" onClick={() =>{incrementQuantityHandler(item)}}><i className="bi bi-arrow-up-square" /></Button>
                                                                     </div>
-                                                                    <Button variant="danger" size="sm" onClick={(id) => {deleteItemHandler(item.id)}}><i className="bi bi-trash3" /></Button>
+                                                                    <Button variant="danger" size="sm" onClick={() => {deleteItemHandler(item.id)}}><i className="bi bi-trash3" /></Button>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -128,30 +131,3 @@ const CartContainer = () => {
 }
 
 export default CartContainer
-
-
-
-
-
-{/* <h3>Tu carrito</h3>
-                {!cart.length ? (
-                    <div>
-                        <h4>Tu carrito esta vacio</h4>
-                        <h5>Agrega tu primer libro o suscribite</h5>
-                    </div>
-                ) : (
-                    <div>
-                        {cart.map((item, index) => (
-                            <ItemCart
-                                key={index}
-                                id={item.id}
-                                // image={item.image}
-                                title={item.title}
-                                authors={item.authors}
-                                quantity={item.quantity}
-                                price={item.price}
-                            />
-                        ))}
-                    </div>
-                )}
-                </div>  */}
