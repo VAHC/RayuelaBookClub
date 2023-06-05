@@ -2,10 +2,12 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setDetail, addToCart } from "../../redux/action";
 
 const bookCard = ({book}) => {
+
+  const cart = useSelector((state) => state.cart)
   
   const qualificationObtained = (book) => {
     const reviews = book.reviews
@@ -37,8 +39,6 @@ const bookCard = ({book}) => {
   const handleClick = ()=> {dispatch(setDetail(book))}
 
   const addToCartHandler = (book) => {
-    console.log(book);
-    console.log('despacha la action');
     dispatch(addToCart(book))
   }
 
@@ -82,7 +82,17 @@ const bookCard = ({book}) => {
             flexDirection: "column",
           }}
         >
-          <div className="overlay-container">
+         <div
+            className="position-absolute"
+            style={{
+              bottom: "0px",
+              right: "0px",
+              padding: "1px",
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "flex-end",
+            }}
+          >
           <button className='btn btn-dark m-2' onClick={() => {addToCartHandler(book)}}><i className="bi bi-cart-check"style={{ fontSize: "1 rem" }}/></button>
           </div>
           <div
