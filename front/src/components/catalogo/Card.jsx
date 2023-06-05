@@ -39,10 +39,7 @@ const bookCard = ({book}) => {
   const handleClick = ()=> {dispatch(setDetail(book))}
 
   const addToCartHandler = (book) => {
-    // console.log(book);
-    // console.log('despacha la action');
     dispatch(addToCart(book))
-    localStorage.setItem("items", JSON.stringify(cart))
   }
 
   const renderTooltip = () => (
