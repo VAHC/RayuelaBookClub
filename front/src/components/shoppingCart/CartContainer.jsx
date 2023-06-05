@@ -14,7 +14,6 @@ const CartContainer = () => {
  
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem("items"))
-        // console.log(items);
         if(items) {
             dispatch(fillCart(items))
         } 
@@ -22,28 +21,19 @@ const CartContainer = () => {
 
     const incrementQuantityHandler = (item) => {
         dispatch(addToCart(item))
-        localStorage.setItem("items", JSON.stringify(cart))
     }
 
     const decrementQuantityHandler = (item) => {
-        if(cart.length === 1 && item.quantity === 1) {
-            // console.log('vacio carrito2');
-            localStorage.removeItem('items')
-        }
-        dispatch(removeFromCart(item))
-        localStorage.setItem("items", JSON.stringify(cart))
+        dispatch(removeFromCart(item));
     }
 
-    const cleanCartHandler = (e) => {
-        // console.log('vacio carrito');
+    const cleanCartHandler = () => {
         dispatch(emptyCart())
         localStorage.removeItem('items')
     }
 
     const deleteItemHandler = (id) => {
-        // console.log('borro item');
         dispatch(removeItems(id))
-        localStorage.setItem("items", JSON.stringify(cart))
     }
  
     return (
