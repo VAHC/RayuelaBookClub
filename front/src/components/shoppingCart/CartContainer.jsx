@@ -1,44 +1,51 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import DetailTotalCart from "./DetailTotalCart";
 import { totalByitem } from "./helpers";
 import { Container, Row, Col, Button, Table } from "react-bootstrap";
 import { totalPrice, totalItems } from "./helpers";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart, removeFromCart, removeItems, emptyCart } from "../../redux/action";
+import { addToCart, removeFromCart, removeItems, emptyCart, fillCart } from "../../redux/action";
 
 const CartContainer = () => {
 
     const cart = useSelector((state) => state.cart)
     const dispatch = useDispatch()
-
+ 
     useEffect(() => {
-
-    }, [cart]);
+        const items = JSON.parse(localStorage.getItem("items"))
+        // console.log(items);
+        if(items) {
+            dispatch(fillCart(items))
+        } 
+    }, [])
 
     const incrementQuantityHandler = (item) => {
-        //console.log(item);
-        //console.log('despacha la action');
         dispatch(addToCart(item))
+        localStorage.setItem("items", JSON.stringify(cart))
     }
 
     const decrementQuantityHandler = (item) => {
-        //console.log(item);
-        //console.log('despacha la action');
+        if(cart.length === 1 && item.quantity === 1) {
+            // console.log('vacio carrito2');
+            localStorage.removeItem('items')
+        }
         dispatch(removeFromCart(item))
+        localStorage.setItem("items", JSON.stringify(cart))
     }
 
-    const cleanCartHandler = () => {
+    const cleanCartHandler = (e) => {
+        // console.log('vacio carrito');
         dispatch(emptyCart())
+        localStorage.removeItem('items')
     }
 
     const deleteItemHandler = (id) => {
+        // console.log('borro item');
         dispatch(removeItems(id))
+        localStorage.setItem("items", JSON.stringify(cart))
     }
-
-
-
-    
+ 
     return (
         <>
             <nav className="navbar navbar-light bg-dark mb-3">
@@ -128,30 +135,3 @@ const CartContainer = () => {
 }
 
 export default CartContainer
-
-
-
-
-
-{/* <h3>Tu carrito</h3>
-                {!cart.length ? (
-                    <div>
-                        <h4>Tu carrito esta vacio</h4>
-                        <h5>Agrega tu primer libro o suscribite</h5>
-                    </div>
-                ) : (
-                    <div>
-                        {cart.map((item, index) => (
-                            <ItemCart
-                                key={index}
-                                id={item.id}
-                                // image={item.image}
-                                title={item.title}
-                                authors={item.authors}
-                                quantity={item.quantity}
-                                price={item.price}
-                            />
-                        ))}
-                    </div>
-                )}
-                </div>  */}

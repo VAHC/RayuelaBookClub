@@ -27,7 +27,8 @@ import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
   REMOVE_ITEMS,
-  EMPTY_CART
+  EMPTY_CART,
+  FILL_CART
 } from './action';
 
 // Initial state
@@ -323,6 +324,13 @@ const reducer = (state = initialState, action) => {
         cart: []
       }
 
+    case FILL_CART: 
+    console.log('entra el reducer');
+      return {
+        ...state,
+        cart: action.payload
+      }
+    
     default:
       return state;
   }
