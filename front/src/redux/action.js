@@ -210,6 +210,7 @@ export const updateUser = (user) => {
 }
 
 export const addToCart = (book) => {
+  console.log('entra la action');
   return (dispatch, getState) => {
     dispatch ({ type: ADD_TO_CART, payload: book });
     const updatedCart3 = getState().cart;

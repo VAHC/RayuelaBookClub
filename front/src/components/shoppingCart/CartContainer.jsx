@@ -12,6 +12,8 @@ const CartContainer = () => {
     const cart = useSelector((state) => state.cart)
     const dispatch = useDispatch()
  
+    console.log(cart);
+
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem("items"))
         if(items) {
@@ -20,7 +22,10 @@ const CartContainer = () => {
     }, [])
 
     const incrementQuantityHandler = (item) => {
+        console.log('add inicio' + item.quantity);
         dispatch(addToCart(item))
+        console.log('despacha la action');
+        console.log('add final ' + item.quantity);
     }
 
     const decrementQuantityHandler = (item) => {
@@ -81,9 +86,10 @@ const CartContainer = () => {
                                                                     <div className="d-flex align-items-center">
                                                                         <Button variant="primary" className="btn btn-sm me-2" onClick={() =>{decrementQuantityHandler(item)}}><i className="bi bi-arrow-down-square" /></Button>
                                                                         <span className="me-2">{item.quantity}</span>
+                                                                        {console.log('log en item ' + item.quantity)}
                                                                         <Button variant="primary" className="btn btn-sm me-2" onClick={() =>{incrementQuantityHandler(item)}}><i className="bi bi-arrow-up-square" /></Button>
                                                                     </div>
-                                                                    <Button variant="danger" size="sm" onClick={(id) => {deleteItemHandler(item.id)}}><i className="bi bi-trash3" /></Button>
+                                                                    <Button variant="danger" size="sm" onClick={() => {deleteItemHandler(item.id)}}><i className="bi bi-trash3" /></Button>
                                                                 </div>
                                                             </div>
                                                         </td>
