@@ -27,7 +27,9 @@ import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
   REMOVE_ITEMS,
-  EMPTY_CART
+  EMPTY_CART,
+  GET_ALL_USERS,
+  DELETE_USER
 } from './action';
 
 // Initial state
@@ -55,7 +57,9 @@ const initialState = {
   //array que trae todas la reseñas de un usuario
   userReviews: [],
   //array para el carrito
-  cart: []
+  cart: [],
+  //Array todos los Usuarios
+  allUsers:[],
 }
 
 // Reducer
@@ -303,6 +307,17 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         cart: []
+      }
+
+      case GET_ALL_USERS:
+      return {
+        ...state,
+        allUsers: action.payload
+      };
+
+      case DELETE_USER:
+      return {
+        ...state
       }
 
     default:

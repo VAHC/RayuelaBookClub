@@ -3,7 +3,7 @@ import { Container, Row, Col, Card } from "react-bootstrap";
 import Menu from "./Menu";
 import Inventario from "./Inventario";
 import { Orders } from "./Orders";
-import { Users } from "./Users";
+import Users  from "./Users";
 // import PanelControl from "./PanelControl";
 
 const Dashboard = () => {
