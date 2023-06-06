@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { modifyBook } from "../../redux/action";
+import axios from 'axios';
+import { URL_Railway,URL_Vercel } from '../../../ruta';
 
 const EditBookForm = ({ book }) => {
     const [formComplete, setFormComplete] = useState(false); //estodo local para manejar el boton del submit y el envio de datos
@@ -19,6 +21,7 @@ const EditBookForm = ({ book }) => {
         authors: book.authors,
     });
 
+    
     useEffect(() => {
         console.log(input);
         let values = Object.values(input);
@@ -27,12 +30,6 @@ const EditBookForm = ({ book }) => {
         );
         if (!notComplete.length) setFormComplete(true);
     }, [input]);
-
-    const EliminarImagen = (event)=>{
-        event.preventDefault()
-        console.log('eli');
-    }
-
 
     const dispatch = useDispatch();
 
@@ -76,6 +73,19 @@ const EditBookForm = ({ book }) => {
             alert("missing or incorrect data");
         }
     };
+
+    const BorrarImagen=async (event, id)=>{
+        event.preventDefault();
+        console.log(id);
+        try {
+            //http://localhost:3001/books/deleteImg/1
+            const response = await axios.delete(`${URL_Railway}/books/deleteImg/${id}`);
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
+   }
+
 
     return (
         <div className="row d-flex justify-content-center m-2">
@@ -205,10 +215,11 @@ const EditBookForm = ({ book }) => {
                         <label className="form-label">Imagen:</label>
                     </div>
                     <div className="col-9">
-                    <img src={input.image} alt={input.title} width="100" height="autp"></img>
-                    <div className="btn btn-danger" onClick={EliminarImagen}>
-                        eliminar
-                    </div>
+                    <img src={input.image} width="100" height='auto'  alt={input.title} />
+                        
+                    {URL_Vercel+'/images/logo.png' === input.image ? 
+                        <p>El mensaje está visible</p> 
+                        : <div className="btn btn-danger" onClick={(event) => BorrarImagen(event, input.id)} > borrar imagen</div>}
                     </div>
                 </div>
                 <div className="row d-flex justify-content-center m-2">

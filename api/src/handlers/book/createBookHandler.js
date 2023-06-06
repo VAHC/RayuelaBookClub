@@ -1,7 +1,7 @@
 const createBook = require('../../controllers/books/createBook')
-const {URL_Railway} = require('../../../rutas')
 require('dotenv').config()
 const cloudinary = require('cloudinary').v2;
+const {URL_Railway_back} = require ('../../../rutas.js')
 
 const {
     CLOUD_NAME, CLOUD_API, CLOUD_SECRET
@@ -22,19 +22,30 @@ const createBookHandler = async (req,res) => {
     //   console.log(secure_url);
 
     try {
-
-      UrlImagen=URL_Railway+'/'+req.file.filename;
-    let NameSinextencion=req.file.filename.slice(0,req.file.filename.length - 4)
+      console.log(URL_Railway_back);
+      UrlImagen=URL_Railway_back+'/'+req.file.filename;
+    const NameSinextencion=req.file.filename.slice(0,req.file.filename.length - 4)
+    console.log('subir archivo');
+    console.log(NameSinextencion);
      console.log(UrlImagen);
+     console.log('-----');
+
+
+    // const result = await cloudinary.uploader.destroy('image-1686072809001');
+    // console.log('boraddp');
+    // console.log(result);
+    // console.log('4$$$$$$$boraddp');
+
     //const rta =  cloudinary.uploader.upload(UrlImagen, {public_id: NameSinextencion})
     const resup = await cloudinary.uploader.upload(UrlImagen, {public_id: NameSinextencion})
    const { secure_url } = resup;
    console.log(secure_url);
+   console.log('####');
 
         if (!title || !publisher || !description || !price || !stock || !publishedDate || !secure_url) {
             res.status(400).send('Please check that you have completed all the required fields')
         } else {
-            const newBook = await createBook(title, publisher, description, price, stock, publishedDate, secure_url, createdDb, genders, authors)
+            const newBook = await createBook(title, publisher, description, price, stock, publishedDate, secure_url, createdDb, genders, authors,NameSinextencion)
             res.status(200).send('Congratulations! Your book has been created!')}
     } catch (error) {
         res.status(400).json({ error: error.message })
