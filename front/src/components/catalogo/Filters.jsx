@@ -20,6 +20,7 @@ export function Filters() {
     const books = useSelector((state) => state.books);
     const autores = useSelector((state) => state.autores);
     const generos = useSelector((state) => state.generos);
+    const searchData = useSelector((state) => state.searchData);
 
     const [authorValue, setAuthorValue] = useState(null);
     const [genreValue, setGenreValue] = useState(null);
@@ -28,6 +29,14 @@ export function Filters() {
         dispatch(getGeneros());
         dispatch(getAutores());
     }, [allBooks, books]);
+
+    useEffect(() => {
+        setGenreValue("All");
+        setAuthorValue("All");
+        dispatch(genreFiltered("All"));
+        dispatch(filterAuthor("All"));
+        dispatch(filterFlagToggle(false));
+    }, [searchData]);
 
     const handleFilterGenre = (e) => {
         setGenreValue(e.target.value);
@@ -54,7 +63,6 @@ export function Filters() {
 
     return (
         <div>
-          
             <h6 className="mx-2">Filtrar por</h6>
             <div className="m-1 mb-3">
                 <select
@@ -95,7 +103,9 @@ export function Filters() {
                 className="d-flex justify-content-center"
             >
                 <button className="btn btn-dark m-2" onClick={clearFilters}>
-                    Borrar filtros
+                    Borrar 
+                    <br/>
+                    Filtros / Busqueda
                 </button>
             </div>
         </div>
