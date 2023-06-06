@@ -271,9 +271,9 @@ const reducer = (state = initialState, action) => {
       return { ...state }
 
     case ADD_TO_CART:
-      console.log('entra al reducer');
+    //console.log('entra al reducer');
     // Copiamos el array cart
-      const cartCopy = state.cart
+      const cartCopy = [...state.cart]
       const findItemIndex = cartCopy.findIndex(i => i.id === action.payload.id);
         if (findItemIndex !== -1) {
           const findItem = cartCopy[findItemIndex];
@@ -325,7 +325,7 @@ const reducer = (state = initialState, action) => {
       }
 
     case FILL_CART: 
-    console.log('entra el reducer');
+    //console.log('entra el reducer');
       return {
         ...state,
         cart: action.payload
