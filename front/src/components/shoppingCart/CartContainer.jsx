@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DetailTotalCart from "./DetailTotalCart";
+import { FormAddress } from "./FormAddress";
 import { totalByitem } from "./helpers";
 import { Container, Row, Col, Button, Table } from "react-bootstrap";
 import { totalPrice, totalItems } from "./helpers";
@@ -10,9 +11,19 @@ import { addToCart, removeFromCart, removeItems, emptyCart, fillCart } from "../
 const CartContainer = () => {
 
     const cart = useSelector((state) => state.cart)
+    const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
  
-    console.log(cart);
+    const [showModal, setShowModal] = useState(false); //estado local para mostrar o no el modal
+
+    const toggleModal = () => { //funcion que setea showModal al booleano contrario en el que esta
+        setShowModal(prevShowModal => !prevShowModal)
+    }
+
+    const onClose = () => {
+        toggleModal()
+      }
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem("items"))
@@ -22,10 +33,10 @@ const CartContainer = () => {
     }, [])
 
     const incrementQuantityHandler = (item) => {
-        console.log('add inicio' + item.quantity);
+        //console.log('add inicio' + item.quantity);
         dispatch(addToCart(item))
-        console.log('despacha la action');
-        console.log('add final ' + item.quantity);
+        //console.log('despacha la action');
+        //console.log('add final ' + item.quantity);
     }
 
     const decrementQuantityHandler = (item) => {
@@ -39,6 +50,16 @@ const CartContainer = () => {
 
     const deleteItemHandler = (id) => {
         dispatch(removeItems(id))
+    }
+
+    const handleConfirmCart = () => {
+        user ?
+        toggleModal()
+        : navigate("/ingresar")
+    }
+
+    const handleConfirmOrder = () => {
+
     }
  
     return (
@@ -84,12 +105,12 @@ const CartContainer = () => {
                                                                 </div>
                                                                 <div className="d-flex align-items-center">
                                                                     <div className="d-flex align-items-center">
-                                                                        <Button variant="primary" className="btn btn-sm me-2" onClick={() =>{decrementQuantityHandler(item)}}><i className="bi bi-arrow-down-square" /></Button>
+                                                                        <Button variant="primary" className="btn btn-sm me-2" onClick={() => { decrementQuantityHandler(item) }}><i className="bi bi-arrow-down-square" /></Button>
                                                                         <span className="me-2">{item.quantity}</span>
-                                                                        {console.log('log en item ' + item.quantity)}
-                                                                        <Button variant="primary" className="btn btn-sm me-2" onClick={() =>{incrementQuantityHandler(item)}}><i className="bi bi-arrow-up-square" /></Button>
+                                                                        {/* {console.log('log en item ' + item.quantity)} */}
+                                                                        <Button variant="primary" className="btn btn-sm me-2" onClick={() => { incrementQuantityHandler(item) }}><i className="bi bi-arrow-up-square" /></Button>
                                                                     </div>
-                                                                    <Button variant="danger" size="sm" onClick={() => {deleteItemHandler(item.id)}}><i className="bi bi-trash3" /></Button>
+                                                                    <Button variant="danger" size="sm" onClick={() => { deleteItemHandler(item.id) }}><i className="bi bi-trash3" /></Button>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -122,9 +143,42 @@ const CartContainer = () => {
                         <hr />
                         <h5>Total: ${totalPrice(cart)}.00</h5>
                         <hr />
-                        <button className="btn btn-secondary mb-2">Confirmar carrito</button>
+                        <button onClick={handleConfirmCart} className="btn btn-secondary mb-2">Confirmar carrito</button>
                     </div>
                 </div>
+                {showModal && <div className="modal" tabIndex="-1" style={{ display: "block" }}>
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">Confirmá tu compra</h5>
+                                <button onClick={onClose} className="btn btn-dark">Cerrar</button>
+                            </div>
+                            <div>
+                                <div>
+                                    {cart.map((detail, index) => (
+                                        <DetailTotalCart
+                                            key={index}
+                                            id={detail.id}
+                                            title={detail.title}
+                                            price={detail.price}
+                                            quantity={detail.quantity}
+                                            totalByItem={totalByitem(detail.quantity, detail.price)}
+                                        />
+                                    ))}
+                                </div>
+                                <hr />
+                                <h5>Total: ${totalPrice(cart)}.00</h5>
+                                <hr />
+                                <button onClick={handleConfirmOrder} className="btn btn-secondary mb-2">Confirmar compra</button>
+                            </div>
+                            <FormAddress toggleModal={toggleModal}
+                                user={user}
+                            />
+                            <button className="btn btn-secondary mb-2">Pagar</button>
+                        </div>
+                    </div>
+                </div>
+                }
             </div>
         </>
     )

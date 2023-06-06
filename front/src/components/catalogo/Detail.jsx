@@ -58,10 +58,10 @@ export const Detail = () => {
     </Card>
     )}
     else{
-        return (
-            <Card style={{ width: "90%", height: "100%" }}>
-                <Card.Body className="d-flex flex-column justify-content-evenly">
-                    <div
+    return (
+      <Card style={{ width: "90%", height: "100%" }}>
+        <Card.Body className="d-flex flex-column justify-content-evenly">
+          {/* <div
                         style={{
                             display: "flex",
                             alignItems: "center",
@@ -78,56 +78,71 @@ export const Detail = () => {
                             <p className="mb-1">Reseñas</p>
                             <div>{renderStars(qualificationObtained(detailData))}</div>
                         </Button>
-                    </div>
-                    <Row>
-                        <Col>
-                            <Card.Subtitle className="text-muted">
-                                Autor
-                            </Card.Subtitle>
-                            {detailData.authors.map((author, index) => {
-                                return <Card.Text key={index}>{author}</Card.Text>;
-                            })}
-                        </Col>
-                        <Col>
-                            <Card.Subtitle className="text-muted">
-                                Género
-                            </Card.Subtitle>
-                            {detailData.genders.map((gender, index) => {
-                                return <Card.Text key={index}>{gender}</Card.Text>;
-                            })}
-                        </Col>
-                    </Row>
+                    </div> */}
 
-              <Card.Text style={{ overflow: "auto", height: "200px" }}>
-                {detailData.description}
-              </Card.Text>
+          <div className="row">
+            <div className="col-8">
+              <h4 style={{ marginRight: "10px", maxWidth: "80%" }}>
+                {detailData.title}
+              </h4>
+            </div>
+            <div className="col-4">
+              <Button variant="secondary" onClick={toggleModal}>
+                <p className="mb-1">Reseñas</p>
+                <div>{renderStars(qualificationObtained(detailData))}</div>
+              </Button>
+            </div>
+          </div>
 
-              <div>
-                <Row className="d-flex justify-content-center">
-                  <Col className="text-center">
-                    <Button variant="dark" onClick={() => {addToCartHandler(detailData)}}>Agregar al carrito</Button>
-                  </Col>
-                  {/* <Col>
+          <Row>
+            <Col>
+              <Card.Subtitle className="text-muted">
+                Autor
+              </Card.Subtitle>
+              {detailData.authors.map((author, index) => {
+                return <Card.Text key={index}>{author}</Card.Text>;
+              })}
+            </Col>
+            <Col>
+              <Card.Subtitle className="text-muted">
+                Género
+              </Card.Subtitle>
+              {detailData.genders.map((gender, index) => {
+                return <Card.Text key={index}>{gender}</Card.Text>;
+              })}
+            </Col>
+          </Row>
+
+          <Card.Text style={{ overflow: "auto", height: "200px" }}>
+            {detailData.description}
+          </Card.Text>
+
+          <div>
+            <Row className="d-flex justify-content-center">
+              <Col className="text-center">
+                <Button variant="dark" onClick={() => { addToCartHandler(detailData) }}>Agregar al carrito</Button>
+              </Col>
+              {/* <Col>
                     <Button variant="outline-secondary">
                       Agregar a la Wishlist
                     </Button>
                   </Col> */}
-                </Row>
+            </Row>
+          </div>
+        </Card.Body>
+        {showModal && (
+          <div className="modal" tabIndex="-1" style={{ display: "block" }}>
+            <div className="modal-dialog modal-dialog-scrollable">
+              <div className="modal-content">
+                <ContainerReviews
+                  toggleModal={toggleModal}
+                  bookId={bookId} // Corrección: pasando bookId como propiedad
+                />
               </div>
-            </Card.Body>
-            {showModal && (
-              <div className="modal" tabIndex="-1" style={{ display: "block" }}>
-                <div className="modal-dialog modal-dialog-scrollable">
-                  <div className="modal-content">
-                    <ContainerReviews 
-                      toggleModal={toggleModal}
-                      bookId={bookId} // Corrección: pasando bookId como propiedad
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-          </Card>
+            </div>
+          </div>
+        )}
+      </Card>
     );
   }
 };
