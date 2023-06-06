@@ -1,5 +1,5 @@
 import React from "react";
-import { totalByitem } from "./helpers";
+import { totalByitem } from './helpers'
 
 const DetailTotalCart = ({title, quantity, price}) => {
     //console.log('deatail ' + quantity);
