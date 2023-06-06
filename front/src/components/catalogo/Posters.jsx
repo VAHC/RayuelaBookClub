@@ -28,7 +28,9 @@ export const Posters = () => {
             if (!allBooksLoaded) {
                 await dispatch(getAllBooks());
                 setAllBooksLoaded(true);
-            } else dispatch(getBooksPage(pagina));
+            }
+            
+            dispatch(getBooksPage(pagina));
         };
         booksGet();
     }, [pagina]);

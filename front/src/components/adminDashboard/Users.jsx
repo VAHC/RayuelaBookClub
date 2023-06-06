@@ -79,9 +79,9 @@ const Users = () => {
     //       )
     //     : filteredBooksByGenre;
 
-    const ableButtonHandler = async (userId) => {
-        console.log("Estoy modificando el deleted de este User: " + userId);
-        await deleteUser(userId, dispatch);
+    const ableButtonHandler = async (user) => {
+        console.log("Estoy modificando el deleted de este User: " + user.id);
+        await deleteUser(user, dispatch);
         dispatch(getAllUsers());
     };
 
@@ -98,8 +98,8 @@ const Users = () => {
                 <td>
                     {" "}
                     <Button
-                        onClick={() => ableButtonHandler(user.id)}
-                        variant={user.deleted ? "success" : "danger"}
+                        onClick={() => ableButtonHandler(user)}
+                        // variant={user.deleted ? "success" : "danger"}
                     >
                         {user.deleted ? "Habilitar" : "deshabilitar"}
                     </Button>
