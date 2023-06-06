@@ -238,6 +238,6 @@ export const getAllUsers = () => {
 
 export const deleteUser = async (user, dispatch) => {
   const updatedUser = { ...user, state: "Blocked"}
-  await axios.put(`http://localhost:3001/books/delete/${user.id}`,updatedUser)
+  await axios.put(`http://localhost:3001/users/delete/${user.id}`,updatedUser)
   dispatch({ type: DELETE_USER })
 }
