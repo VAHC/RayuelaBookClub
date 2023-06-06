@@ -23,7 +23,13 @@ import {
   PUT_REVIEW,
   DELETE_REVIEW,
   DELETE_BOOK,
-  UPDATE_USER
+  UPDATE_USER,
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  REMOVE_ITEMS,
+  EMPTY_CART,
+  GET_ALL_USERS,
+  DELETE_USER
 } from './action';
 
 // Initial state
@@ -51,8 +57,11 @@ const initialState = {
   //array que trae todas la reseñas de un usuario
   userReviews: [],
   //array de la busqueda
-  searchData: []
-
+  searchData: [],
+  //array para el carrito
+  cart: [],
+  //Array todos los Usuarios
+  allUsers:[],
 }
 
 // Reducer
@@ -118,14 +127,13 @@ const reducer = (state = initialState, action) => {
         [returnPriceProp]: [...sortPriceArray]
       }
 
-    //el case SORT_BY_RATING esta hecho en base al precio, ya que aun no hay reseñas
     case SORT_BY_RATING:
       let arrayOrdenadoRating = state.filterFlag ? state.books : state.booksPage
       let sortRatingArray = action.payload === 'Asc' ? arrayOrdenadoRating.sort((a, b) => {
-        return a.price - b.price
+        return a.reviews.qualification - b.reviews.qualification
       }) :
         arrayOrdenadoRating.sort((a, b) => {
-          return b.price - a.price
+          return b.reviews.qualification - a.reviews.qualification
         });
       const returnRatingProp = state.filterFlag ? "books" : "booksPage"
       return {
@@ -280,6 +288,53 @@ const reducer = (state = initialState, action) => {
 
     case UPDATE_USER:
       return { ...state }
+
+    case ADD_TO_CART:
+      const cartCopy = [...state.cart]
+      const findItem = cartCopy.find(i => i.id === action.payload.id)
+      if (findItem.length) {
+        findItem.quantity += 1
+      } else {
+        cartCopy.push({ ...action.payload, quantity: 1 })
+      }
+      return {
+        ...state,
+        cart: cartCopy
+      }
+
+    case REMOVE_FROM_CART:
+      const cartCopi = [...state.cart]
+      const findI = cartCopi.find(i => i.id === action.payload.id)
+      if (findI.length) {
+        findItem.quantity - 1
+      }
+      return {
+        ...state
+      }
+
+    case REMOVE_ITEMS:
+      const deletedItem = state.cart.filter(i => i.id !== action.payload)
+      return {
+        ...state,
+        cart: [...deletedItem]
+      }
+
+    case EMPTY_CART:
+      return {
+        ...state,
+        cart: []
+      }
+
+      case GET_ALL_USERS:
+      return {
+        ...state,
+        allUsers: action.payload
+      };
+
+      case DELETE_USER:
+      return {
+        ...state
+      }
 
     default:
       return state;
