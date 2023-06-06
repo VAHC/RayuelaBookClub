@@ -2,11 +2,13 @@ const { Router } = require('express');
 
 const createOrderHandler = require('../handlers/order/createOrderHandler');
 const createOrderAddressHandler = require('../handlers/order/createOrderAddressHandler')
+const getAllOrderHandler = require('../handlers/order/getAllOrderHandler')
 
-const OrderRouter = Router();
+const orderRouter = Router();
 
-OrderRouter.post('/', createOrderHandler)
-OrderRouter.post('/', createOrderAddressHandler)
+orderRouter.post('/', createOrderHandler)
+orderRouter.post('/', createOrderAddressHandler)
 
 
-module.exports = OrderRouter
+
+module.exports = orderRouter
