@@ -28,7 +28,8 @@ import {
   REMOVE_FROM_CART,
   REMOVE_ITEMS,
   EMPTY_CART,
-  FILL_CART
+  FILL_CART,
+  POST_ADDRESS,
 } from './action';
 
 // Initial state
@@ -330,6 +331,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         cart: action.payload
       }
+
+     case POST_ADDRESS:
+      return {
+        ...state
+      } 
     
     default:
       return state;
