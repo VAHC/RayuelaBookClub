@@ -206,11 +206,12 @@ export const updateUser = (user) => {
   return async function (dispatch) {
     await axios.put(`${URL_Railway}/users`, user)
     dispatch({ type: UPDATE_USER })
+    return user
   }
 }
 
 export const addToCart = (book) => {
-  console.log('entra la action');
+  //console.log('entra la action');
   return (dispatch, getState) => {
     dispatch ({ type: ADD_TO_CART, payload: book });
     const updatedCart3 = getState().cart;
@@ -246,7 +247,7 @@ export const emptyCart = () => {
 }
 
 export const fillCart = (dataCart) => {
-  console.log('toma la action');
+  //console.log('toma la action');
   return {
     type: FILL_CART,
     payload: dataCart
