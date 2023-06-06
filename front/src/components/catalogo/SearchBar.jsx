@@ -6,9 +6,9 @@ import {
     changePagina,
     getBooksPage,
     resetFilter,
-
 } from "../../redux/action";
 import { Paginado } from "./Paginado";
+import { Link } from "react-router-dom";
 
 export const SearchBar = () => {
     const dispatch = useDispatch();
@@ -31,7 +31,6 @@ export const SearchBar = () => {
         searchDataPopulation();
         setInput("");
     };
-
 
     return (
         <div>
@@ -62,11 +61,16 @@ export const SearchBar = () => {
                         >
                             Buscar
                         </button>
-
                     </form>
-                    
+
                     <Paginado />
-                    <i className="bi bi-cart text-light fs-3 mx-5"></i>
+
+                    <Link to="/carrito">
+                        <i className="bi bi-cart text-light fs-3"></i>
+                        <span className="badge bg-danger ms-1 rounded-circle">
+                            9
+                        </span>
+                    </Link>
                 </div>
             </nav>
         </div>
