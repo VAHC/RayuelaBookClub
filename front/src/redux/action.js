@@ -32,6 +32,9 @@ export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const REMOVE_ITEMS = "REMOVE_ITEMS";
 export const EMPTY_CART = "EMPTY_CART";
+export const GET_ALL_USERS = "GET_ALL_USERS";
+export const DELETE_USER = "DELETE_USER";
+
 
 export const getAllBooks = () => {
   return async (dispatch) => {
@@ -199,7 +202,8 @@ export const deleteReview = (reviewId) => {
 export const deleteBook = async (bookId, dispatch) => {
   console.log("esta es la action")
   await axios.put(`http://localhost:3001/books/delete/${bookId}`)
-  dispatch({ type: DELETE_BOOK })}
+  dispatch({ type: DELETE_BOOK })
+}
 
 export const updateUser = (user) => {
   return async function (dispatch) {
@@ -222,4 +226,18 @@ export const removeItems = (id) => {
 
 export const emptyCart = () => {
   return { type: EMPTY_CART }
+}
+
+export const getAllUsers = () => {
+  return async (dispatch) => {
+    const response = await axios.get(`${URL_Railway}/users`);
+    const allUsers = response.data;
+    dispatch({ type: GET_ALL_USERS, payload: allUsers })
+  }
+}
+
+export const deleteUser = async (user, dispatch) => {
+  const updatedUser = { ...user, state: "Blocked"}
+  await axios.put(`http://localhost:3001/books/delete/${user.id}`,updatedUser)
+  dispatch({ type: DELETE_USER })
 }
