@@ -32,6 +32,7 @@ export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const REMOVE_ITEMS = "REMOVE_ITEMS";
 export const EMPTY_CART = "EMPTY_CART";
+export const FILL_CART = "FILL_CART";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const DELETE_USER = "DELETE_USER";
 
@@ -226,6 +227,14 @@ export const removeItems = (id) => {
 
 export const emptyCart = () => {
   return { type: EMPTY_CART }
+}
+
+export const fillCart = (dataCart) => {
+  //console.log('toma la action');
+  return {
+    type: FILL_CART,
+    payload: dataCart
+  }
 }
 
 export const getAllUsers = () => {
