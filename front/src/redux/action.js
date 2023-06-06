@@ -32,6 +32,7 @@ export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const REMOVE_ITEMS = "REMOVE_ITEMS";
 export const EMPTY_CART = "EMPTY_CART";
+export const FILL_CART = "FILL_CART";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const DELETE_USER = "DELETE_USER";
 
@@ -229,6 +230,14 @@ export const emptyCart = () => {
   return { type: EMPTY_CART }
 }
 
+export const fillCart = (dataCart) => {
+  //console.log('toma la action');
+  return {
+    type: FILL_CART,
+    payload: dataCart
+  }
+}
+
 export const getAllUsers = () => {
   return async (dispatch) => {
     const response = await axios.get(`${URL_Railway}/users`);
@@ -239,6 +248,6 @@ export const getAllUsers = () => {
 
 export const deleteUser = async (user, dispatch) => {
   const updatedUser = { ...user, state: "Blocked"}
-  await axios.put(`http://localhost:3001/books/delete/${user.id}`,updatedUser)
+  await axios.put(`http://localhost:3001/users/delete/${user.id}`,updatedUser)
   dispatch({ type: DELETE_USER })
 }
