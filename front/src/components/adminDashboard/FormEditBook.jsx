@@ -28,6 +28,12 @@ const EditBookForm = ({ book }) => {
         if (!notComplete.length) setFormComplete(true);
     }, [input]);
 
+    const EliminarImagen = (event)=>{
+        event.preventDefault()
+        console.log('eli');
+    }
+
+
     const dispatch = useDispatch();
 
     const handleInputChange = (e) => {
@@ -199,13 +205,10 @@ const EditBookForm = ({ book }) => {
                         <label className="form-label">Imagen:</label>
                     </div>
                     <div className="col-9">
-                        <input
-                            className="form-control"
-                            type="text"
-                            name="image"
-                            value={input.image}
-                            onChange={handleInputChange}
-                        />
+                    <img src={input.image} alt={input.title} width="100" height="autp"></img>
+                    <div className="btn btn-danger" onClick={EliminarImagen}>
+                        eliminar
+                    </div>
                     </div>
                 </div>
                 <div className="row d-flex justify-content-center m-2">
