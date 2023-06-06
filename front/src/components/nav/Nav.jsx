@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { login, logout } from "../../redux/action";
+import { login, logout, emptyCart } from "../../redux/action";
 import axios from 'axios';
 import { URL_Railway } from '../../../ruta';
 import { decode } from 'jsonwebtoken-esm';
@@ -19,7 +19,9 @@ export const Nav = () => {
     event.preventDefault();
     const response = await axios.get(`${URL_Railway}/auth/logout`);
     localStorage.removeItem('token');
+    localStorage.removeItem('items');
     dispatch(logout())
+    dispatch(emptyCart())
     navigate("/")
   }
 

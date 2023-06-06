@@ -11,13 +11,9 @@ export const Detail = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart)
 
-  //console.log(detailData);
-  const bookId = detailData ? detailData.id : null;
-  //console.log('detail' + bookId)
-  const qualificationObtained = (detailData) => {
-    const reviews = detailData.reviews;
-    const notDeletedReviews = reviews.filter(review => !review.deleted);
-
+  const qualificationObtained = (book) => {
+    const reviews = book.reviews
+    const notDeletedReviews = reviews.filter(review => !review.deleted)
     if (notDeletedReviews && Array.isArray(notDeletedReviews) && notDeletedReviews.length > 0) {
       let sum = 0;
       for (let i = 0; i < notDeletedReviews.length; i++) {
@@ -29,15 +25,19 @@ export const Detail = () => {
     return 0; // Valor predeterminado si no hay reviews o no es un array válido
   };
 
+
   const renderStars = (rating) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
-      const starIcon = i <= rating ? <i key={i} className="bi bi-star-fill bi-sm" /> : <i key={i} className="bi bi-star bi-sm"/>;
+      const starIcon = i <= rating ? <i key={i} className="bi bi-star-fill" /> : <i key={i} className="bi bi-star"/>;
       stars.push(starIcon);
     }
     return stars;
   };
 
+  //console.log(detailData);
+  const bookId = detailData ? detailData.id : null;
+  //console.log('detail' + bookId)
   //codigo para modal
   const [showModal, setShowModal] = useState(false); //estdo local para mostrar o no el modal
 
