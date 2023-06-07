@@ -8,7 +8,7 @@ import { setDetail, addToCart } from "../../redux/action";
 const bookCard = ({book}) => {
 
   const cart = useSelector((state) => state.cart)
-  
+
   const qualificationObtained = (book) => {
     const reviews = book.reviews
     const notDeletedReviews = reviews.filter(review => !review.deleted)
@@ -23,8 +23,6 @@ const bookCard = ({book}) => {
     return 0; // Valor predeterminado si no hay reviews o no es un array válido
   };
 
-  //console.log(qualificationObtained(book));
-
   const renderStars = (rating) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -33,7 +31,7 @@ const bookCard = ({book}) => {
     }
     return stars;
   };
-
+  
   const dispatch = useDispatch()
   //console.log(book);
   const handleClick = ()=> {dispatch(setDetail(book))}
