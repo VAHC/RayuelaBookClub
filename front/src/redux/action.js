@@ -35,6 +35,7 @@ export const EMPTY_CART = "EMPTY_CART";
 export const FILL_CART = "FILL_CART";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const DELETE_USER = "DELETE_USER";
+export const GET_SHOPPING_BY_USER = "GET_SHOPPING_BY_USER"
 
 
 export const getAllBooks = () => {
@@ -215,15 +216,33 @@ export const updateUser = (user) => {
 }
 
 export const addToCart = (book) => {
-  return { type: ADD_TO_CART, payload: book }
+  return (dispatch, getState) => {
+    dispatch ({ type: ADD_TO_CART, payload: book });
+    const updatedCart3 = getState().cart;
+    localStorage.setItem('items', JSON.stringify(updatedCart3));
+  }
 }
 
 export const removeFromCart = (book) => {
-  return { type: REMOVE_FROM_CART, payload: book }
+  return (dispatch, getState) => {
+    dispatch({ type: REMOVE_FROM_CART, payload: book });
+    const updatedCart = getState().cart;
+    localStorage.setItem('items', JSON.stringify(updatedCart));
+    if (!updatedCart.length) {
+      localStorage.removeItem('items');
+    }
+  }
 }
 
 export const removeItems = (id) => {
-  return { type: REMOVE_ITEMS, payload: id }
+  return (dispatch, getState) => {
+    dispatch ({type: REMOVE_ITEMS, payload: id });
+    const updatedCart2 = getState().cart;
+    localStorage.setItem('items', JSON.stringify(updatedCart2));
+    if (!updatedCart2.length) {
+      localStorage.removeItem('items');
+    }
+  }
 }
 
 export const emptyCart = () => {
@@ -254,4 +273,12 @@ export const deleteUser = async (user, dispatch) => {
 
   await axios.put(`${URL_Railway}/users/delete/${user.id}`)
   dispatch({ type: DELETE_USER })
+}
+
+export const getShoppingByUser = () => {
+  return async (dispatch) => {
+    const response = await axios.get(`${URL_Railway}/users/${userId}`);
+    const userShopping = response.data;
+    dispatch({ type: GET_SHOPPING_BY_USER, payload: userShopping })
+  }
 }
