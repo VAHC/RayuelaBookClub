@@ -30,6 +30,7 @@ export const Orders = () => {
   
   return (
     <div style={{ marginTop: "15px" }}>
+
       <h6 className='mx-2'>Ordena por</h6>
         <div className='m-1 mb-3'>
           {/* <label htmlFor='priceOrder'>Precio:</label> */}
