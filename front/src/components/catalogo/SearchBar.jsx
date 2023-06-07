@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,8 +9,10 @@ import {
     resetFilter,
 } from "../../redux/action";
 import { Paginado } from "./Paginado";
+
 import { Link } from "react-router-dom";
 import { totalItems } from "../shoppingCart/helpers";
+
 
 export const SearchBar = () => {
     const dispatch = useDispatch();
@@ -18,8 +21,10 @@ export const SearchBar = () => {
     const [notFound, setNotFound] = useState(false);
 
     const pagina = useSelector((state) => state.paginaActual);
+
     const booksPage = useSelector((state) => state.booksPage);
     const cart = useSelector((state) => state.cart);
+
 
     const handlerChange = (e) => {
         setInput(e.target.value);
@@ -76,6 +81,7 @@ export const SearchBar = () => {
                     </Link>
                 </div>
             </nav>
+
         </div>
     );
 };
