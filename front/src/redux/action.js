@@ -15,7 +15,7 @@ export const FILTER_AUTHOR = 'FILTER_AUTHOR';
 export const POST_BOOK = "POST_BOOK";
 export const CREATE_USER = "CREATE_USER";
 export const FILTER_FLAG = "FILTER_FLAG";
-export const RESET_FILTERS = "FILTER_FLAG";
+export const RESET_FILTERS = "RESET_FILTERS";
 export const GET_GENEROS = "GET_GENEROS";
 export const GET_AUTORES = "GET_AUTORES";
 export const GET_REVIEWS_BOOK = 'GET_REVIEWS_BOOK';
@@ -35,6 +35,9 @@ export const EMPTY_CART = "EMPTY_CART";
 export const FILL_CART = "FILL_CART";
 export const POST_ADDRESS = "POST_ADDRESS";
 export const CREATE_ORDER = "CREATE_ORDER";
+export const GET_ALL_USERS = "GET_ALL_USERS";
+export const DELETE_USER = "DELETE_USER";
+export const GET_SHOPPING_BY_USER = "GET_SHOPPING_BY_USER";
 
 export const getAllBooks = () => {
   return async (dispatch) => {
@@ -66,7 +69,7 @@ export const sortByRating = (payload) => {
   return { type: SORT_BY_RATING, payload }
 }
 
-export const searchByNameOrAuthor = (name) => {
+export const searchByNameOrAuthor = (name,) => {
   // return async (dispatch) => {
   //   const response = await axios.get(`http://localhost:3001/books?title=${name}`);
   //   const searchArray = response.data;
@@ -119,6 +122,7 @@ export const filterFlagToggle = (boolean) => {
 }
 
 export const resetFilter = () => {
+  console.log("entra el reset a la action de redux")
   return { type: RESET_FILTERS }
 }
 
@@ -200,20 +204,19 @@ export const deleteReview = (reviewId) => {
 }
 
 export const deleteBook = async (bookId, dispatch) => {
-  //console.log("esta es la action")
+  console.log("esta es la action")
   await axios.put(`${URL_Railway}/books/delete/${bookId}`)
-  dispatch({ type: DELETE_BOOK })}
+  dispatch({ type: DELETE_BOOK })
+}
 
 export const updateUser = (user) => {
   return async function (dispatch) {
     await axios.put(`${URL_Railway}/users`, user)
     dispatch({ type: UPDATE_USER })
-    return user
   }
 }
 
 export const addToCart = (book) => {
-  //console.log('entra la action');
   return (dispatch, getState) => {
     dispatch ({ type: ADD_TO_CART, payload: book });
     const updatedCart3 = getState().cart;
@@ -229,8 +232,8 @@ export const removeFromCart = (book) => {
     if (!updatedCart.length) {
       localStorage.removeItem('items');
     }
-  };
-};
+  }
+}
 
 export const removeItems = (id) => {
   return (dispatch, getState) => {
@@ -266,5 +269,31 @@ export const createOrder = (order) => {
   return async function (dispatch) {
     let response = await axios.post(`${URL_Railway}/order`, order)
     return response
+  }
+}
+
+export const getAllUsers = () => {
+  return async (dispatch) => {
+    const response = await axios.get(`${URL_Railway}/users`);
+    const allUsers = response.data;
+    dispatch({ type: GET_ALL_USERS, payload: allUsers })
+  }
+}
+
+export const deleteUser = async (user, dispatch) => {
+  // !user.deleted ? { ...user, state: "Blocked", deleted: true } :
+//   const updatedUser =  { ...user, state: "Active", deleted: false };
+
+// console.log(updatedUser);
+
+  await axios.put(`${URL_Railway}/users/delete/${user.id}`)
+  dispatch({ type: DELETE_USER })
+}
+
+export const getShoppingByUser = () => {
+  return async (dispatch) => {
+    const response = await axios.get(`${URL_Railway}/users/${userId}`);
+    const userShopping = response.data;
+    dispatch({ type: GET_SHOPPING_BY_USER, payload: userShopping })
   }
 }
