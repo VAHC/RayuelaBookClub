@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { searchByNameOrAuthor,changePagina } from '../../redux/action';
 import { Paginado } from './Paginado';
 import { Link } from 'react-router-dom';
-import {totalItems} from '../shoppingCart/helpers'
+import { totalItems } from '../shoppingCart/helpers'
 
 export const SearchBar = () => {
   const dispatch = useDispatch();

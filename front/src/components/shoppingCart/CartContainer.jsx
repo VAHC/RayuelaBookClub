@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import DetailTotalCart from "./DetailTotalCart";
 import { FormAddress } from "./FormAddress";
-import { totalByitem } from "./helpers";
 import { Container, Row, Col, Button, Table } from "react-bootstrap";
-import { totalPrice, totalItems } from "./helpers";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart, removeFromCart, removeItems, emptyCart, fillCart } from "../../redux/action";
+import { totalByitem, totalItems, totalPrice } from './helpers'
 
 const CartContainer = () => {
 
