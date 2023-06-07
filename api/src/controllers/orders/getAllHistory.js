@@ -16,20 +16,32 @@ const getAllOrdersHistory = async () => {
     ],
   });
 
+
   const orderHistory = orders.map((order) => {
+    
+    const originalDate = order.date
+
+    const parsedDate = new Date(originalDate);
+    const day = parsedDate.getDate().toString().padStart(2, "0");
+    const month = (parsedDate.getMonth() + 1).toString().padStart(2, "0");
+    const year = parsedDate.getFullYear().toString();
+
+    const formattedDate = `${day}/${month}/${year}`;
+    const formattedTime = parsedDate.toISOString().split('T')[1].slice(0, 5);
+
+    const transformedDate = `${formattedDate}, ${formattedTime}`;
+    
     return{
         id: order.id,
-        date: order.date,
+        date: transformedDate,
         quantity: order.quantity,
         price_total: order.price_total,
         state: order.state,
-        orderDetails: order.orderDetails.map(e => e.quantity),
-        books: order.books.map(b => {
-            return{
-                title: b.title,
-                price: b.price
-            }
-        }),
+        orderDetails: order.orderDetails.map(e => ({
+          quantityDetail: e.quantity,
+          titleBook: e.book.title,
+          priceBook: e.book.price
+        })),
     }
 })
 
@@ -38,114 +50,6 @@ const getAllOrdersHistory = async () => {
 
 module.exports = getAllOrdersHistory;
 
-
-
-
-
-//attributes: ['id', 'date', 'quantity', 'price_total', 'state'],
-
-// const { Order, OrderDetail, User, Book } = require('../../db');
-
-// const getAllHistory = async () => {
-//   const orders = await Order.findAll({
-//     include: [
-//       {
-//         model: User,
-//         attributes: ['id'],
-//       },
-//       {
-//         model: OrderDetail,
-//         attributes: ['id', 'quantity'],
-//         include: [
-//           {
-//             model: Book,
-//             attributes: ['title', 'quantity', 'price'],
-//           },
-//         ],
-//       },
-//     ],
-    
-//   });
-
-//   const history = orders.map((order) => {
-//     return{
-//         id: order.id,
-//         quantity: order.quantity,
-//         price_total: order.price_total,
-//         state: order.state,
-//         users: order.users.map(el => el.id),
-//         orderDetails: order.orderDetails(o => {
-//             return{
-//                 id: o.id,
-//                 quantity: o.quantity,
-//                 bookTitle: o.books.title,
-//                 bookQuantity: o.books.quantity,
-//                 bookPrice: o.books.price
-//             }
-//         })
-//     }
-// })
-    
-//   return history;
-// };
-
-// module.exports = getAllHistory 
-
-
-
-
-
-
-
-
-
-
-// const { Order, OrderDetail, User, Book } = require('../../db')
-
-// const getAllHistory = async () => {
-//   const orders = await Order.findAll({
-//     include: [{
-//       model: Order,
-//       attributes: ['id', 'quantity', 'price_total', 'state'],
-//       through: {
-//         attributes: [],
-//       }
-//     },
-//     {
-//       model: OrderDetail,
-//       attributes: ['id'],
-//       include: [
-//         {
-//           model: Book,
-//           attributes: ['title', 'quantity', 'price'],
-//         }
-//       ]
-//     }
-
-//     ]
-//   });
-
-//   //if (!foundUser) throw new Error(`User not found with ID: ${id}`);
-
-//   const history = {
-//     id: data.id,
-//     quantity: data.orders.map(el => el.quantity),
-//     price_total: data.orders.map(el => el.price_total),
-//     state: data.orders.map(el => el.state),
-//     orderDetails: data.orderDetails.map(o => {
-//         return{
-//             id: o.id,
-//             title: o.book.title,
-//             quantity: o.book.quantity,
-//             price: o.book.price
-//         }
-//     })
-//   }
-//   return history;
-
-// };
-
-// module.exports = getAllHistory ;
 
 // Orders = [
 //     {
