@@ -30,6 +30,7 @@ import {
   EMPTY_CART,
   FILL_CART,
   POST_ADDRESS,
+  CREATE_ORDER,
 } from './action';
 
 
@@ -306,7 +307,8 @@ const reducer = (state = initialState, action) => {
           window.alert('No hay stock suficiente');
         }
       } else {
-        cartCopy.push({ ...action.payload, quantity: 1 });
+        const { id, title, price, stock } = action.payload
+        cartCopy.push({ id_book: id, title, price, stock, quantity: 1 });
     }
     return {
         ...state,
@@ -358,11 +360,15 @@ const reducer = (state = initialState, action) => {
       return {
         ...state
       } 
+
+    case CREATE_ORDER:
+      return {
+        ...state
+      }
     
     default:
       return state;
   }
-
 }
 
 export default reducer;

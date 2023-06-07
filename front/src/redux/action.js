@@ -33,7 +33,8 @@ export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const REMOVE_ITEMS = "REMOVE_ITEMS";
 export const EMPTY_CART = "EMPTY_CART";
 export const FILL_CART = "FILL_CART";
-export const POST_ADDRESS = "POST_ADDRESS"
+export const POST_ADDRESS = "POST_ADDRESS";
+export const CREATE_ORDER = "CREATE_ORDER";
 
 export const getAllBooks = () => {
   return async (dispatch) => {
@@ -239,7 +240,6 @@ export const removeItems = (id) => {
     if (!updatedCart2.length) {
       localStorage.removeItem('items');
     }
-
   }
 }
 
@@ -258,6 +258,13 @@ export const fillCart = (dataCart) => {
 export const postAddress = (inputs) => {
   return async function (dispatch) {
     let response = await axios.post(`${URL_Railway}/ RUTA DEL BACK `, inputs)
+    return response
+  }
+}
+
+export const createOrder = (order) => {
+  return async function (dispatch) {
+    let response = await axios.post(`${URL_Railway}/order`, order)
     return response
   }
 }
