@@ -3,7 +3,7 @@ import { Container, Row, Col, Card } from "react-bootstrap";
 import Menu from "./Menu";
 import Inventario from "./Inventario";
 import { Orders } from "./Orders";
-import { Users } from "./Users";
+import Users  from "./Users";
 // import PanelControl from "./PanelControl";
 
 const Dashboard = () => {
@@ -14,7 +14,7 @@ const compoRender = ()=>{
     if(compoActivo === "usuarios")return <Users/>;
     if(compoActivo === "pedidos")return <Orders/>;
 }
-console.log(compoRender)
+
     return (
         <Container fluid>
             <Row>
