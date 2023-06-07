@@ -7,7 +7,9 @@ import { URL_Railway,URL_Vercel } from '../../../ruta';
 const EditBookForm = ({ book }) => {
     const [formComplete, setFormComplete] = useState(false); //estodo local para manejar el boton del submit y el envio de datos
     const [success, setSuccess] = useState(false); // estado local para manejar la alerta de ok
-
+    const [ImagenBorrada, setImagenBorrada] = useState(false);
+    
+    
     const [input, setInput] = useState({
         id: book.id,
         title: book.title,
@@ -78,8 +80,10 @@ const EditBookForm = ({ book }) => {
         event.preventDefault();
         console.log(id);
         try {
+            setImagenBorrada(true);
             //http://localhost:3001/books/deleteImg/1
-            const response = await axios.delete(`${URL_Railway}/books/deleteImg/${id}`);
+
+           const response = await axios.delete(`${URL_Railway}/books/deleteImg/${id}`);
             console.log(response);
         } catch (error) {
             console.log(error);
@@ -215,12 +219,20 @@ const EditBookForm = ({ book }) => {
                         <label className="form-label">Imagen:</label>
                     </div>
                     <div className="col-9">
-                    <img src={input.image} width="100" height='auto'  alt={input.title} />
-                        
+                    {
+                        ImagenBorrada ? <div> <img src={URL_Vercel+'/images/logo.png'}  width="100" height='auto'  alt={input.title} /> </div>
+                       :  <div> <img src={input.image} width="100" height='auto'  alt={input.title} /> </div>
+                    }
+                    
                     {URL_Vercel+'/images/logo.png' === input.image ? 
                         <p>El mensaje está visible</p> 
                         : <div className="btn btn-danger" onClick={(event) => BorrarImagen(event, input.id)} > borrar imagen</div>}
                     </div>
+                <div>
+                    
+                </div>
+
+
                 </div>
                 <div className="row d-flex justify-content-center m-2">
                     <button className="btn btn-dark w-25" disabled={!formComplete} type="submit">
