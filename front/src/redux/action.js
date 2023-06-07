@@ -202,7 +202,7 @@ export const deleteReview = (reviewId) => {
 
 export const deleteBook = async (bookId, dispatch) => {
   console.log("esta es la action")
-  await axios.put(`http://localhost:3001/books/delete/${bookId}`)
+  await axios.put(`${URL_Railway}/books/delete/${bookId}`)
   dispatch({ type: DELETE_BOOK })
 }
 
@@ -247,6 +247,6 @@ export const getAllUsers = () => {
 
 export const deleteUser = async (user, dispatch) => {
   const updatedUser = { ...user, state: "Blocked"}
-  await axios.put(`http://localhost:3001/users/delete/${user.id}`,updatedUser)
+  await axios.put(`${URL_Railway}/users/delete/${user.id}`,updatedUser)
   dispatch({ type: DELETE_USER })
 }
