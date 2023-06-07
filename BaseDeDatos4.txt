@@ -5,15 +5,15 @@ Paso 1:
 Ejecuta este script con sql shell o pgAdmin4 en Orders:
 
 INSERT INTO public.orders(
-    date, quantity, price_total, deleted, "createdDb", id_user
+    date, quantity, price_total, deleted, "createdDb", street_and_number, floor_and_department, city, "CP", province, id_user
 )
 VALUES 
-    ('2023-05-20', 1, 164.00, false, true, 1),
-    ('2023-05-20', 1, 164.00, false, true, 2),
-    ('2023-05-20', 1, 328.00, false, true, 3),
-    ('2023-05-20', 2, 500.00, false, true, 1),
-    ('2023-05-20', 2, 500.00, false, true, 2),
-    ('2023-05-20', 2, 1328.00, false, true, 3);
+    ('2023-05-20', 1, 164.00, false, true,'Rivadavia 123', '5A', 'Córdoba', 5000, 'Córdoba', 1),
+    ('2023-05-20', 1, 164.00, false, true, '25 de Mayo 123', NULL, 'Tucumán', 4000, 'Tucumán', 2),
+    ('2023-05-20', 1, 328.00, false, true, 'Belgrano 123', '4C', 'Pinamar', 1545, 'Buenos Aires', 3),
+    ('2023-05-20', 2, 500.00, false, true, 'Rivadavia 123', '5A', 'Córdoba', 5000, 'Córdoba', 1),
+    ('2023-05-20', 2, 500.00, false, true, '25 de Mayo 123', NULL, 'Tucumán', 4000, 'Tucumán', 2),
+    ('2023-05-20', 2, 1328.00, false, true, 'Belgrano 123', '4C', 'Pinamar', 1545, 'Buenos Aires', 3);
 
 
 Paso 2:

@@ -52,6 +52,48 @@ module.exports = (sequelize) => {
         }
       }
     },
+    street_and_number: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'La calle y número no puede estar vacía'
+        }
+      }
+    },
+    floor_and_department: {
+      type: DataTypes.STRING,
+    },
+    city: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'La ciudad no puede estar vacía'
+        }
+      }
+    },
+    CP: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        isInt: {
+          msg: 'El código postal debe ser un número entero'
+        },
+        notEmpty: {
+          msg: 'El código postal no puede estar vacío'
+        }
+      }
+    },
+    province: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'La provincia no puede estar vacía'
+        }
+      }
+    },
     deleted: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
