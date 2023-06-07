@@ -12,27 +12,27 @@ import {
 
 
 const MyShopping = () => {
-
-const orders = [
-    { 
-        id : 1,
-        date : '05/05/23 - 14:30',
-        orderDetail: [{title:'Rayuela', quantity: 1, price: 100}, {title: 'El principito', quantity: 2, price: 50}],
-        quantity: 3,
-        price_total: '200,00',
-        state: 'Completed',
-        deleted: false
-    }, 
-    { 
-        id : 2,
-        date : '06/06/23 - 18:50',
-        orderDetail: [{title:'Rayuela', quantity: 2, price: 100}, {title: 'El principito', quantity: 4, price: 50}],
-        quantity: 6,
-        price_total: '400,00',
-        state: 'Pending', 
-        deleted: false
-    },
-]
+const orders = []
+// const orders = [
+//     { 
+//         id : 1,
+//         date : '05/05/23 - 14:30',
+//         orderDetail: [{title:'Rayuela', quantity: 1, price: 100}, {title: 'El principito', quantity: 2, price: 50}],
+//         quantity: 3,
+//         price_total: '200,00',
+//         state: 'Completed',
+//         deleted: false
+//     }, 
+//     { 
+//         id : 2,
+//         date : '06/06/23 - 18:50',
+//         orderDetail: [{title:'Rayuela', quantity: 2, price: 100}, {title: 'El principito', quantity: 4, price: 50}],
+//         quantity: 6,
+//         price_total: '400,00',
+//         state: 'Pending', 
+//         deleted: false
+//     },
+// ]
 
 const icons = (state) => {
     if(state === "Created") return <i className="bi bi-pencil-square display-6 text-primary"/>
@@ -46,14 +46,14 @@ const icons = (state) => {
         <Container className="min-vh-100">
             <Row>
                 <Col>
-                    <h1>Mis compras</h1>
+                    <h2>Mis compras</h2>
                 </Col>
             </Row>
 
             {!orders.length ? (
                 <div>
                     <h6>Aún no realizaste ninguna compra...</h6>
-                    <h5>¡Dirigite a la <Link to={'/catalogo'} >tienda</Link> y realiza una!</h5>
+                    <h5>¡Dirigite a la <Link to={'/catalogo'} className="text-decoration-none">tienda</Link> y realiza una!</h5>
                 </div>
             ) : (
                 <Row>
