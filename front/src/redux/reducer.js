@@ -30,7 +30,8 @@ import {
   EMPTY_CART,
   GET_ALL_USERS,
   DELETE_USER,
-  FILL_CART
+  FILL_CART,
+  GET_SHOPPING_BY_USER,
 } from './action';
 
 
@@ -64,6 +65,8 @@ const initialState = {
   cart: [],
   //Array todos los Usuarios
   allUsers: [],
+  //Array compras por usuario
+  userOrders: [],
 }
 
 // Reducer
@@ -113,8 +116,6 @@ const reducer = (state = initialState, action) => {
         };
       }
 
-
-
     case SORT_BY_PRICE:
       let arrayOrdenPrecio = state.filterFlag ? state.books : state.booksPage
       let sortPriceArray = action.payload === 'Asc' ? arrayOrdenPrecio.sort((a, b) => {
@@ -131,18 +132,18 @@ const reducer = (state = initialState, action) => {
 
     case SORT_BY_RATING:
 
-    const qualificationObtained = (book) => {
-      const reviews = book.reviews
-      const notDeletedReviews = reviews.filter(review => !review.deleted)
-      if (notDeletedReviews && Array.isArray(notDeletedReviews) && notDeletedReviews.length > 0) {
-        let sum = 0;
-        for (let i = 0; i < notDeletedReviews.length; i++) {
-          sum += notDeletedReviews[i].qualification;
+      const qualificationObtained = (book) => {
+        const reviews = book.reviews
+        const notDeletedReviews = reviews.filter(review => !review.deleted)
+        if (notDeletedReviews && Array.isArray(notDeletedReviews) && notDeletedReviews.length > 0) {
+          let sum = 0;
+          for (let i = 0; i < notDeletedReviews.length; i++) {
+            sum += notDeletedReviews[i].qualification;
+          }
+          let average = sum / notDeletedReviews.length;
+          return Math.round(average);
         }
-        let average = sum / notDeletedReviews.length;
-        return Math.round(average);
-      }
-      return 0; // Valor predeterminado si no hay reviews o no es un array válido
+        return 0; // Valor predeterminado si no hay reviews o no es un array válido
     };
 
       let booksCopy = [...state.books]
@@ -383,6 +384,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         cart: action.payload
       }
+
+      // case GET_SHOPPING_BY_USER:
+      //   return {
+      //     ...state,
+      //     userOrders: action.payload.orders
+      //   }
 
     default:
       return state;
