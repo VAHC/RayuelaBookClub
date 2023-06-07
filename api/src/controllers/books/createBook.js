@@ -1,6 +1,6 @@
 const {Book, Author, Gender} = require('../../db');
 
-const createBook = async (title, publisher, description, price, stock, publishedDate, image, createdDb, genders, authors) => {
+const createBook = async (title, publisher, description, price, stock, publishedDate, image, createdDb, genders, authors,imageId) => {
 
     const newBook = await Book.create({
         title, 
@@ -10,7 +10,8 @@ const createBook = async (title, publisher, description, price, stock, published
         stock,
         publishedDate, 
         image, 
-        createdDb
+        createdDb,
+        imageId,
     });
 
     const authorsDb = await Author.findAll({
