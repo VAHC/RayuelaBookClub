@@ -28,6 +28,8 @@ import {
   REMOVE_FROM_CART,
   REMOVE_ITEMS,
   EMPTY_CART,
+  GET_ALL_USERS,
+  DELETE_USER,
   FILL_CART
 } from './action';
 
@@ -56,8 +58,12 @@ const initialState = {
   user: null,
   //array que trae todas la reseñas de un usuario
   userReviews: [],
+  //array de la busqueda
+  searchData: [],
   //array para el carrito
-  cart: []
+  cart: [],
+  //Array todos los Usuarios
+  allUsers: [],
 }
 
 // Reducer
@@ -67,7 +73,7 @@ const reducer = (state = initialState, action) => {
 
       let notDeletetedBooksArray = action.payload.filter((book) => {
         return book.deleted === false
-       })
+      })
 
       return {
         ...state,
@@ -86,15 +92,28 @@ const reducer = (state = initialState, action) => {
       const pageNumber = action.payload
       const indiceInicio = (pageNumber - 1) * pageSize;
       const indiceFinal = indiceInicio + pageSize;
+      let notDeletetedBooks;
 
-      let notDeletetedBooks = state.allBooks.filter((book) => {
-        return book.deleted === false
-      })
+      if (state.searchData.length > 0) {
+        notDeletetedBooks = state.searchData.filter((book) => {
+          return book.deleted === false
+        })
 
-      return {
-        ...state,
-        booksPage: notDeletetedBooks.slice(indiceInicio, indiceFinal)
-      };
+        return {
+          ...state,
+          booksPage: notDeletetedBooks.slice(indiceInicio, indiceFinal)
+        }
+      } else {
+        notDeletetedBooks = state.allBooks.filter((book) => {
+          return book.deleted === false
+        })
+        return {
+          ...state,
+          booksPage: notDeletetedBooks.slice(indiceInicio, indiceFinal)
+        };
+      }
+
+
 
     case SORT_BY_PRICE:
       let arrayOrdenPrecio = state.filterFlag ? state.books : state.booksPage
@@ -148,8 +167,7 @@ const reducer = (state = initialState, action) => {
     case SEARCH_BY_NAME_OR_AUTHOR:
       return {
         ...state,
-        booksPage: action.payload,
-        allBooks: action.payload,
+        searchData: action.payload
       };
 
     case SET_DETAIL:
@@ -198,8 +216,10 @@ const reducer = (state = initialState, action) => {
       }
 
     case RESET_FILTERS:
+      console.log("entra el reducer de redux")
       return {
         ...state,
+        searchData: [],
         books: state.allBooks
       }
 
@@ -293,29 +313,29 @@ const reducer = (state = initialState, action) => {
       return { ...state }
 
     case ADD_TO_CART:
-    //console.log('entra al reducer');
-    // Copiamos el array cart
+      //console.log('entra al reducer');
+      // Copiamos el array cart
       const cartCopy = [...state.cart]
       const findItemIndex = cartCopy.findIndex(i => i.id === action.payload.id);
-        if (findItemIndex !== -1) {
-          const findItem = cartCopy[findItemIndex];
-          if (findItem.quantity < findItem.stock) {
-            findItem.quantity += 1;
+      if (findItemIndex !== -1) {
+        const findItem = cartCopy[findItemIndex];
+        if (findItem.quantity < findItem.stock) {
+          findItem.quantity += 1;
         } else {
           window.alert('No hay stock suficiente');
         }
       } else {
         cartCopy.push({ ...action.payload, quantity: 1 });
-    }
-    return {
+      }
+      return {
         ...state,
         cart: cartCopy,
-    }
+      }
 
     case REMOVE_FROM_CART:
       const cartCopi = [...state.cart]
       const findI = cartCopi.find(i => i.id === action.payload.id)
-      if (findI && findI.quantity > 1) { 
+      if (findI && findI.quantity > 1) {
         findI.quantity -= 1
         return {
           ...state,
@@ -346,13 +366,24 @@ const reducer = (state = initialState, action) => {
         cart: []
       }
 
-    case FILL_CART: 
-    //console.log('entra el reducer');
+    case GET_ALL_USERS:
+      return {
+        ...state,
+        allUsers: action.payload
+      };
+
+    case DELETE_USER:
+      return {
+        ...state
+      }
+
+    case FILL_CART:
+      //console.log('entra el reducer');
       return {
         ...state,
         cart: action.payload
       }
-    
+
     default:
       return state;
   }

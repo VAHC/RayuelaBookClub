@@ -19,6 +19,8 @@ export const Posters = () => {
     //flag para no cargar todos los libros con cada render
     const [allBooksLoaded, setAllBooksLoaded] = useState(false);
 
+    const searchData = useSelector((state) => state.searchData);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -27,21 +29,25 @@ export const Posters = () => {
                 await dispatch(getAllBooks());
                 setAllBooksLoaded(true);
             }
+            
             dispatch(getBooksPage(pagina));
         };
         booksGet();
     }, [pagina]);
 
-//para que funcione bien el searchbar, crearia un "searchdata" en redux. al hacer la search despacharia esa accion y setearia/popularia ese array "searchdata". luego con un settime out o con un await despacharia el getpage que ahora recibiria dos parametros uno con la pagina y el otro con un booleano "esporbusqieda?", entonces se paginaria la busqueda. precisariamos un boton para resetear busqueda o ir para atras a todos los productos...
-
     const renderConditional = () => {
-        let renderElements = undefined
+        let renderElements = undefined;
 
         if (filterFlag) {
-            renderElements= filteredbooks.map((book, index) => {
-                // if(book.deleted === true) return null;
-                return <Card book={book} key={index} />;
-            });
+            searchData.length > 0
+                ? (renderElements = searchData.map((book, index) => {
+                      // if(book.deleted === true) return null;
+                      return <Card book={book} key={index} />;
+                  }))
+                : (renderElements = filteredbooks.map((book, index) => {
+                      // if(book.deleted === true) return null;
+                      return <Card book={book} key={index} />;
+                  }));
         } else {
             renderElements = booksPage.map((book, index) => {
                 // if(book.deleted === true) return null;
@@ -49,7 +55,7 @@ export const Posters = () => {
             });
         }
 
-        return renderElements
+        return renderElements;
     };
 
     return renderConditional();
