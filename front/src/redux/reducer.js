@@ -27,7 +27,8 @@ import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
   REMOVE_ITEMS,
-  EMPTY_CART
+  EMPTY_CART,
+  FILL_CART
 } from './action';
 
 // Initial state
@@ -270,9 +271,9 @@ const reducer = (state = initialState, action) => {
       return { ...state }
 
     case ADD_TO_CART:
-      console.log('entra al reducer');
+    //console.log('entra al reducer');
     // Copiamos el array cart
-      const cartCopy = state.cart
+      const cartCopy = [...state.cart]
       const findItemIndex = cartCopy.findIndex(i => i.id === action.payload.id);
         if (findItemIndex !== -1) {
           const findItem = cartCopy[findItemIndex];
@@ -323,6 +324,13 @@ const reducer = (state = initialState, action) => {
         cart: []
       }
 
+    case FILL_CART: 
+    //console.log('entra el reducer');
+      return {
+        ...state,
+        cart: action.payload
+      }
+    
     default:
       return state;
   }

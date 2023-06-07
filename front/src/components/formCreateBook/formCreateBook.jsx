@@ -50,8 +50,8 @@ export const FormCreateBook = () => {
         title: "",
         publisher: "",
         description: "",
-        price: "",
-        stock: "",
+        price: 0,
+        stock: 0,
         publishedDate: "",
         image: "",
         authors: [],
@@ -284,7 +284,7 @@ export const FormCreateBook = () => {
                                     style={{ width: "100%" }}
                                     className="form-control"
                                     id="price"
-                                    type="text"
+                                    type="number"
                                     value={input.price}
                                     name="price"
                                     placeholder="$"
@@ -314,7 +314,7 @@ export const FormCreateBook = () => {
                                     style={{ width: "100%" }}
                                     className="form-control"
                                     id="stock"
-                                    type="text"
+                                    type="number"
                                     value={input.stock}
                                     name="stock"
                                     placeholder="Cantidad"

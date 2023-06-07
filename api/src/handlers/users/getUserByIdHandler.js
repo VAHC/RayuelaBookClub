@@ -16,3 +16,4 @@ const getUserByIdHandler = async (req, res) => {
 
 
 module.exports = getUserByIdHandler
+
