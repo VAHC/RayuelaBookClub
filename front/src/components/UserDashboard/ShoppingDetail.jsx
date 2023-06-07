@@ -4,6 +4,7 @@ const ShoppingDetail = ({orderDetail}) => {
 
     return (
         <div className="row">
+          <p>Mi compra...</p>
           {orderDetail &&
             orderDetail.map((book, index) => (
               <div id={book.id} key={index} className="col-12">
