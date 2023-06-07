@@ -33,6 +33,7 @@ import {
   FILL_CART
 } from './action';
 
+
 // Initial state
 const initialState = {
   //detail_data es en donde se guarda la data para renderizar en detail, tanto del searchbar como al clickear una portada. 
@@ -114,12 +115,33 @@ const reducer = (state = initialState, action) => {
       }
 
     case SORT_BY_RATING:
-      let arrayOrdenadoRating = state.filterFlag ? state.books : state.booksPage
+
+    const qualificationObtained = (book) => {
+      const reviews = book.reviews
+      const notDeletedReviews = reviews.filter(review => !review.deleted)
+      if (notDeletedReviews && Array.isArray(notDeletedReviews) && notDeletedReviews.length > 0) {
+        let sum = 0;
+        for (let i = 0; i < notDeletedReviews.length; i++) {
+          sum += notDeletedReviews[i].qualification;
+        }
+        let average = sum / notDeletedReviews.length;
+        return Math.round(average);
+      }
+      return 0; // Valor predeterminado si no hay reviews o no es un array válido
+    };
+
+      let booksCopy = [...state.books]
+      let booksPageCopy = [...state.booksPage]
+      let booksTotalQualification = booksCopy.map(book => ({...book, totalQualification: qualificationObtained(book)}))
+      let booksPageTotalQualification = booksPageCopy.map(book => ({...book, totalQualification : qualificationObtained(book)}))
+
+      // let arrayOrdenadoRating = state.filterFlag ? state.books : state.booksPage
+      let arrayOrdenadoRating = state.filterFlag ? booksTotalQualification : booksPageTotalQualification
       let sortRatingArray = action.payload === 'Asc' ? arrayOrdenadoRating.sort((a, b) => {
-        return a.reviews.qualification - b.reviews.qualification
+        return a.totalQualification - b.totalQualification
       }) :
         arrayOrdenadoRating.sort((a, b) => {
-          return b.reviews.qualification - a.reviews.qualification
+          return b.totalQualification - a.totalQualification
         });
       const returnRatingProp = state.filterFlag ? "books" : "booksPage"
       return {

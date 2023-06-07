@@ -2,13 +2,15 @@ const createOrder = require('../../controllers/orders/createOrder')
 
 const createOrderHandler = async (req, res) => {
 
-    const { date, quantity, price_total, id_user } = req.body;
+    const orderData = req.body;
+
+    console.log(orderData);
 
     try {
-        if (!date || !quantity || !price_total) {
-            res.status(400).send('Please check that you have completed all the required fields')
+        if (!orderData) {
+            res.status(400).send('Error')
         } else {
-            const newOrder = await createOrder(date, quantity, price_total, id_user)
+            const newOrder = await createOrder(orderData)
             res.status(200).send('Congratulations! Your order has been created!')
         }
     } catch (error) {
