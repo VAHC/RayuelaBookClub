@@ -99,7 +99,7 @@ const Users = () => {
                     {" "}
                     <Button
                         onClick={() => ableButtonHandler(user)}
-                        // variant={user.deleted ? "success" : "danger"}
+                        variant={user.deleted === true ? "success" : "danger"}
                     >
                         {user.deleted ? "Habilitar" : "deshabilitar"}
                     </Button>

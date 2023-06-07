@@ -247,7 +247,11 @@ export const getAllUsers = () => {
 }
 
 export const deleteUser = async (user, dispatch) => {
-  const updatedUser = { ...user, state: "Blocked"}
-  await axios.put(`${URL_Railway}/users/delete/${user.id}`,updatedUser)
+  // !user.deleted ? { ...user, state: "Blocked", deleted: true } :
+//   const updatedUser =  { ...user, state: "Active", deleted: false };
+
+// console.log(updatedUser);
+
+  await axios.put(`${URL_Railway}/users/delete/${user.id}`)
   dispatch({ type: DELETE_USER })
 }
