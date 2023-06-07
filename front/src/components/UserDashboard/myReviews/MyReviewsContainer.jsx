@@ -59,7 +59,7 @@ const MyReviewsContainer = () => {
         <Container className="min-vh-100">
             <Row>
                 <Col>
-                    <h1>Mis reseñas</h1>
+                    <h2>Mis reseñas</h2>
                 </Col>
             </Row>
 

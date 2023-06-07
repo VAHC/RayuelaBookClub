@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const {User} = require('../db')
 const AES = require('crypto-js/aes');
 
-
+const {URL_Railway_back,URL_Vercel_back} = require ('../../rutas')
 
 
 UserJson=(id,firstName,lastName,email,phone,profile)=>
@@ -67,7 +67,7 @@ const findOrCreate= async (firstName,lastName,username,password,phone,done)=>{
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: 'http://localhost:3001/auth/google/callback',
+        callbackURL: URL_Railway_back+'/auth/google/callback',
         scope: ['email', 'profile'],
       },
       async (accessToken, refreshToken, profile, done) => {
@@ -151,7 +151,7 @@ bookRouterAuth.get(
     const token = jwt.sign({ objetoEncriptado }, 'secreto', { expiresIn: '1d' });
 
     // Redirigir al frontend con el token encriptado en la URL
-    res.redirect(`http://127.0.0.1:5173/ingresar/?token=${encodeURIComponent(token)}`);
+    res.redirect(`${URL_Vercel_back}/?token=${encodeURIComponent(token)}`);
   }
 );
 
