@@ -23,7 +23,7 @@ router.use('/authors', authorRouter)
 router.use('/reviews', reviewsRouter)
 router.use('/users', usersRouter)
 router.use('/mailing', MailingRouter)
-router.use('/orders', orderRouter)
+router.use('/order', orderRouter)
 
 
 module.exports = router
