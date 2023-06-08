@@ -24,6 +24,11 @@ const CartContainer = () => {
         toggleModal()
       }
 
+    const [showForm, setShowForm] = useState(false)
+    const [order, setOrder] = useState([])
+
+    const [buttonSuccess, setButtonSuccess] = useState(false)
+
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem("items"))
         if(items) {
@@ -58,7 +63,15 @@ const CartContainer = () => {
     }
 
     const handleConfirmOrder = () => {
-
+        const cartOrder = cart.map(i => {
+            return {
+              ...i,
+              id_user: user.id
+            }
+          })
+        setButtonSuccess(true)
+        setOrder(cartOrder)
+        setShowForm(true)
     }
  
     return (
@@ -142,18 +155,18 @@ const CartContainer = () => {
                         <hr />
                         <h5>Total: ${totalPrice(cart)}.00</h5>
                         <hr />
-                        <button onClick={handleConfirmCart} className="btn btn-secondary mb-2">Confirmar carrito</button>
+                        <button onClick={handleConfirmCart} className="btn btn-dark mb-2">Confirmar carrito</button>
                     </div>
                 </div>
                 {showModal && <div className="modal" tabIndex="-1" style={{ display: "block" }}>
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">Confirmá tu compra</h5>
-                                <button onClick={onClose} className="btn btn-dark">Cerrar</button>
+                                <h5 className="modal-title">Confirmá tu orden</h5>
+                                <button onClick={onClose} className="btn btn-dark">Volver</button>
                             </div>
                             <div>
-                                <div>
+                                <div className="m-3">
                                     {cart.map((detail, index) => (
                                         <DetailTotalCart
                                             key={index}
@@ -166,14 +179,18 @@ const CartContainer = () => {
                                     ))}
                                 </div>
                                 <hr />
-                                <h5>Total: ${totalPrice(cart)}.00</h5>
+                                <h5 className="ms-3">Total: ${totalPrice(cart)}.00</h5>
                                 <hr />
-                                <button onClick={handleConfirmOrder} className="btn btn-secondary mb-2">Confirmar compra</button>
+                                <div className="d-flex justify-content-center">
+                                    {!buttonSuccess ?
+                                    <button onClick={handleConfirmOrder} className="btn btn-outline-success mb-2">Confirmar orden</button>
+                                    : <button className="btn btn-outline-success mb-2 disabled">Orden confirmada</button>}
+                                </div>
                             </div>
-                            <FormAddress toggleModal={toggleModal}
-                                user={user}
-                            />
-                            <button className="btn btn-secondary mb-2">Pagar</button>
+                            {showForm && <FormAddress order={order}/>}
+                            <div className="d-flex justify-content-center">
+                            <button className="btn btn-success my-3 w-50">Pagar</button>
+                            </div>
                         </div>
                     </div>
                 </div>

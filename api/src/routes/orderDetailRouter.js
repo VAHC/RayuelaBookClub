@@ -4,10 +4,10 @@ const createOrderDetailHandler = require('../handlers/orderDetail/createOrderDet
 const deleteOrderDetailHandler = require('../handlers/orderDetail/deleteOrderDetailHandler')
 const editOrderDetailHandler = require('../handlers/orderDetail/editOrderDetailHandler')
 
-const OrderDetailRouter = Router();
+const orderDetailRouter = Router();
 
-OrderDetailRouter.post('/', createOrderDetailHandler)
-OrderDetailRouter.put('/delete/:id', deleteOrderDetailHandler)
-OrderDetailRouter.put('/:id', editOrderDetailHandler)
+orderDetailRouter.post('/', createOrderDetailHandler)
+orderDetailRouter.put('/delete/:id', deleteOrderDetailHandler)
+orderDetailRouter.put('/:id', editOrderDetailHandler)
 
-module.exports = OrderDetailRouter
+module.exports = orderDetailRouter
