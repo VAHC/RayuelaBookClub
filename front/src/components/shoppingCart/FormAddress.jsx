@@ -30,7 +30,7 @@ export const FormAddress = ({order}) => {
         event.preventDefault()
         order[0] = { ...order[0], ...inputs }
         console.log(order)
-        dispatch(createOrder(order))
+        dispatch(createOrder(order));
     }
 
     return (
