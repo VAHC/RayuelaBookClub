@@ -286,6 +286,6 @@ export const getAllShopping = () => {
   return async (dispatch) => {
     const response = await axios.get(`${URL_Railway}/order`);
     const AllShopping = response.data;
-    dispatch({ type: GET_SHOPPING_BY_USER, payload: AllShopping })
+    dispatch({ type: GET_ALL_SHOPPING, payload: AllShopping })
   }
 }

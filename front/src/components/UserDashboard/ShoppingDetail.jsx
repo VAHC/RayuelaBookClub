@@ -1,16 +1,16 @@
 import React from "react"
 
-const ShoppingDetail = ({orderDetail}) => {
+const ShoppingDetail = ({orderDetails}) => {
 
     return (
         <div className="row">
           <p>Mi compra...</p>
-          {orderDetail &&
-            orderDetail.map((book, index) => (
-              <div id={book.id} key={index} className="col-12">
+          {orderDetails &&
+            orderDetails.map((book, index) => (
+              <div id={book.id_book} key={index} className="col-12">
                 <h6 className="mr-10">
-                  {book.quantity} <span className="small">und{book.quantity > 1 ? "s" : ""}</span>{"   "}
-                  {book.title} {"   "} ${book.price}<span className="small">c/u</span>
+                  {book.quantityDetail} <span className="small">und{book.quantityDetail > 1 ? "s" : ""}</span>{"   "}
+                  {book.titleBook} {"   "} ${book.priceBook}<span className="small">c/u</span>
                 </h6>
               </div>
             ))}

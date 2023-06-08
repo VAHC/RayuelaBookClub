@@ -17,6 +17,7 @@ const MyShopping = () => {
     }, [dispatch])
 
     const userOrders = orders.filter(order => order.id_user === userId)
+    console.log(userOrders);
 
     //CODIGO HARDCODEADO
 // const userOrders = [
@@ -84,11 +85,11 @@ const icons = (state) => {
                                         <OverlayTrigger trigger="click" placement="right" overlay={
                                             <Popover>
                                                 <Popover.Body>
-                                                    <ShoppingDetail orderDetail={order.orderDetail} />
+                                                    <ShoppingDetail orderDetails={order.orderDetails} />
                                                 </Popover.Body>
                                             </Popover>
                                         }>
-                                            <a  className="text-decoration-none" tabindex="0" href="#">Mi compra...</a>
+                                            <a  className="text-decoration-none" tabIndex="0" href="#">Mi compra...</a>
                                             {/* <a  className="text-decoration-none" tabindex="0" href="#">TMi compra...<i className="bi bi-search"/></a> */}
                                         </OverlayTrigger>
                                         </td>
