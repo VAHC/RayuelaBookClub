@@ -38,46 +38,45 @@ const DetailByBook = ({id_book}) => {
         return stars;
     };
     
-    return (  
+    return (
         <div>
-        <Card style={{ width: "100%", height: "100%" }}>
+          <Card style={{ width: "100%", height: "100%" }}>
             <Card.Body className="d-flex flex-column justify-content-evenly">
-                <div className="row">
-                    <div className="col-8">
-                        <h5 style={{ marginRight: "10px", maxWidth: "80%" }}>
-                            {book.title}
-                        </h5>
-                    </div>
-                    <div className="col-4">
-                        <div>{renderStars(qualificationObtained(book))}</div>  
-                    </div>
+              <div className="row">
+                <div className="col-8">
+                  <h5 style={{ marginRight: "10px", maxWidth: "80%" }}>
+                    {book.title}
+                  </h5>
                 </div>
-                <Row>
+                <div className="col-4">
+                  <div>{renderStars(qualificationObtained(book))}</div>
+                </div>
+              </div>
+              <Row className="mt-4"> {/* Agrega la clase de margen superior */}
                 <Col>
-                <Card.Subtitle className="text-muted">Autor</Card.Subtitle>
-                {book.authors.map((author, index) => (
-                            <Card.Text id={author.id} key={index}>
-                                {author}
-                            </Card.Text>
-                        ))}
+                  <Card.Subtitle className="text-muted">Autor</Card.Subtitle>
+                  {book.authors.map((author, index) => (
+                    <Card.Text id={author.id} key={index} className="mb-2"> {/* Agrega la clase de margen inferior */}
+                      {author}
+                    </Card.Text>
+                  ))}
                 </Col>
                 <Col>
-                <Card.Subtitle className="text-muted">Género</Card.Subtitle>
-                {book.genders.map((genre, index) => (
-                        <Card.Text id={genre.id} key={index}>
-                            <p>{genre}</p>
-                        </Card.Text>
-                    ))}
+                  <Card.Subtitle className="text-muted">Género</Card.Subtitle>
+                  {book.genders.map((genre, index) => (
+                    <Card.Text id={genre.id} key={index} className="mb-2"> {/* Agrega la clase de margen inferior */}
+                      <p>{genre}</p>
+                    </Card.Text>
+                  ))}
                 </Col>
-                </Row>
-                <Card.Text style={{ overflow: "auto", height: "200px" }}>
-            {book.description}
-          </Card.Text>
+              </Row>
+              <Card.Text style={{ overflow: "auto", marginTop: "20px", height: "200px" }}> {/* Ajusta el margen superior */}
+                {book.description}
+              </Card.Text>
             </Card.Body>
-            </Card>
-            
+          </Card>
         </div>
-    )
+      );
 }
 
 export default DetailByBook
