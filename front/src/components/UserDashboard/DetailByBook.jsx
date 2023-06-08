@@ -2,15 +2,17 @@ import React from 'react';
 import { useEffect } from 'react';
 import {useDispatch, useSelector } from 'react-redux';
 import { getBookById } from '../../redux/action';
-import { useParams } from 'react-router-dom';
 
 const DetailByBook = ({id_book}) => {
-    const book = useSelector((state) => state.bookById);
     const dispatch = useDispatch();
-
+    console.log(id_book);
+    
     useEffect(() => {
         dispatch(getBookById(id_book))
     }, [id_book])
+    
+    const book = useSelector((state) => state.bookById);
+    console.log(book);
 
     const qualificationObtained = (book) => {
         const reviews = book.reviews
@@ -25,7 +27,7 @@ const DetailByBook = ({id_book}) => {
         }
         return 0; // Valor predeterminado si no hay reviews o no es un array válido
     };
-       
+       console.log(qualificationObtained(book));
     const renderStars = (rating) => {
         const stars = [];
         for (let i = 1; i <= 5; i++) {
@@ -35,8 +37,10 @@ const DetailByBook = ({id_book}) => {
         return stars;
     };
     
-    return (
+    return (  
         <div>
+            <h4>soy el detalle del libro {id_book}</h4>
+            <h5>{book.title}</h5>
             <div>{renderStars(qualificationObtained(book))}</div>
                 <div>
                     <h6>Autor</h6>
