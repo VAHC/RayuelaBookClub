@@ -5,6 +5,7 @@ import ShoppingDetail from "./ShoppingDetail";
 import {Container, Row, Col, Table, Popover, OverlayTrigger} from "react-bootstrap"; 
 import { useSelector, useDispatch } from "react-redux";
 import { getAllShopping } from "../../redux/action";
+import './customStyles.css';
 
 const MyShopping = () => {
 //     //CODIGO CUANDO LA RUTA USER_BY_ID INCLUYA ORDERS
@@ -61,7 +62,7 @@ const icons = (state) => {
                                         <td>{order.date}</td>
                                         <td>
                                         <OverlayTrigger trigger="click" placement="right" overlay={
-                                            <Popover>
+                                            <Popover className="custom-popover">
                                                 <Popover.Body>
                                                     <ShoppingDetail orderDetails={order.orderDetails} />
                                                 </Popover.Body>
