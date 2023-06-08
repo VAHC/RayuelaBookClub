@@ -7,12 +7,13 @@ const passport = require('passport');
 const session = require('express-session');
 const cors = require('cors');
 
+const {URL_Vercel_back} = require ('../rutas.js')
 
 const server = express();
 
 // Configuración básica de CORS
 const corsOptions = {
-  origin: 'http://127.0.0.1:5173',
+  origin: URL_Vercel_back,
   credentials: true,
 };
 
@@ -47,7 +48,7 @@ server.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
   next()
 })
-
+//hola
 server.use('/', routes)
 
 // Error catching endware.

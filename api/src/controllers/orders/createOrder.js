@@ -48,5 +48,4 @@ const createOrder = async (orderData) => {
     await newOrder.save();
 };
 
-
 module.exports = createOrder;
