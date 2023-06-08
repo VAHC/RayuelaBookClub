@@ -1,8 +1,12 @@
-const { Order, OrderDetail, Book } = require('../../db');
+const { Order, OrderDetail, Book, User } = require('../../db');
 
 const getAllOrdersHistory = async () => {
   const orders = await Order.findAll({
     include: [
+      {
+        model: User,
+        attributes:['id']
+      },
       {
         model: OrderDetail,
         attributes: ['quantity'],
@@ -32,6 +36,7 @@ const getAllOrdersHistory = async () => {
     const transformedDate = `${formattedDate}, ${formattedTime}`;
     
     return{
+        id_user: order.id_user,
         id: order.id,
         date: transformedDate,
         quantity: order.quantity,
