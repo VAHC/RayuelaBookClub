@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import validation from "./validationRegistro";
 import { useDispatch } from 'react-redux';
@@ -9,7 +9,6 @@ export const Registro = ({setCompoActivo}) => {
 
     //const URL = URL_Railway+"/books/auth/authSocial"
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const onClickHandler = (nombreCompo)=> {return setCompoActivo(nombreCompo)}
 
@@ -74,7 +73,7 @@ export const Registro = ({setCompoActivo}) => {
                 if (response.status === 200) {
                     setUserCreated(true);
                     setTimeout(() => setUserCreated(false), 3000)
-                    setTimeout(() => navigate("/ingresar"), 3000)
+                    setTimeout(() => onClickHandler('login'), 3000)
                 } else alert("ERROR")
             })
             .catch((error) => {
