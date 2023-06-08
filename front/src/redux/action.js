@@ -36,7 +36,9 @@ export const FILL_CART = "FILL_CART";
 export const CREATE_ORDER = "CREATE_ORDER";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const DELETE_USER = "DELETE_USER";
-export const GET_SHOPPING_BY_USER = "GET_SHOPPING_BY_USER";
+export const GET_ALL_SHOPPING = "GET_ALL_SHOPPING";
+export const GET_BOOK_BY_ID = "GET_BOOK_BY_ID";
+
 
 export const getAllBooks = () => {
   return async (dispatch) => {
@@ -282,10 +284,18 @@ export const deleteUser = async (user, dispatch) => {
   dispatch({ type: DELETE_USER })
 }
 
-export const getShoppingByUser = () => {
+export const getAllShopping = () => {
   return async (dispatch) => {
-    const response = await axios.get(`${URL_Railway}/users/${userId}`);
-    const userShopping = response.data;
-    dispatch({ type: GET_SHOPPING_BY_USER, payload: userShopping })
+    const response = await axios.get(`${URL_Railway}/order`);
+    const AllShopping = response.data;
+    dispatch({ type: GET_ALL_SHOPPING, payload: AllShopping })
+  }
+}
+
+export const getBookById = (bookId) => {
+  return async (dispatch) => {
+    const response = await axios.get(`${URL_Railway}/books/${bookId}`);
+    const bookById = response.data;
+    dispatch({ type: GET_BOOK_BY_ID, payload: bookById })
   }
 }

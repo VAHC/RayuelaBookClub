@@ -31,8 +31,9 @@ import {
   GET_ALL_USERS,
   DELETE_USER,
   FILL_CART,
-  GET_SHOPPING_BY_USER,
+  GET_ALL_SHOPPING,
   CREATE_ORDER,
+  GET_BOOK_BY_ID,
 } from './action';
 
 // Initial state
@@ -65,8 +66,10 @@ const initialState = {
   cart: [],
   //Array todos los Usuarios
   allUsers: [],
-  //Array compras por usuario
-  userOrders: [],
+  //Array historial de compras
+  allOrders: [],
+  //traigo detalle de libro por id
+  bookById: {}
 }
 
 // Reducer
@@ -391,11 +394,17 @@ const reducer = (state = initialState, action) => {
         ...state
       }
 
-      // case GET_SHOPPING_BY_USER:
-      //   return {
-      //     ...state,
-      //     userOrders: action.payload.orders
-      //   }
+      case GET_ALL_SHOPPING:
+        return {
+          ...state,
+          allOrders: action.payload
+        }
+
+      case GET_BOOK_BY_ID:
+        return {
+          ...state, 
+          bookById: action.payload
+        }
     
     default:
       return state;
