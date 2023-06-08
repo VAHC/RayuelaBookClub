@@ -181,7 +181,7 @@ passport.use(new PassPortLocal({ passReqToCallback: true,  usernameField: 'email
           phone=req.body.phone
           if(!phone)
           {
-            phone=0
+            phone=12345678901
           }
           if(firstName && lastName && username && password  ){
             const [user, created] = await User.findOrCreate({ where: { email: username },
