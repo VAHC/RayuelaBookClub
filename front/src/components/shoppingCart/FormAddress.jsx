@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { createUser } from "../../redux/action";
+import { createOrder } from "../../redux/action";
 
-export const FormAddress = ({user}) => {
+export const FormAddress = ({order}) => {
 
     const dispatch = useDispatch();
     
     //Estado local para los inputs del form
     const [inputs, setInputs] = useState({
-        calle: "",
-        piso: "",
-        ciudad: "",
+        street_and_number: "",
+        floor_and_department: "",
+        city: "",
         CP: 0,
-        provincia: ""
+        province: ""
     })
 
     const [error, setError] = useState("")
@@ -28,10 +28,9 @@ export const FormAddress = ({user}) => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        //dispatch(createUser({
-        //     ...inputs,
-        //     userId: user.id
-        // }))
+        order[0] = { ...order[0], ...inputs }
+        console.log(order)
+        dispatch(createOrder(order))
     }
 
     return (
@@ -40,18 +39,18 @@ export const FormAddress = ({user}) => {
             <div className="d-flex justify-content-center mx-4">
                 <form className="row g-2 md-2 w-100" onSubmit={handleSubmit}>
                     <div className="col-md-8">
-                        <label htmlFor="calle" className="form-label">Calle y número: *</label>
-                        <input type="text" className="form-control" name="calle" value={inputs.calle} onChange={handleInputChange} required />
+                        <label htmlFor="street_and_number" className="form-label">Calle y número: *</label>
+                        <input type="text" className="form-control" name="street_and_number" value={inputs.street_and_number} onChange={handleInputChange} required />
                     </div>
 
                     <div className="col-md-4">
-                        <label htmlFor="piso" className="form-label">Piso y depto:</label>
-                        <input type="text" className="form-control" name="piso" value={inputs.piso} onChange={handleInputChange} required />
+                        <label htmlFor="floor_and_department" className="form-label">Piso y depto:</label>
+                        <input type="text" className="form-control" name="floor_and_department" value={inputs.floor_and_department} onChange={handleInputChange}/>
                     </div>
 
                     <div className="col-md-8">
-                        <label htmlFor="ciudad" className="form-label">Ciudad: *</label>
-                        <input type="text" className="form-control" name="ciudad" value={inputs.ciudad} onChange={handleInputChange} required />
+                        <label htmlFor="city" className="form-label">Ciudad: *</label>
+                        <input type="text" className="form-control" name="city" value={inputs.city} onChange={handleInputChange} required />
                     </div>
 
                     <div className="col-md-4">
@@ -60,8 +59,8 @@ export const FormAddress = ({user}) => {
                     </div>
 
                     <div className="col-md-12">
-                        <label htmlFor="provincia" className="form-label">Provincia *</label>
-                        <input type="text" className="form-control" name="provincia" value={inputs.provincia} onChange={handleInputChange} />
+                        <label htmlFor="province" className="form-label">Provincia: *</label>
+                        <input type="text" className="form-control" name="province" value={inputs.province} onChange={handleInputChange} />
                         {error && <p className="text-center text-danger">{error}</p>}
                     </div>
 
@@ -76,7 +75,7 @@ export const FormAddress = ({user}) => {
 
 const validation = (inputs) => {
     let error = ""
-    if (!inputs.calle || !inputs.ciudad || !inputs.CP || !inputs.provincia) {
+    if (!inputs.street_and_number || !inputs.city || !inputs.CP || !inputs.province) {
         error = "Debés completar los campos obligatorios marcados con * "
     }
     return error

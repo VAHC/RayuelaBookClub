@@ -4,7 +4,7 @@ import DetailTotalCart from "./DetailTotalCart";
 import { FormAddress } from "./FormAddress";
 import { Container, Row, Col, Button, Table } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart, removeFromCart, removeItems, emptyCart, fillCart, createOrder } from "../../redux/action";
+import { addToCart, removeFromCart, removeItems, emptyCart, fillCart } from "../../redux/action";
 import { totalByitem, totalItems, totalPrice } from './helpers'
 
 const CartContainer = () => {
@@ -23,6 +23,9 @@ const CartContainer = () => {
     const onClose = () => {
         toggleModal()
       }
+
+    const [showForm, setShowForm] = useState(false)
+    const [order, setOrder] = useState([])
 
     const [buttonSuccess, setButtonSuccess] = useState(false)
 
@@ -66,8 +69,9 @@ const CartContainer = () => {
               id_user: user.id
             }
           })
-        dispatch(createOrder(cartOrder))
         setButtonSuccess(true)
+        setOrder(cartOrder)
+        setShowForm(true)
     }
  
     return (
@@ -183,8 +187,7 @@ const CartContainer = () => {
                                     : <button className="btn btn-outline-success mb-2 disabled">Orden confirmada</button>}
                                 </div>
                             </div>
-                            <FormAddress user={user}
-                            />
+                            {showForm && <FormAddress order={order}/>}
                             <div className="d-flex justify-content-center">
                             <button className="btn btn-success my-3 w-50">Pagar</button>
                             </div>
