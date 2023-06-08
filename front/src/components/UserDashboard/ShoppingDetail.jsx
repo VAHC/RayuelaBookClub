@@ -1,9 +1,8 @@
 import React from "react"
-import { useState } from "react";
-import { Modal, Button, Accordion } from 'react-bootstrap';
+import {  Accordion } from 'react-bootstrap';
+import DetailByBook from './DetailByBook';
 
 const ShoppingDetail = ({orderDetails}) => {
-  const {showDetail, setShowDetail} = useState(false)
 
   return (
     <div className="row">
@@ -20,7 +19,7 @@ const ShoppingDetail = ({orderDetails}) => {
                 <Accordion.Item eventKey="0">
                   <Accordion.Header>{book.titleBook}</Accordion.Header>
                   <Accordion.Body>
-                    <p>Aquí estará el detalle del libro</p>
+                    <DetailByBook id_book={book.id_book}/>
                   </Accordion.Body>
                 </Accordion.Item>
               </Accordion>
