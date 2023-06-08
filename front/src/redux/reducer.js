@@ -31,7 +31,7 @@ import {
   GET_ALL_USERS,
   DELETE_USER,
   FILL_CART,
-  GET_SHOPPING_BY_USER,
+  GET_ALL_SHOPPING,
   CREATE_ORDER,
 } from './action';
 
@@ -65,8 +65,8 @@ const initialState = {
   cart: [],
   //Array todos los Usuarios
   allUsers: [],
-  //Array compras por usuario
-  userOrders: [],
+  //Array historial de compras
+  allOrders: [],
 }
 
 // Reducer
@@ -391,11 +391,11 @@ const reducer = (state = initialState, action) => {
         ...state
       }
 
-      // case GET_SHOPPING_BY_USER:
-      //   return {
-      //     ...state,
-      //     userOrders: action.payload.orders
-      //   }
+      case GET_ALL_SHOPPING:
+        return {
+          ...state,
+          allOrders: action.payload
+        }
     
     default:
       return state;

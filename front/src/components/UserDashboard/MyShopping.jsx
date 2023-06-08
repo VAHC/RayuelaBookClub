@@ -1,43 +1,44 @@
 import React from "react";
-// import { useEffect } from "react";
+import { useEffect } from "react";
 import {Link} from 'react-router-dom';
 import ShoppingDetail from "./ShoppingDetail";
 import {Container, Row, Col, Table, Popover, OverlayTrigger} from "react-bootstrap"; 
-// import { useSelector, useDispatch } from "react-redux";
-// import { getShoppingByUser } from "../../redux/action";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllShopping } from "../../redux/action";
 
 const MyShopping = () => {
     //CODIGO CUANDO LA RUTA USER_BY_ID INCLUYA ORDERS
-    // const userOrders = useSelector((state) => state.userOrders);
-    // const userId = useSelector((state) => state.user.id)
-    // const dispatch = useDispatch();
+    const orders = useSelector((state) => state.allOrders);
+    const userId = useSelector((state) => state.user.id)
+    const dispatch = useDispatch();
 
-    // useEffect(()=> {
-    //     dispatch(getShoppingByUser(userId))
-    // }, [dispatch])
+    useEffect(()=> {
+        dispatch(getAllShopping())
+    }, [dispatch])
+
+    const userOrders = orders.filter(order => order.id_user === userId)
 
     //CODIGO HARDCODEADO
-// const orders = []
-const userOrders = [
-    { 
-        id : 1,
-        date : '05/05/23',
-        orderDetail: [{title:'Rayuela', quantity: 1, price: 100}, {title: 'El principito', quantity: 2, price: 50}],
-        quantity: 3,
-        price_total: '200,00',
-        state: 'Completed',
-        deleted: false
-    }, 
-    { 
-        id : 2,
-        date : '06/06/23',
-        orderDetail: [{title:'Rayuela', quantity: 2, price: 100}, {title: 'El principito', quantity: 4, price: 50}],
-        quantity: 6,
-        price_total: '400,00',
-        state: 'Pending', 
-        deleted: false
-    },
-]
+// const userOrders = [
+//     { 
+//         id : 1,
+//         date : '05/05/23',
+//         orderDetail: [{title:'Rayuela', quantity: 1, price: 100}, {title: 'El principito', quantity: 2, price: 50}],
+//         quantity: 3,
+//         price_total: '200,00',
+//         state: 'Completed',
+//         deleted: false
+//     }, 
+//     { 
+//         id : 2,
+//         date : '06/06/23',
+//         orderDetail: [{title:'Rayuela', quantity: 2, price: 100}, {title: 'El principito', quantity: 4, price: 50}],
+//         quantity: 6,
+//         price_total: '400,00',
+//         state: 'Pending', 
+//         deleted: false
+//     },
+// ]
 
 const icons = (state) => {
     if(state === "Created") return <i className="bi bi-pencil-square display-6 text-primary"/>
