@@ -32,8 +32,8 @@ import {
   DELETE_USER,
   FILL_CART,
   GET_SHOPPING_BY_USER,
+  CREATE_ORDER,
 } from './action';
-
 
 // Initial state
 const initialState = {
@@ -326,9 +326,10 @@ const reducer = (state = initialState, action) => {
           window.alert('No hay stock suficiente');
         }
       } else {
-        cartCopy.push({ ...action.payload, quantity: 1 });
-      }
-      return {
+        const { id, price, stock, title } = action.payload
+        cartCopy.push({id_book: id, price, stock, title, quantity: 1 });
+    }
+    return {
         ...state,
         cart: cartCopy,
       }
@@ -385,16 +386,20 @@ const reducer = (state = initialState, action) => {
         cart: action.payload
       }
 
+    case CREATE_ORDER:
+      return {
+        ...state
+      }
+
       // case GET_SHOPPING_BY_USER:
       //   return {
       //     ...state,
       //     userOrders: action.payload.orders
       //   }
-
+    
     default:
       return state;
   }
-
 }
 
 export default reducer;
