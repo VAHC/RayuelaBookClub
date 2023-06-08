@@ -13,7 +13,7 @@ const getAllOrdersHistory = async () => {
         include: [
           {
             model: Book,
-            attributes: ['title', 'price'],
+            attributes: ['id', 'title', 'price'],
           },
         ],
       },
@@ -44,6 +44,7 @@ const getAllOrdersHistory = async () => {
         state: order.state,
         orderDetails: order.orderDetails.map(e => ({
           quantityDetail: e.quantity,
+          id_book: e.book.id,
           titleBook: e.book.title,
           priceBook: e.book.price
         })),
