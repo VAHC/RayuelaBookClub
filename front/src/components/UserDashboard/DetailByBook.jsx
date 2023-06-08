@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import {useDispatch, useSelector } from 'react-redux';
 import { getBookById } from '../../redux/action';
+import { Card, Button, Row, Col } from "react-bootstrap";
 
 const DetailByBook = ({id_book}) => {
     const dispatch = useDispatch();
@@ -39,28 +40,42 @@ const DetailByBook = ({id_book}) => {
     
     return (  
         <div>
-            <h4>soy el detalle del libro {id_book}</h4>
-            <h5>{book.title}</h5>
-            <div>{renderStars(qualificationObtained(book))}</div>
-                <div>
-                    <h6>Autor</h6>
-                        {book.authors.map((author, index) => (
-                            <div id={author.id} key={index}>
-                                <p>{author}</p>
-                            </div>
+        <Card style={{ width: "100%", height: "100%" }}>
+            <Card.Body className="d-flex flex-column justify-content-evenly">
+                <div className="row">
+                    <div className="col-8">
+                        <h5 style={{ marginRight: "10px", maxWidth: "80%" }}>
+                            {book.title}
+                        </h5>
+                    </div>
+                    <div className="col-4">
+                        <div>{renderStars(qualificationObtained(book))}</div>  
+                    </div>
+                </div>
+                <Row>
+                <Col>
+                <Card.Subtitle className="text-muted">Autor</Card.Subtitle>
+                {book.authors.map((author, index) => (
+                            <Card.Text id={author.id} key={index}>
+                                {author}
+                            </Card.Text>
                         ))}
-                </div>
-                <div>
-                    <h6>Género</h6>
-                    {book.genders.map((genre, index) => (
-                        <div id={genre.id} key={index}>
+                </Col>
+                <Col>
+                <Card.Subtitle className="text-muted">Género</Card.Subtitle>
+                {book.genders.map((genre, index) => (
+                        <Card.Text id={genre.id} key={index}>
                             <p>{genre}</p>
-                        </div>
+                        </Card.Text>
                     ))}
-                </div>
-                <div>
-                    <p>{book.description}</p>
-                </div>    
+                </Col>
+                </Row>
+                <Card.Text style={{ overflow: "auto", height: "200px" }}>
+            {book.description}
+          </Card.Text>
+            </Card.Body>
+            </Card>
+            
         </div>
     )
 }
