@@ -28,11 +28,11 @@ module.exports = (sequelize) => {
       allowNull: false,
       validate: {
         min: {
-          args: 1,
+          args: [1],
           msg: 'La calificación debe ser un número entero positivo.'
         },
         max: {
-          args: 5,
+          args: [5],
           msg: 'La calificación debe ser un número entero menor o igual a 5.'
         }
       }
@@ -50,16 +50,16 @@ module.exports = (sequelize) => {
         }
       }
     },
+    deleted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
+    },
     createdDb: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true
     },
-    deleted: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
-    }
   },
   {
     timestamps: false

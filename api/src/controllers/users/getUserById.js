@@ -23,6 +23,9 @@ const getUserById = async (id) => {
             phone: user.phone,
             profile: user.profile,
             createdDb: user.createdDb,
+            suscribed:user.suscribed,
+            date_suscription:user.date_suscription,
+            state:user.state,
             deleted: user.deleted,
             reviews: user.reviews.map(r => {
                 return {

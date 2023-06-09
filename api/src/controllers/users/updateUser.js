@@ -1,6 +1,6 @@
 const { User } = require('../../db');
 
-const updateUser = async (id, firstName, lastName, email, password, phone, profile) => {
+const updateUser = async (id, firstName, lastName, email, phone, profile) => {
 
     const userToUpdate = await User.findByPk(id);
 
@@ -11,10 +11,9 @@ const updateUser = async (id, firstName, lastName, email, password, phone, profi
         userToUpdate.firstName = firstName
         userToUpdate.lastName = lastName
         userToUpdate.email = email
-        userToUpdate.password = password
         userToUpdate.phone = phone
         userToUpdate.profile = profile
-
+        console.log("succesful update")
         await userToUpdate.save()
     }
 }
