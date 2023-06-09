@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createOrder } from "../../redux/action";
 
-export const FormAddress = ({order}) => {
+export const FormAddressSus = ({susc}) => {
 
     const dispatch = useDispatch();
     
@@ -29,12 +29,12 @@ export const FormAddress = ({order}) => {
         const validationResult = validation(inputs)
             setError(validationResult)
         }
-
+    
     //Cuando se envía el formulario con la dirección completa se arma el array para despachar
     const handleSubmit = (event) => {
         event.preventDefault()
-        order[0] = { ...order[0], ...inputs }
-        dispatch(createOrder(order))
+        susc[0] = { ...susc[0], ...inputs }
+        dispatch(createOrder(susc))
     }
 
     //Función para cambiar el botón si se envió toda la información
@@ -44,7 +44,7 @@ export const FormAddress = ({order}) => {
 
     return (
         <>
-            <h6 className="text-center my-2 fw-bold">¿Dónde querés recibir tu compra?</h6>
+            <h6 className="text-center my-2 fw-bold">¿Dónde querés recibir tu paquete de suscripción?</h6>
             <div className="d-flex justify-content-center mx-4">
                 <form className="row g-2 md-2 w-100" onSubmit={handleSubmit}>
                     <div className="col-md-8">
