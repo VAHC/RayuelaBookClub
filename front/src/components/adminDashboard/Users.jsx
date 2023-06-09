@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
-import {
-    Container,
-    Row,
-    Col,
-
-    Button,
-    Table,
-
-} from "react-bootstrap";
+import { Container, Row, Col, Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUsers, deleteUser,filterProfileUser,filterStateUser } from "../../redux/action";
+import {
+    getAllUsers,
+    deleteUser,
+    filterProfileUser,
+    filterStateUser,
+} from "../../redux/action";
 
 const Users = () => {
     const allUsers = useSelector((state) => state.allUsers);
+
     const filteredUsers = useSelector((state) => state.filteredUsers);
     const [filtersValue, setFiltersValues] = useState({
         profile: "",
@@ -26,6 +24,15 @@ const Users = () => {
         //console.log("se hace el dispatch para buscar allBooks");
     }, []);
 
+    useEffect(() => {
+        if (filtersValue.profile)
+            dispatch(filterProfileUser(filtersValue.profile));
+    }, [filtersValue.profile]);
+
+    useEffect(() => {
+        if (filtersValue.state) dispatch(filterStateUser(filtersValue.state));
+    }, [filtersValue.state]);
+
     const ableButtonHandler = async (user) => {
         console.log("Estoy modificando el deleted de este User: " + user.id);
         await deleteUser(user, dispatch);
@@ -33,20 +40,16 @@ const Users = () => {
     };
 
     const filterHandler = (event) => {
-        
-
-        if(event.target.name === "profile"){
-            console.log("pasa por aca")
-            setFiltersValues({ ...filtersValue, profile: event.target.value });
-            dispatch(filterProfileUser(filtersValue.profile))
-        }else{
-            console.log("pasa por el otro")
-            setFiltersValues({ ...filtersValue, state: event.target.value });
-            dispatch(filterStateUser(filtersValue.state))
+        if (event.target.name === "profile") {
+            console.log("pasa por aca");
+            setFiltersValues({ ...filtersValue, profile: event.target.value, state: "All" });
+        } else {
+            console.log("pasa por el otro");
+            setFiltersValues({ ...filtersValue, state: event.target.value, profile: "All" });
         }
     };
 
-    const usersMap = allUsers.map((user, index) => {
+    const usersMap = filteredUsers.map((user, index) => {
         return (
             <tr key={index}>
                 <td>{user.id}</td>
@@ -88,13 +91,12 @@ const Users = () => {
                     <div className="m-1 mb-3">
                         <select
                             className="form-select"
+                            value={filtersValue.profile}
                             onChange={(e) => filterHandler(e)}
-                            defaultValue = {"All"}
+                            defaultValue={"All"}
                             name={"profile"}
                         >
-                            <option value="All" >
-                                All
-                            </option>
+                            <option value="All">All</option>
                             <option value="admin">admin</option>
                             <option value="usuario">usuario</option>
                         </select>
@@ -105,25 +107,16 @@ const Users = () => {
                         <h6 className="mx-2">Filtrar por Estado</h6>
                         <select
                             className="form-select"
+                            value={filtersValue.state}
                             onChange={(e) => filterHandler(e)}
-                            defaultValue = {"All"}
+                            defaultValue={"All"}
                             name={"state"}
                         >
-                            <option value="All" >
-                                All
-                            </option>
-                            <option value="Active" >
-                                Active
-                            </option>
-                            <option value="Inactive" >
-                                Inactive
-                            </option>
-                            <option value="New" >
-                                New
-                            </option>
-                            <option value="Blocked" >
-                                Blocked
-                            </option>
+                            <option value="All">All</option>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                            <option value="New">New</option>
+                            <option value="Blocked">Blocked</option>
                         </select>
                     </div>
                 </Col>
