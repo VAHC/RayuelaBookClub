@@ -5,7 +5,8 @@ import { FormAddress } from "./FormAddress";
 import { Container, Row, Col, Button, Table } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart, removeFromCart, removeItems, emptyCart, fillCart } from "../../redux/action";
-import { totalByitem, totalItems, totalPrice } from './helpers'
+import { totalByitem, totalItems, totalPrice } from './helpers';
+import axios from "axios";
 
 const CartContainer = () => {
 
@@ -73,7 +74,23 @@ const CartContainer = () => {
         setOrder(cartOrder)
         setShowForm(true)
     }
- 
+
+    const mpHandler = async () => {   
+
+      const cartItems =  {
+          title: 'Detalle de tu compra',
+          quantity: 1,
+          price: totalPrice(cart),
+        };
+
+      console.log(cartItems);
+
+      await axios.post('http://localhost:3001/mercadopago/payment', cartItems)
+      .then((res) => 
+      window.location.href = res.data.response.body.init_point
+      )
+    }
+    
     return (
         <>
             <nav className="navbar navbar-light bg-dark mb-3">
@@ -189,7 +206,7 @@ const CartContainer = () => {
                             </div>
                             {showForm && <FormAddress order={order}/>}
                             <div className="d-flex justify-content-center">
-                            <button className="btn btn-success my-3 w-50">Pagar</button>
+                            <button onClick={mpHandler} className="btn btn-success my-3 w-50">Pagar</button>
                             </div>
                         </div>
                     </div>
