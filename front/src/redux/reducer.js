@@ -36,6 +36,7 @@ import {
   GET_ALL_SHOPPING,
   CREATE_ORDER,
   GET_BOOK_BY_ID,
+  // GET_USER_BY_ID,
 } from './action';
 
 // Initial state
@@ -73,7 +74,9 @@ const initialState = {
   //Array historial de compras
   allOrders: [],
   //traigo detalle de libro por id
-  bookById: {}
+  bookById: {},
+  //trae info completa de un usuario por id
+  userById: {},
 }
 
 // Reducer
@@ -443,6 +446,20 @@ const reducer = (state = initialState, action) => {
         ...state,
         bookById: action.payload
       }
+
+      //case GET_BOOK_BY_ID:
+      //  return {
+      //    ...state, 
+       //   bookById: action.payload
+       // }
+      
+      // case GET_USER_BY_ID:
+      //   console.log('entra en el reducer');
+      // return {
+      //   ...state,
+      //   userById: action.payload
+      // }
+    
 
     default:
       return state;
