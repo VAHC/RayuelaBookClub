@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import {useDispatch, useSelector } from 'react-redux';
 import { getBookById } from '../../redux/action';
-import { Card, Button, Row, Col } from "react-bootstrap";
+import { Card, Row, Col } from "react-bootstrap";
 
 const DetailByBook = ({id_book}) => {
     const dispatch = useDispatch();
@@ -16,18 +16,21 @@ const DetailByBook = ({id_book}) => {
     console.log(book);
 
     const qualificationObtained = (book) => {
-        const reviews = book.reviews
-        const notDeletedReviews = reviews.filter(review => !review.deleted)
-        if (notDeletedReviews && Array.isArray(notDeletedReviews) && notDeletedReviews.length > 0) {
-          let sum = 0;
-          for (let i = 0; i < notDeletedReviews.length; i++) {
-            sum += notDeletedReviews[i].qualification;
+        const reviews = book.reviews;
+        if (reviews && Array.isArray(reviews) && reviews.length > 0) {
+          const notDeletedReviews = reviews.filter((review) => !review.deleted);
+          if (notDeletedReviews.length > 0) {
+            let sum = 0;
+            for (let i = 0; i < notDeletedReviews.length; i++) {
+              sum += notDeletedReviews[i].qualification;
+            }
+            let average = sum / notDeletedReviews.length;
+            return Math.round(average);
           }
-          let average = sum / notDeletedReviews.length;
-          return Math.round(average);
         }
         return 0; // Valor predeterminado si no hay reviews o no es un array válido
-    };
+      }
+
        console.log(qualificationObtained(book));
     const renderStars = (rating) => {
         const stars = [];
@@ -55,7 +58,7 @@ const DetailByBook = ({id_book}) => {
               <Row className="mt-4"> {/* Agrega la clase de margen superior */}
                 <Col>
                   <Card.Subtitle className="text-muted">Autor</Card.Subtitle>
-                  {book.authors.map((author, index) => (
+                  {book.authors && book.authors.map((author, index) => (
                     <Card.Text id={author.id} key={index} className="mb-2"> {/* Agrega la clase de margen inferior */}
                       {author}
                     </Card.Text>
@@ -63,9 +66,9 @@ const DetailByBook = ({id_book}) => {
                 </Col>
                 <Col>
                   <Card.Subtitle className="text-muted">Género</Card.Subtitle>
-                  {book.genders.map((genre, index) => (
+                  {book.genders && book.genders.map((genre, index) => (
                     <Card.Text id={genre.id} key={index} className="mb-2"> {/* Agrega la clase de margen inferior */}
-                      <p>{genre}</p>
+                      {genre}
                     </Card.Text>
                   ))}
                 </Col>
