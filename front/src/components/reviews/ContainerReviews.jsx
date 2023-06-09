@@ -1,95 +1,83 @@
-import React from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+// import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Modal, Button, Accordion } from 'react-bootstrap';
 import Review from './Review';
-import {useNavigate, useParams} from 'react-router-dom';
-import { useEffect } from 'react';
-import {getReviewsBook} from '../../redux/action';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { getReviewsBook } from '../../redux/action';
+import FormCreateReview from './FormCreateReview';
 
 
-// const ContainerReviews = ({toggleModal}) => {
-  const ContainerReviews = () => {
-    // const book = useSelector(state => state.reviewsBook);
-    // const reviewsBook = book.reviews
+const ContainerReviews = ({ bookId, toggleModal }) => {
+  //console.log('review' + bookId);
+  const reviewsBook = useSelector((state) => state.reviewsBook);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [showForm, setShowForm] = useState(false);
+  const user = useSelector((state)  => state.user) //estado que comprueba que se esta logueado
+console.log(reviewsBook);
+  const notDeletedReviews = reviewsBook.filter(review => !review.deleted)
+//console.log( notDeletedReviews);
+  useEffect(() => {
+    dispatch(getReviewsBook(bookId));
+  }, [bookId]);
 
-    const reviewsBook = useSelector(state => state.reviewsBook);
-    console.log(reviewsBook);
+  // const notLogin = () => {
+  //     alert('Antes de dejar tu reseña debés loguearte')
+  //     setTimeout(function(){
+  //         navigate('/ingresar')//si no estoy logueado redirege al login
+  //     }, 2000) 
+  // }
+  
+  const handleToggleForm = () => {
+    setShowForm(!showForm);
+  };
 
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    // const {bookId} = useParams();
-
-    // useEffect(() => {
-    //   dispatch(getReviewsBook(bookId))
-    // }, [bookId]);
-
-    useEffect(() => {
-      dispatch(getReviewsBook())
-    }, []);
-
-    return (
-      <div className="d-flex flex-column align-items-center">
-        {!reviewsBook.length ? 
+  return (
+    <Modal show={true} onHide={toggleModal}>
+      <Modal.Header closeButton>
+        <Modal.Title>Reseñas</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        {!notDeletedReviews.length ? (
           <div>
             <h6>Aún no hay reseñas...</h6>
             <h5>Sé el primero en dejar una!</h5>
-          </div> :
-         reviewsBook.map((r) => ( 
+          </div>
+        ) : (
+          notDeletedReviews.map((r) => (
             <Review
               id={r.id}
+              deleted={r.deleted}
               title={r.title}
               qualification={r.qualification}
               comment={r.comment}
-              user={r.user}
+              userFirstName={r.userFirstName}
               key={r.id}
             />
-          ))}
-        <button className='btn btn-dark m-2' onClick={() => navigate('/crearReseña')}>Deja tu reseña</button>
-      </div>
-    )  
+          ))
+        )}
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={toggleModal}>
+          Cerrar
+        </Button>
+        {/* <Button variant="primary">Deja tu reseña</Button> */}
+        <div className="d-flex justify-content-center align-items-center">
+        <Accordion>
+          <Accordion.Item eventKey="0">
+            <Accordion.Header>Deja tu reseña</Accordion.Header>
+            <Accordion.Body>
+              {/* {!user ? notLogin() :  */}
+              <FormCreateReview handleToggleForm={handleToggleForm} bookId={bookId} toggleModal={toggleModal}/>
+            {/* } */}
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
+        </div>
+      </Modal.Footer>
+    </Modal>
+  );
 };
 
 export default ContainerReviews
-
-
-
-
-// return (
-//   <div>
-// {/* Codigo para Modal
-// <div className="modal" tabIndex="-1">
-// <div className="modal-dialog modal-dialog-scrollable">
-// <div className="modal-content">
-//   <div className="modal-header">
-//     <h5 className="modal-title">Reseñas</h5>
-//     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-//   </div>
-//   <div className="modal-body">
-//   <div> */}
-// {!reviewsBook.length ? 
-//   <div>
-//     <h6>Aún no hay reseñas...</h6>
-//     <h5>Sé el primero en dejar una!</h5>
-//   </div> :
-//  reviewsBook.map((r) => ( 
-//     <Review
-//       id={r.id}
-//       title={r.title}
-//       qualification={r.qualification}
-//       comment={r.comment}
-//       user={r.user}
-//       key={r.id}
-//     />
-//   ))}
-        
-//         <button onClick={() => navigate('/crearReseña')}>Deja tu reseña</button>
-//     </div>
-    
-// //       </div>
-// //       <div className="modal-footer">
-// //         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={toggleModal}>Cerrar</button>
-// //         <button type="button" className="btn btn-primary">Deja tu Comentario</button>
-// //       </div>
-// //     </div>
-// //   </div>
-// // </div>
-// )

@@ -3,10 +3,10 @@ const { Sequelize } = require('sequelize')
 const fs = require('fs')
 const path = require('path')
 const {
-  DB_USER, DB_PASSWORD, DB_HOST
+  DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, DB_PORT
 } = process.env
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/rayuela`, {
+const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`, {
   logging: false, // set to console.log to see the raw SQL queries
   native: false // lets Sequelize know we can use pg-native for ~30% more speed
 })
@@ -35,7 +35,8 @@ sequelize.models = Object.fromEntries(capsEntries)
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Book, Gender, Author, User, Review, Cart } = sequelize.models
+
+const { Book, Gender, Author, User, Review, Order, OrderDetail } = sequelize.models
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
@@ -63,6 +64,19 @@ Cart.belongsTo(User, { foreignKey: 'id_user', timestamps: false });
 // Relación N:N entre Libros y Carrito
 Book.belongsToMany(Cart, { through: 'books_cart', timestamps: false })
 Cart.belongsToMany(Book, { through: 'books_cart', timestamps: false })
+
+// Relacion 1:N entre Usuario y Orden
+User.hasMany(Order, { foreignKey: 'id_user', timestamps: false });
+Order.belongsTo(User, { foreignKey: 'id_user', timestamps: false });
+
+// Relacion 1:N entre Orden y Detalle de orden
+Order.hasMany(OrderDetail, { foreignKey: 'id_orden', timestamps: false });
+OrderDetail.belongsTo(Order, { foreignKey: 'id_orden', timestamps: false });
+
+// Relacion 1:N entre Libro y Detalle de orde
+Book.hasMany(OrderDetail, { foreignKey: 'id_book', timestamps: false });
+OrderDetail.belongsTo(Book, { foreignKey: 'id_book', timestamps: false });
+
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
