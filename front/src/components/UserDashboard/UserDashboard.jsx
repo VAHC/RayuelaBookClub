@@ -4,6 +4,7 @@ import Menu from "./Menu";
 import { Profile } from "./Profile";
 import { MiSuscripcion } from "./MiSuscripcion";
 import MyReviewsContainer from "./myReviews/MyReviewsContainer";
+import MyShopping from "./MyShopping";
 
 const UserDashboard = () => {
     const [compoActivo, setCompoActivo] = useState("profile")
@@ -12,6 +13,7 @@ const UserDashboard = () => {
         if (compoActivo === "profile") return <Profile/>
         if (compoActivo=== "reviews") return <MyReviewsContainer/>
         if (compoActivo=== "suscripcion") return <MiSuscripcion/>
+        if (compoActivo=== "shopping") return <MyShopping/>
     }
 
     return (

@@ -9,9 +9,9 @@ INSERT INTO public.users(
     "firstName", "lastName", email, password, phone, profile, deleted, date_suscription, "createdDb"
 )
 VALUES
-    ('Noelia', 'Martino', 'noe@mail.com', '123456789', 1545436364, 'admin', false, NULL, true),
+    ('Noelia', 'Martino', 'noe@mail.com', '123456789', 1545436364, 'usuario', false, NULL, true),
     ('Lucas', 'Ferraro', 'lucas@mail.com', '123456789', 1524436536, 'admin', false, NULL, true),
-    ('Vir', 'Montoya', 'vir@mail.com', '123456789', 1534536536, 'admin', false, NULL, true),
+    ('Vir', 'Montoya', 'vir@mail.com', '123456789', 1534536536, 'usuario', false, NULL, true),
     ('Andres', 'Carola', 'andres@mail.com', '123456789', 1545356536, 'usuario', false, NULL, true),
     ('Alejandro', 'Carola', 'ale@mail.com', '123456789', 1545352236, 'usuario', false, NULL, true),
     ('Juan', 'Tibiletti', 'juan@mail.com', '123456789', 1545236536, 'usuario', false, NULL, true),

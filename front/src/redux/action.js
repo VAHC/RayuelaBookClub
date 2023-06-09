@@ -33,10 +33,13 @@ export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const REMOVE_ITEMS = "REMOVE_ITEMS";
 export const EMPTY_CART = "EMPTY_CART";
 export const FILL_CART = "FILL_CART";
+export const CREATE_ORDER = "CREATE_ORDER";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const DELETE_USER = "DELETE_USER";
 export const FILTER_USER_STATE = "FILTER_USER_STATE";
 export const FILTER_USER_PROFILE = "FILTER_USER_PROFILE";
+export const GET_ALL_SHOPPING = "GET_ALL_SHOPPING";
+export const GET_BOOK_BY_ID = "GET_BOOK_BY_ID";
 
 
 export const getAllBooks = () => {
@@ -145,8 +148,8 @@ export const getReviewsBook = (bookId) => {
 }
 
 export const postReview = (review) => {
-  console.log(review);
-  console.log('se despacha la action');
+  //console.log(review);
+  //console.log('se despacha la action');
   return async function (dispatch) {
     let response = await axios.post(`${URL_Railway}/reviews`, review)
     return response
@@ -217,15 +220,33 @@ export const updateUser = (user) => {
 }
 
 export const addToCart = (book) => {
-  return { type: ADD_TO_CART, payload: book }
+  return (dispatch, getState) => {
+    dispatch ({ type: ADD_TO_CART, payload: book });
+    const updatedCart3 = getState().cart;
+    localStorage.setItem('items', JSON.stringify(updatedCart3));
+  }
 }
 
 export const removeFromCart = (book) => {
-  return { type: REMOVE_FROM_CART, payload: book }
+  return (dispatch, getState) => {
+    dispatch({ type: REMOVE_FROM_CART, payload: book });
+    const updatedCart = getState().cart;
+    localStorage.setItem('items', JSON.stringify(updatedCart));
+    if (!updatedCart.length) {
+      localStorage.removeItem('items');
+    }
+  }
 }
 
 export const removeItems = (id) => {
-  return { type: REMOVE_ITEMS, payload: id }
+  return (dispatch, getState) => {
+    dispatch ({type: REMOVE_ITEMS, payload: id });
+    const updatedCart2 = getState().cart;
+    localStorage.setItem('items', JSON.stringify(updatedCart2));
+    if (!updatedCart2.length) {
+      localStorage.removeItem('items');
+    }
+  }
 }
 
 export const emptyCart = () => {
@@ -237,6 +258,13 @@ export const fillCart = (dataCart) => {
   return {
     type: FILL_CART,
     payload: dataCart
+  }
+}
+
+export const createOrder = (order) => {
+  return async function (dispatch) {
+    let response = await axios.post(`${URL_Railway}/order`, order)
+    return response
   }
 }
 
@@ -269,5 +297,20 @@ export const filterStateUser = (filterValue)=>{
   return{
     type: FILTER_USER_STATE,
     payload:filterValue
+  }
+}
+export const getAllShopping = () => {
+  return async (dispatch) => {
+    const response = await axios.get(`${URL_Railway}/order`);
+    const AllShopping = response.data;
+    dispatch({ type: GET_ALL_SHOPPING, payload: AllShopping })
+  }
+}
+
+export const getBookById = (bookId) => {
+  return async (dispatch) => {
+    const response = await axios.get(`${URL_Railway}/books/${bookId}`);
+    const bookById = response.data;
+    dispatch({ type: GET_BOOK_BY_ID, payload: bookById })
   }
 }

@@ -13,29 +13,36 @@ const CartContainer = () => {
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
     const navigate = useNavigate()
- 
-    const [showModal, setShowModal] = useState(false); //estado local para mostrar o no el modal
 
-    const toggleModal = () => { //funcion que setea showModal al booleano contrario en el que esta
+    //Estado local para mostrar o no el modal y funciones para setearlo y cerrarlo
+    const [showModal, setShowModal] = useState(false)
+
+    const toggleModal = () => {
         setShowModal(prevShowModal => !prevShowModal)
     }
 
     const onClose = () => {
         toggleModal()
-      }
+    }
+
+    //Estado local para armar el objeto de la orden
+    const [order, setOrder] = useState([])
+
+    //Estado local para mostrar o no el formulario de domicilio
+    const [showForm, setShowForm] = useState(false)
+
+    //Estado local para cambiar el botón cuando se confirma la orden
+    const [buttonSuccess, setButtonSuccess] = useState(false)
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem("items"))
-        if(items) {
+        if (items) {
             dispatch(fillCart(items))
-        } 
+        }
     }, [])
 
     const incrementQuantityHandler = (item) => {
-        //console.log('add inicio' + item.quantity);
         dispatch(addToCart(item))
-        //console.log('despacha la action');
-        //console.log('add final ' + item.quantity);
     }
 
     const decrementQuantityHandler = (item) => {
@@ -51,16 +58,26 @@ const CartContainer = () => {
         dispatch(removeItems(id))
     }
 
+    //Cuando se confirma la orden consulta si está logueado para continuar
     const handleConfirmCart = () => {
         user ?
-        toggleModal()
-        : navigate("/ingresar")
+            toggleModal()
+            : navigate("/ingresar")
     }
 
+    //Armo el array de la orden que se manda al formulario para terminar de armar el array que se despacha
     const handleConfirmOrder = () => {
-
+        const cartOrder = cart.map(i => {
+            return {
+                ...i,
+                id_user: user.id
+            }
+        })
+        setButtonSuccess(true)
+        setOrder(cartOrder)
+        setShowForm(true)
     }
- 
+
     return (
         <>
             <nav className="navbar navbar-light bg-dark mb-3">
@@ -106,7 +123,6 @@ const CartContainer = () => {
                                                                     <div className="d-flex align-items-center">
                                                                         <Button variant="primary" className="btn btn-sm me-2" onClick={() => { decrementQuantityHandler(item) }}><i className="bi bi-arrow-down-square" /></Button>
                                                                         <span className="me-2">{item.quantity}</span>
-                                                                        {/* {console.log('log en item ' + item.quantity)} */}
                                                                         <Button variant="primary" className="btn btn-sm me-2" onClick={() => { incrementQuantityHandler(item) }}><i className="bi bi-arrow-up-square" /></Button>
                                                                     </div>
                                                                     <Button variant="danger" size="sm" onClick={() => { deleteItemHandler(item.id) }}><i className="bi bi-trash3" /></Button>
@@ -142,18 +158,18 @@ const CartContainer = () => {
                         <hr />
                         <h5>Total: ${totalPrice(cart)}.00</h5>
                         <hr />
-                        <button onClick={handleConfirmCart} className="btn btn-secondary mb-2">Confirmar carrito</button>
+                        <button onClick={handleConfirmCart} className="btn btn-dark mb-2">Confirmar carrito</button>
                     </div>
                 </div>
                 {showModal && <div className="modal" tabIndex="-1" style={{ display: "block" }}>
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">Confirmá tu compra</h5>
-                                <button onClick={onClose} className="btn btn-dark">Cerrar</button>
+                                <h5 className="modal-title">Confirmá tu orden</h5>
+                                <button onClick={onClose} className="btn btn-dark">Volver</button>
                             </div>
                             <div>
-                                <div>
+                                <div className="m-3">
                                     {cart.map((detail, index) => (
                                         <DetailTotalCart
                                             key={index}
@@ -166,14 +182,18 @@ const CartContainer = () => {
                                     ))}
                                 </div>
                                 <hr />
-                                <h5>Total: ${totalPrice(cart)}.00</h5>
+                                <h5 className="ms-3">Total: ${totalPrice(cart)}.00</h5>
                                 <hr />
-                                <button onClick={handleConfirmOrder} className="btn btn-secondary mb-2">Confirmar compra</button>
+                                <div className="d-flex justify-content-center">
+                                    {!buttonSuccess ?
+                                        <button onClick={handleConfirmOrder} className="btn btn-outline-success mb-2">Confirmar orden</button>
+                                        : <button className="btn btn-outline-success mb-2 disabled">Orden confirmada</button>}
+                                </div>
                             </div>
-                            <FormAddress toggleModal={toggleModal}
-                                user={user}
-                            />
-                            <button className="btn btn-secondary mb-2">Pagar</button>
+                            {showForm && <FormAddress order={order} />}
+                            <div className="d-flex justify-content-center">
+                                <button className="btn btn-success my-3 w-50">Pagar</button>
+                            </div>
                         </div>
                     </div>
                 </div>

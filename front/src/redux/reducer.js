@@ -32,9 +32,11 @@ import {
   DELETE_USER,
   FILL_CART,
   FILTER_USER_PROFILE,
-  FILTER_USER_STATE
+  FILTER_USER_STATE,
+  GET_ALL_SHOPPING,
+  CREATE_ORDER,
+  GET_BOOK_BY_ID,
 } from './action';
-
 
 // Initial state
 const initialState = {
@@ -68,6 +70,10 @@ const initialState = {
   allUsers: [],
   //Array usuarios filtrados.
   filteredUsers: [],
+  //Array historial de compras
+  allOrders: [],
+  //traigo detalle de libro por id
+  bookById: {}
 }
 
 // Reducer
@@ -117,8 +123,6 @@ const reducer = (state = initialState, action) => {
         };
       }
 
-
-
     case SORT_BY_PRICE:
       let arrayOrdenPrecio = state.filterFlag ? state.books : state.booksPage
       let sortPriceArray = action.payload === 'Asc' ? arrayOrdenPrecio.sort((a, b) => {
@@ -147,7 +151,7 @@ const reducer = (state = initialState, action) => {
           return Math.round(average);
         }
         return 0; // Valor predeterminado si no hay reviews o no es un array válido
-      };
+    };
 
       let booksCopy = [...state.books]
       let booksPageCopy = [...state.booksPage]
@@ -329,9 +333,10 @@ const reducer = (state = initialState, action) => {
           window.alert('No hay stock suficiente');
         }
       } else {
-        cartCopy.push({ ...action.payload, quantity: 1 });
-      }
-      return {
+        const { id, price, stock, title } = action.payload
+        cartCopy.push({id_book: id, price, stock, title, quantity: 1 });
+    }
+    return {
         ...state,
         cart: cartCopy,
       }
@@ -415,10 +420,26 @@ const reducer = (state = initialState, action) => {
         filteredUsers: usersFilteredByState
       }
 
+    case CREATE_ORDER:
+      return {
+        ...state
+      }
+
+      case GET_ALL_SHOPPING:
+        return {
+          ...state,
+          allOrders: action.payload
+        }
+
+      case GET_BOOK_BY_ID:
+        return {
+          ...state, 
+          bookById: action.payload
+        }
+    
     default:
       return state;
   }
-
 }
 
 export default reducer;

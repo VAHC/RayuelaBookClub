@@ -1,7 +1,8 @@
 const { Order, User, OrderDetail, Book } = require('../../db');
 
-const createOrder = async (orderData) => {
+const buySuscription = async (orderData) => {
     const currentDate = new Date();
+
     const originalDate = currentDate
 
     const parsedDate = new Date(originalDate);
@@ -42,6 +43,10 @@ const createOrder = async (orderData) => {
             throw Error(`No user has been found matching the id: ${id_user}`);
         }
 
+        user.suscribed = true;
+        user.date_suscription = transformedDate;
+        await user.save();
+
         quantityTotal += quantity;
         priceTotal += quantity * price;
 
@@ -56,8 +61,7 @@ const createOrder = async (orderData) => {
 
     newOrder.quantity = quantityTotal;
     newOrder.price_total = priceTotal;
-    
     await newOrder.save();
 };
 
-module.exports = createOrder;
+module.exports = buySuscription;
