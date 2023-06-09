@@ -21,7 +21,7 @@ mpRouter.post('/payment', async (req, res) => {
             unit_price: prod.price
         }],
         back_urls: {
-            success: `${URL_Vercel_back}/catalogo`,
+            success: URL_Vercel_back+'/catalogo',
             failure: '',
             pending: ''
         },
