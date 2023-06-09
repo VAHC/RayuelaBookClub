@@ -38,6 +38,7 @@ export const GET_ALL_USERS = "GET_ALL_USERS";
 export const DELETE_USER = "DELETE_USER";
 export const GET_ALL_SHOPPING = "GET_ALL_SHOPPING";
 export const GET_BOOK_BY_ID = "GET_BOOK_BY_ID";
+// export const GET_USER_BY_ID = "GET_USER_BY_ID";
 
 
 export const getAllBooks = () => {
@@ -299,3 +300,13 @@ export const getBookById = (bookId) => {
     dispatch({ type: GET_BOOK_BY_ID, payload: bookById })
   }
 }
+
+//trae todos los datos de un usuario
+// export const getUserById = (userId) => {
+//   return async (dispatch) => {
+//     console.log('entra en la action');
+//     const response = await axios.get(`${URL_Railway}/users/${userId}`);
+//     const user = response.data;
+//     dispatch({ type: GET_USER_BY_ID, payload: user })
+//   }
+// }
