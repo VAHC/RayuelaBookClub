@@ -110,4 +110,3 @@ package-lock.json
 
 vite.config.js
 # ignorar la carpeta
-/uploads
