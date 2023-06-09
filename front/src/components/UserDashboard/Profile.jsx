@@ -1,13 +1,10 @@
-import React from "react";
+import React, { useState } from 'react';
 import { useSelector } from "react-redux";
-import { useState } from "react";
 import { FormEditUser } from "./FormEditUser";
 
 export const Profile = () => {
 
     const user = useSelector((state) => state.user);
-
-    //const user = { id: 3, firstName: 'Juan', lastName: 'Topo', email: 'juan@mail.com', password: "gefefe11", phone: 0, profile: "user" }
 
     const [showModal, setShowModal] = useState(false); //estado local para mostrar o no el modal
 
