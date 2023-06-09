@@ -2,9 +2,14 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { modifyBook } from "../../redux/action";
 
+import axios from 'axios';
+import { URL_Railway,URL_Vercel } from '../../../ruta';
+
 const EditBookForm = ({ book }) => {
     const [formComplete, setFormComplete] = useState(false); //estodo local para manejar el boton del submit y el envio de datos
     const [success, setSuccess] = useState(false); // estado local para manejar la alerta de ok
+    const [BorrarImage, setBorrarImage] = useState(false);
+    const [file, setFile] = useState(null)
 
     const [input, setInput] = useState({
         id: book.id,
@@ -70,6 +75,27 @@ const EditBookForm = ({ book }) => {
             alert("missing or incorrect data");
         }
     };
+
+    const BorrarImagen=async (event, id)=>{
+        event.preventDefault();
+        console.log(id);
+        try {
+            
+            //http://localhost:3001/books/deleteImg/1
+            const response = await axios.delete(`${URL_Railway}/books/deleteImg/${id}`);
+            console.log(response);
+             if(response.data.result === 'ok')
+             {
+                console.log('rentr');
+                setBorrarImage(true)
+             }else
+             {
+                console.log('eroror');
+             }
+        } catch (error) {
+            console.log(error);
+        }
+   }
 
     return (
         <div className="row d-flex justify-content-center m-2">
@@ -199,13 +225,26 @@ const EditBookForm = ({ book }) => {
                         <label className="form-label">Imagen:</label>
                     </div>
                     <div className="col-9">
+                        {BorrarImage ? 
+                        <div>
+                        <img src={URL_Vercel+'/images/logo.png'} width="120" height='auto'  alt={input.title} />
                         <input
-                            className="form-control"
-                            type="text"
-                            name="image"
-                            value={input.image}
-                            onChange={handleInputChange}
-                        />
+                                    style={{ width: "100%" }}
+                                    className="form-control"
+                                    id="image"
+                                    type='file'
+                                    accept='image/jpeg'
+                                    name="image"
+                                    onChange={handleInputChange}
+                                />
+                                {/* no anda este por ahora */}
+                        </div>
+                        :<img src={input.image} width="100" height='auto'  alt={input.title} /> }
+                        {/*si el estado es false muestro la imagen, sino el logo, por el tema refresco */}
+                            {/**  */}
+                    {URL_Vercel+'/images/logo.png' === input.image ? 
+                        <p>El mensaje está visible</p> 
+                        : <div className="btn btn-danger" onClick={(event) => BorrarImagen(event, input.id)} > borrar imagen</div>}
                     </div>
                 </div>
                 <div className="row d-flex justify-content-center m-2">

@@ -2,11 +2,13 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-import { useDispatch } from "react-redux";
-import { setDetail } from "../../redux/action";
+import { useDispatch, useSelector } from "react-redux";
+import { setDetail, addToCart } from "../../redux/action";
 
 const bookCard = ({book}) => {
-  
+
+  const cart = useSelector((state) => state.cart)
+
   const qualificationObtained = (book) => {
     const reviews = book.reviews
     const notDeletedReviews = reviews.filter(review => !review.deleted)
@@ -21,8 +23,6 @@ const bookCard = ({book}) => {
     return 0; // Valor predeterminado si no hay reviews o no es un array válido
   };
 
-  //console.log(qualificationObtained(book));
-
   const renderStars = (rating) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -31,9 +31,14 @@ const bookCard = ({book}) => {
     }
     return stars;
   };
-
+  
   const dispatch = useDispatch()
-const handleClick = ()=> {dispatch(setDetail(book))}
+  //console.log(book);
+  const handleClick = ()=> {dispatch(setDetail(book))}
+
+  const addToCartHandler = (book) => {
+    dispatch(addToCart(book))
+  }
 
   const renderTooltip = () => (
     <Tooltip>
@@ -75,6 +80,19 @@ const handleClick = ()=> {dispatch(setDetail(book))}
             flexDirection: "column",
           }}
         >
+         <div
+            className="position-absolute"
+            style={{
+              bottom: "0px",
+              right: "0px",
+              padding: "1px",
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "flex-end",
+            }}
+          >
+          <button className='btn btn-dark m-2' onClick={() => {addToCartHandler(book)}}><i className="bi bi-cart-check"style={{ fontSize: "1 rem" }}/></button>
+          </div>
           <div
             style={{
               visibility: "hidden",

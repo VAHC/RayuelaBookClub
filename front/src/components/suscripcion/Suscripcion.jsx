@@ -1,10 +1,68 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { FormAddressSus } from "./FormAddressSus";
 
 export const Suscripcion = () => {
+
+  const user = useSelector((state) => state.user)
+  const navigate = useNavigate()
+
+  //Estado local para mostrar o no el modal y funciones para setearlo y cerrarlo
+  const [showModal, setShowModal] = useState(false) 
+
+  const toggleModal = () => {
+    setShowModal(prevShowModal => !prevShowModal)
+  }
+
+  const onClose = () => {
+    toggleModal()
+  }
+
+  //Estado local para armar el objeto de la suscripción
+  const [susc, setSusc] = useState([{
+    id_book: 2,
+    // id_book: 5000,
+    quantity: 1,
+    price: 150,
+    id_user: ""
+  }])
+
+  //Estado local para mostrar o no el formulario de domicilio
+  const [showForm, setShowForm] = useState(false)
+
+  //Estado local para cambiar el botón cuando se confirma la suscripción
+  const [buttonSuccess, setButtonSuccess] = useState(false)
+
+  const handleLinkClick = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    })
+  }
+
+  //Cuando se confirma la suscripción consulta si está logueado para continuar
+  const handleConfirm = () => {
+    user ?
+      toggleModal()
+      : navigate("/ingresar")
+  }
+
+  //Armo el array de suscripción que se manda al formulario para terminar de armar el array que se despacha
+  const handleConfirmOrder = () => {
+    const newSusc = susc.map(s => {
+      return {
+        ...s,
+        id_user: user.id
+      }
+    })
+    setSusc(newSusc)
+    setButtonSuccess(true)
+    setShowForm(true)
+  }
+
   return (
     <div>
-
       <h2 className='text-center fs-1'>¿Por qué debería suscribirme?</h2>
       <div className="card mb-3 mx-5 mt-3">
         <div className="row g-0">
@@ -35,7 +93,7 @@ export const Suscripcion = () => {
             <img src="./images/paso1.png" className="card-img-top" alt="Paso 1" />
             <div className="card-body text-center">
               <h5 className="card-title fs-4 fw-bold text-danger">Registrarse</h5>
-              <p className="card-text">Completá tus datos <Link to="/registro">aquí</Link>. Sólo te tomará unos minutos</p>
+              <p className="card-text">Completá tus datos <Link to="/ingresar" onClick={handleLinkClick} >aquí</Link>. Sólo te tomará unos minutos</p>
             </div>
           </div>
         </div>
@@ -58,14 +116,14 @@ export const Suscripcion = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="card text-center position-relative">
         <div className="card-header fs-3 fw-bold text-danger">
           Quiero suscribirme
         </div>
         <div className="card-body">
-          <h5 className="card-title">Suscripción mensual $3500</h5>
-          <a href="#" className="btn btn-secondary btn-lg m-3">Suscribirme</a>
+          <h5 className="card-title">Suscripción mensual $150</h5>
+          <button onClick={handleConfirm} className="btn btn-secondary btn-lg m-3">Suscribirme</button>
           {/* <p className="card-text mb-5">Calcular costo de envío</p>
           <div className="input-group mb-3 w-25 text-center position-absolute bottom-0 start-50 translate-middle-x">
             <input type="text" className="form-control" placeholder="Código postal" />
@@ -73,6 +131,31 @@ export const Suscripcion = () => {
           </div> */}
         </div>
       </div>
+      {showModal && <div className="modal" tabIndex="-1" style={{ display: "block" }}>
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">Confirmá tu suscripción</h5>
+              <button onClick={onClose} className="btn btn-dark">Volver</button>
+            </div>
+            <div>
+              <hr />
+              <h5 className="ms-3">Total: $150 por mes</h5>
+              <hr />
+              <div className="d-flex justify-content-center">
+                {!buttonSuccess ?
+                  <button onClick={handleConfirmOrder} className="btn btn-outline-success mb-2">Confirmar</button>
+                  : <button className="btn btn-outline-success mb-2 disabled">Suscripción confirmada</button>}
+              </div>
+            </div>
+            {showForm && <FormAddressSus susc={susc} />}
+            <div className="d-flex justify-content-center">
+              <button className="btn btn-success my-3 w-50">Pagar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
     </div>
   )
 }

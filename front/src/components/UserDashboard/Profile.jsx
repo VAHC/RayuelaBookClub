@@ -1,12 +1,10 @@
+import React, {useState} from "react";
 import { useSelector } from "react-redux";
-import { useState, useEffect } from "react";
 import { FormEditUser } from "./FormEditUser";
 
 export const Profile = () => {
 
     const user = useSelector((state) => state.user);
-
-    //const user = { id: 3, firstName: 'Juan', lastName: 'Topo', email: 'juan@mail.com', password: "gefefe11", phone: 0, profile: "user" }
 
     const [showModal, setShowModal] = useState(false); //estado local para mostrar o no el modal
 
@@ -15,8 +13,8 @@ export const Profile = () => {
     }
 
     const onClose = () => {
-        setShowModal(prevShowModal => !prevShowModal)
-    }
+        toggleModal()
+      }
 
     return (
         <>
@@ -51,7 +49,9 @@ export const Profile = () => {
                                 <h5 className="modal-title">Editá tus datos</h5>
                                 <button onClick={onClose} className="btn btn-dark">Cerrar</button>
                             </div>
-                            <FormEditUser toggleModal={toggleModal} user={user} />
+                            <FormEditUser toggleModal={toggleModal}
+                                         user={user}
+                                         />
                         </div>
                     </div>
                 </div>

@@ -7,8 +7,12 @@ export const Paginado = () => {
     const PagActual = useSelector((state) => state.paginaActual);
     const cantXPag = 9;
     const Arraylibros = useSelector((state) => state.allBooks);
+    const ArraySearch = useSelector((state) => state.searchData);
+    const Ry = ArraySearch.length > 0 ? ArraySearch : Arraylibros
     const librosTotal = Arraylibros.length;
-    const totalPaginas = Math.ceil(librosTotal / cantXPag);
+    const totalPaginas = Math.ceil(
+        Ry.length / cantXPag
+    );
     const itemsPaginadao = [];
 
     const dispatch = useDispatch();
@@ -34,21 +38,27 @@ export const Paginado = () => {
 
     return (
         <div>
-        <Pagination>
-            {PagActual > 1 &&
-                <Pagination.First onClick={() => pageChangerHandle(1)} />}
-            {PagActual > 1 &&
-                <Pagination.Prev
-                onClick={() => pageChangerHandle(PagActual - 1)}
-            />}
-            {renderizadoItemsPaginado()}
-            {PagActual !== totalPaginas &&
-                <Pagination.Next
-                onClick={() => pageChangerHandle(PagActual + 1)}
-            />}
-            {PagActual !== totalPaginas &&
-                <Pagination.Last onClick={() => pageChangerHandle(totalPaginas)} />}
-        </Pagination>
+            <Pagination>
+                {PagActual > 1 && (
+                    <Pagination.First onClick={() => pageChangerHandle(1)} />
+                )}
+                {PagActual > 1 && (
+                    <Pagination.Prev
+                        onClick={() => pageChangerHandle(PagActual - 1)}
+                    />
+                )}
+                {renderizadoItemsPaginado()}
+                {PagActual !== totalPaginas && (
+                    <Pagination.Next
+                        onClick={() => pageChangerHandle(PagActual + 1)}
+                    />
+                )}
+                {PagActual !== totalPaginas && (
+                    <Pagination.Last
+                        onClick={() => pageChangerHandle(totalPaginas)}
+                    />
+                )}
+            </Pagination>
         </div>
     );
 };

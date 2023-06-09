@@ -19,6 +19,8 @@ export const Posters = () => {
     //flag para no cargar todos los libros con cada render
     const [allBooksLoaded, setAllBooksLoaded] = useState(false);
 
+    const searchData = useSelector((state) => state.searchData);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -27,26 +29,33 @@ export const Posters = () => {
                 await dispatch(getAllBooks());
                 setAllBooksLoaded(true);
             }
+            
             dispatch(getBooksPage(pagina));
         };
         booksGet();
     }, [pagina]);
 
-
     const renderConditional = () => {
-        let renderElements = undefined
+        let renderElements = undefined;
 
         if (filterFlag) {
-            renderElements= filteredbooks.map((book, index) => {
-                return <Card book={book} key={index} />;
-            });
+            searchData.length > 0
+                ? (renderElements = searchData.map((book, index) => {
+                      // if(book.deleted === true) return null;
+                      return <Card book={book} key={index} />;
+                  }))
+                : (renderElements = filteredbooks.map((book, index) => {
+                      // if(book.deleted === true) return null;
+                      return <Card book={book} key={index} />;
+                  }));
         } else {
             renderElements = booksPage.map((book, index) => {
+                // if(book.deleted === true) return null;
                 return <Card book={book} key={index} />;
             });
         }
 
-        return renderElements
+        return renderElements;
     };
 
     return renderConditional();
