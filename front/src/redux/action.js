@@ -301,7 +301,7 @@ export const getBookById = (bookId) => {
   }
 }
 
-//trae todas las reviews de un usuario
+//trae todos los datos de un usuario
 // export const getUserById = (userId) => {
 //   return async (dispatch) => {
 //     console.log('entra en la action');
