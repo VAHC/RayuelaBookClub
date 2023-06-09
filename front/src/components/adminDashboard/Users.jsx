@@ -6,6 +6,7 @@ import {
     deleteUser,
     filterProfileUser,
     filterStateUser,
+    updateUser,
 } from "../../redux/action";
 
 const Users = () => {
@@ -33,23 +34,45 @@ const Users = () => {
         if (filtersValue.state) dispatch(filterStateUser(filtersValue.state));
     }, [filtersValue.state]);
 
-    const ableButtonHandler = async (user) => {
+    const deleteButtonHandler = async (user) => {
         console.log("Estoy modificando el deleted de este User: " + user.id);
         await deleteUser(user, dispatch);
+        dispatch(getAllUsers());
+    };
+
+    const updateButtonHandler = async (user) => {
+        console.log("Estoy modificando el profile de este User: " + user.profile + user.id);
+        
+        await updateUser(user,dispatch);
         dispatch(getAllUsers());
     };
 
     const filterHandler = (event) => {
         if (event.target.name === "profile") {
             console.log("pasa por aca");
-            setFiltersValues({ ...filtersValue, profile: event.target.value, state: "All" });
+            setFiltersValues({
+                ...filtersValue,
+                profile: event.target.value,
+                state: "All",
+            });
         } else {
             console.log("pasa por el otro");
-            setFiltersValues({ ...filtersValue, state: event.target.value, profile: "All" });
+            setFiltersValues({
+                ...filtersValue,
+                state: event.target.value,
+                profile: "All",
+            });
         }
     };
 
     const usersMap = filteredUsers.map((user, index) => {
+        
+        const userprofileCOnditional= ()=>{if (user.profile==="usuario") return "admin"
+        else{
+            return "usuario"
+        }}
+        
+
         return (
             <tr key={index}>
                 <td>{user.id}</td>
@@ -62,10 +85,21 @@ const Users = () => {
                 <td>
                     {" "}
                     <Button
-                        onClick={() => ableButtonHandler(user)}
+                        onClick={() => deleteButtonHandler(user)}
                         variant={user.deleted ? "success" : "danger"}
                     >
                         {user.deleted ? "Habilitar" : "deshabilitar"}
+                    </Button>
+                    <br />
+                    <Button
+                        onClick={() => updateButtonHandler({...user, profile:userprofileCOnditional()})}
+                        variant={
+                            user.profile === "usuario" ? "success" : "danger"
+                        }
+                    >
+                        {user.profile === "usuario"
+                            ? "Change to Admin Profile"
+                            : "Change to usuario profile"}
                     </Button>
                 </td>
             </tr>

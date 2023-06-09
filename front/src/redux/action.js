@@ -212,12 +212,11 @@ export const deleteBook = async (bookId, dispatch) => {
   dispatch({ type: DELETE_BOOK })
 }
 
-export const updateUser = (user) => {
-  return async function (dispatch) {
+export const updateUser = async(user, dispatch) => {
     await axios.put(`${URL_Railway}/users`, user)
     dispatch({ type: UPDATE_USER })
   }
-}
+
 
 export const addToCart = (book) => {
   return (dispatch, getState) => {
