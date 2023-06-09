@@ -30,7 +30,9 @@ import {
   EMPTY_CART,
   GET_ALL_USERS,
   DELETE_USER,
-  FILL_CART
+  FILL_CART,
+  FILTER_USER_PROFILE,
+  FILTER_USER_STATE
 } from './action';
 
 
@@ -64,6 +66,8 @@ const initialState = {
   cart: [],
   //Array todos los Usuarios
   allUsers: [],
+  //Array usuarios filtrados.
+  filteredUsers: [],
 }
 
 // Reducer
@@ -131,24 +135,24 @@ const reducer = (state = initialState, action) => {
 
     case SORT_BY_RATING:
 
-    const qualificationObtained = (book) => {
-      const reviews = book.reviews
-      const notDeletedReviews = reviews.filter(review => !review.deleted)
-      if (notDeletedReviews && Array.isArray(notDeletedReviews) && notDeletedReviews.length > 0) {
-        let sum = 0;
-        for (let i = 0; i < notDeletedReviews.length; i++) {
-          sum += notDeletedReviews[i].qualification;
+      const qualificationObtained = (book) => {
+        const reviews = book.reviews
+        const notDeletedReviews = reviews.filter(review => !review.deleted)
+        if (notDeletedReviews && Array.isArray(notDeletedReviews) && notDeletedReviews.length > 0) {
+          let sum = 0;
+          for (let i = 0; i < notDeletedReviews.length; i++) {
+            sum += notDeletedReviews[i].qualification;
+          }
+          let average = sum / notDeletedReviews.length;
+          return Math.round(average);
         }
-        let average = sum / notDeletedReviews.length;
-        return Math.round(average);
-      }
-      return 0; // Valor predeterminado si no hay reviews o no es un array válido
-    };
+        return 0; // Valor predeterminado si no hay reviews o no es un array válido
+      };
 
       let booksCopy = [...state.books]
       let booksPageCopy = [...state.booksPage]
-      let booksTotalQualification = booksCopy.map(book => ({...book, totalQualification: qualificationObtained(book)}))
-      let booksPageTotalQualification = booksPageCopy.map(book => ({...book, totalQualification : qualificationObtained(book)}))
+      let booksTotalQualification = booksCopy.map(book => ({ ...book, totalQualification: qualificationObtained(book) }))
+      let booksPageTotalQualification = booksPageCopy.map(book => ({ ...book, totalQualification: qualificationObtained(book) }))
 
       // let arrayOrdenadoRating = state.filterFlag ? state.books : state.booksPage
       let arrayOrdenadoRating = state.filterFlag ? booksTotalQualification : booksPageTotalQualification
@@ -382,6 +386,33 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         cart: action.payload
+      }
+
+    case FILTER_USER_PROFILE:
+      console.log("🚀 ~ file: reducer.js:394 ~ reducer ~ action.payload:", action.payload)
+
+      const usersFilteredByProfile = action.payload === 'All' ?
+        state.allUsers : state.allUsers.filter(user => {
+
+          console.log("🚀 ~ file: reducer.js:397 ~ reducer ~ user:", user)
+
+          user.profile === action.payload
+        })
+        
+      return {
+        ...state,
+        filteredUsers: usersFilteredByProfile
+      }
+
+    case FILTER_USER_STATE:
+      const usersFilteredByState = action.payload === 'All' ?
+        state.allUsers : state.allUsers.filter(user => {
+          return user.state === action.payload
+        })
+    
+      return {
+        ...state,
+        filteredUsers: usersFilteredByState
       }
 
     default:

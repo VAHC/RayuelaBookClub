@@ -35,6 +35,8 @@ export const EMPTY_CART = "EMPTY_CART";
 export const FILL_CART = "FILL_CART";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const DELETE_USER = "DELETE_USER";
+export const FILTER_USER_STATE = "FILTER_USER_STATE";
+export const FILTER_USER_PROFILE = "FILTER_USER_PROFILE";
 
 
 export const getAllBooks = () => {
@@ -254,4 +256,18 @@ export const deleteUser = async (user, dispatch) => {
 
   await axios.put(`${URL_Railway}/users/delete/${user.id}`)
   dispatch({ type: DELETE_USER })
+}
+
+export const filterProfileUser = (filterValue)=>{
+  return{
+    type: FILTER_USER_PROFILE,
+    payload:filterValue
+  }
+}
+
+export const filterStateUser = (filterValue)=>{
+  return{
+    type: FILTER_USER_STATE,
+    payload:filterValue
+  }
 }
