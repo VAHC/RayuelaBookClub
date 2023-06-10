@@ -42,10 +42,11 @@ const createBookHandler = async (req,res) => {
   //  console.log(resup);
   //  console.log("*****");
   //  console.log(secure_url);
-  cloudinary.v2.uploader.upload("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg",
-  { public_id: "olympic_flag" }, 
-  function(error, result) {console.log(result); });
+  // cloudinary.v2.uploader.upload("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg",
+  // { public_id: "olympic_flag" }, 
+  // function(error, result) {console.log(result); });
    console.log('####');
+      secure_url='https://res.cloudinary.com/digrts68o/image/upload/v1686420525/image-1686420523865.jpg'
 
         if (!title || !publisher || !description || !price || !stock || !publishedDate || !secure_url) {
             res.status(400).send('Please check that you have completed all the required fields')
