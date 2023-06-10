@@ -14,6 +14,7 @@ export const FormResetPass = ({ setCompoActivo }) => {
 
     const [success, setSuccess] = useState(false)
     const [gmailUser, setGmailUser] = useState(true)
+    const [isVisible, setIsVisible] = useState(true);
 
     const handleInputChange = (event) => {
         const inputMail = event.target.value
@@ -29,6 +30,7 @@ export const FormResetPass = ({ setCompoActivo }) => {
             const users = await axios(`${URL_Railway}/users`);
             const filteredUser = users.data.filter(user => user.email === mail)
             if (filteredUser.length) {
+                setIsVisible(!isVisible);
                 if (filteredUser[0].createdDb === true) {
                     try {
                         const response = await axios.post(`${URL_Railway}/users/password`, { email: mail });
@@ -105,8 +107,9 @@ export const FormResetPass = ({ setCompoActivo }) => {
                                     />
                                     {error && <p className="text-danger">{error}</p>}
                                 </div>
-                                <div className="text-center mb-3">
-                                    <button className={error === "" ? "btn btn-dark w-50" : "btn btn-dark w-50 disabled"} onClick={handleClickPass}>Restablecer contraseña</button>
+                                <div className=" text-center mb-3">
+                                {isVisible && <div> <button className={error === "" ? "btn btn-dark w-50" : "btn btn-dark w-50 disabled"} onClick={handleClickPass}>Restablecer contraseña</button></div>}
+                                   
                                 </div>
 
                                 <div className="text-center">
