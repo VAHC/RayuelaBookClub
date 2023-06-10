@@ -36,7 +36,8 @@ import {
   GET_ALL_SHOPPING,
   CREATE_ORDER,
   GET_BOOK_BY_ID,
-  // GET_USER_BY_ID,
+  GET_USER_BY_ID,
+  CANCEL_SUSCRIPTION
 } from './action';
 
 // Initial state
@@ -426,9 +427,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         filteredUsers: usersFilteredByState
-      }
-
-      
+      }     
 
     case CREATE_ORDER:
       return {
@@ -446,19 +445,20 @@ const reducer = (state = initialState, action) => {
         ...state,
         bookById: action.payload
       }
-
-      //case GET_BOOK_BY_ID:
-      //  return {
-      //    ...state, 
-       //   bookById: action.payload
-       // }
       
-      // case GET_USER_BY_ID:
-      //   console.log('entra en el reducer');
-      // return {
-      //   ...state,
-      //   userById: action.payload
-      // }
+      case GET_USER_BY_ID:
+        console.log('entra en el reducer');
+      return {
+        ...state,
+        userById: action.payload
+      }
+
+      case CANCEL_SUSCRIPTION:
+        console.log('entra la action en el reducer de desuscripcion');
+        return {
+          ...state,
+          // userById: { ...state.userById }
+        }
     
 
     default:
