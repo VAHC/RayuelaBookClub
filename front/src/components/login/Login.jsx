@@ -5,6 +5,7 @@ import { login } from "../../redux/action";
 import { URL_Railway } from '../../../ruta';
 import axios from 'axios';
 import { decode } from 'jsonwebtoken-esm';
+import swal from 'sweetalert';
 
 export const Login = ({setCompoActivo}) => {
 
@@ -52,7 +53,11 @@ export const Login = ({setCompoActivo}) => {
             }
             if (message) {
                 // Login fallido
-                alert(message);
+                swal({
+                    title: "Usuario o contraseña incorrectos",
+                    icon: "error",
+                    timer: "2500"
+                })
                 setUserData({
                     ...userData,
                     password: ""

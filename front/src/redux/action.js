@@ -223,7 +223,7 @@ export const deleteBook = async (bookId, dispatch) => {
     return async (dispatch) => {
       try {
         await axios.put(`${URL_Railway}/users`, user);
-        dispatch({ type: UPDATE_USER });
+        dispatch({ type: UPDATE_USER, payload: user });
         return { status: 200, message: 'Success' };
       } catch (error) {
         throw error

@@ -322,9 +322,12 @@ const reducer = (state = initialState, action) => {
       }
 
     case UPDATE_USER:
-      return { 
+      return {
         ...state,
-        user: action.payload
+        user: {
+          ...state.user,
+          ...action.payload
+        }
       }
 
     case ADD_TO_CART:
