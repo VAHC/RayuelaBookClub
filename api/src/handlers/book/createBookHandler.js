@@ -37,16 +37,10 @@ const createBookHandler = async (req,res) => {
     // console.log('4$$$$$$$boraddp');
 
     //const rta =  cloudinary.uploader.upload(UrlImagen, {public_id: NameSinextencion})
-  //   const resup = await cloudinary.uploader.upload('https://res.cloudinary.com/digrts68o/image/upload/v1686420525/image-1686420523865.jpg', {public_id: NameSinextencion})
-  //  const { secure_url } = resup;
-  //  console.log(resup);
-  //  console.log("*****");
-  //  console.log(secure_url);
-  // cloudinary.v2.uploader.upload("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg",
-  // { public_id: "olympic_flag" }, 
-  // function(error, result) {console.log(result); });
+    const resup = await cloudinary.uploader.upload(UrlImagen, {public_id: NameSinextencion})
+   const { secure_url } = resup;
+   console.log(secure_url);
    console.log('####');
-      secure_url='https://res.cloudinary.com/digrts68o/image/upload/v1686420525/image-1686420523865.jpg'
 
         if (!title || !publisher || !description || !price || !stock || !publishedDate || !secure_url) {
             res.status(400).send('Please check that you have completed all the required fields')
