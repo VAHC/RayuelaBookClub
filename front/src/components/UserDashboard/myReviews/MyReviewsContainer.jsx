@@ -21,6 +21,7 @@ const MyReviewsContainer = () => {
     const dispatch = useDispatch();
     //prueba pr
     const notDeletedReviews = userReviews.filter((review) => !review.deleted)
+    const sortReviews = notDeletedReviews.sort((a, b) => b.id - a.id)
     //console.log(notDeletedReviews);
 
     const renderStars = (rating) => {
@@ -80,7 +81,7 @@ const MyReviewsContainer = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {notDeletedReviews.map((r, index) => (
+                                {sortReviews && sortReviews.map((r, index) => (
                                     <tr id={r.id} key={index}>
                                         <td>{r.book}</td>
                                         <td>{r.title}</td>
