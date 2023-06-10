@@ -35,7 +35,7 @@ export const MiSuscripcion = () => {
 //   password: '',
 //   deleted: false,
 //   state: 'new',
-//   suscripted: false,
+//   suscribed: false,
 //   date_suscription: null,
 //   createdDB: true,
 //   reviews:[],
@@ -56,7 +56,7 @@ export const MiSuscripcion = () => {
 //   password: '',
 //   deleted: false,
 //   state: 'new',
-//   suscripted: true,
+//   suscribed: true,
 //   date_suscription: '06-06-2023',
 //   createdDB: true,
 //   reviews:[],
@@ -89,7 +89,7 @@ export const MiSuscripcion = () => {
             </div>
             <div className="col-md-6 d-flex flex-column align-items-center">
               {/* <h5 className="card-title m-3 text-center">Hola {user.firstName}!</h5> */}
-              {!user.suscripted ? (
+              {!user.suscribed ? (
                 <div className="text-center d-flex flex-column align-items-center" style={{ marginTop: '200px' }}>
                   <h5>Aún no estás suscripto...</h5>
                   <h6>¡Conocé más sobre los beneficios de la <Link to={'/suscripcion'}>suscripción</Link>!</h6>
