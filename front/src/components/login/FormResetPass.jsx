@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { URL_Railway } from "../../../ruta";
+import { URL_Railway_front } from "../../../ruta";
 import axios from "axios";
 
 export const FormResetPass = ({ setCompoActivo }) => {
@@ -25,12 +25,12 @@ export const FormResetPass = ({ setCompoActivo }) => {
         event.preventDefault()
 
         try {
-            const users = await axios(`${URL_Railway}/users`);
+            const users = await axios(`${URL_Railway_front}/users`);
             const filteredUser = users.data.filter(user => user.email === mail)
             if (filteredUser) {
                 if (filteredUser[0].createdDb === true) {
                     try {
-                        const response = await axios.post(`${URL_Railway}/users/password`, { email: mail });
+                        const response = await axios.post(`${URL_Railway_front}/users/password`, { email: mail });
                         setSuccess(true)
                     } catch (error) {
                         console.error(error)
