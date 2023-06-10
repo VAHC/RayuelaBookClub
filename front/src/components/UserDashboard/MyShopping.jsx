@@ -98,7 +98,7 @@ const icons = (state) => {
                     </Col>
                 </Row>
             )}
-            <div>
+            <div className="d-flex">
                 <p>¿Tenés alguna duda sobre tus compras?</p>
                 <p>Escribinos por mail a:  <a href='http://mail.google.com/'><i className="bi bi-envelope p-1"></i></a>rayuela@email.com</p>
             </div>

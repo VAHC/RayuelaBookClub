@@ -45,9 +45,9 @@ const MyReviewsContainer = () => {
     toggleModal();
   };
 
-  const handlerDelete = async (reviewId) => {
+  const handlerDelete = (reviewId) => {
     setShowDeleteModal(true)
-    await dispatch(deleteReview(reviewId))
+    dispatch(deleteReview(reviewId))
     dispatch(getReviewsByUser(userId))
     setTimeout(() => {
         setShowDeleteModal(false)
