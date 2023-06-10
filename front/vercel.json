@@ -1,0 +1,9 @@
+{ "rewrites": [ { "source": "/", "destination": "/" },
+ { "source": "/(.*)", "destination": "/"},
+  { "source": "/nosotros", "destination": "/nosotros" },
+  { "source": "/suscripcion", "destination": "/suscripcion" },
+  { "source": "/catalogo", "destination": "/catalogo" },
+  { "source": "/ingresar", "destination": "/ingresar" },
+  { "source": "/perfil", "destination": "/perfil" },
+  { "source": "/admindashboard", "destination": "/admindashboard" }  
+  ] }
