@@ -6,6 +6,8 @@ const routes = require('./routes/index.js');
 const passport = require('passport');
 const session = require('express-session');
 const cors = require('cors');
+const mercadopago = require('mercadopago');
+require('dotenv').config();
 
 const {URL_Vercel_back} = require ('../rutas.js')
 
@@ -58,5 +60,7 @@ server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   console.error(err)
   res.status(status).send(message)
 })
+
+mercadopago.configure({access_token: process.env.MP_ACCESS_TOKEN})
 
 module.exports = server

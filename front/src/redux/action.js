@@ -36,7 +36,12 @@ export const FILL_CART = "FILL_CART";
 export const CREATE_ORDER = "CREATE_ORDER";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const DELETE_USER = "DELETE_USER";
-export const GET_SHOPPING_BY_USER = "GET_SHOPPING_BY_USER";
+export const FILTER_USER_STATE = "FILTER_USER_STATE";
+export const FILTER_USER_PROFILE = "FILTER_USER_PROFILE";
+export const GET_ALL_SHOPPING = "GET_ALL_SHOPPING";
+export const GET_BOOK_BY_ID = "GET_BOOK_BY_ID";
+// export const GET_USER_BY_ID = "GET_USER_BY_ID";
+
 
 export const getAllBooks = () => {
   return async (dispatch) => {
@@ -208,12 +213,11 @@ export const deleteBook = async (bookId, dispatch) => {
   dispatch({ type: DELETE_BOOK })
 }
 
-export const updateUser = (user) => {
-  return async function (dispatch) {
+export const updateUser = async(user, dispatch) => {
     await axios.put(`${URL_Railway}/users`, user)
     dispatch({ type: UPDATE_USER })
   }
-}
+
 
 export const addToCart = (book) => {
   return (dispatch, getState) => {
@@ -282,10 +286,41 @@ export const deleteUser = async (user, dispatch) => {
   dispatch({ type: DELETE_USER })
 }
 
-export const getShoppingByUser = () => {
-  return async (dispatch) => {
-    const response = await axios.get(`${URL_Railway}/users/${userId}`);
-    const userShopping = response.data;
-    dispatch({ type: GET_SHOPPING_BY_USER, payload: userShopping })
+export const filterProfileUser = (filterValue)=>{
+  return{
+    type: FILTER_USER_PROFILE,
+    payload:filterValue
   }
 }
+
+export const filterStateUser = (filterValue)=>{
+  return{
+    type: FILTER_USER_STATE,
+    payload:filterValue
+  }
+}
+export const getAllShopping = () => {
+  return async (dispatch) => {
+    const response = await axios.get(`${URL_Railway}/order`);
+    const AllShopping = response.data;
+    dispatch({ type: GET_ALL_SHOPPING, payload: AllShopping })
+  }
+}
+
+export const getBookById = (bookId) => {
+  return async (dispatch) => {
+    const response = await axios.get(`${URL_Railway}/books/${bookId}`);
+    const bookById = response.data;
+    dispatch({ type: GET_BOOK_BY_ID, payload: bookById })
+  }
+}
+
+//trae todos los datos de un usuario
+// export const getUserById = (userId) => {
+//   return async (dispatch) => {
+//     console.log('entra en la action');
+//     const response = await axios.get(`${URL_Railway}/users/${userId}`);
+//     const user = response.data;
+//     dispatch({ type: GET_USER_BY_ID, payload: user })
+//   }
+// }

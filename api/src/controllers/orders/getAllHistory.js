@@ -13,7 +13,7 @@ const getAllOrdersHistory = async () => {
         include: [
           {
             model: Book,
-            attributes: ['title', 'price'],
+            attributes: ['id', 'title', 'price'],
           },
         ],
       },
@@ -23,27 +23,28 @@ const getAllOrdersHistory = async () => {
 
   const orderHistory = orders.map((order) => {
     
-    const originalDate = order.date
+    // const originalDate = order.date
 
-    const parsedDate = new Date(originalDate);
-    const day = parsedDate.getDate().toString().padStart(2, "0");
-    const month = (parsedDate.getMonth() + 1).toString().padStart(2, "0");
-    const year = parsedDate.getFullYear().toString();
+    // const parsedDate = new Date(originalDate);
+    // const day = parsedDate.getDate().toString().padStart(2, "0");
+    // const month = (parsedDate.getMonth() + 1).toString().padStart(2, "0");
+    // const year = parsedDate.getFullYear().toString();
 
-    const formattedDate = `${day}/${month}/${year}`;
-    const formattedTime = parsedDate.toISOString().split('T')[1].slice(0, 5);
+    // const formattedDate = `${day}/${month}/${year}`;
+    // const formattedTime = parsedDate.toISOString().split('T')[1].slice(0, 5);
 
-    const transformedDate = `${formattedDate}, ${formattedTime}`;
+    // const transformedDate = `${formattedDate}, ${formattedTime}`;
     
     return{
         id_user: order.id_user,
         id: order.id,
-        date: transformedDate,
+        date: order.date,
         quantity: order.quantity,
         price_total: order.price_total,
         state: order.state,
         orderDetails: order.orderDetails.map(e => ({
           quantityDetail: e.quantity,
+          id_book: e.book.id,
           titleBook: e.book.title,
           priceBook: e.book.price
         })),

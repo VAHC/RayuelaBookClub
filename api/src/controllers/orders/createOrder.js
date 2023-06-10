@@ -2,11 +2,23 @@ const { Order, User, OrderDetail, Book } = require('../../db');
 
 const createOrder = async (orderData) => {
     const currentDate = new Date();
+    const originalDate = currentDate
+
+    const parsedDate = new Date(originalDate);
+    const day = parsedDate.getDate().toString().padStart(2, "0");
+    const month = (parsedDate.getMonth() + 1).toString().padStart(2, "0");
+    const year = parsedDate.getFullYear().toString();
+
+    const formattedDate = `${day}/${month}/${year}`;
+    const formattedTime = parsedDate.toISOString().split('T')[1].slice(0, 5);
+
+    const transformedDate = `${formattedDate}, ${formattedTime}`;
+
     let quantityTotal = 0;
     let priceTotal = 0;
 
     const newOrder = await Order.create({
-        date: currentDate.toISOString(),
+        date: transformedDate,
         quantity: quantityTotal,
         price_total: priceTotal,
         street_and_number: orderData[0].street_and_number,
@@ -22,7 +34,7 @@ const createOrder = async (orderData) => {
 
         const book = await Book.findByPk(id_book);
         if (!book) {
-            throw Error(`No user has been found matching the id: ${id_book}`);
+            throw Error(`No book has been found matching the id: ${id_book}`);
         }
 
         const user = await User.findByPk(id_user);

@@ -31,8 +31,12 @@ import {
   GET_ALL_USERS,
   DELETE_USER,
   FILL_CART,
-  GET_SHOPPING_BY_USER,
+  FILTER_USER_PROFILE,
+  FILTER_USER_STATE,
+  GET_ALL_SHOPPING,
   CREATE_ORDER,
+  GET_BOOK_BY_ID,
+  // GET_USER_BY_ID,
 } from './action';
 
 // Initial state
@@ -65,8 +69,14 @@ const initialState = {
   cart: [],
   //Array todos los Usuarios
   allUsers: [],
-  //Array compras por usuario
-  userOrders: [],
+  //Array usuarios filtrados.
+  filteredUsers: [],
+  //Array historial de compras
+  allOrders: [],
+  //traigo detalle de libro por id
+  bookById: {},
+  //trae info completa de un usuario por id
+  userById: {},
 }
 
 // Reducer
@@ -144,12 +154,12 @@ const reducer = (state = initialState, action) => {
           return Math.round(average);
         }
         return 0; // Valor predeterminado si no hay reviews o no es un array válido
-    };
+      };
 
       let booksCopy = [...state.books]
       let booksPageCopy = [...state.booksPage]
-      let booksTotalQualification = booksCopy.map(book => ({...book, totalQualification: qualificationObtained(book)}))
-      let booksPageTotalQualification = booksPageCopy.map(book => ({...book, totalQualification : qualificationObtained(book)}))
+      let booksTotalQualification = booksCopy.map(book => ({ ...book, totalQualification: qualificationObtained(book) }))
+      let booksPageTotalQualification = booksPageCopy.map(book => ({ ...book, totalQualification: qualificationObtained(book) }))
 
       // let arrayOrdenadoRating = state.filterFlag ? state.books : state.booksPage
       let arrayOrdenadoRating = state.filterFlag ? booksTotalQualification : booksPageTotalQualification
@@ -327,9 +337,9 @@ const reducer = (state = initialState, action) => {
         }
       } else {
         const { id, price, stock, title } = action.payload
-        cartCopy.push({id_book: id, price, stock, title, quantity: 1 });
-    }
-    return {
+        cartCopy.push({ id_book: id, price, stock, title, quantity: 1 });
+      }
+      return {
         ...state,
         cart: cartCopy,
       }
@@ -371,6 +381,7 @@ const reducer = (state = initialState, action) => {
     case GET_ALL_USERS:
       return {
         ...state,
+        filteredUsers:action.payload,
         allUsers: action.payload
       };
 
@@ -386,17 +397,70 @@ const reducer = (state = initialState, action) => {
         cart: action.payload
       }
 
+    case FILTER_USER_PROFILE:
+      // console.log("🚀 ~ file: reducer.js:394 ~ reducer ~ action.payload:", action.payload)
+
+      const usersFilteredByProfile =
+        action.payload === 'All' ? state.allUsers :
+          state.allUsers.filter(user => {
+            if (user.profile === action.payload) return user
+          })
+
+
+      // console.log("🚀 ~ file: reducer.js:401 ~ reducer ~ usersFilteredByProfile:", usersFilteredByProfile)
+
+      return {
+        ...state,
+        filteredUsers: usersFilteredByProfile
+      }
+
+    case FILTER_USER_STATE:
+      const usersFilteredByState = action.payload === 'All' ?
+
+        state.allUsers : state.allUsers.filter(user => {
+          if (user.state === action.payload) return user
+        })
+
+        // console.log("🚀 ~ file: reducer.js:416 ~ reducer ~ usersFilteredByState:", usersFilteredByState)
+
+      return {
+        ...state,
+        filteredUsers: usersFilteredByState
+      }
+
+      
+
     case CREATE_ORDER:
       return {
         ...state
       }
 
-      // case GET_SHOPPING_BY_USER:
-      //   return {
-      //     ...state,
-      //     userOrders: action.payload.orders
-      //   }
+    case GET_ALL_SHOPPING:
+      return {
+        ...state,
+        allOrders: action.payload
+      }
+
+    case GET_BOOK_BY_ID:
+      return {
+        ...state,
+        bookById: action.payload
+      }
+
+      //case GET_BOOK_BY_ID:
+      //  return {
+      //    ...state, 
+       //   bookById: action.payload
+       // }
+      
+      // case GET_USER_BY_ID:
+      //   console.log('entra en el reducer');
+      // return {
+      //   ...state,
+      //   userById: action.payload
+      // }
     
+
     default:
       return state;
   }

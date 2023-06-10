@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createOrder } from "../../redux/action";
@@ -17,6 +18,9 @@ export const FormAddress = ({order}) => {
 
     const [error, setError] = useState("")
 
+    //Estado local para cambiar el botón si se envió toda la información
+    const [buttonClicked, setButtonClicked] = useState(false)
+
     const handleInputChange = (event) => {
         setInputs({
             ...inputs,
@@ -26,12 +30,17 @@ export const FormAddress = ({order}) => {
             setError(validationResult)
         }
 
+    //Cuando se envía el formulario con la dirección completa se arma el array para despachar
     const handleSubmit = (event) => {
         event.preventDefault()
         order[0] = { ...order[0], ...inputs }
-        console.log(order)
-        dispatch(createOrder(order));
+        dispatch(createOrder(order))
     }
+
+    //Función para cambiar el botón si se envió toda la información
+    const handleButtonClick = () => {
+        setButtonClicked(true)
+      }
 
     return (
         <>
@@ -65,7 +74,10 @@ export const FormAddress = ({order}) => {
                     </div>
 
                     <div className="col-12 d-flex justify-content-center m-1">
-                        <button className={error === "" ? "btn btn-outline-success mt-2" : "btn btn-outline-success disabled mt-2"} type="submit">Confirmar domicilio</button>
+                        {buttonClicked ? (<button className="btn btn-outline-success mt-2 disabled" type="submit">Domicilio confirmado</button>
+                        ) : (
+                        <button className={error === "" ? "btn btn-outline-success mt-2" : "btn btn-outline-success disabled mt-2"} type="submit" onClick={handleButtonClick}>Confirmar domicilio</button>
+                        )}
                     </div>
                 </form>
             </div>
