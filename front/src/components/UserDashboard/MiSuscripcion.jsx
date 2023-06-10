@@ -7,80 +7,29 @@ import { getUserById, cancelSuscription } from '../../redux/action';
 export const MiSuscripcion = () => {
 //Codigo para reemplazar cuando la ruta este ok
   const userLogin = useSelector((state) => state.user);
-  console.log('userLogin ' + userLogin);
-  const userId = userLogin ? user.id : null;
-  console.log('userId ' + userId);
-  const user = userId ? useSelector((state) => state.userById) : null;
-  console.log('user ' + user);
- 
+  const userId = userLogin ? userLogin.id : null;
+  const user =  userId ? useSelector((state) => state.userById) : null;
+
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
-
+  
   useEffect(()=> {
-    console.log('despacha la action');
-    dispatch(getUserById(userId))
-  }, [userId])
-
+    if(userId) {
+      dispatch(getUserById(userId))
+    }
+  }, [dispatch, userId])
+  
   const cancelHandler = (userId) => {
     setShowModal(true)
     dispatch(cancelSuscription(userId))
-    dispatch(getUserById(userId))
     setTimeout(() => {
       setShowModal(false)
     }, 3000);
   }
 
-// const user = {
-//   id: 1,
-//   firstName: 'Noelia',
-//   lastName: '',
-//   email: '',
-//   password: '',
-//   deleted: false,
-//   state: 'new',
-//   suscribed: false,
-//   date_suscription: null,
-//   createdDB: true,
-//   reviews:[],
-//   shippingInformation: {
-//     street_and_number: 'San Blas 2500',
-//     floor_and_department: '7C',
-//     city: 'CABA',
-//     CP: '1416',
-//     province: 'Buenos Aires'
-//   }  
-// }
-
-// const user = {
-//   id: 1,
-//   firstName: 'Noelia',
-//   lastName: '',
-//   email: '',
-//   password: '',
-//   deleted: false,
-//   state: 'new',
-//   suscribed: true,
-//   date_suscription: '06-06-2023',
-//   createdDB: true,
-//   reviews:[],
-//   orders:[ {
-//     street_and_number: 'San Blas 2500',
-//     floor_and_department: '',
-//     city: 'CABA',
-//     CP: '1416',
-//     province: 'Buenos Aires'
-//   },
-//   {
-//     street_and_number: 'San Blas 2500',
-//     floor_and_department: '',
-//     city: 'CABA',
-//     CP: '1416',
-//     province: 'Buenos Aires'
-//   }]
-// }
-
   return (
     <div>
+      {console.log('user', user)}
       <h2 className="text-center">Mi suscripción</h2>
       <div className="d-flex justify-content-center my-3">
         <div className="card mb-3 d-flex justify-content-center" style={{ width: '90%' }}>
@@ -94,13 +43,15 @@ export const MiSuscripcion = () => {
               {!userId && (<div className="text-center d-flex flex-column align-items-center" style={{ marginTop: '200px' }}>
                 <h5>Debes ingresar para ver detalles de tu suscripcion</h5>
               </div>)}
-              {/* <h5 className="card-title m-3 text-center">Hola {user.firstName}!</h5> */}
-              {userId && !user.suscribed ? (
+              {!user && <div className="text-center d-flex flex-column align-items-center" style={{ marginTop: '200px' }}>
+              <h5>Cargando datos...</h5>
+              </div>}
+              {userId && user && !user.suscribed ? (
                 <div className="text-center d-flex flex-column align-items-center" style={{ marginTop: '200px' }}>
                   <h5>Aún no estás suscripto...</h5>
                   <h6>¡Conocé más sobre los beneficios de la <Link to={'/suscripcion'}>suscripción</Link>!</h6>
                 </div>
-                ) : (userId && 
+                ) : (userId && user && 
                   <div className="align-items-center">
                     <div>
                       <h5>Tu suscripción comenzó el {user.date_suscription}</h5>
@@ -137,7 +88,7 @@ export const MiSuscripcion = () => {
                       <div className="text-center d-flex flex-column align-items-center">
                         <p>¿Querés cancelar tu suscripción?</p>
                         <div className="d-flex align-items-center">
-                          <button className="btn btn-dark w-100  mb-3" onClick={(userId)=> {cancelHandler(userId)}}>Cancelar Suscripción</button> 
+                          <button className="btn btn-dark w-100  mb-3" onClick={(userId)=> {cancelHandler(user.id)}}>Cancelar Suscripción</button> 
                         </div>
                       </div>
                     </div>

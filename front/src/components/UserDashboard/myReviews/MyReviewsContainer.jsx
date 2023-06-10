@@ -44,6 +44,7 @@ const MyReviewsContainer = () => {
 
   const handleEditReview = (review) => {
     setSelectedReview(review);
+    dispatch(getReviewsByUser(userId));
     toggleModal();
   };
 

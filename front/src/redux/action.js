@@ -319,7 +319,6 @@ export const getBookById = (bookId) => {
 //trae todos los datos de un usuario
 export const getUserById = (userId) => {
   return async (dispatch) => {
-    console.log('entra en la action');
     const response = await axios.get(`${URL_Railway}/users/${userId}`);
     const user = response.data;
     dispatch({ type: GET_USER_BY_ID, payload: user })
@@ -328,7 +327,8 @@ export const getUserById = (userId) => {
 
 export const cancelSuscription = (userId) => {
   return async function (dispatch) {
-    let response = await axios.put(`${URL_Railway}/suscription/${userId}`)
+    console.log('entra a la action de desuscribir');
+    let response = await axios.put(`${URL_Railway}/users/suscription/${userId}`)
     dispatch({ type: CANCEL_SUSCRIPTION })
     return response
   }

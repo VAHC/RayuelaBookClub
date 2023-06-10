@@ -445,12 +445,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         bookById: action.payload
       }
-
-      //case GET_BOOK_BY_ID:
-      //  return {
-      //    ...state, 
-       //   bookById: action.payload
-       // }
       
       case GET_USER_BY_ID:
         console.log('entra en el reducer');
@@ -460,9 +454,10 @@ const reducer = (state = initialState, action) => {
       }
 
       case CANCEL_SUSCRIPTION:
-        //console.log('entra la action en el reducer');
+        console.log('entra la action en el reducer de desuscripcion');
         return {
-          ...state
+          ...state,
+          // userById: { ...state.userById }
         }
     
 
