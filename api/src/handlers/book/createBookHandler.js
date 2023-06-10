@@ -39,6 +39,8 @@ const createBookHandler = async (req,res) => {
     //const rta =  cloudinary.uploader.upload(UrlImagen, {public_id: NameSinextencion})
     const resup = await cloudinary.uploader.upload(UrlImagen, {public_id: NameSinextencion})
    const { secure_url } = resup;
+   console.log(resup);
+   console.log("*****");
    console.log(secure_url);
    console.log('####');
 
