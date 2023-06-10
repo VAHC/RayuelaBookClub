@@ -18,6 +18,7 @@ const corsOptions = {
   origin: URL_Vercel_back,
   credentials: true,
 };
+server.use(express.static('uploads')) // Carpeta visible, es la raíz
 
 server.use(cors(corsOptions));
 server.name = 'API';
