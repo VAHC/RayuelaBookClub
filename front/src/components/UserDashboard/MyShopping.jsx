@@ -18,7 +18,8 @@ const MyShopping = () => {
     }, [])
 
     const userOrders = orders.filter(order => order.id_user === userId)
-    console.log(userOrders);
+
+    const sortOrders = userOrders.sort((a, b) => b.id - a.id)
 
 const icons = (state) => {
     if(state === "Created") return <i className="bi bi-pencil-square display-6 text-primary"/>
@@ -57,7 +58,7 @@ const icons = (state) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {userOrders && userOrders.map((order, index) => (
+                                {sortOrders && sortOrders.map((order, index) => (
                                     <tr id={order.id} key={index}>
                                         <td>{icons(order.state)}</td>
                                         <td>{order.date}</td>
