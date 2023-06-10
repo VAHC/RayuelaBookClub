@@ -6,10 +6,13 @@ import { getUserById, cancelSuscription } from '../../redux/action';
 
 export const MiSuscripcion = () => {
 //Codigo para reemplazar cuando la ruta este ok
-  const userId = useSelector((state) => state.user.id);
-  console.log(userId);
-  const user = useSelector((state) => state.userById);
-  console.log(user);
+  const userLogin = useSelector((state) => state.user);
+  console.log('userLogin ' + userLogin);
+  const userId = userLogin ? user.id : null;
+  console.log('userId ' + userId);
+  const user = userId ? useSelector((state) => state.userById) : null;
+  console.log('user ' + user);
+ 
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
 
@@ -88,13 +91,16 @@ export const MiSuscripcion = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex flex-column align-items-center">
+              {!userId && (<div className="text-center d-flex flex-column align-items-center" style={{ marginTop: '200px' }}>
+                <h5>Debes ingresar para ver detalles de tu suscripcion</h5>
+              </div>)}
               {/* <h5 className="card-title m-3 text-center">Hola {user.firstName}!</h5> */}
-              {!user.suscribed ? (
+              {userId && !user.suscribed ? (
                 <div className="text-center d-flex flex-column align-items-center" style={{ marginTop: '200px' }}>
                   <h5>Aún no estás suscripto...</h5>
                   <h6>¡Conocé más sobre los beneficios de la <Link to={'/suscripcion'}>suscripción</Link>!</h6>
                 </div>
-                ) : (
+                ) : (userId && 
                   <div className="align-items-center">
                     <div>
                       <h5>Tu suscripción comenzó el {user.date_suscription}</h5>

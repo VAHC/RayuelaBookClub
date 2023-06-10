@@ -10,7 +10,8 @@ import './customStyles.css';
 const MyShopping = () => {
 //     //CODIGO CUANDO LA RUTA USER_BY_ID INCLUYA ORDERS
     const orders = useSelector((state) => state.allOrders);
-    const userId = useSelector((state) => state.user.id)
+    const user = useSelector((state) => state.user)
+    const userId = user ? user.id : null;
     const dispatch = useDispatch();
 
     useEffect(()=> {
@@ -34,16 +35,18 @@ const icons = (state) => {
         <Container className="min-vh-100">
             <Row>
                 <Col>
-                    <h2>Mis compras</h2>
+                    <h2 className="text-center">Mis compras</h2>
                 </Col>
             </Row>
-
-            {!userOrders.length ? (
+            {!userId && <div className="text-center d-flex flex-column align-items-center" style={{ marginTop: '50px' }}> 
+                <h5>Debes ingresar para ver detalles de tus compras</h5>
+            </div>}
+            {userId && !userOrders.length ? (
                 <div>
                     <h6>Aún no realizaste ninguna compra...</h6>
                     <h5>¡Dirigite a la <Link to={'/catalogo'} className="text-decoration-none">tienda</Link> y realiza una!</h5>
                 </div>
-            ) : (
+            ) : ( userId &&
                 <Row>
                     <Col>
                         <Table striped bordered hover>

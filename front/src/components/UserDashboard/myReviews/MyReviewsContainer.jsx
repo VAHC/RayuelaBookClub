@@ -12,7 +12,8 @@ import {
 
 const MyReviewsContainer = () => {
     const userReviews = useSelector((state) => state.userReviews);
-    const userId = useSelector((state) => state.user.id);
+    const user = useSelector((state) => state.user);
+    const userId = user ? user.id : null;
     const [showDeleteModal, setShowDeleteModal] = useState(false); 
     const [showModal, setShowModal] = useState(false); //estdo local para mostrar o no el modal
     const [selectedReview, setSelectedReview] = useState(null);
@@ -59,16 +60,18 @@ const MyReviewsContainer = () => {
         <Container className="min-vh-100">
             <Row>
                 <Col>
-                    <h2>Mis reseñas</h2>
+                    <h2 className="text-center">Mis reseñas</h2>
                 </Col>
             </Row>
-
-            {!notDeletedReviews.length ? (
+            {!userId && (<div className="text-center d-flex flex-column align-items-center" style={{ marginTop: '50px' }}>
+                <h5>Debes ingresar para ver detalles de tus reseñas</h5>
+            </div>)}
+            {userId && !notDeletedReviews.length ? (
                 <div>
                     <h6>Aún no dejaste una reseña...</h6>
                     <h5>¡Elegí un libro y dejá una!</h5>
                 </div>
-            ) : (
+            ) : ( userId &&
                 <Row>
                     <Col>
                         <Table striped bordered hover>
