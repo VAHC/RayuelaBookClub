@@ -44,7 +44,7 @@ console.log(reviewsBook);
             <h5>Sé el primero en dejar una!</h5>
           </div>
         ) : (
-          notDeletedReviews.map((r) => (
+          notDeletedReviews && notDeletedReviews.map((r) => (
             <Review
               id={r.id}
               deleted={r.deleted}

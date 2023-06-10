@@ -159,11 +159,11 @@ return (
               {errors.comment ? <p className="text-danger">{errors.comment}</p> : null}
             </div>
           </div>
+          <div className="d-flex flex-row justify-content-evenly">
+            <button className="btn btn-dark m-3"  type='submit' onClick={handleToggleForm}>Enviar</button>
+          </div>
         </div>
       )}
-      <div className="d-flex flex-row justify-content-evenly">
-        <button className="btn btn-dark m-3"  type='submit' onClick={handleToggleForm}>Enviar</button>
-      </div>
     </form>
   </>
   )
