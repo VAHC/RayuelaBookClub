@@ -56,7 +56,6 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
             ...input,
             id_book: bookId,
             id_user: user.id ? user.id : null,
-            // id_user: 1,
             createdDb: true,
             deleted: false,
             qualification: number,
@@ -84,7 +83,6 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
                 navigate('/ingresar')//si no estoy logueado redirege al login
             }, 2000)
         } else if(formComplete) {
-        //  if(formComplete) {
             await dispatch(postReview(input));
             dispatch(getReviewsBook(bookId))
             setSuccess(true); // al setearse en true cambia el rederizado
@@ -103,7 +101,7 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
                  comment: '',
             });  
             setTimeout(function(){
-                handleToggleForm()//una vez enviado el form me redirige a reseñas
+                handleToggleForm()
                 toggleModal()
                 setSuccess(false)
             }, 2000)    
@@ -119,9 +117,6 @@ return (
       {!user && (
         <div className="d-flex justify-content-center">
           <img className="w-50 p-3 h-50 d-inline-block" src='./images/loginFirst.png' alt='debes estar registrado para crear una reseña' />
-          {/* {setTimeout(() => {
-            navigate('/ingresar')
-          }, 3000)} */}
         </div>)}
       {success && <div className="d-flex justify-content-center">
         <img className="w-50 p-3 h-50 d-inline-block" src='./images/createdReview.png' alt='formulario enviado correctamente' />
@@ -159,11 +154,11 @@ return (
               {errors.comment ? <p className="text-danger">{errors.comment}</p> : null}
             </div>
           </div>
+          <div className="d-flex flex-row justify-content-evenly">
+            <button className="btn btn-dark m-3"  type='submit' onClick={handleToggleForm}>Enviar</button>
+          </div>
         </div>
       )}
-      <div className="d-flex flex-row justify-content-evenly">
-        <button className="btn btn-dark m-3"  type='submit' onClick={handleToggleForm}>Enviar</button>
-      </div>
     </form>
   </>
   )
