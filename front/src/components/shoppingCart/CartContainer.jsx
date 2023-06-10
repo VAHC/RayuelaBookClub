@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addToCart, removeFromCart, removeItems, emptyCart, fillCart } from "../../redux/action";
 import { totalByitem, totalItems, totalPrice } from './helpers';
 import axios from "axios";
-import { URL_Railway_front } from "../../../ruta";
+import { URL_Railway } from "../../../ruta";
 
 const CartContainer = () => {
 
@@ -90,7 +90,7 @@ const CartContainer = () => {
 
       console.log(cartItems);
 
-      await axios.post(URL_Railway_front+'/mercadopago/payment', cartItems)
+      await axios.post(URL_Railway+'/mercadopago/payment', cartItems)
       .then((res) => 
       window.location.href = res.data.response.body.init_point
       )

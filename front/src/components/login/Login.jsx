@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from "../../redux/action";
-import { URL_Railway_front } from '../../../ruta';
+import { URL_Railway } from '../../../ruta';
 import axios from 'axios';
 import { decode } from 'jsonwebtoken-esm';
 
@@ -38,7 +38,7 @@ export const Login = ({setCompoActivo}) => {
     const handleSubmit = async (event) => {
         event.preventDefault()
         try {
-            const response = await axios.post(`${URL_Railway_front}/auth/login`, userData, {
+            const response = await axios.post(`${URL_Railway}/auth/login`, userData, {
                 headers: { 'Content-Type': 'application/json' }
             });
             const { token, message } = response.data;
@@ -65,7 +65,7 @@ export const Login = ({setCompoActivo}) => {
 
     //LOGIN CON GOOGLE
     const handleClick = async () => {
-        window.location.href = `${URL_Railway_front}/auth/google`;
+        window.location.href = `${URL_Railway}/auth/google`;
     }
 
     // useEffect(() => {

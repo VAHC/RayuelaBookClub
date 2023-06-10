@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { URL_Railway_front } from "../../../ruta";
+import { URL_Railway } from "../../../ruta";
 import axios from "axios";
 
 export const ChangePass = () => {
@@ -25,7 +25,7 @@ export const ChangePass = () => {
         const token = searchParams.get('token');
 
         try {
-            const response = await axios.post(`${URL_Railway_front}/users/password/${token}`, { password: pass });
+            const response = await axios.post(`${URL_Railway}/users/password/${token}`, { password: pass });
             console.log(response.data.message)
             navigate("/")
         } catch (error) {
