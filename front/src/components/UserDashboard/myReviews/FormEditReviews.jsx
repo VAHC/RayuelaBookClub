@@ -100,12 +100,12 @@ const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
                 <input className="form-control" id='comment' type='textarea' value={input.comment} name='comment' placeholder='Reseña...' onChange={inputHandler} />
               </div>
             </div>
+            <div className="d-flex flex-row justify-content-evenly">
+              <button className="btn btn-dark m-3"  type="submit" onClick={submitHandler}>Enviar</button>
+              <button className="btn btn-dark m-3" onClick={() => toggleModal()}>Cerrar</button>
+            </div>
           </div>
         )}
-        <div className="d-flex flex-row justify-content-evenly">
-          <button className="btn btn-dark m-3"  type="submit" onClick={submitHandler}>Enviar</button>
-          <button className="btn btn-dark m-3" onClick={() => toggleModal()}>Cerrar</button>
-        </div>
       </form>
     </>
   )
