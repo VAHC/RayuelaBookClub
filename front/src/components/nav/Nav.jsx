@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { login, logout, emptyCart } from "../../redux/action";
 import axios from 'axios';
-import { URL_Railway } from '../../../ruta';
+import { URL_Railway_front } from '../../../ruta';
 import { decode } from 'jsonwebtoken-esm';
 import AES from 'crypto-js/aes';
 import encUtf8 from 'crypto-js/enc-utf8';
@@ -17,7 +17,7 @@ export const Nav = () => {
 
   async function handleClick(event) {
     event.preventDefault();
-    const response = await axios.get(`${URL_Railway}/auth/logout`);
+    const response = await axios.get(`${URL_Railway_front}/auth/logout`);
     localStorage.removeItem('token');
     localStorage.removeItem('items');
     dispatch(logout())

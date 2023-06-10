@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { modifyBook } from "../../redux/action";
 
 import axios from 'axios';
-import { URL_Railway,URL_Vercel } from '../../../ruta';
+import { URL_Railway_front,URL_Vercel_front } from '../../../ruta';
 
 const EditBookForm = ({ book }) => {
     const [formComplete, setFormComplete] = useState(false); //estodo local para manejar el boton del submit y el envio de datos
@@ -82,7 +82,7 @@ const EditBookForm = ({ book }) => {
         try {
             
             //http://localhost:3001/books/deleteImg/1
-            const response = await axios.delete(`${URL_Railway}/books/deleteImg/${id}`);
+            const response = await axios.delete(`${URL_Railway_front}/books/deleteImg/${id}`);
             console.log(response);
              if(response.data.result === 'ok')
              {
@@ -227,7 +227,7 @@ const EditBookForm = ({ book }) => {
                     <div className="col-9">
                         {BorrarImage ? 
                         <div>
-                        <img src={URL_Vercel+'/images/logo.png'} width="120" height='auto'  alt={input.title} />
+                        <img src={URL_Vercel_front+'/images/logo.png'} width="120" height='auto'  alt={input.title} />
                         <input
                                     style={{ width: "100%" }}
                                     className="form-control"
@@ -242,7 +242,7 @@ const EditBookForm = ({ book }) => {
                         :<img src={input.image} width="100" height='auto'  alt={input.title} /> }
                         {/*si el estado es false muestro la imagen, sino el logo, por el tema refresco */}
                             {/**  */}
-                    {URL_Vercel+'/images/logo.png' === input.image ? 
+                    {URL_Vercel_front+'/images/logo.png' === input.image ? 
                         <p>El mensaje está visible</p> 
                         : <div className="btn btn-danger" onClick={(event) => BorrarImagen(event, input.id)} > borrar imagen</div>}
                     </div>
