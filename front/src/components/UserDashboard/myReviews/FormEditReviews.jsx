@@ -1,9 +1,6 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {putReview, getReviewsByUser} from '../../../redux/action';
-
- 
 
 const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
   const dispatch = useDispatch();
