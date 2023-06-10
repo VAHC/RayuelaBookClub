@@ -54,16 +54,16 @@ module.exports = (sequelize) => {
     phone: {
       type: DataTypes.INTEGER,
       allowNull: true,
-      validate: {
-        isNumeric: {
-          args: true,
-          msg: 'El número de teléfono debe ser numérico'
-        },
-        len: {
-          args: [10, 15],
-          msg: 'El número de teléfono debe tener entre 10 y 15 dígitos'
-        }
-      }
+      // validate: {
+      //   isNumeric: {
+      //     args: true,
+      //     msg: 'El número de teléfono debe ser numérico'
+      //   },
+      //   len: {
+      //     args: [10, 15],
+      //     msg: 'El número de teléfono debe tener entre 10 y 15 dígitos'
+      //   }
+      // }
     },
     profile: {
       type: DataTypes.STRING,
