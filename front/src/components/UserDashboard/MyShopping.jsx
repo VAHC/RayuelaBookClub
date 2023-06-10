@@ -8,7 +8,7 @@ import { getAllShopping } from "../../redux/action";
 import './customStyles.css';
 
 const MyShopping = () => {
-//     //CODIGO CUANDO LA RUTA USER_BY_ID INCLUYA ORDERS
+   //CODIGO CUANDO LA RUTA USER_BY_ID INCLUYA ORDERS
     const orders = useSelector((state) => state.allOrders);
     const user = useSelector((state) => state.user)
     const userId = user ? user.id : null;
@@ -29,8 +29,6 @@ const icons = (state) => {
     if(state === "Completed") return <i className="bi bi-check-circle display-6 text-success"/>
 };
 
-
-
     return (
         <Container className="min-vh-100">
             <Row>
@@ -44,7 +42,7 @@ const icons = (state) => {
             {userId && !userOrders.length ? (
                 <div>
                     <h6>Aún no realizaste ninguna compra...</h6>
-                    <h5>¡Dirigite a la <Link to={'/catalogo'} className="text-decoration-none">tienda</Link> y realiza una!</h5>
+                    <h5>¡Dirigite a la <Link to={'/catalogo'} className="text-decoration-none">tienda</Link> y realizá una!</h5>
                 </div>
             ) : ( userId &&
                 <Row>
@@ -103,12 +101,10 @@ const icons = (state) => {
                 </Row>
             )}
             <div className="d-flex">
-                <p>¿Tenés alguna duda sobre tus compras?</p>
-                <p>Escribinos por mail a:  <a href='http://mail.google.com/'><i className="bi bi-envelope p-1"></i></a>rayuela@email.com</p>
+                <p>¿Tenés alguna duda sobre tus compras? Escribinos por mail a: <a href='http://mail.google.com/'><i className="bi bi-envelope p-1"></i></a>rayuela@email.com</p>
             </div>
         </Container>
-    );
-
+    )
 }
 
 export default MyShopping
