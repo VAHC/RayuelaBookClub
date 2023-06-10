@@ -52,7 +52,7 @@ const user = {
   reviews:[],
   shippingInformation: {
     street_and_number: 'San Blas 2500',
-    floor_and_department: '7C',
+    floor_and_department: '',
     city: 'CABA',
     CP: '1416',
     province: 'Buenos Aires'
@@ -86,34 +86,38 @@ const user = {
                     <hr/>
                     <div>
                       <h5>Los datos para el envio mensual son:</h5>
-                        <div>
+                        <div className="d-flex">
                         <p className="card-text fw-bold ms-3">Calle y número:</p>
                           <p className="card-text ms-3">{user.shippingInformation.street_and_number}</p>
                         </div>
                         {user.shippingInformation.floor_and_department ? (
-                          <div>
+                          <div className="d-flex">
                             <p className="card-text fw-bold ms-3">Piso y departamento</p>
                             <p className="card-text ms-3">{user.shippingInformation.floor_and_department}</p>
                           </div>
                         ) : null}
-                        <div>
+                        <div className="d-flex">
                           <p className="card-text fw-bold ms-3">Ciudad:</p>
                           <p className="card-text ms-3">{user.shippingInformation.city}</p>
                         </div>
-                        <div>
+                        <div className="d-flex">
                           <p className="card-text fw-bold ms-3">CP:</p>
                           <p className="card-text ms-3">{user.shippingInformation.CP}</p>
                         </div>
-                        <div>
+                        <div className="d-flex">
                           <p className="card-text fw-bold ms-3">Provincia:</p>
                           <p className="card-text ms-3">{user.shippingInformation.province}</p>
                         </div>
                     </div>
                     <hr/>
-            <div>
-              <p>¿Querés cancelar tu suscripción?</p>
-              <button>Cancelar Suscripción</button> 
-            </div>
+                    <div className="d-flex flex-column align-items-center justify-content-center">
+                      <div className="text-center d-flex flex-column align-items-center">
+                        <p>¿Querés cancelar tu suscripción?</p>
+                        <div className="d-flex align-items-center">
+                          <button className="btn btn-dark w-100  mb-3">Cancelar Suscripción</button> 
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 )
             }
@@ -121,7 +125,7 @@ const user = {
           </div>
         </div>
       </div>
-      <div>
+      <div className="d-flex">
         <p>¿Querés modificar tus datos o tenés alguna duda?</p>
         <p>Escribinos por mail a:  <a href='http://mail.google.com/'><i className="bi bi-envelope p-1"></i></a>rayuela@email.com</p>
       </div>

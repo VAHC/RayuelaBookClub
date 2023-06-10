@@ -2,33 +2,23 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Modal, Button, Accordion } from 'react-bootstrap';
 import Review from './Review';
-import { useNavigate } from 'react-router-dom';
 import { getReviewsBook } from '../../redux/action';
 import FormCreateReview from './FormCreateReview';
 
 
 const ContainerReviews = ({ bookId, toggleModal }) => {
-  //console.log('review' + bookId);
+
   const reviewsBook = useSelector((state) => state.reviewsBook);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [showForm, setShowForm] = useState(false);
-  const user = useSelector((state)  => state.user) //estado que comprueba que se esta logueado
-console.log(reviewsBook);
+
   const notDeletedReviews = reviewsBook.filter(review => !review.deleted)
-//console.log( notDeletedReviews);
+
   useEffect(() => {
     dispatch(getReviewsBook(bookId));
   }, [bookId]);
 
-  // const notLogin = () => {
-  //     alert('Antes de dejar tu reseña debés loguearte')
-  //     setTimeout(function(){
-  //         navigate('/ingresar')//si no estoy logueado redirege al login
-  //     }, 2000) 
-  // }
-  
-  const handleToggleForm = () => {
+    const handleToggleForm = () => {
     setShowForm(!showForm);
   };
 
@@ -61,15 +51,12 @@ console.log(reviewsBook);
         <Button variant="secondary" onClick={toggleModal}>
           Cerrar
         </Button>
-        {/* <Button variant="primary">Deja tu reseña</Button> */}
         <div className="d-flex justify-content-center align-items-center">
         <Accordion>
           <Accordion.Item eventKey="0">
             <Accordion.Header>Deja tu reseña</Accordion.Header>
             <Accordion.Body>
-              {/* {!user ? notLogin() :  */}
               <FormCreateReview handleToggleForm={handleToggleForm} bookId={bookId} toggleModal={toggleModal}/>
-            {/* } */}
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>
