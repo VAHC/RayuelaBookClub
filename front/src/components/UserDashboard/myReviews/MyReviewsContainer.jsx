@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
 import { getReviewsByUser, deleteReview } from './../../../redux/action';
 import FormEditReviews from "./FormEditReviews";
 import {
@@ -59,7 +58,7 @@ const MyReviewsContainer = () => {
         <Container className="min-vh-100">
             <Row>
                 <Col>
-                    <h1>Mis reseñas</h1>
+                    <h2>Mis reseñas</h2>
                 </Col>
             </Row>
 

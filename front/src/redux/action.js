@@ -15,7 +15,7 @@ export const FILTER_AUTHOR = 'FILTER_AUTHOR';
 export const POST_BOOK = "POST_BOOK";
 export const CREATE_USER = "CREATE_USER";
 export const FILTER_FLAG = "FILTER_FLAG";
-export const RESET_FILTERS = "FILTER_FLAG";
+export const RESET_FILTERS = "RESET_FILTERS";
 export const GET_GENEROS = "GET_GENEROS";
 export const GET_AUTORES = "GET_AUTORES";
 export const GET_REVIEWS_BOOK = 'GET_REVIEWS_BOOK';
@@ -33,6 +33,15 @@ export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const REMOVE_ITEMS = "REMOVE_ITEMS";
 export const EMPTY_CART = "EMPTY_CART";
 export const FILL_CART = "FILL_CART";
+export const CREATE_ORDER = "CREATE_ORDER";
+export const GET_ALL_USERS = "GET_ALL_USERS";
+export const DELETE_USER = "DELETE_USER";
+export const FILTER_USER_STATE = "FILTER_USER_STATE";
+export const FILTER_USER_PROFILE = "FILTER_USER_PROFILE";
+export const GET_ALL_SHOPPING = "GET_ALL_SHOPPING";
+export const GET_BOOK_BY_ID = "GET_BOOK_BY_ID";
+// export const GET_USER_BY_ID = "GET_USER_BY_ID";
+
 
 export const getAllBooks = () => {
   return async (dispatch) => {
@@ -64,7 +73,7 @@ export const sortByRating = (payload) => {
   return { type: SORT_BY_RATING, payload }
 }
 
-export const searchByNameOrAuthor = (name) => {
+export const searchByNameOrAuthor = (name,) => {
   // return async (dispatch) => {
   //   const response = await axios.get(`http://localhost:3001/books?title=${name}`);
   //   const searchArray = response.data;
@@ -117,6 +126,7 @@ export const filterFlagToggle = (boolean) => {
 }
 
 export const resetFilter = () => {
+  console.log("entra el reset a la action de redux")
   return { type: RESET_FILTERS }
 }
 
@@ -139,8 +149,8 @@ export const getReviewsBook = (bookId) => {
 }
 
 export const postReview = (review) => {
-  console.log(review);
-  console.log('se despacha la action');
+  //console.log(review);
+  //console.log('se despacha la action');
   return async function (dispatch) {
     let response = await axios.post(`${URL_Railway}/reviews`, review)
     return response
@@ -198,20 +208,18 @@ export const deleteReview = (reviewId) => {
 }
 
 export const deleteBook = async (bookId, dispatch) => {
-  //console.log("esta es la action")
+  console.log("esta es la action")
   await axios.put(`${URL_Railway}/books/delete/${bookId}`)
-  dispatch({ type: DELETE_BOOK })}
-
-export const updateUser = (user) => {
-  return async function (dispatch) {
-    await axios.put(`${URL_Railway}/users`, user)
-    dispatch({ type: UPDATE_USER })
-    return user
-  }
+  dispatch({ type: DELETE_BOOK })
 }
 
+export const updateUser = async(user, dispatch) => {
+    await axios.put(`${URL_Railway}/users`, user)
+    dispatch({ type: UPDATE_USER })
+  }
+
+
 export const addToCart = (book) => {
-  //console.log('entra la action');
   return (dispatch, getState) => {
     dispatch ({ type: ADD_TO_CART, payload: book });
     const updatedCart3 = getState().cart;
@@ -227,8 +235,8 @@ export const removeFromCart = (book) => {
     if (!updatedCart.length) {
       localStorage.removeItem('items');
     }
-  };
-};
+  }
+}
 
 export const removeItems = (id) => {
   return (dispatch, getState) => {
@@ -238,7 +246,6 @@ export const removeItems = (id) => {
     if (!updatedCart2.length) {
       localStorage.removeItem('items');
     }
-
   }
 }
 
@@ -253,3 +260,67 @@ export const fillCart = (dataCart) => {
     payload: dataCart
   }
 }
+
+export const createOrder = (order) => {
+  return async function (dispatch) {
+    let response = await axios.post(`${URL_Railway}/order`, order)
+    return response
+  }
+}
+
+export const getAllUsers = () => {
+  return async (dispatch) => {
+    const response = await axios.get(`${URL_Railway}/users`);
+    const allUsers = response.data;
+    dispatch({ type: GET_ALL_USERS, payload: allUsers })
+  }
+}
+
+export const deleteUser = async (user, dispatch) => {
+  // !user.deleted ? { ...user, state: "Blocked", deleted: true } :
+//   const updatedUser =  { ...user, state: "Active", deleted: false };
+
+// console.log(updatedUser);
+
+  await axios.put(`${URL_Railway}/users/delete/${user.id}`)
+  dispatch({ type: DELETE_USER })
+}
+
+export const filterProfileUser = (filterValue)=>{
+  return{
+    type: FILTER_USER_PROFILE,
+    payload:filterValue
+  }
+}
+
+export const filterStateUser = (filterValue)=>{
+  return{
+    type: FILTER_USER_STATE,
+    payload:filterValue
+  }
+}
+export const getAllShopping = () => {
+  return async (dispatch) => {
+    const response = await axios.get(`${URL_Railway}/order`);
+    const AllShopping = response.data;
+    dispatch({ type: GET_ALL_SHOPPING, payload: AllShopping })
+  }
+}
+
+export const getBookById = (bookId) => {
+  return async (dispatch) => {
+    const response = await axios.get(`${URL_Railway}/books/${bookId}`);
+    const bookById = response.data;
+    dispatch({ type: GET_BOOK_BY_ID, payload: bookById })
+  }
+}
+
+//trae todos los datos de un usuario
+// export const getUserById = (userId) => {
+//   return async (dispatch) => {
+//     console.log('entra en la action');
+//     const response = await axios.get(`${URL_Railway}/users/${userId}`);
+//     const user = response.data;
+//     dispatch({ type: GET_USER_BY_ID, payload: user })
+//   }
+// }

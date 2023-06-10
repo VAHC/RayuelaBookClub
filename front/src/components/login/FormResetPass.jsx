@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { URL_Railway } from "../../../ruta";
 import axios from "axios";
@@ -12,6 +12,7 @@ export const FormResetPass = ({ setCompoActivo }) => {
     const [error, setError] = useState("")
 
     const [success, setSuccess] = useState(false)
+    const [gmailUser, setGmailUser] = useState(true)
 
     const handleInputChange = (event) => {
         const inputMail = event.target.value
@@ -22,9 +23,23 @@ export const FormResetPass = ({ setCompoActivo }) => {
 
     const handleClickPass = async (event) => {
         event.preventDefault()
+
         try {
-            const response = await axios.post(`${URL_Railway}/users/password`, { email: mail });
-            setSuccess(true)
+            const users = await axios(`${URL_Railway}/users`);
+            const filteredUser = users.data.filter(user => user.email === mail)
+            if (filteredUser) {
+                if (filteredUser[0].createdDb === true) {
+                    try {
+                        const response = await axios.post(`${URL_Railway}/users/password`, { email: mail });
+                        setSuccess(true)
+                    } catch (error) {
+                        console.error(error)
+                    }
+                } else {
+                    setGmailUser(false)
+                    setSuccess(true)
+                }
+            }
         } catch (error) {
             console.error(error)
         }
@@ -32,11 +47,20 @@ export const FormResetPass = ({ setCompoActivo }) => {
 
     return (
         <div>
-            {success && <div className="d-flex justify-content-center m-2">
+            {success && gmailUser && <div className="d-flex justify-content-center m-2">
                 <div className="card w-75 my-5">
                     <div className="card-body">
                         <p className="card-text text-center fs-4">
                             ¡Listo! Revisá tu correo. Te enviamos las instrucciones para restablecer tu contraseña.
+                        </p>
+                    </div>
+                </div>
+            </div>}
+            {success && gmailUser === false && <div className="d-flex justify-content-center m-2">
+                <div className="card w-75 my-5">
+                    <div className="card-body">
+                        <p className="card-text text-center fs-5">
+                            No es posible restablecer tu contraseña ya que tu usuario fue creado a través de Gmail. Enviá un correo a rayuela@email.com para solicitar el restablecimiento de tu contraseña.
                         </p>
                     </div>
                 </div>

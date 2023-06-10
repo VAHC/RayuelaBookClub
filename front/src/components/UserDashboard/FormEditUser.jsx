@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateUser } from "../../redux/action";
 
@@ -102,11 +102,5 @@ const validation = (userData) => {
     if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(userData.email)) {
         errors.email = "Escribí un email válido"
     }
-    // if (!/\d/.test(userData.password)) {
-    //     errors.password = "Tu contraseña debe contener al menos un número"
-    // }
-    // if (userData.password.length < 8 || userData.password.length > 10) {
-    //     errors.password = "Tu contraseña debe tener entre 8 y 10 caracteres"
-    // }
     return errors
 }

@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from "../../redux/action";
 import { URL_Railway } from '../../../ruta';

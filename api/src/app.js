@@ -6,13 +6,16 @@ const routes = require('./routes/index.js');
 const passport = require('passport');
 const session = require('express-session');
 const cors = require('cors');
+const mercadopago = require('mercadopago');
+require('dotenv').config();
 
+const {URL_Vercel_back} = require ('../rutas.js')
 
 const server = express();
 
 // Configuración básica de CORS
 const corsOptions = {
-  origin: 'http://127.0.0.1:5173',
+  origin: URL_Vercel_back,
   credentials: true,
 };
 
@@ -47,7 +50,7 @@ server.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
   next()
 })
-
+//hola
 server.use('/', routes)
 
 // Error catching endware.
@@ -57,5 +60,7 @@ server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   console.error(err)
   res.status(status).send(message)
 })
+
+mercadopago.configure({access_token: process.env.MP_ACCESS_TOKEN})
 
 module.exports = server

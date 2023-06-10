@@ -13,7 +13,7 @@ const updateUser = async (id, firstName, lastName, email, phone, profile) => {
         userToUpdate.email = email
         userToUpdate.phone = phone
         userToUpdate.profile = profile
-
+        console.log("succesful update")
         await userToUpdate.save()
     }
 }
