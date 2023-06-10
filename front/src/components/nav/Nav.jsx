@@ -14,6 +14,7 @@ export const Nav = () => {
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [SoyRefresh, setSoyRefresh] = React.useState(true);
 
   async function handleClick(event) {
     event.preventDefault();
@@ -26,28 +27,57 @@ export const Nav = () => {
   }
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get('token');
+    let tokenRayuela = localStorage.getItem('token');
+    const clave = 'mi_clave_secreta';
 
-    if (token) {
-      // Definir la clave de encriptación
-      const clave = 'mi_clave_secreta';
+    if(!tokenRayuela)
+    {
+      const urlParams = new URLSearchParams(window.location.search);
+       tokenRayuela = urlParams.get('token');
+        // consulto si existe por url
+        if(tokenRayuela){
+          setSoyRefresh(false)
+          localStorage.setItem('token', tokenRayuela);
+        }
+    }else
+    {
+        console.log('existe');
+    }
 
-      // Decodificar el token JWT
-      const decodedToken = decode(token);
+    if (tokenRayuela) {
+     // Definir la clave de encriptación
+       // Decodificar el token JWT
+      const decodedToken = decode(tokenRayuela);
 
-      if (decodedToken && decodedToken.objetoEncriptado) {
-        // Obtener el objeto encriptado del token decodificado
-        const objetoEncriptado = decodedToken.objetoEncriptado;
+      console.log(decodedToken);
+      if (decodedToken ) {
+            if(decodedToken.objetoEncriptado)
+            {
+              console.log('via gmail');
+               // encriptado via gmail
+                // Obtener el objeto encriptado del token decodificado
+                const objetoEncriptado = decodedToken.objetoEncriptado;
 
-        // Desencriptar el objeto
-        const bytesDesencriptados = AES.decrypt(objetoEncriptado, clave);
-        const textoDesencriptado = bytesDesencriptados.toString(encUtf8);
-        const objetoDesencriptado = JSON.parse(textoDesencriptado);
-
-        dispatch(login(objetoDesencriptado.datos))
-        navigate("/catalogo")
+                // Desencriptar el objeto
+                const bytesDesencriptados = AES.decrypt(objetoEncriptado, clave);
+                const textoDesencriptado = bytesDesencriptados.toString(encUtf8);
+                const objetoDesencriptado = JSON.parse(textoDesencriptado);
+                dispatch(login(objetoDesencriptado.datos))
+            }else{
+              // via formulario
+              console.log('via formulario');
+              let data = decodedToken.info.datos
+                dispatch(login(data))
+            }
+            if(!SoyRefresh)
+            {
+              navigate("/catalogo")
+            }
+            
       }
+    }else
+    {
+      console.log('vacio URL tokenRayuela')
     }
   }, []);
 
