@@ -321,7 +321,10 @@ const reducer = (state = initialState, action) => {
       }
 
     case UPDATE_USER:
-      return { ...state }
+      return { 
+        ...state,
+        user: action.payload
+      }
 
     case ADD_TO_CART:
       //console.log('entra al reducer');
