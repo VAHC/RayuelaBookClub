@@ -70,15 +70,15 @@ const user = {
                 <img src="./images/miSuscripcion.jpg" className="img-fluid rounded-start" alt="Imagen de libros abiertos con un señalador" />
               </div>
             </div>
-            <div className="col-md-6">
-              <h4>Hola {user.firstName}!</h4>
+            <div className="col-md-6 d-flex flex-column align-items-center">
+              <h5 className="card-title m-3 text-center">Hola {user.firstName}!</h5>
               {!user.suscripted ? (
-                <div>
+                <div className="align-items-center">
                   <h5>Aún no estás suscripto...</h5>
                   <h6>¡Conocé más sobre los beneficios de la <Link to={'/suscripcion'}>suscripción</Link>!</h6>
                 </div>
                 ) : (
-                  <div>
+                  <div className="align-items-center">
                     <div>
                       <h5>Tu suscripción comenzó el {user.date_suscription}</h5>
                       <p>Tiene una validez de un año, pasado ese plazo deberás renovarla...</p>
@@ -87,26 +87,26 @@ const user = {
                     <div>
                       <h5>Los datos para el envio mensual son:</h5>
                         <div>
-                          <h6>Calle y número:</h6>
-                          <p>{user.shippingInformation.street_and_number}</p>
+                        <p className="card-text fw-bold ms-3">Calle y número:</p>
+                          <p className="card-text ms-3">{user.shippingInformation.street_and_number}</p>
                         </div>
                         {user.shippingInformation.floor_and_department ? (
                           <div>
-                            <h6>Piso y departamento</h6>
-                            <p>{user.shippingInformation.floor_and_department}</p>
+                            <p className="card-text fw-bold ms-3">Piso y departamento</p>
+                            <p className="card-text ms-3">{user.shippingInformation.floor_and_department}</p>
                           </div>
                         ) : null}
                         <div>
-                          <h6>Ciudad:</h6>
-                          <p>{user.shippingInformation.city}</p>
+                          <p className="card-text fw-bold ms-3">Ciudad:</p>
+                          <p className="card-text ms-3">{user.shippingInformation.city}</p>
                         </div>
                         <div>
-                          <h6>CP:</h6>
-                          <p>{user.shippingInformation.CP}</p>
+                          <p className="card-text fw-bold ms-3">CP:</p>
+                          <p className="card-text ms-3">{user.shippingInformation.CP}</p>
                         </div>
                         <div>
-                          <h6>Provincia:</h6>
-                          <p>{user.shippingInformation.province}</p>
+                          <p className="card-text fw-bold ms-3">Provincia:</p>
+                          <p className="card-text ms-3">{user.shippingInformation.province}</p>
                         </div>
                     </div>
                     <hr/>
