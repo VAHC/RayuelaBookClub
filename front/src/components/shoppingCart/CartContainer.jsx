@@ -72,7 +72,8 @@ const CartContainer = () => {
 
     //Armo el array de la orden que se manda al formulario para terminar de armar el array que se despacha
     const handleConfirmOrder = () => {
-        const cartOrder = cart.map(i => {
+        const cartOrder = cart && cart.map(i => {
+            console.log('cartOrder' + cartOrder);
             return {
                 ...i,
                 id_user: user.id
@@ -91,7 +92,7 @@ const CartContainer = () => {
           price: totalPrice(cart),
         };
 
-      //console.log(cartItems);
+      console.log('cartItems' + cartItems);
 
       await axios.post(URL_Railway+'/mercadopago/payment', cartItems)
       .then((res) => 
