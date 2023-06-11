@@ -64,7 +64,7 @@ const createOrder = async (orderData) => {
     if (!user) {
         throw Error(`No user has been found matching the id: ${id_user}`);
     }
-    console.log(user);
+    // console.log(user);
 
     await confirmacionCompra(
         "Rayuela BookClub",
