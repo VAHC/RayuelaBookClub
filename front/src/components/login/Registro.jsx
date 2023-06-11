@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import validation from "./validationRegistro";
 import { useDispatch } from 'react-redux';
 import { createUser } from "../../redux/action";
+import swal from 'sweetalert';
 
 export const Registro = ({setCompoActivo}) => {
 
@@ -74,10 +75,19 @@ export const Registro = ({setCompoActivo}) => {
                     setUserCreated(true);
                     setTimeout(() => setUserCreated(false), 3000)
                     setTimeout(() => onClickHandler('login'), 3000)
-                } else alert("ERROR")
+                } else swal({
+                    title: "Datos erróneos",
+                    icon: "error",
+                    timer: "2500"
+                })
             })
             .catch((error) => {
-                alert("Server error")
+                console.log(error)
+                swal({
+                    title: "Algo salió mal",
+                    icon: "error",
+                    timer: "2500"
+                })
             })
     }
 

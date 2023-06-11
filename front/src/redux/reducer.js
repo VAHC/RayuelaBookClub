@@ -303,14 +303,23 @@ const reducer = (state = initialState, action) => {
       }
 
     case PUT_BOOK:
+      const nState = [...state.allBooks]
+      const newState = nState.sort((a, b) =>
+         a.id > b.id ? 1 : -1
+      )
+      const bookIndex = newState.findIndex(book => book.id === action.payload.id)
+      newState[bookIndex] = action.payload
       return {
-        ...state
+        ...state,
+        allBooks: newState
       }
+
     case PUT_REVIEW:
       //console.log('entra la action en el reducer')
       return {
         ...state
       }
+
     case DELETE_REVIEW:
       //console.log('entra la action en el reducer');
       return {
