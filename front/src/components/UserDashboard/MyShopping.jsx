@@ -8,9 +8,10 @@ import { getAllShopping } from "../../redux/action";
 import './customStyles.css';
 
 const MyShopping = () => {
-//     //CODIGO CUANDO LA RUTA USER_BY_ID INCLUYA ORDERS
+   //CODIGO CUANDO LA RUTA USER_BY_ID INCLUYA ORDERS
     const orders = useSelector((state) => state.allOrders);
-    const userId = useSelector((state) => state.user.id)
+    const user = useSelector((state) => state.user)
+    const userId = user ? user.id : null;
     const dispatch = useDispatch();
 
     useEffect(()=> {
@@ -18,7 +19,8 @@ const MyShopping = () => {
     }, [])
 
     const userOrders = orders.filter(order => order.id_user === userId)
-    console.log(userOrders);
+
+    const sortOrders = userOrders.sort((a, b) => b.id - a.id)
 
 const icons = (state) => {
     if(state === "Created") return <i className="bi bi-pencil-square display-6 text-primary"/>
@@ -27,22 +29,22 @@ const icons = (state) => {
     if(state === "Completed") return <i className="bi bi-check-circle display-6 text-success"/>
 };
 
-
-
     return (
         <Container className="min-vh-100">
             <Row>
                 <Col>
-                    <h2>Mis compras</h2>
+                    <h2 className="text-center">Mis compras</h2>
                 </Col>
             </Row>
-
-            {!userOrders.length ? (
+            {!userId && <div className="text-center d-flex flex-column align-items-center" style={{ marginTop: '50px' }}> 
+                <h5>Debes ingresar para ver detalles de tus compras</h5>
+            </div>}
+            {userId && !userOrders.length ? (
                 <div>
                     <h6>Aún no realizaste ninguna compra...</h6>
-                    <h5>¡Dirigite a la <Link to={'/catalogo'} className="text-decoration-none">tienda</Link> y realiza una!</h5>
+                    <h5>¡Dirigite a la <Link to={'/catalogo'} className="text-decoration-none">tienda</Link> y realizá una!</h5>
                 </div>
-            ) : (
+            ) : ( userId &&
                 <Row>
                     <Col>
                         <Table striped bordered hover>
@@ -57,7 +59,7 @@ const icons = (state) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {userOrders && userOrders.map((order, index) => (
+                                {sortOrders && sortOrders.map((order, index) => (
                                     <tr id={order.id} key={index}>
                                         <td>{icons(order.state)}</td>
                                         <td>{order.date}</td>
@@ -65,9 +67,9 @@ const icons = (state) => {
                                         {order.orderDetails && order.orderDetails.map((book, index) => (
                                             <div id={book.id_book} key={index} className="col-12">
                                             <div className="d-flex justify-content-between align-items-center">
-                                                <div className="d-flex align-items-center">
-                                                    <h6 className="mr-10">{book.quantityDetail}</h6>
-                                                    <span className="small">und{book.quantityDetail > 1 ? "s" : ""}</span>
+                                                <div className="d-flex ">
+                                                    <p className="card-text fw-bold ms-3">{book.quantityDetail}</p>
+                                                    <p className="card-text ms-3">und{book.quantityDetail > 1 ? "s" : ""}</p>
                                                 </div>
                                                 <OverlayTrigger trigger="click" placement="right" overlay={
                                                     <Popover className="custom-popover">
@@ -76,15 +78,15 @@ const icons = (state) => {
                                                         </Popover.Body>
                                                     </Popover>
                                                 }>
-                                                    <a  className="text-decoration-none" tabIndex="0" href="#">{book.titleBook}</a>
+                                                    <a  className="text-reset text-decoration-none fw-bold" tabIndex="0" href="#">{book.titleBook}</a>
                                                 </OverlayTrigger> 
                                              
-                                                <div className="d-flex align-items-center">
-                                                    <h6>${book.priceBook}</h6>
-                                                    <span className="small">c/u</span>
+                                                <div className="d-flex ">
+                                                <p className="card-text fw-bold ms-3">${book.priceBook}</p>
+                                                <p className="card-text ms-3">c/u</p>
                                                 </div>
                                             </div>
-                                            {(order.orderDetails.length > 1) ? <hr/> : null}
+                                            {index !== order.orderDetails.length - 1 && <hr/>}
                                         </div>
                                         ))}
                                         </td>
@@ -98,13 +100,11 @@ const icons = (state) => {
                     </Col>
                 </Row>
             )}
-            <div>
-                <p>¿Tenés alguna duda sobre tus compras?</p>
-                <p>Escribinos por mail a:  <a href='http://mail.google.com/'><i className="bi bi-envelope p-1"></i></a>rayuela@email.com</p>
+            <div className="d-flex">
+                <p>¿Tenés alguna duda sobre tus compras? Escribinos por mail a: <a href='http://mail.google.com/'><i className="bi bi-envelope p-1"></i></a>rayuela@email.com</p>
             </div>
         </Container>
-    );
-
+    )
 }
 
 export default MyShopping

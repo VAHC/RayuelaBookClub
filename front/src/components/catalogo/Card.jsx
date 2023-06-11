@@ -42,9 +42,6 @@ const bookCard = ({book}) => {
 
   const renderTooltip = () => (
     <Tooltip>
-      {/* <span role="img" aria-label="star">
-        ⭐⭐⭐⭐⭐
-      </span> */}
       <div>{renderStars(qualificationObtained(book))}</div>
       <div
         style={{

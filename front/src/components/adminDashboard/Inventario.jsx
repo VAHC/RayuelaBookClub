@@ -16,7 +16,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllBooks, deleteBook } from "../../redux/action";
 
 const Inventario = () => {
-    const allBooks = useSelector((state) => state.allBooks);
+    const books = useSelector((state) => state.allBooks);
+
+    const allBooks = books.sort((a, b) =>
+        a.id > b.id ? 1 : -1
+    )
+
     const [addBookModalShow, setAddBookModalShow] = useState(false);
     const [descriptionModalshow, setDescriptionModalshow] = useState(
         Array.from({ length: allBooks.length }, () => false)
@@ -106,7 +111,7 @@ const Inventario = () => {
                     <FormCreateBook />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={() => setModalShow(false)}>Close</Button>
+                    <Button onClick={() => setModalShow(false)}>Cerrar</Button>
                 </Modal.Footer>
             </Modal>
         );
@@ -138,7 +143,7 @@ const Inventario = () => {
                 >
                     <Modal.Header closeButton={false}>
                         <Modal.Title id="contained-modal-title-vcenter">
-                            Descripcion de {book.title}
+                            Descripción de {book.title}
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>{book.description}</Modal.Body>
@@ -156,7 +161,7 @@ const Inventario = () => {
                                 );
                             }}
                         >
-                            Close
+                            Cerrar
                         </Button>
                     </Modal.Footer>
                 </Modal>
@@ -206,7 +211,7 @@ const Inventario = () => {
                                 );
                             }}
                         >
-                            Close
+                            Cerrar
                         </Button>
                     </Modal.Footer>
                 </Modal>
@@ -215,7 +220,7 @@ const Inventario = () => {
     };
 
     const ableButtonHandler = async (bookId) => {
-        console.log("Estoy modificando el deleted de este libro: " + bookId )
+        //console.log("Estoy modificando el deleted de este libro: " + bookId )
         await deleteBook(bookId,dispatch)
         dispatch(getAllBooks());
     };
@@ -259,9 +264,9 @@ const Inventario = () => {
                     {editModal(index, book)}
                     <Button
                         onClick={() => ableButtonHandler(book.id)}
-                        variant={book.deleted ? "success" : "danger"}
+                        variant={book.deleted ? "success m-2" : "danger m-2"}
                     >
-                        {book.deleted ? "Habilitar" : "deshabilitar"}
+                        {book.deleted ? "Habilitar" : "Deshabilitar"}
                     </Button>
                 </td>
             </tr>
@@ -272,10 +277,10 @@ const Inventario = () => {
         <Container>
             <Row>
                 <Col>
-                    <h1>Gestion del inventario</h1>
+                    <h1>Gestión del inventario</h1>
                     <p>
-                        En este panel podras ver el inventario completo, agregar
-                        y editar los productos ademas de habilitar y
+                        En este panel podrás ver el inventario completo, agregar
+                        y editar los productos, además de habilitarlos y
                         deshabilitarlos
                     </p>
                 </Col>
@@ -291,7 +296,7 @@ const Inventario = () => {
                     </Button>
                     {addBookModal()}
                     <Tabs className="mb-3" fill>
-                        <Tab eventKey="titulo" title="Filtrar por Título">
+                        <Tab eventKey="titulo" title="Filtrar por título">
                             <Form.Group
                                 style={{ marginBottom: "15px" }}
                                 controlId="filterInput"
@@ -300,12 +305,12 @@ const Inventario = () => {
                                     type="text"
                                     value={filterText}
                                     onChange={handleFilterChange}
-                                    placeholder="Escriba aqui para filtrar..."
+                                    placeholder="Escribí aquí para filtrar..."
                                     autoFocus
                                 />
                             </Form.Group>
                         </Tab>
-                        <Tab eventKey="genero" title="Filtrar por Género">
+                        <Tab eventKey="genero" title="Filtrar por género">
                             <Form.Group
                                 style={{ marginBottom: "15px" }}
                                 controlId="genreFilterInput"
@@ -314,7 +319,7 @@ const Inventario = () => {
                                     type="text"
                                     value={filterGenre}
                                     onChange={handleGenreFilterChange}
-                                    placeholder="Escriba aqui para filtrar..."
+                                    placeholder="Escribí aquí para filtrar..."
                                     autoFocus
                                 />
                             </Form.Group>
@@ -326,7 +331,7 @@ const Inventario = () => {
                                     type="text"
                                     value={filterAuthor}
                                     onChange={handleAuthorFilterChange}
-                                    placeholder="Escriba aqui para filtrar..."
+                                    placeholder="Escribí aquí para filtrar..."
                                     autoFocus
                                 />
                             </Form.Group>
@@ -335,20 +340,20 @@ const Inventario = () => {
                 </Col>
             </Row>
             <Row>
-                <Col>
+                <Col className="d-flex justify-content-center text-center">
                     <Table striped bordered hover>
                         <thead>
                             <tr>
                                 <th>#Id</th>
                                 <th>Portada</th>
-                                <th>Titulo</th>
+                                <th>Título</th>
                                 <th>Autor</th>
-                                <th>Genero</th>
+                                <th>Género</th>
                                 <th>Editorial</th>
-                                <th>Descripcion</th>
+                                <th>Descripción</th>
                                 <th>Precio</th>
                                 <th>Stock</th>
-                                <th>Actions</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>{inventarioMap}</tbody>
