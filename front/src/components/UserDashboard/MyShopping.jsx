@@ -67,9 +67,9 @@ const icons = (state) => {
                                         {order.orderDetails && order.orderDetails.map((book, index) => (
                                             <div id={book.id_book} key={index} className="col-12">
                                             <div className="d-flex justify-content-between align-items-center">
-                                                <div className="d-flex align-items-center">
-                                                    <h6 className="mr-10">{book.quantityDetail}</h6>
-                                                    <span className="small">und{book.quantityDetail > 1 ? "s" : ""}</span>
+                                                <div className="d-flex ">
+                                                    <p className="card-text fw-bold ms-3">{book.quantityDetail}</p>
+                                                    <p className="card-text ms-3">und{book.quantityDetail > 1 ? "s" : ""}</p>
                                                 </div>
                                                 <OverlayTrigger trigger="click" placement="right" overlay={
                                                     <Popover className="custom-popover">
@@ -78,15 +78,15 @@ const icons = (state) => {
                                                         </Popover.Body>
                                                     </Popover>
                                                 }>
-                                                    <a  className="text-decoration-none" tabIndex="0" href="#">{book.titleBook}</a>
+                                                    <a  className="text-reset text-decoration-none fw-bold" tabIndex="0" href="#">{book.titleBook}</a>
                                                 </OverlayTrigger> 
                                              
-                                                <div className="d-flex align-items-center">
-                                                    <h6>${book.priceBook}</h6>
-                                                    <span className="small">c/u</span>
+                                                <div className="d-flex ">
+                                                <p className="card-text fw-bold ms-3">${book.priceBook}</p>
+                                                <p className="card-text ms-3">c/u</p>
                                                 </div>
                                             </div>
-                                            {(order.orderDetails.length > 1) ? <hr/> : null}
+                                            {index !== order.orderDetails.length - 1 && <hr/>}
                                         </div>
                                         ))}
                                         </td>
