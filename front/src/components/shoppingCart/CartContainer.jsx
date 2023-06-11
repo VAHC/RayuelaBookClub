@@ -43,12 +43,14 @@ const CartContainer = () => {
         }
     }, [])
 
-    const incrementQuantityHandler = (item) => {
-        dispatch(addToCart(item))
+    const incrementQuantityHandler = (book) => {
+        // console.log('incremento' + book.id_book);
+        dispatch(addToCart(book))
     }
 
-    const decrementQuantityHandler = (item) => {
-        dispatch(removeFromCart(item));
+    const decrementQuantityHandler = (book) => {
+        // console.log('decremento' + book.id_book);
+        dispatch(removeFromCart(book));
     }
 
     const cleanCartHandler = () => {
@@ -56,8 +58,9 @@ const CartContainer = () => {
         localStorage.removeItem('items')
     }
 
-    const deleteItemHandler = (id) => {
-        dispatch(removeItems(id))
+    const deleteItemHandler = (bookId) => {
+        // console.log('delete' + bookId);
+        dispatch(removeItems(bookId))
     }
 
     //Cuando se confirma la orden consulta si está logueado para continuar
@@ -88,7 +91,7 @@ const CartContainer = () => {
           price: totalPrice(cart),
         };
 
-      console.log(cartItems);
+      //console.log(cartItems);
 
       await axios.post(URL_Railway+'/mercadopago/payment', cartItems)
       .then((res) => 
@@ -128,7 +131,7 @@ const CartContainer = () => {
                                                     </td>
                                                 </tr>
                                             ) : (
-                                                cart.map((item, index) => (
+                                                cart && cart.map((item, index) => (
                                                     <tr id={item.id} key={index}>
                                                         <td>
                                                             <div className="d-flex align-items-center justify-content-between">
@@ -139,11 +142,11 @@ const CartContainer = () => {
                                                                 </div>
                                                                 <div className="d-flex align-items-center">
                                                                     <div className="d-flex align-items-center">
-                                                                        <Button variant="primary" className="btn btn-sm me-2" onClick={() => { decrementQuantityHandler(item) }}><i className="bi bi-arrow-down-square" /></Button>
+                                                                        <Button variant="primary" className="btn btn-sm me-2" onClick={() => decrementQuantityHandler(item)} ><i className="bi bi-arrow-down-square" /></Button>
                                                                         <span className="me-2">{item.quantity}</span>
-                                                                        <Button variant="primary" className="btn btn-sm me-2" onClick={() => { incrementQuantityHandler(item) }}><i className="bi bi-arrow-up-square" /></Button>
+                                                                        <Button variant="primary" className="btn btn-sm me-2" onClick={() => incrementQuantityHandler(item)}><i className="bi bi-arrow-up-square" /></Button>
                                                                     </div>
-                                                                    <Button variant="danger" size="sm" onClick={() => { deleteItemHandler(item.id) }}><i className="bi bi-trash3" /></Button>
+                                                                    <Button variant="danger" size="sm" onClick={() => deleteItemHandler(item.id)}><i className="bi bi-trash3" /></Button>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -161,7 +164,7 @@ const CartContainer = () => {
                         <hr />
                         {!cart.length ? (<h5>Aún no agregaste nada al carrito</h5>) : (
                             <div>
-                                {cart.map((detail, index) => (
+                                {cart && cart.map((detail, index) => (
                                     <DetailTotalCart
                                         key={index}
                                         id={detail.id}
@@ -188,7 +191,7 @@ const CartContainer = () => {
                             </div>
                             <div>
                                 <div className="m-3">
-                                    {cart.map((detail, index) => (
+                                    {cart && cart.map((detail, index) => (
                                         <DetailTotalCart
                                             key={index}
                                             id={detail.id}

@@ -9,7 +9,6 @@ export const Detail = () => {
 
   const detailData = useSelector((state) => state.detail_data);
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart)
 
   const qualificationObtained = (book) => {
     const reviews = book.reviews
@@ -25,7 +24,6 @@ export const Detail = () => {
     return 0; // Valor predeterminado si no hay reviews o no es un array válido
   };
 
-
   const renderStars = (rating) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -37,7 +35,7 @@ export const Detail = () => {
 
   //console.log(detailData);
   const bookId = detailData ? detailData.id : null;
-  //console.log('detail' + bookId)
+
   //codigo para modal
   const [showModal, setShowModal] = useState(false); //estdo local para mostrar o no el modal
 
@@ -61,25 +59,6 @@ export const Detail = () => {
     return (
       <Card style={{ width: "90%", height: "100%" }}>
         <Card.Body className="d-flex flex-column justify-content-evenly">
-          {/* <div
-                        style={{
-                            display: "flex",
-                            alignItems: "center",
-                        }}
-                    >
-                        <h4 style={{ marginRight: "10px", maxWidth: "70%" }}>
-                            {detailData.title}
-                        </h4>
-                        <Button 
-                            variant="secondary"
-                            onClick={toggleModal}
-                            //onClick={() => navigate(`/reseñas/${bookId}`)}
-                        >
-                            <p className="mb-1">Reseñas</p>
-                            <div>{renderStars(qualificationObtained(detailData))}</div>
-                        </Button>
-                    </div> */}
-
           <div className="row">
             <div className="col-8">
               <h4 style={{ marginRight: "10px", maxWidth: "80%" }}>
@@ -99,7 +78,7 @@ export const Detail = () => {
               <Card.Subtitle className="text-muted">
                 Autor
               </Card.Subtitle>
-              {detailData.authors.map((author, index) => {
+              {detailData.authors && detailData.authors.map((author, index) => {
                 return <Card.Text key={index}>{author}</Card.Text>;
               })}
             </Col>
@@ -107,7 +86,7 @@ export const Detail = () => {
               <Card.Subtitle className="text-muted">
                 Género
               </Card.Subtitle>
-              {detailData.genders.map((gender, index) => {
+              {detailData.genders && detailData.genders.map((gender, index) => {
                 return <Card.Text key={index}>{gender}</Card.Text>;
               })}
             </Col>
@@ -136,7 +115,7 @@ export const Detail = () => {
               <div className="modal-content">
                 <ContainerReviews
                   toggleModal={toggleModal}
-                  bookId={bookId} // Corrección: pasando bookId como propiedad
+                  bookId={bookId} 
                 />
               </div>
             </div>
