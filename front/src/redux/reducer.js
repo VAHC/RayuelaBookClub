@@ -303,14 +303,23 @@ const reducer = (state = initialState, action) => {
       }
 
     case PUT_BOOK:
+      const nState = [...state.allBooks]
+      const newState = nState.sort((a, b) =>
+         a.id > b.id ? 1 : -1
+      )
+      const bookIndex = newState.findIndex(book => book.id === action.payload.id)
+      newState[bookIndex] = action.payload
       return {
-        ...state
+        ...state,
+        allBooks: newState
       }
+
     case PUT_REVIEW:
       //console.log('entra la action en el reducer')
       return {
         ...state
       }
+
     case DELETE_REVIEW:
       //console.log('entra la action en el reducer');
       return {
@@ -332,8 +341,6 @@ const reducer = (state = initialState, action) => {
       }
 
     case ADD_TO_CART:
-      //console.log('entra al reducer');
-      // Copiamos el array cart
       const cartCopy = [...state.cart]
       const findItemIndex = cartCopy.findIndex(i => i.id === action.payload.id);
       if (findItemIndex !== -1) {
@@ -345,12 +352,13 @@ const reducer = (state = initialState, action) => {
         }
       } else {
         const { id, price, stock, title } = action.payload
-        cartCopy.push({ id_book: id, price, stock, title, quantity: 1 });
+        cartCopy.push({ id, price, stock, title, quantity: 1 });
       }
       return {
         ...state,
         cart: cartCopy,
       }
+      
 
     case REMOVE_FROM_CART:
       const cartCopi = [...state.cart]
@@ -385,6 +393,13 @@ const reducer = (state = initialState, action) => {
         ...state,
         cart: []
       }
+      
+      case FILL_CART:
+        //console.log('entra el reducer');
+        return {
+          ...state,
+          cart: action.payload
+        }
 
     case GET_ALL_USERS:
       return {
@@ -398,12 +413,6 @@ const reducer = (state = initialState, action) => {
         ...state
       }
 
-    case FILL_CART:
-      //console.log('entra el reducer');
-      return {
-        ...state,
-        cart: action.payload
-      }
 
     case FILTER_USER_PROFILE:
       // console.log("🚀 ~ file: reducer.js:394 ~ reducer ~ action.payload:", action.payload)
