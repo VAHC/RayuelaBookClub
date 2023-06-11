@@ -73,20 +73,20 @@ const CartContainer = () => {
     //Armo el array de la orden que se manda al formulario para terminar de armar el array que se despacha
     const handleConfirmOrder = () => {
         const cartOrder = cart && cart.map(i => {
-            console.log('cartOrder' + cartOrder);
+            console.log(i);
             return {
                 ...i,
-                id_user: user.id
+                id_book: i.id,
+                id_user: user.id,
             }
         })
         setButtonSuccess(true)
         setOrder(cartOrder)
+        console.log(cartOrder);
         setShowForm(true)
     }
 
     const mpHandler = async () => {   
-
-      console.log('cartItems' + cartItems);
 
         const cartItems = {
             title: 'Detalle de tu compra',
@@ -204,14 +204,14 @@ const CartContainer = () => {
                             <div>
                                 <div className="m-3">
                                     {cart && cart.map((detail, index) => (
-                                        <DetailTotalCart
-                                            key={index}
-                                            id={detail.id}
-                                            title={detail.title}
-                                            price={detail.price}
-                                            quantity={detail.quantity}
-                                            totalByItem={totalByitem(detail.quantity, detail.price)}
-                                        />
+                                            <DetailTotalCart
+                                                key={index}
+                                                id={detail.id}
+                                                title={detail.title}
+                                                price={detail.price}
+                                                quantity={detail.quantity}
+                                                totalByItem={totalByitem(detail.quantity, detail.price)}
+                                            />
                                     ))}
                                 </div>
                                 <hr />
