@@ -52,6 +52,7 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
     }
         //handler que maneja el estado de los inputs
     const inputHandler = (e) => {
+      // e.preventDefault();
         setInput({
             ...input,
             id_book: bookId,
