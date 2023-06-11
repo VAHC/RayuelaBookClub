@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import Menu from "./Menu";
 import Inventario from "./Inventario";
-import { Orders } from "./Orders";
+import Orders from "./Orders";
 import Users  from "./Users";
 // import PanelControl from "./PanelControl";
 
 const Dashboard = () => {
-const [compoActivo, setCompoActivo]= useState("inventario")
+const [compoActivo, setCompoActivo]= useState("pedidos")
 
 const compoRender = ()=>{
     if(compoActivo === "inventario") return <Inventario/>;
