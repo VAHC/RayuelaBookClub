@@ -33,11 +33,11 @@ const findOrCreate = async (firstName, lastName, username, password, phone, done
           profile: 'usuario',
           firstName: firstName,
           lastName: lastName,
-          //  phone: phone,
+            phone: null,
           createdDb: false
         }
       });
-      console.log(created);
+
       if (created) {
         // El usuario se creó correctamente
         return done(null, user);
@@ -57,7 +57,7 @@ const findOrCreate = async (firstName, lastName, username, password, phone, done
       return done(null, false);
     }
   } catch (err) {
-    console.log(err);
+
     return done(null, false);
   }
 }
@@ -72,10 +72,7 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       // Perform additional actions if needed
-      console.log(profile.displayName); //juan lorenzo tibiletti
-      console.log(profile.name.familyName); // apellido
-      console.log(profile.name.givenName); // nombre
-      console.log(profile.emails[0].value); // nombre
+
       findOrCreate(profile.name.givenName, profile.name.familyName, profile.emails[0].value, 'qweg7s5w', '', done)
       // return done(null, profile);
     }
@@ -137,7 +134,7 @@ bookRouterAuth.get(
       req.user.dataValues.firstName,
       req.user.dataValues.lastName,
       req.user.dataValues.email,
-      // req.user.dataValues.phone,
+       null, 
       req.user.dataValues.profile)
     info = {
       datos: dato,
@@ -163,10 +160,9 @@ passport.use(new PassPortLocal({ passReqToCallback: true, usernameField: 'email'
   // entra por aca la info
   console.log('local js');
   const { firstName } = req.body
-  console.log('########');
+
 
   if (firstName) {
-    console.log('entre PassPortLocal');
     CreateUser(req, email, password, done)
   } else {
     FindUser(email, password, done)
@@ -178,10 +174,8 @@ const CreateUser = async (req, username, password, done) => {
   try {
     const { firstName, lastName } = req.body
     let phone = req.body.phone
-    // console.log(phone);
     if(!phone)
     {
-      console.log('phofden');
       console.log(phone);
       phone = null;
     }
@@ -197,9 +191,7 @@ const CreateUser = async (req, username, password, done) => {
 
         }
       });
-      console.log('----- valor created');
-      console.log(created);
-      console.log('-----');
+
       if (created) {
         // El usuario se creó correctamente
         return done(null, user);

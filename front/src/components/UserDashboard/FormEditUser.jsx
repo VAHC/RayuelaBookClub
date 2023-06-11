@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateUser } from "../../redux/action";
+import swal from 'sweetalert';
 
 export const FormEditUser = ({ toggleModal, user }) => {
 
     const dispatch = useDispatch();
 
     const [userData, setUserData] = useState({
-        email: user.email,
-        phone: user.phone,
+        email: user.email || "",
+        phone: user.phone || "",
         id: user.id,
         firstName: user.firstName,
         lastName: user.lastName,
@@ -32,25 +33,30 @@ export const FormEditUser = ({ toggleModal, user }) => {
     }
 
     const handleSubmit = () => {
-        dispatch(updateUser(userData));
-        alert("Datos modificados con éxito");
+        dispatch(updateUser(userData))
+        .then((response) => {
+            if (response.status !== 400) {
+                swal({
+                    title: "Datos actualizados",
+                    icon: "success",
+                    timer: "2500"
+                })
+            } else swal({
+                title: "Algo salió mal",
+                icon: "error",
+                timer: "2500"
+            })
+        })
+        .catch((error) => {
+            console.log(error)
+            swal({
+                title: "Algo salió mal",
+                icon: "error",
+                timer: "2500"
+            })
+        })
         toggleModal();
-    };
-
-    // const handleSubmit =  (event) => {
-    //     console.log(userData)
-    //     dispatch(updateUser(userData))
-    //     alert("Datos modificados con éxito")
-    // .then((response) => {
-    //         console.log(response)
-    //         if (response.status !== 400) {
-    //             alert("Datos modificados con éxito")
-    //         } else alert("ERROR")
-    //     })
-    //     .catch((error) => {
-    //         alert("Server error")
-    //     })
-    //}
+    }
 
     return (
         <>

@@ -17,7 +17,7 @@ const Menu = ({setCompoActivo}) => {
         <Nav.Link href="#suscripcion">Mi suscripción</Nav.Link>
       </Nav.Item>
       <Nav.Item onClick={()=>onClickHandler("shopping")} className="sidebar-item">
-        <Nav.Link href="#shopping">Mis Compras</Nav.Link>
+        <Nav.Link href="#shopping">Mis compras</Nav.Link>
       </Nav.Item>
     </Nav>
   );

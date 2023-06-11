@@ -7,3 +7,4 @@
   { "source": "/perfil", "destination": "/perfil" },
   { "source": "/admindashboard", "destination": "/admindashboard" }  
   ] }
+
