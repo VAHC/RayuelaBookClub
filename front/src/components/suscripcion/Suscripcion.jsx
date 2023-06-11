@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { FormAddressSus } from "./FormAddressSus";
+import { URL_Railway } from '../../../ruta';
+import axios from 'axios';
 
 export const Suscripcion = () => {
 
@@ -9,7 +11,7 @@ export const Suscripcion = () => {
   const navigate = useNavigate()
 
   //Estado local para mostrar o no el modal y funciones para setearlo y cerrarlo
-  const [showModal, setShowModal] = useState(false) 
+  const [showModal, setShowModal] = useState(false)
 
   const toggleModal = () => {
     setShowModal(prevShowModal => !prevShowModal)
@@ -59,6 +61,24 @@ export const Suscripcion = () => {
     setSusc(newSusc)
     setButtonSuccess(true)
     setShowForm(true)
+  }
+
+  const mpHandler = async () => {
+
+    const cartItems = {
+      title: 'Suscripción a Rayuela',
+      quantity: 1,
+      price: susc[0].price,
+    };
+
+    console.log(cartItems);
+    
+    await axios.put(URL_Railway + '/order/status', cartItems)
+    
+    await axios.post(URL_Railway + '/mercadopago/payment', cartItems)
+      .then((res) =>
+        window.location.href = res.data.response.body.init_point
+      )
   }
 
   return (
@@ -150,7 +170,7 @@ export const Suscripcion = () => {
             </div>
             {showForm && <FormAddressSus susc={susc} />}
             <div className="d-flex justify-content-center">
-              <button className="btn btn-success my-3 w-50">Pagar</button>
+              <button onClick={mpHandler} className="btn btn-success my-3 w-50">Pagar</button>
             </div>
           </div>
         </div>
