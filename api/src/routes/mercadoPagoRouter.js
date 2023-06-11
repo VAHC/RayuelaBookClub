@@ -97,6 +97,7 @@ mpRouter.post('/notificar', async (req, res) => {
 
                     if (user) {
                         user.suscribed = true;
+                        user.date_suscription = foundOrder.date
                         await user.save(); 
                     }
                 }
