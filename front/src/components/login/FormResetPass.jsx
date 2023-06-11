@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { URL_Railway } from "../../../ruta";
 import axios from "axios";
+import swal from 'sweetalert';
 
 export const FormResetPass = ({ setCompoActivo }) => {
 
@@ -28,22 +29,40 @@ export const FormResetPass = ({ setCompoActivo }) => {
         try {
             const users = await axios(`${URL_Railway}/users`);
             const filteredUser = users.data.filter(user => user.email === mail)
-            if (filteredUser) {
+            if (filteredUser.length) {
                 setIsVisible(!isVisible);
                 if (filteredUser[0].createdDb === true) {
                     try {
                         const response = await axios.post(`${URL_Railway}/users/password`, { email: mail });
                         setSuccess(true)
                     } catch (error) {
-                        console.error(error)
+                        console.log(error)
+                        swal({
+                            title: "Algo salió mal",
+                            icon: "error",
+                            timer: "2500"
+                        })
                     }
                 } else {
                     setGmailUser(false)
                     setSuccess(true)
                 }
             }
+            else {
+                swal({
+                    title: "Atención",
+                    text: "Ese correo electrónico no fue registrado en Rayuela, por favor, registrate",
+                    icon: "error",
+                    timer: "4000"
+                })
+            }
         } catch (error) {
             console.error(error)
+            swal({
+                title: "Algo salió mal",
+                icon: "error",
+                timer: "2500"
+            })
         }
     }
 
@@ -60,10 +79,11 @@ export const FormResetPass = ({ setCompoActivo }) => {
             </div>}
             {success && gmailUser === false && <div className="d-flex justify-content-center m-2">
                 <div className="card w-75 my-5">
-                    <div className="card-body">
-                        <p className="card-text text-center fs-5">
+                    <div className="card-body text-center">
+                        <p className="card-text fs-5">
                             No es posible restablecer tu contraseña ya que tu usuario fue creado a través de Gmail. Enviá un correo a rayuela@email.com para solicitar el restablecimiento de tu contraseña.
                         </p>
+                        <button className="btn btn-dark btn-sm" onClick={() => onClickHandler('login')}>Volver</button>
                     </div>
                 </div>
             </div>}

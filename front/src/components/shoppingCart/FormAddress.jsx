@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createOrder } from "../../redux/action";
+import swal from 'sweetalert';
 
 export const FormAddress = ({order}) => {
 
@@ -12,7 +13,7 @@ export const FormAddress = ({order}) => {
         street_and_number: "",
         floor_and_department: "",
         city: "",
-        CP: 0,
+        CP: "",
         province: ""
     })
 
@@ -35,6 +36,27 @@ export const FormAddress = ({order}) => {
         event.preventDefault()
         order[0] = { ...order[0], ...inputs }
         dispatch(createOrder(order))
+            .then((response) => {
+                if (response.status !== 400) {
+                    swal({
+                        title: "Orden y domicilio confirmados",
+                        icon: "success",
+                        timer: "2500"
+                    })
+                } else swal({
+                    title: "Algo salió mal",
+                    icon: "error",
+                    timer: "2500"
+                })
+            })
+            .catch((error) => {
+                console.log(error)
+                swal({
+                    title: "Algo salió mal",
+                    icon: "error",
+                    timer: "2500"
+                })
+            })
     }
 
     //Función para cambiar el botón si se envió toda la información
