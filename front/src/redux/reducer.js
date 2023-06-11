@@ -98,7 +98,8 @@ const reducer = (state = initialState, action) => {
     case CHANGE_PAGINA:
       return {
         ...state,
-        paginaActual: action.payload
+        paginaActual: action.payload,
+        detail_data: undefined, // elimino pagina detalle
       };
 
     case GET_BOOKSPAGE:
@@ -322,7 +323,13 @@ const reducer = (state = initialState, action) => {
       }
 
     case UPDATE_USER:
-      return { ...state }
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          ...action.payload
+        }
+      }
 
     case ADD_TO_CART:
       //console.log('entra al reducer');

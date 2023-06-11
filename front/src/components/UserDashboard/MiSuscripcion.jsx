@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { getUserById, cancelSuscription } from '../../redux/action';
 
 export const MiSuscripcion = () => {
-//Codigo para reemplazar cuando la ruta este ok
+  //Codigo para reemplazar cuando la ruta este ok
   const userLogin = useSelector((state) => state.user);
   const userId = userLogin ? userLogin.id : null;
   const user =  userId ? useSelector((state) => state.userById) : null;
@@ -41,7 +41,7 @@ export const MiSuscripcion = () => {
             </div>
             <div className="col-md-6 d-flex flex-column align-items-center">
               {!userId && (<div className="text-center d-flex flex-column align-items-center" style={{ marginTop: '200px' }}>
-                <h5>Debes ingresar para ver detalles de tu suscripcion</h5>
+                <h5>Debés ingresar para ver detalles de tu suscripcion</h5>
               </div>)}
               {!user && <div className="text-center d-flex flex-column align-items-center" style={{ marginTop: '200px' }}>
               <h5>Cargando datos...</h5>
@@ -49,7 +49,7 @@ export const MiSuscripcion = () => {
               {userId && user && !user.suscribed ? (
                 <div className="text-center d-flex flex-column align-items-center" style={{ marginTop: '200px' }}>
                   <h5>Aún no estás suscripto...</h5>
-                  <h6>¡Conocé más sobre los beneficios de la <Link to={'/suscripcion'}>suscripción</Link>!</h6>
+                  <h6>¡Conocé más sobre los beneficios de la <Link to={'/suscripcion'} className="text-reset text-decoration-none fw-bold">suscripción</Link>!</h6>
                 </div>
                 ) : (userId && user && 
                   <div className="align-items-center">
@@ -59,7 +59,7 @@ export const MiSuscripcion = () => {
                     </div>
                     <hr/>
                     <div>
-                      <h5>Los datos para el envio mensual son:</h5>
+                      <h5>Los datos para el envío mensual son:</h5>
                         <div className="d-flex">
                         <p className="card-text fw-bold ms-3">Calle y número:</p>
                           <p className="card-text ms-3">{user.orders[0].street_and_number}</p>
@@ -88,7 +88,7 @@ export const MiSuscripcion = () => {
                       <div className="text-center d-flex flex-column align-items-center">
                         <p>¿Querés cancelar tu suscripción?</p>
                         <div className="d-flex align-items-center">
-                          <button className="btn btn-dark w-100  mb-3" onClick={(userId)=> {cancelHandler(user.id)}}>Cancelar Suscripción</button> 
+                          <button className="btn btn-dark w-100  mb-3" onClick={(userId)=> {cancelHandler(user.id)}}>Cancelar suscripción</button> 
                         </div>
                       </div>
                     </div>
@@ -99,9 +99,8 @@ export const MiSuscripcion = () => {
           </div>
         </div>
       </div>
-      <div className="d-flex">
-        <p>¿Querés modificar tus datos o tenés alguna duda?</p>
-        <p>Escribinos por mail a:  <a href='http://mail.google.com/'><i className="bi bi-envelope p-1"></i></a>rayuela@email.com</p>
+      <div className="d-flex justify-content-center">
+        <p>¿Querés modificar tus datos o tenés alguna duda? Escribinos por mail a: <a href='http://mail.google.com/'><i className="bi bi-envelope p-1"></i></a>rayuela@email.com</p>
       </div>
       {showModal && (
         <div className="modal" tabIndex="-1" style={{ display: "block" }}>
