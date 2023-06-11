@@ -20,7 +20,11 @@ const MyShopping = () => {
 
     const userOrders = orders.filter(order => order.id_user === userId)
 
-    const sortOrders = userOrders.sort((a, b) => b.id - a.id)
+    const notSuscription = userOrders.filter(order =>
+        order.orderDetails.some(detail => detail.id_book !== 58)
+      );
+ 
+    const sortOrders = notSuscription.sort((a, b) => b.id - a.id)
 
 const icons = (state) => {
     if(state === "Created") return <i className="bi bi-pencil-square display-6 text-primary"/>
