@@ -221,6 +221,85 @@ const MailgmailPasswordDone = async (Cabezara, Url, Titulo, Intro, To, subject) 
     });
 };
 
+const confirmacionCompra = async (Cabezara, Url, Titulo, date, items, price_total, To, subject) => {
+  return new Promise((resolve, reject) => {
+    let config = {
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD
+      }
+    }
+
+    let transporter = nodemailer.createTransport(config);
+
+    let MailGenerator = new Mailgen({
+      theme: "default",
+      product: {
+        name: Cabezara,
+        link: Url
+      }
+    })
+
+    let response = {
+      body: {
+        name: Titulo,
+        intro: 'Tu compra ha sido confirmada. ¡Completa el pago para terminar tu compra!',
+        greeting: 'Estimado',
+        signature: 'Atentamente',
+        table: {
+          data: [
+              {
+                  date: date,
+                  items: items,
+                  total: price_total
+              },
+          ],
+          columns: {
+              // Optionally, customize the column widths
+              customWidth: {
+                  item: '33%',
+                  total: '33%'
+              },
+              // Optionally, change column text alignment
+              customAlignment: {
+                  price: 'right'
+              }
+          }
+      },
+        action: {
+          instructions: 'Haz click en el siguiente botón para ir a tu perfil y ver el estado de tu orden',
+          button: {
+            color: '#DC4D2F',
+            text: 'Ingresar a Rayuela',
+            link: Url
+          }
+        },
+        outro: 'Muchas gracias por confiar en Rayuela'
+      }
+    }
+  
+      let mail = MailGenerator.generate(response)
+  
+      let message = {
+        from: process.env.EMAIL,
+        to: To,
+        subject: subject,
+        html: mail
+      }
+  
+      transporter.sendMail(message)
+        .then(() => {
+          resolve({
+            msg: "Deberías recibir un correo electrónico."
+          });
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+};
+
 
 
 const RealMail = (req, res) => {
@@ -283,4 +362,4 @@ const RealMail = (req, res) => {
 }
 
 
-module.exports = { TestingMail, RealMail, Mailgmail, MailgmailPassword, MailgmailPasswordDone };
+module.exports = { TestingMail, RealMail, Mailgmail, MailgmailPassword, MailgmailPasswordDone, confirmacionCompra };
