@@ -85,13 +85,24 @@ const CartContainer = () => {
 
     const mpHandler = async () => {   
 
-      const cartItems =  {
-          title: 'Detalle de tu compra',
-          quantity: 1,
-          price: totalPrice(cart),
-        };
 
-      //console.log(cartItems);
+        const cartItems = {
+            title: 'Detalle de tu compra',
+            quantity: 1,
+            price: totalPrice(cart)
+          };
+
+          const cartStatus = {
+            title: 'Detalle de tu compra',
+            quantity: totalItems(cart),
+            price: totalPrice(cart)
+          };
+
+          console.log(cartItems);
+          console.log(cartStatus);
+
+      await axios.put(URL_Railway + '/order/status', cartStatus)
+      
 
       await axios.post(URL_Railway+'/mercadopago/payment', cartItems)
       .then((res) => 
