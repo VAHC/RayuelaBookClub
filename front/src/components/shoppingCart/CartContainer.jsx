@@ -73,7 +73,7 @@ const CartContainer = () => {
     //Armo el array de la orden que se manda al formulario para terminar de armar el array que se despacha
     const handleConfirmOrder = () => {
         const cartOrder = cart && cart.map(i => {
-            console.log(i);
+           // console.log(i);
             return {
                 ...i,
                 id_book: i.id,
@@ -82,7 +82,7 @@ const CartContainer = () => {
         })
         setButtonSuccess(true)
         setOrder(cartOrder)
-        console.log(cartOrder);
+        //console.log(cartOrder);
         setShowForm(true)
     }
 
