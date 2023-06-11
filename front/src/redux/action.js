@@ -40,7 +40,8 @@ export const FILTER_USER_STATE = "FILTER_USER_STATE";
 export const FILTER_USER_PROFILE = "FILTER_USER_PROFILE";
 export const GET_ALL_SHOPPING = "GET_ALL_SHOPPING";
 export const GET_BOOK_BY_ID = "GET_BOOK_BY_ID";
-// export const GET_USER_BY_ID = "GET_USER_BY_ID";
+export const GET_USER_BY_ID = "GET_USER_BY_ID";
+export const CANCEL_SUSCRIPTION = "CANCEL_SUSCRIPTION";
 
 
 export const getAllBooks = () => {
@@ -182,11 +183,23 @@ export const getReviewsByUser = (userId) => {
   }
 }
 
+// export const modifyBook = (bookEdit) => {
+//   //console.log(bookEdit)
+//   return async function (dispatch) {
+//     await axios.put(`${URL_Railway}/books/putbook`, bookEdit)
+//     dispatch({ type: PUT_BOOK })
+//   }
+// }
+
 export const modifyBook = (bookEdit) => {
-  //console.log(bookEdit)
-  return async function (dispatch) {
-    await axios.put(`${URL_Railway}/books/putbook`, bookEdit)
-    dispatch({ type: PUT_BOOK })
+  return async (dispatch) => {
+    try {
+      await axios.put(`${URL_Railway}/books/putbook`, bookEdit)
+      dispatch({ type: PUT_BOOK, payload: bookEdit })
+      return { status: 200, message: 'Success' };
+    } catch (error) {
+      throw error
+    }
   }
 }
 
@@ -208,16 +221,22 @@ export const deleteReview = (reviewId) => {
 }
 
 export const deleteBook = async (bookId, dispatch) => {
-  console.log("esta es la action")
+  //console.log("esta es la action")
   await axios.put(`${URL_Railway}/books/delete/${bookId}`)
   dispatch({ type: DELETE_BOOK })
 }
 
-export const updateUser = async(user, dispatch) => {
-    await axios.put(`${URL_Railway}/users`, user)
-    dispatch({ type: UPDATE_USER })
+  export const updateUser = (user) => {
+    return async (dispatch) => {
+      try {
+        await axios.put(`${URL_Railway}/users`, user);
+        dispatch({ type: UPDATE_USER, payload: user });
+        return { status: 200, message: 'Success' };
+      } catch (error) {
+        throw error
+      }
+    }
   }
-
 
 export const addToCart = (book) => {
   return (dispatch, getState) => {
@@ -316,11 +335,19 @@ export const getBookById = (bookId) => {
 }
 
 //trae todos los datos de un usuario
-// export const getUserById = (userId) => {
-//   return async (dispatch) => {
-//     console.log('entra en la action');
-//     const response = await axios.get(`${URL_Railway}/users/${userId}`);
-//     const user = response.data;
-//     dispatch({ type: GET_USER_BY_ID, payload: user })
-//   }
-// }
+export const getUserById = (userId) => {
+  return async (dispatch) => {
+    const response = await axios.get(`${URL_Railway}/users/${userId}`);
+    const user = response.data;
+    dispatch({ type: GET_USER_BY_ID, payload: user })
+  }
+}
+
+export const cancelSuscription = (userId) => {
+  return async function (dispatch) {
+    console.log('entra a la action de desuscribir');
+    let response = await axios.put(`${URL_Railway}/users/suscription/${userId}`)
+    dispatch({ type: CANCEL_SUSCRIPTION })
+    return response
+  }
+}

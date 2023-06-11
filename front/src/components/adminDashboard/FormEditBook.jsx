@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { modifyBook } from "../../redux/action";
-
 import axios from 'axios';
 import { URL_Railway,URL_Vercel } from '../../../ruta';
+import swal from 'sweetalert';
 
 const EditBookForm = ({ book }) => {
     const [formComplete, setFormComplete] = useState(false); //estodo local para manejar el boton del submit y el envio de datos
     const [success, setSuccess] = useState(false); // estado local para manejar la alerta de ok
     const [BorrarImage, setBorrarImage] = useState(false);
-    const [file, setFile] = useState(null)
+    //const [file, setFile] = useState(null)
 
     const [input, setInput] = useState({
         id: book.id,
@@ -25,7 +25,6 @@ const EditBookForm = ({ book }) => {
     });
 
     useEffect(() => {
-        console.log(input);
         let values = Object.values(input);
         let notComplete = values.filter(
             (value) => value === "" || value.length === 0
@@ -57,49 +56,54 @@ const EditBookForm = ({ book }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (formComplete) {
-            dispatch(modifyBook(input));
-            setSuccess(true); // al setearse en true apareceria un alert "succes"
-            setInput({
-                id: "",
-                title: "",
-                publisher: "",
-                description: "",
-                price: "",
-                stock: "",
-                publishedDate: "",
-                image: "",
-                authors: [],
-                genders: [],
-            });
+            dispatch(modifyBook(input))
+                .then((response) => {
+                    if (response.status === 200) {
+                        setSuccess(true)
+                    } else swal({
+                        title: "Algo salió mal",
+                        icon: "error",
+                        timer: "2500"
+                    })
+                })
+                .catch((error) => {
+                    console.log(error)
+                    swal({
+                        title: "Algo salió mal",
+                        icon: "error",
+                        timer: "2500"
+                    })
+                })
         } else {
-            alert("missing or incorrect data");
+            swal({
+                title: "Algo salió mal",
+                icon: "error",
+                timer: "2500"
+            })
         }
-    };
+    }
 
-    const BorrarImagen=async (event, id)=>{
+    const BorrarImagen = async (event, id) => {
         event.preventDefault();
-        console.log(id);
         try {
-            
-            //http://localhost:3001/books/deleteImg/1
             const response = await axios.delete(`${URL_Railway}/books/deleteImg/${id}`);
-            console.log(response);
-             if(response.data.result === 'ok')
-             {
-                console.log('rentr');
+            if (response.data.result === 'ok') {
+                //console.log('rentr');
                 setBorrarImage(true)
-             }else
-             {
-                console.log('eroror');
-             }
+            } else {
+                //console.log('eroror');
+            }
         } catch (error) {
-            console.log(error);
+            console.log(error)
         }
-   }
+    }
 
     return (
         <div className="row d-flex justify-content-center m-2">
-            <form className="w-75" onSubmit={handleSubmit}>
+            {success && <div className="d-flex justify-content-center">
+                <img src="./images/editBookSuccess.png" className="w-50" alt="success" />
+            </div>}
+            {!success && <form className="w-75" onSubmit={handleSubmit}>
                 <div className="row">
                     <div className="col-3 text-start">
                         <label className="form-label">Título:</label>
@@ -225,10 +229,10 @@ const EditBookForm = ({ book }) => {
                         <label className="form-label">Imagen:</label>
                     </div>
                     <div className="col-9">
-                        {BorrarImage ? 
-                        <div>
-                        <img src={URL_Vercel+'/images/logo.png'} width="120" height='auto'  alt={input.title} />
-                        <input
+                        {BorrarImage ?
+                            <div>
+                                <img src={URL_Vercel + '/images/logo.png'} width="120" height='auto' alt={input.title} />
+                                <input
                                     style={{ width: "100%" }}
                                     className="form-control"
                                     id="image"
@@ -237,14 +241,12 @@ const EditBookForm = ({ book }) => {
                                     name="image"
                                     onChange={handleInputChange}
                                 />
-                                {/* no anda este por ahora */}
-                        </div>
-                        :<img src={input.image} width="100" height='auto'  alt={input.title} /> }
+                            </div>
+                            : <img src={input.image} width="100" height='auto' alt={input.title} />}
                         {/*si el estado es false muestro la imagen, sino el logo, por el tema refresco */}
-                            {/**  */}
-                    {URL_Vercel+'/images/logo.png' === input.image ? 
-                        <p>El mensaje está visible</p> 
-                        : <div className="btn btn-danger" onClick={(event) => BorrarImagen(event, input.id)} > borrar imagen</div>}
+                        {URL_Vercel + '/images/logo.png' === input.image ?
+                            <p>El mensaje está visible</p>
+                            : <div className="btn btn-danger btn-sm m-2" onClick={(event) => BorrarImagen(event, input.id)} > Borrar imagen</div>}
                     </div>
                 </div>
                 <div className="row d-flex justify-content-center m-2">
@@ -252,7 +254,7 @@ const EditBookForm = ({ book }) => {
                         Enviar
                     </button>
                 </div>
-            </form>
+            </form>}
         </div>
     );
 };

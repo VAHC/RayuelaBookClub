@@ -36,7 +36,8 @@ import {
   GET_ALL_SHOPPING,
   CREATE_ORDER,
   GET_BOOK_BY_ID,
-  // GET_USER_BY_ID,
+  GET_USER_BY_ID,
+  CANCEL_SUSCRIPTION
 } from './action';
 
 // Initial state
@@ -97,7 +98,8 @@ const reducer = (state = initialState, action) => {
     case CHANGE_PAGINA:
       return {
         ...state,
-        paginaActual: action.payload
+        paginaActual: action.payload,
+        detail_data: undefined, // elimino pagina detalle
       };
 
     case GET_BOOKSPAGE:
@@ -301,14 +303,23 @@ const reducer = (state = initialState, action) => {
       }
 
     case PUT_BOOK:
+      const nState = [...state.allBooks]
+      const newState = nState.sort((a, b) =>
+         a.id > b.id ? 1 : -1
+      )
+      const bookIndex = newState.findIndex(book => book.id === action.payload.id)
+      newState[bookIndex] = action.payload
       return {
-        ...state
+        ...state,
+        allBooks: newState
       }
+
     case PUT_REVIEW:
       //console.log('entra la action en el reducer')
       return {
         ...state
       }
+
     case DELETE_REVIEW:
       //console.log('entra la action en el reducer');
       return {
@@ -321,11 +332,15 @@ const reducer = (state = initialState, action) => {
       }
 
     case UPDATE_USER:
-      return { ...state }
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          ...action.payload
+        }
+      }
 
     case ADD_TO_CART:
-      //console.log('entra al reducer');
-      // Copiamos el array cart
       const cartCopy = [...state.cart]
       const findItemIndex = cartCopy.findIndex(i => i.id === action.payload.id);
       if (findItemIndex !== -1) {
@@ -337,12 +352,13 @@ const reducer = (state = initialState, action) => {
         }
       } else {
         const { id, price, stock, title } = action.payload
-        cartCopy.push({ id_book: id, price, stock, title, quantity: 1 });
+        cartCopy.push({ id, price, stock, title, quantity: 1 });
       }
       return {
         ...state,
         cart: cartCopy,
       }
+      
 
     case REMOVE_FROM_CART:
       const cartCopi = [...state.cart]
@@ -377,6 +393,13 @@ const reducer = (state = initialState, action) => {
         ...state,
         cart: []
       }
+      
+      case FILL_CART:
+        //console.log('entra el reducer');
+        return {
+          ...state,
+          cart: action.payload
+        }
 
     case GET_ALL_USERS:
       return {
@@ -390,12 +413,6 @@ const reducer = (state = initialState, action) => {
         ...state
       }
 
-    case FILL_CART:
-      //console.log('entra el reducer');
-      return {
-        ...state,
-        cart: action.payload
-      }
 
     case FILTER_USER_PROFILE:
       // console.log("🚀 ~ file: reducer.js:394 ~ reducer ~ action.payload:", action.payload)
@@ -426,9 +443,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         filteredUsers: usersFilteredByState
-      }
-
-      
+      }     
 
     case CREATE_ORDER:
       return {
@@ -446,19 +461,20 @@ const reducer = (state = initialState, action) => {
         ...state,
         bookById: action.payload
       }
-
-      //case GET_BOOK_BY_ID:
-      //  return {
-      //    ...state, 
-       //   bookById: action.payload
-       // }
       
-      // case GET_USER_BY_ID:
-      //   console.log('entra en el reducer');
-      // return {
-      //   ...state,
-      //   userById: action.payload
-      // }
+      case GET_USER_BY_ID:
+        console.log('entra en el reducer');
+      return {
+        ...state,
+        userById: action.payload
+      }
+
+      case CANCEL_SUSCRIPTION:
+        console.log('entra la action en el reducer de desuscripcion');
+        return {
+          ...state,
+          // userById: { ...state.userById }
+        }
     
 
     default:

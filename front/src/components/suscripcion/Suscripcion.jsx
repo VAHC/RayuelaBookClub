@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { FormAddressSus } from "./FormAddressSus";
+import { URL_Railway } from '../../../ruta';
+import axios from 'axios';
 
 export const Suscripcion = () => {
 
   const user = useSelector((state) => state.user)
+  
   const navigate = useNavigate()
 
   //Estado local para mostrar o no el modal y funciones para setearlo y cerrarlo
-  const [showModal, setShowModal] = useState(false) 
+  const [showModal, setShowModal] = useState(false)
 
   const toggleModal = () => {
     setShowModal(prevShowModal => !prevShowModal)
@@ -21,11 +24,10 @@ export const Suscripcion = () => {
 
   //Estado local para armar el objeto de la suscripción
   const [susc, setSusc] = useState([{
-    id_book: 2,
-    // id_book: 5000,
+    id_book: 58,
     quantity: 1,
-    price: 150,
-    id_user: ""
+    price: 2845,
+    id_user: user ? user.id : ""
   }])
 
   //Estado local para mostrar o no el formulario de domicilio
@@ -50,15 +52,26 @@ export const Suscripcion = () => {
 
   //Armo el array de suscripción que se manda al formulario para terminar de armar el array que se despacha
   const handleConfirmOrder = () => {
-    const newSusc = susc.map(s => {
-      return {
-        ...s,
-        id_user: user.id
-      }
-    })
-    setSusc(newSusc)
     setButtonSuccess(true)
     setShowForm(true)
+  }
+
+  const mpHandler = async () => {
+
+    const cartItems = {
+      title: 'Suscripción a Rayuela',
+      quantity: 1,
+      price: susc[0].price,
+    };
+
+    console.log(cartItems);
+    
+    await axios.put(URL_Railway + '/order/status', cartItems)
+    
+    await axios.post(URL_Railway + '/mercadopago/payment', cartItems)
+      .then((res) =>
+        window.location.href = res.data.response.body.init_point
+      )
   }
 
   return (
@@ -122,7 +135,7 @@ export const Suscripcion = () => {
           Quiero suscribirme
         </div>
         <div className="card-body">
-          <h5 className="card-title">Suscripción mensual $150</h5>
+          <h5 className="card-title">Suscripción mensual $2845</h5>
           <button onClick={handleConfirm} className="btn btn-secondary btn-lg m-3">Suscribirme</button>
           {/* <p className="card-text mb-5">Calcular costo de envío</p>
           <div className="input-group mb-3 w-25 text-center position-absolute bottom-0 start-50 translate-middle-x">
@@ -140,7 +153,7 @@ export const Suscripcion = () => {
             </div>
             <div>
               <hr />
-              <h5 className="ms-3">Total: $150 por mes</h5>
+              <h5 className="ms-3">Total: $2845 por mes</h5>
               <hr />
               <div className="d-flex justify-content-center">
                 {!buttonSuccess ?
@@ -150,7 +163,7 @@ export const Suscripcion = () => {
             </div>
             {showForm && <FormAddressSus susc={susc} />}
             <div className="d-flex justify-content-center">
-              <button className="btn btn-success my-3 w-50">Pagar</button>
+              <button onClick={mpHandler} className="btn btn-success my-3 w-50">Pagar</button>
             </div>
           </div>
         </div>

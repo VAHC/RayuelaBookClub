@@ -26,8 +26,8 @@ export const ChangePass = () => {
 
         try {
             const response = await axios.post(`${URL_Railway}/users/password/${token}`, { password: pass });
-            console.log(response.data.message)
-            navigate("/")
+            //console.log(response.data.message)
+            navigate("/catalogo")
         } catch (error) {
             console.error(error)
         }
