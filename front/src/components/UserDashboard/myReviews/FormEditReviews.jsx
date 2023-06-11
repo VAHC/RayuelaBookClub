@@ -80,8 +80,8 @@ const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
                   {Array(5).fill().map((_, index) => {
                     return (
                       number >= index + 1 || hoverStar >= index + 1
-                       ? <i key={index} className="bi bi-star-fill" onClick={() => setNumber(index + 1)} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
-                        : <i key={index} className="bi bi-star" onClick={inputHandler} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} /> 
+                       ? <i key={index} className="bi bi-star-fill" onClick={() => { setNumber(index + 1); setInput({ ...input, qualification: index + 1 }); }} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
+                        : <i key={index} className="bi bi-star" onClick={() => { setNumber(index + 1); setInput({ ...input, qualification: index + 1 }); }} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} /> 
                     )
                   })}
                 </div>
