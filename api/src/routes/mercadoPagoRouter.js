@@ -21,7 +21,7 @@ mpRouter.post('/payment', async (req, res) => {
             unit_price: prod.price
 
         }],
-        notification_url: `https://c85b-2803-9800-b886-82b2-291d-2740-a1f5-871c.ngrok-free.app/mercadopago/notificar`,
+        notification_url: `https://de4b-2803-9800-b886-82b2-8c77-4096-6a9b-59a0.ngrok-free.app/mercadopago/notificar`,
         back_urls: {
             success: URL_Vercel_back + '/catalogo',
             failure: '',
