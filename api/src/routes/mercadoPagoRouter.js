@@ -1,14 +1,14 @@
 const { Router } = require('express');
 const mercadopago = require('mercadopago');
 const { URL_Vercel_back } = require('../../rutas')
-const { Order } = require('../db');
+const { Order, OrderDetail, User } = require('../db');
 
 
 const mpRouter = Router();
 
 
 mpRouter.post('/payment', async (req, res) => {
-    const prod = req.body;  
+    const prod = req.body;
     let preference = {
         items: [{
             id: prod.id,
@@ -21,7 +21,7 @@ mpRouter.post('/payment', async (req, res) => {
             unit_price: prod.price
 
         }],
-        notification_url: `https://de4b-2803-9800-b886-82b2-8c77-4096-6a9b-59a0.ngrok-free.app/mercadopago/notificar`,
+        notification_url: `https://b123-2803-9800-b886-82b2-f559-f03e-c46b-2856.ngrok-free.app/mercadopago/notificar`,
         back_urls: {
             success: URL_Vercel_back + '/catalogo',
             failure: '',
@@ -79,16 +79,27 @@ mpRouter.post('/notificar', async (req, res) => {
 
             const foundOrder = await Order.findOne({
                 where: {
-                  price_total: body.total_amount,
+                    price_total: body.total_amount,
                 },
                 order: [['id', 'DESC']], // Ordenar por fecha de creación en orden descendente
                 limit: 1, // Obtener solo el último registro
-              });
-           
+            });
+
             if (foundOrder) {
-                // Actualiza el estado de la orden
                 foundOrder.state = 'Completed';
-                await foundOrder.save(); // Guarda los cambios en la base de datos
+                await foundOrder.save(); 
+
+                const orderDetails = await OrderDetail.findAll({ where: { id_orden: foundOrder.id } });
+                const suscribed = orderDetails.some(detail => detail.id_book === 58);
+
+                if (suscribed) {
+                    const user = await User.findOne({ where: { id: foundOrder.id_user } });
+
+                    if (user) {
+                        user.suscribed = true;
+                        await user.save(); 
+                    }
+                }
             }
         } else {
             console.log('El pago no se concretó');

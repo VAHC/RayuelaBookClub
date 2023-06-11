@@ -2,7 +2,6 @@ const { Order, User, OrderDetail, Book } = require('../../db');
 
 const buySuscription = async (orderData) => {
     const currentDate = new Date();
-
     const originalDate = currentDate
 
     const parsedDate = new Date(originalDate);
@@ -17,6 +16,8 @@ const buySuscription = async (orderData) => {
 
     let quantityTotal = 0;
     let priceTotal = 0;
+
+    console.log(orderData);
 
     const newOrder = await Order.create({
         date: transformedDate,
@@ -33,6 +34,7 @@ const buySuscription = async (orderData) => {
     for (const orderItem of orderData) {
         const { id_book, quantity, price, id_user } = orderItem;
 
+        console.log(id_book);
         const book = await Book.findByPk(id_book);
         if (!book) {
             throw Error(`No book has been found matching the id: ${id_book}`);
@@ -42,10 +44,6 @@ const buySuscription = async (orderData) => {
         if (!user) {
             throw Error(`No user has been found matching the id: ${id_user}`);
         }
-
-        user.suscribed = true;
-        user.date_suscription = transformedDate;
-        await user.save();
 
         quantityTotal += quantity;
         priceTotal += quantity * price;
