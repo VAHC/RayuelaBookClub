@@ -1,29 +1,18 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    searchByNameOrAuthor,
-    changePagina,
-    getBooksPage,
-    resetFilter,
-} from "../../redux/action";
+import { searchByNameOrAuthor, getBooksPage } from "../../redux/action";
 import { Paginado } from "./Paginado";
-
 import { Link } from "react-router-dom";
 import { totalItems } from "../shoppingCart/helpers";
-
+import swal from 'sweetalert';
 
 export const SearchBar = () => {
     const dispatch = useDispatch();
 
     const [input, setInput] = useState("");
-    const [notFound, setNotFound] = useState(false);
-
-    const pagina = useSelector((state) => state.paginaActual);
-
-    const booksPage = useSelector((state) => state.booksPage);
+    //const pagina = useSelector((state) => state.paginaActual);
+    //const booksPage = useSelector((state) => state.booksPage);
     const cart = useSelector((state) => state.cart);
-
 
     const handlerChange = (e) => {
         setInput(e.target.value);
@@ -32,7 +21,24 @@ export const SearchBar = () => {
     const handlerDispatch = () => {
         event.preventDefault();
         const searchDataPopulation = async () => {
-            await dispatch(searchByNameOrAuthor(input));
+            await dispatch(searchByNameOrAuthor(input))
+                .then((response) => {
+                    if (response.payload.length === 0) {
+                        swal({
+                            title: "No hay resultados",
+                            icon: "warning",
+                            timer: "2000"
+                        })
+                    }
+                })
+                .catch((error) => {
+                    console.log(error)
+                    swal({
+                        title: "Algo salió mal",
+                        icon: "error",
+                        timer: "2500"
+                    })
+                })
             dispatch(getBooksPage(1));
         };
         searchDataPopulation();
@@ -41,13 +47,6 @@ export const SearchBar = () => {
 
     return (
         <div>
-            {notFound && (
-                <img
-                    src="./images/notFound.png"
-                    className="w-25 position-absolute start-50 top-50 translate-middle-x"
-                    alt="bad request"
-                />
-            )}
             <nav className="navbar navbar-light bg-dark">
                 <div
                     style={{ display: "flex", justifyContent: "space-evenly" }}

@@ -65,49 +65,53 @@ const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
 
   return (
     <>
-      <p className='text-center fs-5'>Estas editando tu reseña del libro:</p>
-      <h6 className='text-center fs-3'>{input.book}</h6>
-      <form onSubmit={submitHandler}>
-        {success && <div className="d-flex justify-content-center">
-          <img className="w-50 p-3 h-50 d-inline-block " src='.\images\editedReview.png' alt='formulario enviado correctamente' />
-        </div>}
-        {!success && (
-          <div>
-            <div className="row g-3 align-items-center">
-              <div className="d-flex flex-column align-items-center">
-                <p className="text-center">{handlerText()}</p>
-                <div>
-                  {Array(5).fill().map((_, index) => {
-                    return (
-                      number >= index + 1 || hoverStar >= index + 1
-                       ? <i key={index} className="bi bi-star-fill" onClick={() => { setNumber(index + 1); setInput({ ...input, qualification: index + 1 }); }} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
-                        : <i key={index} className="bi bi-star" onClick={() => { setNumber(index + 1); setInput({ ...input, qualification: index + 1 }); }} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} /> 
-                    )
-                  })}
+      {success && <div className="d-flex justify-content-center">
+        <img className="w-100 p-3 h-50 d-inline-block " src='.\images\editedReview.png' alt='formulario enviado correctamente' />
+      </div>}
+      {!success && (
+        <div>
+          <p className='text-center fs-5'>Estás editando tu reseña del libro:</p>
+          <h6 className='text-center fs-3'>{input.book}</h6>
+          <form onSubmit={submitHandler}>
+            <div>
+              <div className="row g-3 align-items-center">
+                <div className="d-flex flex-column align-items-center">
+                  <p className="text-center">{handlerText()}</p>
+                  <div>
+                    {Array(5).fill().map((_, index) => {
+                      return (
+                        number >= index + 1 || hoverStar >= index + 1
+                          ? <i key={index} className="bi bi-star-fill" onClick={() => { setNumber(index + 1); setInput({ ...input, qualification: index + 1 }); }} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
+                          : <i key={index} className="bi bi-star" onClick={() => { setNumber(index + 1); setInput({ ...input, qualification: index + 1 }); }} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
+                      )
+                    })}
+                  </div>
                 </div>
               </div>
-              <div className="col-auto">
-                <label className="col-form-label ms-3" htmlFor='title'>Título:</label>
+              <div className="d-flex justify-content-center w-75 my-2">
+                <div className="col-4">
+                  <label className="col-form-label ms-3" htmlFor='title'>Título:</label>
+                </div>
+                <div className="col-8">
+                  <input className="form-control" id='title' type='text' value={input.title} name='title' placeholder='Dale un título a tu reseña' onChange={inputHandler} />
+                </div>
               </div>
-              <div className="col-auto">
-                <input className="form-control" id='title' type='text' value={input.title} name='title' placeholder='Dale un título a tu reseña' onChange={inputHandler} />
+              <div className="d-flex justify-content-center w-75 my-2">
+                <div className="col-4">
+                  <label className="col-form-label ms-3" htmlFor='comment'>Reseña:</label>
+                </div>
+                <div className="col-8">
+                  <input className="form-control" id='comment' type='textarea' value={input.comment} name='comment' placeholder='Reseña...' onChange={inputHandler} />
+                </div>
               </div>
-            </div>        
-            <div className="row g-3 align-items-center">
-              <div className="col-auto">
-                <label className="col-form-label ms-3" htmlFor='comment'>Reseña:</label>
-              </div>
-              <div className="col-auto">
-                <input className="form-control" id='comment' type='textarea' value={input.comment} name='comment' placeholder='Reseña...' onChange={inputHandler} />
+              <div className="d-flex flex-row justify-content-evenly">
+                <button className="btn btn-dark m-3" type="submit" onClick={submitHandler}>Enviar</button>
+                <button className="btn btn-dark m-3" onClick={() => toggleModal()}>Cerrar</button>
               </div>
             </div>
-            <div className="d-flex flex-row justify-content-evenly">
-              <button className="btn btn-dark m-3"  type="submit" onClick={submitHandler}>Enviar</button>
-              <button className="btn btn-dark m-3" onClick={() => toggleModal()}>Cerrar</button>
-            </div>
-          </div>
-        )}
-      </form>
+          </form>
+        </div>
+      )}
     </>
   )
 };
