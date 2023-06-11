@@ -39,26 +39,18 @@ const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
     book: review.book,
   })
 
-  // const inputHandler = (e) => {
-  //   setInput({
-  //     ...input,
-  //     id: review.id,
-  //     qualification: number,
-  //     deleted: false,
-  //     //id_book: review.id_book,
-  //     book: review.book,
-  //     [e.target.name] : e.target.value
-  //   });
-  // };
-  const inputHandler = (e, rating) => {
-    e.preventDefault();
+  const inputHandler = (e) => {
     setInput({
       ...input,
-      qualification: rating,
+      id: review.id,
+      qualification: number,
+      deleted: false,
+      //id_book: review.id_book,
+      book: review.book,
+      [e.target.name] : e.target.value
     });
-    setNumber(rating);
   };
-  console.log(input);
+
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -84,16 +76,12 @@ const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
             <div className="row g-3 align-items-center">
               <div className="d-flex flex-column align-items-center">
                 <p className="text-center">{handlerText()}</p>
-                {/* <div> */}
-                <div onClick={(e) => inputHandler(e, hoverStar || number)}>
+                <div>
                   {Array(5).fill().map((_, index) => {
                     return (
                       number >= index + 1 || hoverStar >= index + 1
-                        ? <i key={index} className="bi bi-star-fill" onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
-                        : <i key={index} className="bi bi-star"  onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
-                        // ? <i key={index} className="bi bi-star-fill" onClick={() => setNumber(index + 1)} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
-                        // : <i key={index} className="bi bi-star" onClick={inputHandler} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
-
+                       ? <i key={index} className="bi bi-star-fill" onClick={() => setNumber(index + 1)} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
+                        : <i key={index} className="bi bi-star" onClick={inputHandler} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} /> 
                     )
                   })}
                 </div>
