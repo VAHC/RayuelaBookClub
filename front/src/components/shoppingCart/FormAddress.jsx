@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { createOrder } from "../../redux/action";
 import swal from 'sweetalert';
 
-export const FormAddress = ({order}) => {
+export const FormAddress = ({ order, mpHandler }) => {
 
     const dispatch = useDispatch();
     
@@ -21,6 +21,9 @@ export const FormAddress = ({order}) => {
 
     //Estado local para cambiar el botón si se envió toda la información
     const [buttonClicked, setButtonClicked] = useState(false)
+
+    //Estado que habilita o deshabilita el botón de pago
+    const [confirmed, setConfirmed] = useState(false)
 
     const handleInputChange = (event) => {
         setInputs({
@@ -43,6 +46,7 @@ export const FormAddress = ({order}) => {
                         icon: "success",
                         timer: "2500"
                     })
+                    setConfirmed(true)
                 } else swal({
                     title: "Algo salió mal",
                     icon: "error",
@@ -103,6 +107,9 @@ export const FormAddress = ({order}) => {
                     </div>
                 </form>
             </div>
+                <div className="d-flex justify-content-center">
+                    <button onClick={mpHandler} className={confirmed ? "btn btn-success my-3 w-50" : "btn btn-success my-3 w-50 disabled"}>Pagar</button>
+                </div>
         </>
     )
 }

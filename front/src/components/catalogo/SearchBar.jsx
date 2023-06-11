@@ -23,7 +23,6 @@ export const SearchBar = () => {
         const searchDataPopulation = async () => {
             await dispatch(searchByNameOrAuthor(input))
                 .then((response) => {
-                    console.log(response)
                     if (response.payload.length === 0) {
                         swal({
                             title: "No hay resultados",
