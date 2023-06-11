@@ -37,7 +37,8 @@ import {
   CREATE_ORDER,
   GET_BOOK_BY_ID,
   GET_USER_BY_ID,
-  CANCEL_SUSCRIPTION
+  CANCEL_SUSCRIPTION,
+  EDIT_ORDER
 } from './action';
 
 // Initial state
@@ -475,6 +476,11 @@ const reducer = (state = initialState, action) => {
           ...state,
           // userById: { ...state.userById }
         }
+        case EDIT_ORDER:
+          return {
+            ...state,
+          }
+        
     
 
     default:
