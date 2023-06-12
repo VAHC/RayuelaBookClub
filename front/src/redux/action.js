@@ -42,6 +42,9 @@ export const GET_ALL_SHOPPING = "GET_ALL_SHOPPING";
 export const GET_BOOK_BY_ID = "GET_BOOK_BY_ID";
 export const GET_USER_BY_ID = "GET_USER_BY_ID";
 export const CANCEL_SUSCRIPTION = "CANCEL_SUSCRIPTION";
+export const EDIT_ORDER = "EDIT_ORDER";
+export const FILTER_ORDER_STATE = "FILTER_ORDER_STATE";
+
 
 
 export const getAllBooks = () => {
@@ -226,21 +229,19 @@ export const deleteBook = async (bookId, dispatch) => {
   dispatch({ type: DELETE_BOOK })
 }
 
-  export const updateUser = (user) => {
-    return async (dispatch) => {
-      try {
-        await axios.put(`${URL_Railway}/users`, user);
-        dispatch({ type: UPDATE_USER, payload: user });
-        return { status: 200, message: 'Success' };
-      } catch (error) {
-        throw error
-      }
-    }
+export const updateUser = async (user, dispatch) => {
+  try {
+    await axios.put(`${URL_Railway}/users`, user);
+    dispatch({ type: UPDATE_USER, payload: user });
+    return { status: 200, message: 'Success' };
+  } catch (error) {
+    throw error
   }
+}
 
 export const addToCart = (book) => {
   return (dispatch, getState) => {
-    dispatch ({ type: ADD_TO_CART, payload: book });
+    dispatch({ type: ADD_TO_CART, payload: book });
     const updatedCart3 = getState().cart;
     localStorage.setItem('items', JSON.stringify(updatedCart3));
   }
@@ -259,7 +260,7 @@ export const removeFromCart = (book) => {
 
 export const removeItems = (id) => {
   return (dispatch, getState) => {
-    dispatch ({type: REMOVE_ITEMS, payload: id });
+    dispatch({ type: REMOVE_ITEMS, payload: id });
     const updatedCart2 = getState().cart;
     localStorage.setItem('items', JSON.stringify(updatedCart2));
     if (!updatedCart2.length) {
@@ -297,25 +298,25 @@ export const getAllUsers = () => {
 
 export const deleteUser = async (user, dispatch) => {
   // !user.deleted ? { ...user, state: "Blocked", deleted: true } :
-//   const updatedUser =  { ...user, state: "Active", deleted: false };
+  //   const updatedUser =  { ...user, state: "Active", deleted: false };
 
-// console.log(updatedUser);
+  // console.log(updatedUser);
 
   await axios.put(`${URL_Railway}/users/delete/${user.id}`)
   dispatch({ type: DELETE_USER })
 }
 
-export const filterProfileUser = (filterValue)=>{
-  return{
+export const filterProfileUser = (filterValue) => {
+  return {
     type: FILTER_USER_PROFILE,
-    payload:filterValue
+    payload: filterValue
   }
 }
 
-export const filterStateUser = (filterValue)=>{
-  return{
+export const filterStateUser = (filterValue) => {
+  return {
     type: FILTER_USER_STATE,
-    payload:filterValue
+    payload: filterValue
   }
 }
 export const getAllShopping = () => {
@@ -349,5 +350,23 @@ export const cancelSuscription = (userId) => {
     let response = await axios.put(`${URL_Railway}/users/suscription/${userId}`)
     dispatch({ type: CANCEL_SUSCRIPTION })
     return response
+  }
+}
+
+export const editOrder = async (order, dispatch) => {
+
+  console.log("🚀 ~ file: action.js:360 ~ editOrder ~ order:", order)
+
+
+  if (order.state === "Despachada") await axios.put(`${URL_Railway}/order/shipped`, order)
+  else await axios.put(`${URL_Railway}/order`, order)
+
+  dispatch({ type: EDIT_ORDER })
+}
+
+export const filterOrderState = (estado) => {
+  return {
+    type: FILTER_ORDER_STATE,
+    payload: estado
   }
 }

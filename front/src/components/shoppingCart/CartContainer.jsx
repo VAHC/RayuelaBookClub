@@ -72,19 +72,21 @@ const CartContainer = () => {
 
     //Armo el array de la orden que se manda al formulario para terminar de armar el array que se despacha
     const handleConfirmOrder = () => {
-        const cartOrder = cart.map(i => {
+        const cartOrder = cart && cart.map(i => {
+           // console.log(i);
             return {
                 ...i,
-                id_user: user.id
+                id_book: i.id,
+                id_user: user.id,
             }
         })
         setButtonSuccess(true)
         setOrder(cartOrder)
+        //console.log(cartOrder);
         setShowForm(true)
     }
 
     const mpHandler = async () => {   
-
 
         const cartItems = {
             title: 'Detalle de tu compra',
@@ -98,12 +100,11 @@ const CartContainer = () => {
             price: totalPrice(cart)
           };
 
-          console.log(cartItems);
-          console.log(cartStatus);
+          //console.log(cartItems);
+          //console.log(cartStatus);
 
       await axios.put(URL_Railway + '/order/status', cartStatus)
       
-
       await axios.post(URL_Railway+'/mercadopago/payment', cartItems)
       .then((res) => 
       window.location.href = res.data.response.body.init_point
@@ -203,14 +204,14 @@ const CartContainer = () => {
                             <div>
                                 <div className="m-3">
                                     {cart && cart.map((detail, index) => (
-                                        <DetailTotalCart
-                                            key={index}
-                                            id={detail.id}
-                                            title={detail.title}
-                                            price={detail.price}
-                                            quantity={detail.quantity}
-                                            totalByItem={totalByitem(detail.quantity, detail.price)}
-                                        />
+                                            <DetailTotalCart
+                                                key={index}
+                                                id={detail.id}
+                                                title={detail.title}
+                                                price={detail.price}
+                                                quantity={detail.quantity}
+                                                totalByItem={totalByitem(detail.quantity, detail.price)}
+                                            />
                                     ))}
                                 </div>
                                 <hr />
@@ -222,10 +223,7 @@ const CartContainer = () => {
                                         : <button className="btn btn-outline-success mb-2 disabled">Orden confirmada</button>}
                                 </div>
                             </div>
-                            {showForm && <FormAddress order={order} />}
-                            <div className="d-flex justify-content-center">
-                            <button onClick={mpHandler} className="btn btn-success my-3 w-50">Pagar</button>
-                            </div>
+                            {showForm && <FormAddress order={order} mpHandler={mpHandler}/>}
                         </div>
                     </div>
                 </div>

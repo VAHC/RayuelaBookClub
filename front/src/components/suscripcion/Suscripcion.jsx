@@ -64,7 +64,7 @@ export const Suscripcion = () => {
       price: susc[0].price,
     };
 
-    console.log(cartItems);
+    //console.log(cartItems);
     
     await axios.put(URL_Railway + '/order/status', cartItems)
     
@@ -161,10 +161,7 @@ export const Suscripcion = () => {
                   : <button className="btn btn-outline-success mb-2 disabled">Suscripción confirmada</button>}
               </div>
             </div>
-            {showForm && <FormAddressSus susc={susc} />}
-            <div className="d-flex justify-content-center">
-              <button onClick={mpHandler} className="btn btn-success my-3 w-50">Pagar</button>
-            </div>
+            {showForm && <FormAddressSus susc={susc} mpHandler={mpHandler}/>}
           </div>
         </div>
       </div>

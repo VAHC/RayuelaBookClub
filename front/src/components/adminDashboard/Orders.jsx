@@ -1,369 +1,245 @@
-import React from 'react'
+//al cambiar el estado a complete altero el stock de los elementos.
+//mail al estar la compra hecha.
 
-export const Orders = () => {
-  return (
-    <div>Orders</div>
-  )
-}
+//cambiar los nombres de los estados.
+// agregar otro genero
 
 
-// import React, { useEffect, useState } from "react";
-// import {
-//     Container,
-//     Row,
-//     Col,
-//     Form,
-//     Button,
-//     Table,
-//     Tabs,
-//     Tab,
-//     Modal,
-// } from "react-bootstrap";
-// import { FormCreateBook } from "../formCreateBook/formCreateBook";
-// import FormEditBook from "./FormEditBook";
-// import { useDispatch, useSelector } from "react-redux";
-// import { getAllBooks, deleteBook } from "../../redux/action";
+import React, { useState } from "react";
+import { useEffect } from "react";
+import { Container, Row, Col, Table } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import {
+    getAllShopping,
+    getAllUsers,
+    editOrder,
+    filterOrderState,
+} from "../../redux/action";
+import "../UserDashboard/customStyles.css";
 
-// const Inventario = () => {
-//     const allBooks = useSelector((state) => state.allBooks);
-//     const [addBookModalShow, setAddBookModalShow] = useState(false);
-//     const [descriptionModalshow, setDescriptionModalshow] = useState(
-//         Array.from({ length: allBooks.length }, () => false)
-//     );
-//     const [editModalshow, seteditModalshowModalshow] = useState(
-//         Array.from({ length: allBooks.length }, () => false)
-//     );
-//     const [filterText, setFilterText] = useState("");
-//     const [filterGenre, setFilterGenre] = useState("");
-//     const [filterAuthor, setFilterAuthor] = useState("");
+const Orders = () => {
+    // useEffect(() => {
+    //     if (filtersValue.user_id > 0) dispatch();
+    // }, [filtersValue.user_id]);
 
-//     const dispatch = useDispatch();
+    const orders = useSelector((state) => state.filteredOrders);
+    const users = useSelector((state) => state.filteredUsers);
+    let filteredUsers;
+    const [filtersValue, setFiltersValues] = useState({
+        state: "All",
+        // user_id: 0,
+    });
+    // const [mappingArray, setMappingArray]=useState(filter)
 
-//     useEffect(() => {
-//         dispatch(getAllBooks());
-//         //console.log("se hace el dispatch para buscar allBooks");  
-//     }, [dispatch]);
+    useEffect(() => {
+        dispatch(getAllShopping());
+        dispatch(getAllUsers());
+    }, []);
 
-//     const handleGenreFilterChange = (e) => {
-//         const genreValue = e.target.value;
-//         setFilterGenre(genreValue);
-//     };
+    useEffect(() => {
+        if (filtersValue.state) dispatch(filterOrderState(filtersValue.state));
+    }, [filtersValue.state]);
 
-//     const handleAuthorFilterChange = (e) => {
-//         const authorValue = e.target.value;
-//         setFilterAuthor(authorValue);
-//     };
+    const nombreUsuario = (id) => {
+        const objeto = users.find((user) => user.id === id);
+        const nombreObj = objeto.firstName;
+        return nombreObj;
+    };
 
-//     const handleFilterChange = (e) => {
-//         const inputValue = e.target.value;
-//         setFilterText(inputValue);
+    const dispatch = useDispatch();
 
-//         const filteredBooks = allBooks.filter((book) => {
-//             const titleMatch = book.title
-//                 .toLowerCase()
-//                 .includes(inputValue.toLowerCase());
-//             const genreMatch = book.genders.some((genre) =>
-//                 genre.toLowerCase().includes(filterGenre.toLowerCase())
-//             );
-//             const authorMatch = book.authors.some((author) =>
-//                 author.toLowerCase().includes(filterAuthor.toLowerCase())
-//             );
+    const sortFilteredOrders = orders.sort((a, b) => b.id - a.id);
 
-//             return titleMatch && genreMatch && authorMatch;
-//         });
+    const icons = (state) => {
+        if (state === "Creada")
+            return <i className="bi bi-pencil-square display-6 text-primary" />;
+        if (state === "Pendiente")
+            return <i className="bi bi-clock display-6 text-primary" />;
+        if (state === "Cancelada")
+            return <i className="bi bi-x-circle display-6 text-danger" />;
+        if (state === "Pagada")
+            return <i className="bi bi-check-circle display-6 text-success" />;
+        if (state === "Despachada") {
+            return (
+                <>
+                    <i className="bi bi-check-circle display-6 text-success" />
+                    <i className="bi bi-check-circle display-6 text-success" />
+                </>
+            );
+        }
+    };
 
-//         setFilteredBooks(filteredBooks);
-//     };
+    const updateOrder = async (event, order) => {
+        const newEstado = event.target.value;
+        const newOrder = { id: order.id, state: newEstado };
+        await editOrder(newOrder, dispatch);
+        dispatch(getAllShopping());
+    };
 
-//     const filteredBooks = filterText
-//         ? allBooks.filter((book) =>
-//               book.title.toLowerCase().includes(filterText.toLowerCase())
-//           )
-//         : allBooks;
+    const filterHandler = (event) => {
+        if (event.target.name === "state") {
+            setFiltersValues({
+                ...filtersValue,
+                state: event.target.value,
+            });
+        }
+    };
 
-//     const filteredBooksByGenre = filterGenre
-//         ? filteredBooks.filter((book) =>
-//               book.genders.some((genre) =>
-//                   genre.toLowerCase().includes(filterGenre.toLowerCase())
-//               )
-//           )
-//         : filteredBooks;
+    return (
+        <Container className="min-vh-100">
+            <Row>
+                <Col>
+                    <h2 className="text-center">Gestion de compras</h2>
+                    <p>
+                        En este panel podrás ver el listado completo de compras
+                        y editar el estado de las ordenes.
+                    </p>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <div className="m-1">
+                        <h6 className="mx-2">Filtrar por Estado</h6>
+                        <select
+                            className="form-select"
+                            value={filtersValue.state}
+                            onChange={(e) => filterHandler(e)}
+                            name={"state"}
+                        >
+                            <option value="All">All</option>
+                            <option value="Creada">Creada</option>
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="Pagada">Pagada</option>
+                            <option value="Despachada">Despachada</option>
+                            <option value="Cancelada">Cancelada</option>
+                        </select>
+                    </div>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Fecha</th>
+                                <th>Detalles de Usuario</th>
+                                <th>Detalle de la compra</th>
+                                <th>Total de items</th>
+                                <th>Precio total</th>
+                                <th>Estado de la compra</th>
+                                <th>Edición</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {sortFilteredOrders &&
+                                sortFilteredOrders.map((order, index) => (
+                                    <tr id={order.id} key={index}>
+                                        <td>{icons(order.state)}</td>
+                                        <td>{order.date}</td>
+                                        <th>
+                                            Name:{" "}
+                                            {users.length > 0 &&
+                                                nombreUsuario(order.id_user)}
+                                            <br />
+                                            ID: {order.id_user}
+                                        </th>
+                                        <td>
+                                            {order.orderDetails &&
+                                                order.orderDetails.map(
+                                                    (book, index) => (
+                                                        <div
+                                                            id={book.id_book}
+                                                            key={index}
+                                                            className="col-12"
+                                                        >
+                                                            <div className="d-flex justify-content-between align-items-center">
+                                                                <div className="d-flex ">
+                                                                    <p className="card-text fw-bold ms-3">
+                                                                        {
+                                                                            book.quantityDetail
+                                                                        }
+                                                                    </p>
+                                                                    <p className="card-text ms-3">
+                                                                        und
+                                                                        {book.quantityDetail >
+                                                                        1
+                                                                            ? "s"
+                                                                            : ""}
+                                                                    </p>
+                                                                </div>
 
-//     const filteredBooksByAuthor = filterAuthor
-//         ? filteredBooksByGenre.filter((book) =>
-//               book.authors.some((author) =>
-//                   author.toLowerCase().includes(filterAuthor.toLowerCase())
-//               )
-//           )
-//         : filteredBooksByGenre;
+                                                                <p
+                                                                    className="text-reset text-decoration-none fw-bold"
+                                                                    tabIndex="0"
+                                                                    href="#"
+                                                                >
+                                                                    {
+                                                                        book.titleBook
+                                                                    }
+                                                                </p>
+                                                                {/* </OverlayTrigger>  */}
 
-//     const addBookModal = () => {
-//         return (
-//             <Modal
-//                 show={addBookModalShow}
-//                 onHide={() => setAddBookModalShow(false)}
-//                 size="lg"
-//                 aria-labelledby="contained-modal-title-vcenter"
-//                 centered
-//             >
-//                 <Modal.Header closeButton>
-//                     <Modal.Title id="contained-modal-title-vcenter">
-//                         Agregar libro al inventario:
-//                     </Modal.Title>
-//                 </Modal.Header>
-//                 <Modal.Body>
-//                     <FormCreateBook />
-//                 </Modal.Body>
-//                 <Modal.Footer>
-//                     <Button onClick={() => setModalShow(false)}>Close</Button>
-//                 </Modal.Footer>
-//             </Modal>
-//         );
-//     };
+                                                                <div className="d-flex ">
+                                                                    <p className="card-text fw-bold ms-3">
+                                                                        $
+                                                                        {
+                                                                            book.priceBook
+                                                                        }
+                                                                    </p>
+                                                                    <p className="card-text ms-3">
+                                                                        c/u
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            {index !==
+                                                                order
+                                                                    .orderDetails
+                                                                    .length -
+                                                                    1 && <hr />}
+                                                        </div>
+                                                    )
+                                                )}
+                                        </td>
+                                        <td>
+                                            {order.quantity} und
+                                            {order.quantity > 1 ? "s" : ""}
+                                        </td>
+                                        <td>${order.price_total}</td>
+                                        <td>{order.state}</td>
+                                        <th>
+                                            Estado de compra:
+                                            <select
+                                                name="estado"
+                                                onChange={(e) =>
+                                                    updateOrder(e, order)
+                                                }
+                                            >
+                                                <option value="Creada">
+                                                    Creada
+                                                </option>
+                                                <option value="Pendiente">
+                                                    Pendiente
+                                                </option>
+                                                <option value="Cancelada">
+                                                    Cancelada
+                                                </option>
+                                                <option value="Pagada">
+                                                    Pagada
+                                                </option>
+                                                <option value="Despachada">
+                                                    Despachada
+                                                </option>
+                                            </select>
+                                        </th>
+                                    </tr>
+                                ))}
+                        </tbody>
+                    </Table>
+                </Col>
+            </Row>
+        </Container>
+    );
+};
 
-//     const descriptionModal = (bookIndex, book) => {
-//         return (
-//             <>
-//                 <Button
-//                     variant="primary"
-//                     onClick={() => {
-//                         const updatedDescriptionModalshow = [
-//                             ...descriptionModalshow,
-//                         ];
-//                         updatedDescriptionModalshow[bookIndex] = true;
-//                         setDescriptionModalshow(updatedDescriptionModalshow);
-//                     }}
-//                 >
-//                     Ver
-//                 </Button>
-//                 <Modal
-//                     show={descriptionModalshow[bookIndex]}
-//                     onHide={() => setDescriptionModalshow(bookIndex, false)}
-//                     size="lg"
-//                     aria-labelledby="contained-modal-title-vcenter"
-//                     centered
-//                     backdrop="static"
-//                     keyboard={false}
-//                 >
-//                     <Modal.Header closeButton={false}>
-//                         <Modal.Title id="contained-modal-title-vcenter">
-//                             Descripcion de {book.title}
-//                         </Modal.Title>
-//                     </Modal.Header>
-//                     <Modal.Body>{book.description}</Modal.Body>
-//                     <Modal.Footer>
-//                         <Button
-//                             onClick={() => {
-//                                 const otherUpdatedDescriptionModalshow = [
-//                                     ...descriptionModalshow,
-//                                 ];
-//                                 otherUpdatedDescriptionModalshow[
-//                                     bookIndex
-//                                 ] = false;
-//                                 setDescriptionModalshow(
-//                                     otherUpdatedDescriptionModalshow
-//                                 );
-//                             }}
-//                         >
-//                             Close
-//                         </Button>
-//                     </Modal.Footer>
-//                 </Modal>
-//             </>
-//         );
-//     };
-
-//     const editModal = (bookIndex, book) => {
-//         return (
-//             <>
-//                 <Button
-//                     variant="primary"
-//                     onClick={() => {
-//                         const updatededitModalshow = [...editModalshow];
-//                         updatededitModalshow[bookIndex] = true;
-//                         seteditModalshowModalshow(updatededitModalshow);
-//                     }}
-//                 >
-//                     Editar
-//                 </Button>
-//                 <Modal
-//                     show={editModalshow[bookIndex]}
-//                     onHide={() => seteditModalshowModalshow(bookIndex, false)}
-//                     size="lg"
-//                     aria-labelledby="contained-modal-title-vcenter"
-//                     centered
-//                     backdrop="static"
-//                     keyboard={false}
-//                 >
-//                     <Modal.Header closeButton={false}>
-//                         <Modal.Title id="contained-modal-title-vcenter">
-//                             Editando {book.title}
-//                         </Modal.Title>
-//                     </Modal.Header>
-//                     <Modal.Body>
-//                         <FormEditBook book={book} />
-//                     </Modal.Body>
-//                     <Modal.Footer>
-//                         <Button
-//                             onClick={() => {
-//                                 const newUpdatededitModalshow = [
-//                                     ...editModalshow,
-//                                 ];
-//                                 newUpdatededitModalshow[bookIndex] = false;
-//                                 seteditModalshowModalshow(
-//                                     newUpdatededitModalshow
-//                                 );
-//                             }}
-//                         >
-//                             Close
-//                         </Button>
-//                     </Modal.Footer>
-//                 </Modal>
-//             </>
-//         );
-//     };
-
-//     const ableButtonHandler = async (bookId) => {
-//         console.log("Estoy modificando el deleted de este libro: " + bookId )
-//         await deleteBook(bookId,dispatch)
-//         dispatch(getAllBooks());
-//     };
-
-//     const inventarioMap = filteredBooksByAuthor.map((book, index) => {
-//         return (
-//             <tr key={index}>
-//                 <td>{book.id}</td>
-//                 <td>
-//                     <img
-//                         style={{ width: "110px", height: "150px" }}
-//                         src={`${book.image}`}
-//                     />
-//                 </td>
-//                 <td>{book.title}</td>
-//                 <td>
-//                     {book.authors.map((author, index) => {
-//                         return (
-//                             <div key={index}>
-//                                 {author}
-//                                 <br />
-//                             </div>
-//                         );
-//                     })}
-//                 </td>
-//                 <td>
-//                     {book.genders.map((genre, index) => {
-//                         return (
-//                             <div key={index}>
-//                                 {genre}
-//                                 <br />
-//                             </div>
-//                         );
-//                     })}
-//                 </td>
-//                 <td>{book.publisher}</td>
-//                 <td>{descriptionModal(index, book)}</td>
-//                 <td>{book.price}</td>
-//                 <td>{book.stock}</td>
-//                 <td>
-//                     {editModal(index, book)}
-//                     <Button
-//                         onClick={() => ableButtonHandler(book.id)}
-//                         variant={book.deleted ? "success" : "danger"}
-//                     >
-//                         {book.deleted ? "Habilitar" : "deshabilitar"}
-//                     </Button>
-//                 </td>
-//             </tr>
-//         );
-//     });
-
-//     return (
-//         <Container>
-//             <Row>
-//                 <Col>
-//                     <h1>Gestion del inventario</h1>
-//                     <p>
-//                         En este panel podras ver el inventario completo, agregar
-//                         y editar los productos ademas de habilitar y
-//                         deshabilitarlos
-//                     </p>
-//                 </Col>
-//             </Row>
-//             <Row>
-//                 <Col>
-//                     <Button
-//                         variant="primary"
-//                         onClick={() => setAddBookModalShow(true)}
-//                         style={{ marginBottom: "15px", width: "100%" }}
-//                     >
-//                         AGREGAR LIBRO
-//                     </Button>
-//                     {addBookModal()}
-//                     <Tabs className="mb-3" fill>
-//                         <Tab eventKey="titulo" title="Filtrar por Título">
-//                             <Form.Group
-//                                 style={{ marginBottom: "15px" }}
-//                                 controlId="filterInput"
-//                             >
-//                                 <Form.Control
-//                                     type="text"
-//                                     value={filterText}
-//                                     onChange={handleFilterChange}
-//                                     placeholder="Escriba aqui para filtrar..."
-//                                     autoFocus
-//                                 />
-//                             </Form.Group>
-//                         </Tab>
-//                         <Tab eventKey="genero" title="Filtrar por Género">
-//                             <Form.Group
-//                                 style={{ marginBottom: "15px" }}
-//                                 controlId="genreFilterInput"
-//                             >
-//                                 <Form.Control
-//                                     type="text"
-//                                     value={filterGenre}
-//                                     onChange={handleGenreFilterChange}
-//                                     placeholder="Escriba aqui para filtrar..."
-//                                     autoFocus
-//                                 />
-//                             </Form.Group>
-//                         </Tab>
-//                         <Tab eventKey="autor" title="Filtrar por Autor">
-//                             <Form.Group controlId="authorFilterInput">
-//                                 <Form.Control
-//                                     style={{ marginBottom: "15px" }}
-//                                     type="text"
-//                                     value={filterAuthor}
-//                                     onChange={handleAuthorFilterChange}
-//                                     placeholder="Escriba aqui para filtrar..."
-//                                     autoFocus
-//                                 />
-//                             </Form.Group>
-//                         </Tab>
-//                     </Tabs>
-//                 </Col>
-//             </Row>
-//             <Row>
-//                 <Col>
-//                     <Table striped bordered hover>
-//                         <thead>
-//                             <tr>
-//                                 <th>#Id Orden</th>
-//                                 <th>#Id Usuario</th>
-//                                 <th>Fecha</th>
-//                                 <th>Estado</th>
-//                                 <th>Direccion de envio</th>
-//                                 <th>Productos</th>
-//                                 <th>Precio Total</th>
-//                                 <th>Actions</th>
-//                             </tr>
-//                         </thead>
-//                         <tbody>{inventarioMap}</tbody>
-//                     </Table>
-//                 </Col>
-//             </Row>
-//         </Container>
-//     );
-// };
-
-// export default Inventario;
+export default Orders;
