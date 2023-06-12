@@ -5,6 +5,7 @@ const updateOrderByStateHandler = require('../handlers/order/updateOrderByStateH
 const editOrderHandler = require('../handlers/order/editOrderHandler')
 const deleteOrderHandler = require('../handlers/order/deleteOrderHandler');
 const changeStatusHandler = require('../handlers/order/changeStatusHandler');
+const shippedStatusHandler = require('../handlers/order/shippedStatusHandler');
 
 
 const orderRouter = Router();
@@ -12,6 +13,7 @@ const orderRouter = Router();
 orderRouter.post('/', createOrderHandler)
 orderRouter.get('/', getAllHistoryHandler)
 orderRouter.put('/status', changeStatusHandler)
+orderRouter.put('/shipped', shippedStatusHandler) // esta ruta cambia estado a enviado 
 orderRouter.put('/', updateOrderByStateHandler)
 orderRouter.put('/:id', editOrderHandler)
 orderRouter.put('/delete/:id', deleteOrderHandler)

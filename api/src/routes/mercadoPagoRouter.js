@@ -2,6 +2,7 @@ const { Router } = require('express');
 const mercadopago = require('mercadopago');
 const { URL_Vercel_back } = require('../../rutas')
 const { Order, OrderDetail, User } = require('../db');
+const { confirmacionPago } = require('../handlers/mailing/mailing')
 
 
 const mpRouter = Router();
@@ -86,8 +87,21 @@ mpRouter.post('/notificar', async (req, res) => {
             });
 
             if (foundOrder) {
-                foundOrder.state = 'Completed';
-                await foundOrder.save(); 
+                foundOrder.state = 'Pagada';
+                await foundOrder.save();
+
+                const user = await User.findOne({ where: { id: foundOrder.id_user } });
+                // console.log(user);
+                await confirmacionPago(
+                    "Rayuela BookClub",
+                    `${URL_Vercel_back}/perfil`,
+                    user.dataValues.firstName,
+                    foundOrder.date,
+                    foundOrder.quantity,
+                    `$ ${foundOrder.price_total}`,
+                    user.dataValues.email,
+                    'Detalle de compra'
+                )
 
                 const orderDetails = await OrderDetail.findAll({ where: { id_orden: foundOrder.id } });
                 const suscribed = orderDetails.some(detail => detail.id_book === 58);
@@ -98,7 +112,7 @@ mpRouter.post('/notificar', async (req, res) => {
                     if (user) {
                         user.suscribed = true;
                         user.date_suscription = foundOrder.date
-                        await user.save(); 
+                        await user.save();
                     }
                 }
             }

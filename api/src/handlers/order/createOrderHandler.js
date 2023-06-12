@@ -3,7 +3,7 @@ const createOrder = require('../../controllers/orders/createOrder')
 const createOrderHandler = async (req, res) => {
 
     const orderData = req.body;
-    // console.log(orderData);
+    console.log(orderData);
     try {
         if (!orderData) {
             res.status(400).send('Error')
