@@ -87,7 +87,7 @@ mpRouter.post('/notificar', async (req, res) => {
             });
 
             if (foundOrder) {
-                foundOrder.state = 'Completed';
+                foundOrder.state = 'Pagada';
                 await foundOrder.save();
 
                 const user = await User.findOne({ where: { id: foundOrder.id_user } });
