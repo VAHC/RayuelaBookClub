@@ -67,8 +67,8 @@ const bookCard = ({book}) => {
   );
 
   return (
-    <Card style={{ width: "11rem" }} onClick={handleClick}>
-      <Card.Img variant="top" src={book.image} />
+    <Card style={{ width: "11rem", height: "15rem",  margin: "10px"}} onClick={handleClick}>
+      <Card.Img variant="top" src={book.image} style={{ width: "100%", height: "100%" }}/>
       <OverlayTrigger placement="top" overlay={renderTooltip()}>
         <Card.ImgOverlay
           style={{
