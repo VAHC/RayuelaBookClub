@@ -142,10 +142,10 @@ bookRouterAuth.get(
     }
 
     // Encriptar el texto
-    const objetoEncriptado = AES.encrypt(JSON.stringify(info), clave).toString();
+   // const objetoEncriptado = AES.encrypt(JSON.stringify(info), clave).toString();
 
     // Generar un token JWT que contiene el token encriptado
-    const token = jwt.sign({ objetoEncriptado }, 'secreto', { expiresIn: '1d' });
+    const token = jwt.sign({ info }, 'secreto', { expiresIn: '1d' });
 
     // Redirigir al frontend con el token encriptado en la URL
     res.redirect(`${URL_Vercel_back}/?token=${encodeURIComponent(token)}`);
@@ -273,6 +273,7 @@ bookRouterAuth.get('/pepe', (req, res) => {
 const requireJWTAuth = (req, res, next) => {
   const token = req.headers.authorization?.split(' ')[1];
   console.log(req.headers.authorization);
+
   if (!token) {
     return res.send('noo');
   }
@@ -286,6 +287,7 @@ const requireJWTAuth = (req, res, next) => {
 };
 
 bookRouterAuth.get('/protected', requireJWTAuth, (req, res) => {
+  //http://localhost:3001/auth/protected
   const user = req.user; // Access the user object from the request
   res.json({ user });
 });
