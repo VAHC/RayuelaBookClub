@@ -3,10 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { getBooksPage, getAllBooks } from "../../redux/action";
 import Card from "./Card";
 
-//este es el codigo que saca del catalogo la suscripcion, userOrders habria que reemplazarlo por el array que tiene todos los libros, y usar notSuscription para renderizar
-// const notSuscription = userOrders.filter(order => order.id !== 58)
-  
-
 export const Posters = () => {
     //Pagina actual
     const pagina = useSelector((state) => state.paginaActual);
@@ -43,16 +39,22 @@ export const Posters = () => {
 
         if (filterFlag) {
             searchData.length > 0
-                ? (renderElements = searchData.map((book, index) => {
+                ? (renderElements = searchData
+                    .filter((book) => book.id !== 58)
+                    .map((book, index) => {
                       // if(book.deleted === true) return null;
                       return <Card book={book} key={index} />;
                   }))
-                : (renderElements = filteredbooks.map((book, index) => {
+                : (renderElements = filteredbooks
+                    .filter((book) => book.id !== 58)
+                    .map((book, index) => {
                       // if(book.deleted === true) return null;
                       return <Card book={book} key={index} />;
                   }));
         } else {
-            renderElements = booksPage.map((book, index) => {
+            renderElements = booksPage
+                .filter((book) => book.id !== 58)
+                .map((book, index) => {
                 // if(book.deleted === true) return null;
                 return <Card book={book} key={index} />;
             });
