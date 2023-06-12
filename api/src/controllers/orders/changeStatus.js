@@ -14,7 +14,7 @@ const changeStatus = async (quantity, price) => {
     if (!foundOrder) {
         throw Error(`No order has been found`)
     } else {
-        foundOrder.state = 'Pending',
+        foundOrder.state = 'Pendiente',
             await foundOrder.save()
     }
 }

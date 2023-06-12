@@ -21,8 +21,8 @@ module.exports = (sequelize) => {
     },
     state: {
       type: DataTypes.ENUM,
-      values: ["Created", "Processing", "Pending", "Cancelled", "Completed"],
-      defaultValue: "Created",
+      values: ["Creada", "Pendiente", "Cancelada", "Pagada", "Despachada"],
+      defaultValue: "Creada",
       allowNull: false,
     },
     quantity: {

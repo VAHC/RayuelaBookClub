@@ -1,14 +1,15 @@
 const { Router } = require('express');
 const mercadopago = require('mercadopago');
 const { URL_Vercel_back } = require('../../rutas')
-const { Order } = require('../db');
+const { Order, OrderDetail, User } = require('../db');
+const { confirmacionPago } = require('../handlers/mailing/mailing')
 
 
 const mpRouter = Router();
 
 
 mpRouter.post('/payment', async (req, res) => {
-    const prod = req.body;  
+    const prod = req.body;
     let preference = {
         items: [{
             id: prod.id,
@@ -21,7 +22,7 @@ mpRouter.post('/payment', async (req, res) => {
             unit_price: prod.price
 
         }],
-        notification_url: `https://c85b-2803-9800-b886-82b2-291d-2740-a1f5-871c.ngrok-free.app/mercadopago/notificar`,
+        notification_url: `https://rayuelabookclub-production.up.railway.app/mercadopago/notificar`,
         back_urls: {
             success: URL_Vercel_back + '/catalogo',
             failure: '',
@@ -79,16 +80,41 @@ mpRouter.post('/notificar', async (req, res) => {
 
             const foundOrder = await Order.findOne({
                 where: {
-                  price_total: body.total_amount,
+                    price_total: body.total_amount,
                 },
                 order: [['id', 'DESC']], // Ordenar por fecha de creación en orden descendente
                 limit: 1, // Obtener solo el último registro
-              });
-           
+            });
+
             if (foundOrder) {
-                // Actualiza el estado de la orden
-                foundOrder.state = 'Completed';
-                await foundOrder.save(); // Guarda los cambios en la base de datos
+                foundOrder.state = 'Pagada';
+                await foundOrder.save();
+
+                const user = await User.findOne({ where: { id: foundOrder.id_user } });
+                // console.log(user);
+                await confirmacionPago(
+                    "Rayuela BookClub",
+                    `${URL_Vercel_back}/perfil`,
+                    user.dataValues.firstName,
+                    foundOrder.date,
+                    foundOrder.quantity,
+                    `$ ${foundOrder.price_total}`,
+                    user.dataValues.email,
+                    'Detalle de compra'
+                )
+
+                const orderDetails = await OrderDetail.findAll({ where: { id_orden: foundOrder.id } });
+                const suscribed = orderDetails.some(detail => detail.id_book === 58);
+
+                if (suscribed) {
+                    const user = await User.findOne({ where: { id: foundOrder.id_user } });
+
+                    if (user) {
+                        user.suscribed = true;
+                        user.date_suscription = foundOrder.date
+                        await user.save();
+                    }
+                }
             }
         } else {
             console.log('El pago no se concretó');

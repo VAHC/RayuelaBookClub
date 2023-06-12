@@ -1,4 +1,6 @@
 const { Order, User, OrderDetail, Book } = require('../../db');
+const {confirmacionCompra} = require('../../handlers/mailing/mailing')
+const {URL_Vercel_back} = require('../../../rutas')
 
 const createOrder = async (orderData) => {
     const currentDate = new Date();
@@ -56,8 +58,23 @@ const createOrder = async (orderData) => {
 
     newOrder.quantity = quantityTotal;
     newOrder.price_total = priceTotal;
-    
     await newOrder.save();
+
+    const user = await User.findByPk(orderData[0].id_user);
+    if (!user) {
+        throw Error(`No user has been found matching the id: ${id_user}`);
+    }
+    // console.log(user);
+
+    await confirmacionCompra(
+        "Rayuela BookClub",
+        `${URL_Vercel_back}/perfil`,
+        user.dataValues.firstName, 
+        newOrder.date, 
+        newOrder.quantity,
+        `$ ${newOrder.price_total}`, 
+        user.dataValues.email, 
+        'Detalle de compra')
 };
 
 module.exports = createOrder;
