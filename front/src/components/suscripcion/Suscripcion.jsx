@@ -106,7 +106,7 @@ export const Suscripcion = () => {
             <img src="./images/paso1.png" className="card-img-top" alt="Paso 1" />
             <div className="card-body text-center">
               <h5 className="card-title fs-4 fw-bold text-danger">Registrarse</h5>
-              <p className="card-text">Completá tus datos <Link to="/ingresar" onClick={handleLinkClick} >aquí</Link>. Sólo te tomará unos minutos</p>
+              <p className="card-text">Completá tus datos <Link to="/ingresar" className="text-reset text-decoration-none fw-bold" onClick={handleLinkClick} >aquí</Link>. Sólo te tomará unos minutos</p>
             </div>
           </div>
         </div>

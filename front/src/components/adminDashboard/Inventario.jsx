@@ -281,7 +281,7 @@ const Inventario = () => {
                     <p>
                         En este panel podrás ver el inventario completo, agregar
                         y editar los productos, además de habilitarlos y
-                        deshabilitarlos
+                        deshabilitarlos.
                     </p>
                 </Col>
             </Row>
@@ -324,7 +324,7 @@ const Inventario = () => {
                                 />
                             </Form.Group>
                         </Tab>
-                        <Tab eventKey="autor" title="Filtrar por Autor">
+                        <Tab eventKey="autor" title="Filtrar por autor">
                             <Form.Group controlId="authorFilterInput">
                                 <Form.Control
                                     style={{ marginBottom: "15px" }}
