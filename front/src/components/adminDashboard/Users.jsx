@@ -48,19 +48,15 @@ const Users = () => {
     };
 
     const filterHandler = (event) => {
-        if (event.target.name === "profile") {
-            console.log("pasa por aca");
-            setFiltersValues({
-                ...filtersValue,
-                profile: event.target.value,
-                state: "All",
-            });
-        } else {
-            console.log("pasa por el otro");
+        if (event.target.name === "state") {
             setFiltersValues({
                 ...filtersValue,
                 state: event.target.value,
-                profile: "All",
+            });
+        } else {
+            setFiltersValues({
+                ...filtersValue,
+                user_id: event.target.value,
             });
         }
     };
