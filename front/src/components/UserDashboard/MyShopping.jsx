@@ -29,10 +29,13 @@ const MyShopping = () => {
     const sortOrders = notSuscription.sort((a, b) => b.id - a.id)
 
 const icons = (state) => {
-    if(state === "Created") return <i className="bi bi-pencil-square icon-size text-primary"/>
-    if(state === "Pending") return <i className="bi bi-clock icon-size text-primary"/>
-    if(state === "Cancelled") return <i className="bi bi-x-circle icon-size text-danger"/>
-    if(state === "Completed") return <i className="bi bi-check-circle icon-size text-success"/>
+    if(state === "Creada") return <i className="bi bi-pencil-square icon-size text-primary"/>
+    if(state === "Pendiente") return <i className="bi bi-clock icon-size text-primary"/>
+    if(state === "Cancelada") return <i className="bi bi-x-circle icon-size text-danger"/>
+    if(state === "Pagada") return <i className="bi bi-check-circle icon-size text-success"/>
+    if(state === "Despachada") return <i class="bi bi-gift icon-size text-success"/>
+    // <i class="bi bi-hand-thumbs-up"></i>
+    // <i class="bi bi-hand-thumbs-up"></i>
 };
 
 const modalDetailHandler = (bookId) => {
