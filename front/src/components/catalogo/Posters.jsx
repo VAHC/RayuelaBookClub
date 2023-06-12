@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getBooksPage, getAllBooks } from "../../redux/action";
-
 import Card from "./Card";
+
+//este es el codigo que saca del catalogo la suscripcion, userOrders habria que reemplazarlo por el array que tiene todos los libros, y usar notSuscription para renderizar
+// const notSuscription = userOrders.filter(order => order.id !== 58)
+  
 
 export const Posters = () => {
     //Pagina actual
