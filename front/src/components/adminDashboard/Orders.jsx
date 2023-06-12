@@ -1,8 +1,18 @@
+//al cambiar el estado a complete altero el stock de los elementos.
+//cambiar los nombres de los estados.
+// agregar otro genero 
+//mail al estar la compra hecha.
+
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { Container, Row, Col, Table } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllShopping, getAllUsers, editOrder,filterOrderState } from "../../redux/action";
+import {
+    getAllShopping,
+    getAllUsers,
+    editOrder,
+    filterOrderState,
+} from "../../redux/action";
 import "../UserDashboard/customStyles.css";
 
 const Orders = () => {
@@ -39,14 +49,19 @@ const Orders = () => {
     const sortOrders = orders.sort((a, b) => b.id - a.id);
 
     const icons = (state) => {
-        if (state === "Created")
+        if (state === "Creada")
             return <i className="bi bi-pencil-square display-6 text-primary" />;
-        if (state === "Pending")
+        if (state === "Pendiente")
             return <i className="bi bi-clock display-6 text-primary" />;
-        if (state === "Cancelled")
+        if (state === "Cancelada")
             return <i className="bi bi-x-circle display-6 text-danger" />;
-        if (state === "Completed")
+        if (state === "Pagada")
             return <i className="bi bi-check-circle display-6 text-success" />;
+        if (state === "Despachada") {
+            return (
+            <><i className="bi bi-check-circle display-6 text-success" />
+            <i className="bi bi-check-circle display-6 text-success" /></>
+            )}
     };
 
     const updateOrder = async (event, order) => {
@@ -87,10 +102,11 @@ const Orders = () => {
                             name={"state"}
                         >
                             <option value="All">All</option>
-                            <option value="Created">Created</option>
-                            <option value="Pending">Pending</option>
-                            <option value="Cancelled">Cancelled</option>
-                            <option value="Completed">Completed</option>
+                            <option value="Creada">Creada</option>
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="Pagada">Pagada</option>
+                            <option value="Despachada">Despachada</option>
+                            <option value="Cancelada">Cancelada</option>
                         </select>
                     </div>
                 </Col>
@@ -194,17 +210,20 @@ const Orders = () => {
                                                     updateOrder(e, order)
                                                 }
                                             >
-                                                <option value="Created">
-                                                    Created
+                                                <option value="Creada">
+                                                    Creada
                                                 </option>
-                                                <option value="Pending">
-                                                    Pending
+                                                <option value="Pendiente">
+                                                    Pendiente
                                                 </option>
-                                                <option value="Cancelled">
-                                                    Cancelled
+                                                <option value="Cancelada">
+                                                    Cancelada
                                                 </option>
-                                                <option value="Completed">
-                                                    Completed
+                                                <option value="Pagada">
+                                                    Pagada
+                                                </option>
+                                                <option value="Despachada">
+                                                    Despachada
                                                 </option>
                                             </select>
                                         </th>
