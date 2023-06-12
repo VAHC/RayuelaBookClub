@@ -229,15 +229,13 @@ export const deleteBook = async (bookId, dispatch) => {
   dispatch({ type: DELETE_BOOK })
 }
 
-export const updateUser = (user) => {
-  return async (dispatch) => {
-    try {
-      await axios.put(`${URL_Railway}/users`, user);
-      dispatch({ type: UPDATE_USER, payload: user });
-      return { status: 200, message: 'Success' };
-    } catch (error) {
-      throw error
-    }
+export const updateUser = async (user, dispatch) => {
+  try {
+    await axios.put(`${URL_Railway}/users`, user);
+    dispatch({ type: UPDATE_USER, payload: user });
+    return { status: 200, message: 'Success' };
+  } catch (error) {
+    throw error
   }
 }
 
@@ -258,7 +256,7 @@ export const removeFromCart = (book) => {
       localStorage.removeItem('items');
     }
   }
-} 
+}
 
 export const removeItems = (id) => {
   return (dispatch, getState) => {
@@ -355,9 +353,15 @@ export const cancelSuscription = (userId) => {
   }
 }
 
-export const editOrder =async (order, dispatch) => {
-    await axios.put(`${URL_Railway}/order`, order)
-    dispatch({ type: EDIT_ORDER })
+export const editOrder = async (order, dispatch) => {
+
+  console.log("🚀 ~ file: action.js:360 ~ editOrder ~ order:", order)
+
+
+  if (order.state === "Despachada") await axios.put(`${URL_Railway}/order/shipped`, order)
+  else await axios.put(`${URL_Railway}/order`, order)
+
+  dispatch({ type: EDIT_ORDER })
 }
 
 export const filterOrderState = (estado) => {

@@ -1,7 +1,9 @@
 //al cambiar el estado a complete altero el stock de los elementos.
-//cambiar los nombres de los estados.
-// agregar otro genero 
 //mail al estar la compra hecha.
+
+//cambiar los nombres de los estados.
+// agregar otro genero
+
 
 import React, { useState } from "react";
 import { useEffect } from "react";
@@ -46,7 +48,7 @@ const Orders = () => {
 
     const dispatch = useDispatch();
 
-    const sortOrders = orders.sort((a, b) => b.id - a.id);
+    const sortFilteredOrders = orders.sort((a, b) => b.id - a.id);
 
     const icons = (state) => {
         if (state === "Creada")
@@ -59,9 +61,12 @@ const Orders = () => {
             return <i className="bi bi-check-circle display-6 text-success" />;
         if (state === "Despachada") {
             return (
-            <><i className="bi bi-check-circle display-6 text-success" />
-            <i className="bi bi-check-circle display-6 text-success" /></>
-            )}
+                <>
+                    <i className="bi bi-check-circle display-6 text-success" />
+                    <i className="bi bi-check-circle display-6 text-success" />
+                </>
+            );
+        }
     };
 
     const updateOrder = async (event, order) => {
@@ -118,7 +123,7 @@ const Orders = () => {
                             <tr>
                                 <th></th>
                                 <th>Fecha</th>
-                                <th>Usuario</th>
+                                <th>Detalles de Usuario</th>
                                 <th>Detalle de la compra</th>
                                 <th>Total de items</th>
                                 <th>Precio total</th>
@@ -127,8 +132,8 @@ const Orders = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {orders &&
-                                orders.map((order, index) => (
+                            {sortFilteredOrders &&
+                                sortFilteredOrders.map((order, index) => (
                                     <tr id={order.id} key={index}>
                                         <td>{icons(order.state)}</td>
                                         <td>{order.date}</td>
