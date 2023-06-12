@@ -43,6 +43,7 @@ export const GET_BOOK_BY_ID = "GET_BOOK_BY_ID";
 export const GET_USER_BY_ID = "GET_USER_BY_ID";
 export const CANCEL_SUSCRIPTION = "CANCEL_SUSCRIPTION";
 export const EDIT_ORDER = "EDIT_ORDER";
+export const FILTER_ORDER_STATE = "FILTER_ORDER_STATE";
 
 
 
@@ -257,7 +258,7 @@ export const removeFromCart = (book) => {
       localStorage.removeItem('items');
     }
   }
-}
+} 
 
 export const removeItems = (id) => {
   return (dispatch, getState) => {
@@ -357,4 +358,11 @@ export const cancelSuscription = (userId) => {
 export const editOrder =async (order, dispatch) => {
     await axios.put(`${URL_Railway}/order`, order)
     dispatch({ type: EDIT_ORDER })
+}
+
+export const filterOrderState = (estado) => {
+  return {
+    type: FILTER_ORDER_STATE,
+    payload: estado
+  }
 }

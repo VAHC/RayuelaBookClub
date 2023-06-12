@@ -38,7 +38,8 @@ import {
   GET_BOOK_BY_ID,
   GET_USER_BY_ID,
   CANCEL_SUSCRIPTION,
-  EDIT_ORDER
+  EDIT_ORDER,
+  FILTER_ORDER_STATE
 } from './action';
 
 // Initial state
@@ -75,6 +76,8 @@ const initialState = {
   filteredUsers: [],
   //Array historial de compras
   allOrders: [],
+  // Ordenes filtradas.
+  filteredOrders: [],
   //traigo detalle de libro por id
   bookById: {},
   //trae info completa de un usuario por id
@@ -306,7 +309,7 @@ const reducer = (state = initialState, action) => {
     case PUT_BOOK:
       const nState = [...state.allBooks]
       const newState = nState.sort((a, b) =>
-         a.id > b.id ? 1 : -1
+        a.id > b.id ? 1 : -1
       )
       const bookIndex = newState.findIndex(book => book.id === action.payload.id)
       newState[bookIndex] = action.payload
@@ -359,7 +362,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         cart: cartCopy,
       }
-      
+
 
     case REMOVE_FROM_CART:
       const cartCopi = [...state.cart]
@@ -394,18 +397,18 @@ const reducer = (state = initialState, action) => {
         ...state,
         cart: []
       }
-      
-      case FILL_CART:
-        //console.log('entra el reducer');
-        return {
-          ...state,
-          cart: action.payload
-        }
+
+    case FILL_CART:
+      //console.log('entra el reducer');
+      return {
+        ...state,
+        cart: action.payload
+      }
 
     case GET_ALL_USERS:
       return {
         ...state,
-        filteredUsers:action.payload,
+        filteredUsers: action.payload,
         allUsers: action.payload
       };
 
@@ -439,12 +442,12 @@ const reducer = (state = initialState, action) => {
           if (user.state === action.payload) return user
         })
 
-        // console.log("🚀 ~ file: reducer.js:416 ~ reducer ~ usersFilteredByState:", usersFilteredByState)
+      // console.log("🚀 ~ file: reducer.js:416 ~ reducer ~ usersFilteredByState:", usersFilteredByState)
 
       return {
         ...state,
         filteredUsers: usersFilteredByState
-      }     
+      }
 
     case CREATE_ORDER:
       return {
@@ -454,7 +457,8 @@ const reducer = (state = initialState, action) => {
     case GET_ALL_SHOPPING:
       return {
         ...state,
-        allOrders: action.payload
+        allOrders: action.payload,
+        filteredOrders: action.payload
       }
 
     case GET_BOOK_BY_ID:
@@ -462,26 +466,37 @@ const reducer = (state = initialState, action) => {
         ...state,
         bookById: action.payload
       }
-      
-      case GET_USER_BY_ID:
-        console.log('entra en el reducer');
+
+    case GET_USER_BY_ID:
+      console.log('entra en el reducer');
       return {
         ...state,
         userById: action.payload
       }
 
-      case CANCEL_SUSCRIPTION:
-        console.log('entra la action en el reducer de desuscripcion');
-        return {
-          ...state,
-          // userById: { ...state.userById }
-        }
-        case EDIT_ORDER:
-          return {
-            ...state,
-          }
-        
-    
+    case CANCEL_SUSCRIPTION:
+      console.log('entra la action en el reducer de desuscripcion');
+      return {
+        ...state,
+        // userById: { ...state.userById }
+      }
+    case EDIT_ORDER:
+      return {
+        ...state,
+      }
+
+    case FILTER_ORDER_STATE:
+      const ordersFilteredByState = action.payload === 'All' ?
+
+        state.allOrders : state.allOrders.filter(order => {
+          if (order.state === action.payload) return order
+        })
+
+      return {
+        ...state,
+        filteredOrders: ordersFilteredByState
+      }
+
 
     default:
       return state;

@@ -1,18 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import { Container, Row, Col, Table } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllShopping, getAllUsers, editOrder } from "../../redux/action";
+import { getAllShopping, getAllUsers, editOrder,filterOrderState } from "../../redux/action";
 import "../UserDashboard/customStyles.css";
 
 const Orders = () => {
+    // useEffect(() => {
+    //     if (filtersValue.user_id > 0) dispatch();
+    // }, [filtersValue.user_id]);
+
+    const orders = useSelector((state) => state.filteredOrders);
+    const users = useSelector((state) => state.filteredUsers);
+    let filteredUsers;
+    const [filtersValue, setFiltersValues] = useState({
+        state: "All",
+        // user_id: 0,
+    });
+    // const [mappingArray, setMappingArray]=useState(filter)
+
     useEffect(() => {
         dispatch(getAllShopping());
         dispatch(getAllUsers());
     }, []);
 
-    const orders = useSelector((state) => state.allOrders);
-    const users = useSelector((state) => state.allUsers);
+    useEffect(() => {
+        if (filtersValue.state) dispatch(filterOrderState(filtersValue.state));
+    }, [filtersValue.state]);
 
     const nombreUsuario = (id) => {
         const objeto = users.find((user) => user.id === id);
@@ -36,10 +50,19 @@ const Orders = () => {
     };
 
     const updateOrder = async (event, order) => {
-      const newEstado = event.target.value
-        const newOrder = { id: order.id , state: newEstado };
+        const newEstado = event.target.value;
+        const newOrder = { id: order.id, state: newEstado };
         await editOrder(newOrder, dispatch);
         dispatch(getAllShopping());
+    };
+
+    const filterHandler = (event) => {
+        if (event.target.name === "state") {
+            setFiltersValues({
+                ...filtersValue,
+                state: event.target.value,
+            });
+        }
     };
 
     return (
@@ -51,6 +74,25 @@ const Orders = () => {
                         En este panel podrás ver el listado completo de compras
                         y editar el estado de las ordenes.
                     </p>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <div className="m-1">
+                        <h6 className="mx-2">Filtrar por Estado</h6>
+                        <select
+                            className="form-select"
+                            value={filtersValue.state}
+                            onChange={(e) => filterHandler(e)}
+                            name={"state"}
+                        >
+                            <option value="All">All</option>
+                            <option value="Created">Created</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Cancelled">Cancelled</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </div>
                 </Col>
             </Row>
             <Row>
@@ -69,8 +111,8 @@ const Orders = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {sortOrders &&
-                                sortOrders.map((order, index) => (
+                            {orders &&
+                                orders.map((order, index) => (
                                     <tr id={order.id} key={index}>
                                         <td>{icons(order.state)}</td>
                                         <td>{order.date}</td>
@@ -148,7 +190,9 @@ const Orders = () => {
                                             Estado de compra:
                                             <select
                                                 name="estado"
-                                                onChange={(e) => updateOrder(e, order)}
+                                                onChange={(e) =>
+                                                    updateOrder(e, order)
+                                                }
                                             >
                                                 <option value="Created">
                                                     Created
