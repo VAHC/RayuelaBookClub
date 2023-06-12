@@ -100,8 +100,8 @@ const CartContainer = () => {
             price: totalPrice(cart)
           };
 
-          console.log(cartItems);
-          console.log(cartStatus);
+          //console.log(cartItems);
+          //console.log(cartStatus);
 
       await axios.put(URL_Railway + '/order/status', cartStatus)
       
@@ -223,10 +223,7 @@ const CartContainer = () => {
                                         : <button className="btn btn-outline-success mb-2 disabled">Orden confirmada</button>}
                                 </div>
                             </div>
-                            {showForm && <FormAddress order={order} />}
-                            <div className="d-flex justify-content-center">
-                            <button onClick={mpHandler} className="btn btn-success my-3 w-50">Pagar</button>
-                            </div>
+                            {showForm && <FormAddress order={order} mpHandler={mpHandler}/>}
                         </div>
                     </div>
                 </div>
