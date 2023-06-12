@@ -105,7 +105,7 @@ export function Filters() {
                 <button className="btn btn-dark m-2" onClick={clearFilters}>
                     Borrar 
                     <br/>
-                    Filtros / Busqueda
+                    filtros / búsqueda
                 </button>
             </div>
         </div>
