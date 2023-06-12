@@ -1,18 +1,44 @@
-import React from "react";
+//al cambiar el estado a complete altero el stock de los elementos.
+//mail al estar la compra hecha.
+
+//cambiar los nombres de los estados.
+// agregar otro genero
+
+
+import React, { useState } from "react";
 import { useEffect } from "react";
 import { Container, Row, Col, Table } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllShopping, getAllUsers, editOrder } from "../../redux/action";
+import {
+    getAllShopping,
+    getAllUsers,
+    editOrder,
+    filterOrderState,
+} from "../../redux/action";
 import "../UserDashboard/customStyles.css";
 
 const Orders = () => {
+    // useEffect(() => {
+    //     if (filtersValue.user_id > 0) dispatch();
+    // }, [filtersValue.user_id]);
+
+    const orders = useSelector((state) => state.filteredOrders);
+    const users = useSelector((state) => state.filteredUsers);
+    let filteredUsers;
+    const [filtersValue, setFiltersValues] = useState({
+        state: "All",
+        // user_id: 0,
+    });
+    // const [mappingArray, setMappingArray]=useState(filter)
+
     useEffect(() => {
         dispatch(getAllShopping());
         dispatch(getAllUsers());
     }, []);
 
-    const orders = useSelector((state) => state.allOrders);
-    const users = useSelector((state) => state.allUsers);
+    useEffect(() => {
+        if (filtersValue.state) dispatch(filterOrderState(filtersValue.state));
+    }, [filtersValue.state]);
 
     const nombreUsuario = (id) => {
         const objeto = users.find((user) => user.id === id);
@@ -22,24 +48,41 @@ const Orders = () => {
 
     const dispatch = useDispatch();
 
-    const sortOrders = orders.sort((a, b) => b.id - a.id);
+    const sortFilteredOrders = orders.sort((a, b) => b.id - a.id);
 
     const icons = (state) => {
-        if (state === "Created")
+        if (state === "Creada")
             return <i className="bi bi-pencil-square display-6 text-primary" />;
-        if (state === "Pending")
+        if (state === "Pendiente")
             return <i className="bi bi-clock display-6 text-primary" />;
-        if (state === "Cancelled")
+        if (state === "Cancelada")
             return <i className="bi bi-x-circle display-6 text-danger" />;
-        if (state === "Completed")
+        if (state === "Pagada")
             return <i className="bi bi-check-circle display-6 text-success" />;
+        if (state === "Despachada") {
+            return (
+                <>
+                    <i className="bi bi-check-circle display-6 text-success" />
+                    <i className="bi bi-check-circle display-6 text-success" />
+                </>
+            );
+        }
     };
 
     const updateOrder = async (event, order) => {
-      const newEstado = event.target.value
-        const newOrder = { id: order.id , state: newEstado };
+        const newEstado = event.target.value;
+        const newOrder = { id: order.id, state: newEstado };
         await editOrder(newOrder, dispatch);
         dispatch(getAllShopping());
+    };
+
+    const filterHandler = (event) => {
+        if (event.target.name === "state") {
+            setFiltersValues({
+                ...filtersValue,
+                state: event.target.value,
+            });
+        }
     };
 
     return (
@@ -55,12 +98,32 @@ const Orders = () => {
             </Row>
             <Row>
                 <Col>
+                    <div className="m-1">
+                        <h6 className="mx-2">Filtrar por Estado</h6>
+                        <select
+                            className="form-select"
+                            value={filtersValue.state}
+                            onChange={(e) => filterHandler(e)}
+                            name={"state"}
+                        >
+                            <option value="All">All</option>
+                            <option value="Creada">Creada</option>
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="Pagada">Pagada</option>
+                            <option value="Despachada">Despachada</option>
+                            <option value="Cancelada">Cancelada</option>
+                        </select>
+                    </div>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
                     <Table striped bordered hover>
                         <thead>
                             <tr>
                                 <th></th>
                                 <th>Fecha</th>
-                                <th>Usuario</th>
+                                <th>Detalles de Usuario</th>
                                 <th>Detalle de la compra</th>
                                 <th>Total de items</th>
                                 <th>Precio total</th>
@@ -69,8 +132,8 @@ const Orders = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {sortOrders &&
-                                sortOrders.map((order, index) => (
+                            {sortFilteredOrders &&
+                                sortFilteredOrders.map((order, index) => (
                                     <tr id={order.id} key={index}>
                                         <td>{icons(order.state)}</td>
                                         <td>{order.date}</td>
@@ -148,19 +211,24 @@ const Orders = () => {
                                             Estado de compra:
                                             <select
                                                 name="estado"
-                                                onChange={(e) => updateOrder(e, order)}
+                                                onChange={(e) =>
+                                                    updateOrder(e, order)
+                                                }
                                             >
-                                                <option value="Created">
-                                                    Created
+                                                <option value="Creada">
+                                                    Creada
                                                 </option>
-                                                <option value="Pending">
-                                                    Pending
+                                                <option value="Pendiente">
+                                                    Pendiente
                                                 </option>
-                                                <option value="Cancelled">
-                                                    Cancelled
+                                                <option value="Cancelada">
+                                                    Cancelada
                                                 </option>
-                                                <option value="Completed">
-                                                    Completed
+                                                <option value="Pagada">
+                                                    Pagada
+                                                </option>
+                                                <option value="Despachada">
+                                                    Despachada
                                                 </option>
                                             </select>
                                         </th>
