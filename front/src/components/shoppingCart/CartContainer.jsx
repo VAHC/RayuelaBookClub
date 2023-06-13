@@ -66,6 +66,9 @@ const CartContainer = () => {
     const cleanCartHandler = () => {
         dispatch(emptyCart())
         localStorage.removeItem('items')
+        setTimeout(function(){
+            navigate('/catalogo')  
+          }, 2000) 
     }
 
     const deleteItemHandler = (bookId) => {
