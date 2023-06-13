@@ -41,6 +41,7 @@ import {
   EDIT_ORDER,
   FILTER_ORDER_STATE
 } from './action';
+import swal from 'sweetalert';
 
 // Initial state
 const initialState = {
@@ -242,7 +243,7 @@ const reducer = (state = initialState, action) => {
       }
 
     case RESET_FILTERS:
-      console.log("entra el reducer de redux")
+      //console.log("entra el reducer de redux")
       return {
         ...state,
         searchData: [],
@@ -362,7 +363,13 @@ const reducer = (state = initialState, action) => {
         if (findItem.quantity < findItem.stock) {
           findItem.quantity += 1;
         } else {
-          window.alert('No hay stock suficiente');
+          swal({
+            title: "¡No hay stock suficiente!",
+            text: "Pronto lo renovaremos...",
+            icon: "error",
+            timer: 2000,
+            buttons: false
+          });
         }
       } else {
         const { id, price, stock, title } = action.payload
