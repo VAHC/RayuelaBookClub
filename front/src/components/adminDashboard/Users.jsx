@@ -35,13 +35,13 @@ const Users = () => {
     }, [filtersValue.state]);
 
     const deleteButtonHandler = async (user) => {
-        console.log("Estoy modificando el deleted de este User: " + user.id);
+        //console.log("Estoy modificando el deleted de este User: " + user.id);
         await deleteUser(user, dispatch);
         dispatch(getAllUsers());
     };
 
     const updateButtonHandler = async (user) => {
-        console.log("Estoy modificando el profile de este User: " + user.profile + user.id);
+        //console.log("Estoy modificando el profile de este User: " + user.profile + user.id);
         
         await updateUser(user,dispatch);
         dispatch(getAllUsers());
@@ -72,19 +72,19 @@ const Users = () => {
         return (
             <tr key={index}>
                 <td>{user.id}</td>
-                <td>{user.profile}</td>
-                <td>{user.firstName + user.lastName}</td>
+                <td>{user.profile === "usuario" ? "Usuario" : "Administrador"}</td>
+                <td>{user.firstName + " " + user.lastName}</td>
                 <td>{user.email}</td>
                 <td>{user.phone}</td>
-                <td>{String(user.suscribed)}</td>
+                <td>{user.suscribed === true ? "Sí" : "No"}</td>
                 <td>{String(user.state)}</td>
                 <td>
                     {" "}
                     <Button
                         onClick={() => deleteButtonHandler(user)}
-                        variant={user.deleted ? "success" : "danger"}
+                        variant={user.deleted ? "success my-1" : "danger my-1"}
                     >
-                        {user.deleted ? "Habilitar" : "deshabilitar"}
+                        {user.deleted ? "Habilitar" : "Deshabilitar"}
                     </Button>
                     <br />
                     <Button
@@ -94,8 +94,8 @@ const Users = () => {
                         }
                     >
                         {user.profile === "usuario"
-                            ? "Change to Admin Profile"
-                            : "Change to usuario profile"}
+                            ? "Cambiar a perfil de admin"
+                            : "Cambiar a perfil de usuario"}
                     </Button>
                 </td>
             </tr>
@@ -106,10 +106,10 @@ const Users = () => {
         <Container>
             <Row>
                 <Col>
-                    <h1>Gestion de Usuarios</h1>
+                    <h1>Gestión de usuarios</h1>
                     <p>
-                        En este panel podras ver un listado completo de todos
-                        los usuarios, editar su profile, y habilitar o
+                        En este panel podrás ver un listado completo de todos
+                        los usuarios, editar su perfil y habilitarlos o
                         deshabilitarlos.
                     </p>
                 </Col>
@@ -117,7 +117,7 @@ const Users = () => {
             <Row>
                 <Col>
                     {" "}
-                    <h6 className="mx-2">Filtrar por Profile</h6>
+                    <h6 className="mx-2">Filtrar por perfil</h6>
                     <div className="m-1 mb-3">
                         <select
                             className="form-select"
@@ -126,15 +126,15 @@ const Users = () => {
                             defaultValue={"All"}
                             name={"profile"}
                         >
-                            <option value="All">All</option>
-                            <option value="admin">admin</option>
-                            <option value="usuario">usuario</option>
+                            <option value="All">Todos</option>
+                            <option value="admin">Administrador</option>
+                            <option value="usuario">Usuario</option>
                         </select>
                     </div>
                 </Col>{" "}
                 <Col>
                     <div className="m-1">
-                        <h6 className="mx-2">Filtrar por Estado</h6>
+                        <h6 className="mx-2">Filtrar por estado</h6>
                         <select
                             className="form-select"
                             value={filtersValue.state}
@@ -142,11 +142,11 @@ const Users = () => {
                             defaultValue={"All"}
                             name={"state"}
                         >
-                            <option value="All">All</option>
-                            <option value="Active">Active</option>
-                            <option value="Inactive">Inactive</option>
-                            <option value="New">New</option>
-                            <option value="Blocked">Blocked</option>
+                            <option value="All">Todos</option>
+                            <option value="Active">Activos</option>
+                            <option value="Inactive">Inactivos</option>
+                            <option value="New">Nuevos</option>
+                            <option value="Blocked">Bloqueados</option>
                         </select>
                     </div>
                 </Col>
@@ -158,13 +158,13 @@ const Users = () => {
                         <thead>
                             <tr>
                                 <th>#Id</th>
-                                <th>Profile</th>
+                                <th>Perfil</th>
                                 <th>Nombre</th>
-                                <th>Mail</th>
-                                <th>Telefono</th>
-                                <th>Suscripcion</th>
+                                <th>Correo electrónico</th>
+                                <th>Teléfono</th>
+                                <th>Suscripto/a</th>
                                 <th>Estado</th>
-                                <th>Actions</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>{usersMap}</tbody>

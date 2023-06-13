@@ -25,8 +25,8 @@ export const Home = () => {
                 <div className="carousel-item">
                   <img src="./images/03.png" className="d-block w-100 img-fluid" alt="..." />
                   <div className="carousel-caption d-none d-md-block bg-light bg-opacity-25 text-dark rounded">
-                    <h5 className='fs-3 fw-bold'>Comunidad</h5>
-                    <p className='fs-5 fw-bold px-5'>En el sitio podés reseñar tus libros preferidos y conectarte con otros lectores que comparten tu misma pasión</p>
+                    <h5 className='fs-3 fw-bold'>¿Por qué debería suscribirme?</h5>
+                    <p className='fs-5 fw-bold px-5'>Para poder recibir y disfrutar en la comodidad de tu hogar un libro diferente mes a mes. ¡Obtendrás también increíbles descuentos en la tienda!</p>
                   </div>
                 </div>
               </div>
