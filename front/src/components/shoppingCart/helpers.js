@@ -21,3 +21,12 @@ export const totalPrice = (cart) => {
     }, 0);
     return total
       }
+
+export const suscriptionDiscount = (cart) => {
+  const discount = (totalPrice(cart) * 10) / 100;
+  return Math.round(discount)
+}
+
+export const totalSuscription = (cart) => {
+  return totalPrice(cart) - suscriptionDiscount(cart)
+}

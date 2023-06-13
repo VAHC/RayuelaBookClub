@@ -297,7 +297,8 @@ const reducer = (state = initialState, action) => {
     case LOGOUT:
       return {
         ...state,
-        user: null
+        user: null,
+        userById: {}
       }
 
     case GET_REVIEWS_BY_USER:

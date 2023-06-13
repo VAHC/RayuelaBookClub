@@ -4,8 +4,8 @@ import DetailTotalCart from "./DetailTotalCart";
 import { FormAddress } from "./FormAddress";
 import { Container, Row, Col, Button, Table } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart, removeFromCart, removeItems, emptyCart, fillCart } from "../../redux/action";
-import { totalByitem, totalItems, totalPrice } from './helpers';
+import { addToCart, removeFromCart, removeItems, emptyCart, fillCart, getUserById } from "../../redux/action";
+import { totalByitem, totalItems, totalPrice, suscriptionDiscount, totalSuscription } from './helpers';
 import axios from "axios";
 import { URL_Railway } from "../../../ruta";
 
@@ -13,6 +13,10 @@ const CartContainer = () => {
 
     const cart = useSelector((state) => state.cart)
     const user = useSelector((state) => state.user)
+    const userId =  user ? user.id : null;
+    console.log(userId);
+    const userById = useSelector((state) => state.userById);
+    console.log(userById);
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -42,6 +46,12 @@ const CartContainer = () => {
             dispatch(fillCart(items))
         }
     }, [])
+
+    useEffect(() => {
+        if(userId) {
+            dispatch(getUserById(userId))
+        }
+    }, [dispatch, userId])
 
     const incrementQuantityHandler = (book) => {
         // console.log('incremento' + book.id_book);
@@ -189,8 +199,19 @@ const CartContainer = () => {
                             </div>
                         )}
                         <hr />
-                        <h5>Total: ${totalPrice(cart)}.00</h5>
+                        <h6>Sub-total: ${totalPrice(cart)}.00</h6>
                         <hr />
+                        {userById && userById.suscribed ? (
+                            <div>
+                                <p style={{ color: 'red'}}>Beneficio por suscripción 10% off</p>
+                                <p style={{ color: 'red', fontWeight: 'bold' }}>Descuento: ${suscriptionDiscount(cart)}.00</p>
+                                <hr/>
+                                <h5>Total: ${totalSuscription(cart)}.00</h5>
+                            </div>
+                        ):(
+                            <h5>Total: ${totalPrice(cart)}.00</h5>
+                        )}
+                        <hr/>
                         <button onClick={handleConfirmCart} className="btn btn-dark mb-2">Confirmar carrito</button>
                     </div>
                 </div>
