@@ -188,11 +188,6 @@ const reducer = (state = initialState, action) => {
         searchData: deletedFilter
       }
 
-      // return {
-      //   ...state,
-      //   searchData: action.payload
-      // };
-
     case SET_DETAIL:
       return {
         ...state,
@@ -200,9 +195,13 @@ const reducer = (state = initialState, action) => {
       };
 
     case FILTER_BY_GENRE:
-      {
+      { 
         const genreFiltered = action.payload === 'All' ?
-          state.allBooks : state.books.filter(libro => {
+          state.allBooks.filter(book => !book.deleted)
+           : 
+          state.books
+          .filter(book => !book.deleted)
+          .filter(libro => {
             if (libro.genders.length > 0) {
               if (libro.genders.find(genero => genero === action.payload)) return libro
             }
@@ -215,7 +214,11 @@ const reducer = (state = initialState, action) => {
 
     case FILTER_AUTHOR: {
       const authorsFiltered = action.payload === 'All' ?
-        state.allBooks : state.books.filter(libro => {
+        state.allBooks.filter(book => !book.deleted) 
+        :
+        state.books
+        .filter(book => !book.deleted)
+        .filter(libro => {
           if (libro.authors.length > 0) {
             if (libro.authors.find(autor => autor === action.payload)) return libro
           }
