@@ -6,9 +6,10 @@ const PassPortLocal = require('passport-local').Strategy
 const jwt = require('jsonwebtoken');
 const { User } = require('../db')
 const AES = require('crypto-js/aes');
+require('dotenv').config();
 
 const { URL_Railway_back, URL_Vercel_back } = require('../../rutas')
-
+const UrlFallida=URL_Vercel_back+"/?error=ya creado"// respuesta fallida de google
 
 UserJson = (id, firstName, lastName, email, phone, profile) => {
   return ({
@@ -88,46 +89,14 @@ bookRouterAuth.get('/google', passport.authenticate('google', { session: false }
 // 4to google te envia  '/google/callback',
 // 5to  res.redirect(`http://127.0.0.1:5173/login/callback?token=${token}`);
 
-// {
-//   id: '100010358437647345103',
-//   displayName: 'juan lorenzo tibiletti',
-//   name: { familyName: 'tibiletti', givenName: 'juan lorenzo' },     
-//   emails: [ { value: 'juanlorenzomdp@gmail.com', verified: true } ],
-//   photos: [
-//     {
-//       value: 'https://lh3.googleusercontent.com/a/AAcHTtdnxfkvS2tEBd4IkxkAGObV8tJrd6KJahVUamzN=s96-c'
-//     }
-//   ],
-//   provider: 'google',
-//   _raw: '{\n' +
-//     '  "sub": "100010358437647345103",\n' +
-//     '  "name": "juan lorenzo tibiletti",\n' +
-//     '  "given_name": "juan lorenzo",\n' +
-//     '  "family_name": "tibiletti",\n' +
-//     '  "picture": "https://lh3.googleusercontent.com/a/AAcHTtdnxfkvS2tEBd4IkxkAGObV8tJrd6KJahVUamzN\\u003ds96-c",\n' +
-//     '  "email": "juanlorenzomdp@gmail.com",\n' +
-//     '  "email_verified": true,\n' +
-//     '  "locale": "es"\n' +
-//     '}',
-//   _json: {
-//     sub: '100010358437647345103',
-//     name: 'juan lorenzo tibiletti',
-//     given_name: 'juan lorenzo',
-//     family_name: 'tibiletti',
-//     picture: 'https://lh3.googleusercontent.com/a/AAcHTtdnxfkvS2tEBd4IkxkAGObV8tJrd6KJahVUamzN=s96-c',        
-//     email: 'juanlorenzomdp@gmail.com',
-//     email_verified: true,
-//     locale: 'es'
-//   }
-// }
 // Ruta de retorno de inicio de sesión con Google
 
 bookRouterAuth.get(
   '/google/callback',
-  passport.authenticate('google', { session: false }),
+  passport.authenticate('google', { session: false,failureRedirect: UrlFallida  }),
   (req, res) => {
     //const username = req.user.username;
-    const clave = 'mi_clave_secreta';
+
     console.log(req.user.dataValues);
     let dato = UserJson(
       req.user.dataValues.id,
@@ -143,9 +112,9 @@ bookRouterAuth.get(
 
     // Encriptar el texto
    // const objetoEncriptado = AES.encrypt(JSON.stringify(info), clave).toString();
-
+   const secretKey = process.env.JWT_SECRET_KEY;
     // Generar un token JWT que contiene el token encriptado
-    const token = jwt.sign({ info }, 'secreto', { expiresIn: '1d' });
+    const token = jwt.sign({ info }, secretKey, { expiresIn: '1d' });
 
     // Redirigir al frontend con el token encriptado en la URL
     res.redirect(`${URL_Vercel_back}/?token=${encodeURIComponent(token)}`);
@@ -248,8 +217,8 @@ bookRouterAuth.post('/login', (req, res, next) => {
         datos: dato,
         info: req.user.id
       }
-
-      const token = jwt.sign({ info }, 'secreto', { expiresIn: '1d' });
+      const secretKey = process.env.JWT_SECRET_KEY;
+      const token = jwt.sign({ info }, secretKey, { expiresIn: '1d' });
       res.status(200).json({ token })
     })
   })(req, res, next)
