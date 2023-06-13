@@ -19,9 +19,10 @@ export const MiSuscripcion = () => {
     }
   }, [dispatch, userId])
   
-  const cancelHandler = (userId) => {
+  const cancelHandler = async (userId) => {
     setShowModal(true)
-    dispatch(cancelSuscription(userId))
+    await dispatch(cancelSuscription(userId))
+    dispatch(getUserById(userId))
     setTimeout(() => {
       setShowModal(false)
     }, 3000);

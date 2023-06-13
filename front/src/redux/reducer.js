@@ -41,6 +41,7 @@ import {
   EDIT_ORDER,
   FILTER_ORDER_STATE
 } from './action';
+import swal from 'sweetalert';
 
 // Initial state
 const initialState = {
@@ -182,10 +183,11 @@ const reducer = (state = initialState, action) => {
       }
 
     case SEARCH_BY_NAME_OR_AUTHOR:
+      const deletedFilter = action.payload.filter(book => !book.deleted)
       return {
         ...state,
-        searchData: action.payload
-      };
+        searchData: deletedFilter
+      }
 
     case SET_DETAIL:
       return {
@@ -194,9 +196,13 @@ const reducer = (state = initialState, action) => {
       };
 
     case FILTER_BY_GENRE:
-      {
+      { 
         const genreFiltered = action.payload === 'All' ?
-          state.allBooks : state.books.filter(libro => {
+          state.allBooks.filter(book => !book.deleted)
+           : 
+          state.books
+          .filter(book => !book.deleted)
+          .filter(libro => {
             if (libro.genders.length > 0) {
               if (libro.genders.find(genero => genero === action.payload)) return libro
             }
@@ -209,7 +215,11 @@ const reducer = (state = initialState, action) => {
 
     case FILTER_AUTHOR: {
       const authorsFiltered = action.payload === 'All' ?
-        state.allBooks : state.books.filter(libro => {
+        state.allBooks.filter(book => !book.deleted) 
+        :
+        state.books
+        .filter(book => !book.deleted)
+        .filter(libro => {
           if (libro.authors.length > 0) {
             if (libro.authors.find(autor => autor === action.payload)) return libro
           }
@@ -233,7 +243,7 @@ const reducer = (state = initialState, action) => {
       }
 
     case RESET_FILTERS:
-      console.log("entra el reducer de redux")
+      //console.log("entra el reducer de redux")
       return {
         ...state,
         searchData: [],
@@ -297,7 +307,8 @@ const reducer = (state = initialState, action) => {
     case LOGOUT:
       return {
         ...state,
-        user: null
+        user: null,
+        userById: {}
       }
 
     case GET_REVIEWS_BY_USER:
@@ -352,7 +363,13 @@ const reducer = (state = initialState, action) => {
         if (findItem.quantity < findItem.stock) {
           findItem.quantity += 1;
         } else {
-          window.alert('No hay stock suficiente');
+          swal({
+            title: "¡No hay stock suficiente!",
+            text: "Pronto renovaremos stock...",
+            icon: "warning",
+            timer: 2000,
+            buttons: false
+          });
         }
       } else {
         const { id, price, stock, title } = action.payload

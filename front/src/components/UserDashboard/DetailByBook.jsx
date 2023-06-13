@@ -2,9 +2,9 @@ import React from 'react';
 import { useEffect } from 'react';
 import {useDispatch, useSelector } from 'react-redux';
 import { getBookById } from '../../redux/action';
-import { Card, Row, Col } from "react-bootstrap";
+import { Card, Row, Col, Modal, Button } from "react-bootstrap";
 
-const DetailByBook = ({id_book}) => {
+const DetailByBook = ({id_book, modalDetailHandler}) => {
     const dispatch = useDispatch();
     console.log(id_book);
     
@@ -35,51 +35,104 @@ const DetailByBook = ({id_book}) => {
     const renderStars = (rating) => {
         const stars = [];
         for (let i = 1; i <= 5; i++) {
-          const starIcon = i <= rating ? <i key={i} className="bi bi-star-fill" /> : <i key={i} className="bi bi-star"/>;
+          const starIcon = i <= rating ? <i key={i} className="bi bi-star-fill small-star"/> : <i key={i} className="bi bi-star small-star"/>;
           stars.push(starIcon);
         }
         return stars;
     };
-    
     return (
-        <div>
+      <Modal show={true} onHide={modalDetailHandler}>
+        <Modal.Header closeButton style={{ backgroundColor: "#f8f9fa", width: "100%", height: "100%" }}>
+          <Modal.Title>
+          <div className="d-flex align-items-center">
+            <div className="row">
+              <div className="col-8">
+                <h5 style={{ marginRight: "10px", maxWidth: "80%" }}>{book.title}</h5>
+              </div>
+              <div className="d-flex align-items-center">
+                <div>{renderStars(qualificationObtained(book))}</div>
+              </div>
+            </div>
+            </div>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <Card style={{ width: "100%", height: "100%" }}>
             <Card.Body className="d-flex flex-column justify-content-evenly">
-              <div className="row">
-                <div className="col-8">
-                  <h5 style={{ marginRight: "10px", maxWidth: "80%" }}>
-                    {book.title}
-                  </h5>
-                </div>
-                <div className="col-4">
-                  <div>{renderStars(qualificationObtained(book))}</div>
-                </div>
-              </div>
-              <Row className="mt-4"> {/* Agrega la clase de margen superior */}
+              <Row>
                 <Col>
                   <Card.Subtitle className="text-muted">Autor</Card.Subtitle>
-                  {book.authors && book.authors.map((author, index) => (
-                    <Card.Text id={author.id} key={index} className="mb-2"> {/* Agrega la clase de margen inferior */}
-                      {author}
-                    </Card.Text>
-                  ))}
+                  {book.authors &&
+                    book.authors.map((author, index) => (
+                      <Card.Text id={author.id} key={index} className="mb-2">
+                        {author}
+                      </Card.Text>
+                    ))}
                 </Col>
                 <Col>
                   <Card.Subtitle className="text-muted">Género</Card.Subtitle>
-                  {book.genders && book.genders.map((genre, index) => (
-                    <Card.Text id={genre.id} key={index} className="mb-2"> {/* Agrega la clase de margen inferior */}
-                      {genre}
-                    </Card.Text>
-                  ))}
+                  {book.genders &&
+                    book.genders.map((genre, index) => (
+                      <Card.Text id={genre.id} key={index} className="mb-2">
+                        {genre}
+                      </Card.Text>
+                    ))}
                 </Col>
               </Row>
-              <Card.Text style={{ overflow: "auto", marginTop: "20px", height: "200px" }}> {/* Ajusta el margen superior */}
+              <Card.Text style={{ overflow: "auto", marginTop: "20px", height: "200px" }}>
                 {book.description}
               </Card.Text>
             </Card.Body>
           </Card>
-        </div>
-      );
-}
-
-export default DetailByBook
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={modalDetailHandler}>
+            Cerrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+  
+  export default DetailByBook
+  
+  
+//   return (
+//       <div>
+//         <Card style={{ width: "100%", height: "100%" }}>
+//           <Card.Body className="d-flex flex-column justify-content-evenly">
+//             <div className="row">
+//               <div className="col-8">
+//                 <h5 style={{ marginRight: "10px", maxWidth: "80%" }}>
+//                   {book.title}
+//                 </h5>
+//               </div>
+//               <div className="col-4">
+//                 <div>{renderStars(qualificationObtained(book))}</div>
+//               </div>
+//             </div>
+//             <Row className="mt-4">
+//                <Col>
+//                 <Card.Subtitle className="text-muted">Autor</Card.Subtitle>
+//                 {book.authors && book.authors.map((author, index) => (
+//                   <Card.Text id={author.id} key={index} className="mb-2"> 
+//                     {author}
+//                   </Card.Text>
+//                 ))} 
+//               </Col>
+//               <Col>
+//                 <Card.Subtitle className="text-muted">Género</Card.Subtitle> 
+//                  {book.genders && book.genders.map((genre, index) => (
+//                   <Card.Text id={genre.id} key={index} className="mb-2"> 
+//                     {genre}
+//                    </Card.Text>
+//                 ))}
+//               </Col>
+//             </Row>
+//              <Card.Text style={{ overflow: "auto", marginTop: "20px", height: "200px" }}> 
+//               {book.description}
+//             </Card.Text>
+//           </Card.Body>
+//         </Card> 
+//   </div>
+// );
