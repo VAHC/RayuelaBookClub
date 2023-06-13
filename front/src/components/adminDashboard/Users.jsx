@@ -26,8 +26,7 @@ const Users = () => {
     }, []);
 
     useEffect(() => {
-        if (filtersValue.profile)
-            dispatch(filterProfileUser(filtersValue.profile));
+        if (filtersValue.profile) dispatch(filterProfileUser(filtersValue.profile));
     }, [filtersValue.profile]);
 
     useEffect(() => {
@@ -56,7 +55,7 @@ const Users = () => {
         } else {
             setFiltersValues({
                 ...filtersValue,
-                user_id: event.target.value,
+                profile: event.target.value,
             });
         }
     };
@@ -121,7 +120,7 @@ const Users = () => {
                     <div className="m-1 mb-3">
                         <select
                             className="form-select"
-                            value={filtersValue.profile}
+                            // value={filtersValue.profile}
                             onChange={(e) => filterHandler(e)}
                             defaultValue={"All"}
                             name={"profile"}
@@ -137,7 +136,7 @@ const Users = () => {
                         <h6 className="mx-2">Filtrar por Estado</h6>
                         <select
                             className="form-select"
-                            value={filtersValue.state}
+                            // value={filtersValue.state}
                             onChange={(e) => filterHandler(e)}
                             defaultValue={"All"}
                             name={"state"}
