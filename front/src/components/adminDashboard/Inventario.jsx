@@ -277,7 +277,7 @@ const Inventario = () => {
         <Container>
             <Row>
                 <Col>
-                    <h1>Gestión del inventario</h1>
+                    <h1>Gestión del Inventario</h1>
                     <p>
                         En este panel podrás ver el inventario completo, agregar
                         y editar los productos, además de habilitarlos y
