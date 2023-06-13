@@ -19,6 +19,7 @@ export const Posters = () => {
     const [allBooksLoaded, setAllBooksLoaded] = useState(false);
 
     const searchData = useSelector((state) => state.searchData);
+   
 
     const dispatch = useDispatch();
 
@@ -59,7 +60,6 @@ export const Posters = () => {
                 return <Card book={book} key={index} />;
             });
         }
-
         return renderElements;
     };
 
