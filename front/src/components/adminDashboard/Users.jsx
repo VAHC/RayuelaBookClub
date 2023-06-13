@@ -77,7 +77,8 @@ const Users = () => {
                 <td>{user.email}</td>
                 <td>{user.phone}</td>
                 <td>{user.suscribed === true ? "Sí" : "No"}</td>
-                <td>{String(user.state)}</td>
+                {/* <td>{String(user.state)}</td> */}
+                <td>{user.state === "Active" ? "Activo" : "Bloqueado"}</td>
                 <td>
                     {" "}
                     <Button
@@ -108,8 +109,8 @@ const Users = () => {
                 <Col>
                     <h1>Gestión de Usuarios</h1>
                     <p>
-                        En este panel podras ver el listado completo de todos
-                        los usuarios, editar su profile, y habilitar o
+                        En este panel podrás ver el listado completo de todos
+                        los usuarios, editar su perfil, y habilitarlos o
                         deshabilitarlos.
                     </p>
                 </Col>
