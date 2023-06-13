@@ -89,7 +89,8 @@ const Orders = () => {
         <Container className="min-vh-100">
             <Row>
                 <Col>
-                    <h2 className="text-center">Gestion de compras</h2>
+                    {/* <h2 className="text-center">Gestion de compras</h2> */}
+                    <h1>Gestión de Compras</h1>
                     <p>
                         En este panel podrás ver el listado completo de compras
                         y editar el estado de las ordenes.

@@ -106,9 +106,9 @@ const Users = () => {
         <Container>
             <Row>
                 <Col>
-                    <h1>Gestion de Usuarios</h1>
+                    <h1>Gestión de Usuarios</h1>
                     <p>
-                        En este panel podras ver un listado completo de todos
+                        En este panel podras ver el listado completo de todos
                         los usuarios, editar su profile, y habilitar o
                         deshabilitarlos.
                     </p>
