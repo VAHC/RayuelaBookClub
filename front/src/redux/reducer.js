@@ -182,10 +182,16 @@ const reducer = (state = initialState, action) => {
       }
 
     case SEARCH_BY_NAME_OR_AUTHOR:
+      const deletedFilter = action.payload.filter(book => !book.deleted)
       return {
         ...state,
-        searchData: action.payload
-      };
+        searchData: deletedFilter
+      }
+
+      // return {
+      //   ...state,
+      //   searchData: action.payload
+      // };
 
     case SET_DETAIL:
       return {
