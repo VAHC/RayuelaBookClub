@@ -25,7 +25,7 @@ const passwordResetRes = async (token, password) => {
 
         await userToReset.save()
 
-        await MailgmailPasswordDone("Rayuela",`${URL_Vercel_back}/ingresar`,`${userToReset.firstName}`, 'Intro',`${userToReset.email}`, 'Cambio de contraseña')
+        await MailgmailPasswordDone("Rayuela Club de Lectura",`${URL_Vercel_back}/ingresar`,`${userToReset.firstName}`, 'Intro',`${userToReset.email}`, 'Cambio de contraseña')
     }
 }
     module.exports = passwordResetRes;
