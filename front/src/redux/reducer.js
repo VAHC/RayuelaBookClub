@@ -365,8 +365,8 @@ const reducer = (state = initialState, action) => {
         } else {
           swal({
             title: "¡No hay stock suficiente!",
-            text: "Pronto lo renovaremos...",
-            icon: "error",
+            text: "Pronto renovaremos stock...",
+            icon: "warning",
             timer: 2000,
             buttons: false
           });
