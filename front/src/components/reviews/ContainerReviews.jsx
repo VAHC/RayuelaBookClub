@@ -5,7 +5,6 @@ import Review from './Review';
 import { getReviewsBook } from '../../redux/action';
 import FormCreateReview from './FormCreateReview';
 
-
 const ContainerReviews = ({ bookId, toggleModal }) => {
 
   const reviewsBook = useSelector((state) => state.reviewsBook);
@@ -31,7 +30,7 @@ const ContainerReviews = ({ bookId, toggleModal }) => {
         {!notDeletedReviews.length ? (
           <div>
             <h6>Aún no hay reseñas...</h6>
-            <h5>Sé el primero en dejar una!</h5>
+            <h5>¡Sé el primero en dejar una!</h5>
           </div>
         ) : (
           notDeletedReviews && notDeletedReviews.map((r) => (
@@ -54,7 +53,7 @@ const ContainerReviews = ({ bookId, toggleModal }) => {
         <div className="d-flex justify-content-center align-items-center">
         <Accordion>
           <Accordion.Item eventKey="0">
-            <Accordion.Header>Deja tu reseña</Accordion.Header>
+            <Accordion.Header>Dejá tu reseña</Accordion.Header>
             <Accordion.Body>
               <FormCreateReview handleToggleForm={handleToggleForm} bookId={bookId} toggleModal={toggleModal}/>
             </Accordion.Body>
