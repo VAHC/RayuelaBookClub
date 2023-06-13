@@ -1,8 +1,8 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {Link} from 'react-router-dom';
 import DetailByBook from "./DetailByBook";
-import {Container, Row, Col, Table, Popover, OverlayTrigger} from "react-bootstrap"; 
+import {Container, Row, Col, Table} from "react-bootstrap"; 
 import { useSelector, useDispatch } from "react-redux";
 import { getAllShopping } from "../../redux/action";
 import './customStyles.css';
@@ -13,6 +13,8 @@ const MyShopping = () => {
     const user = useSelector((state) => state.user)
     const userId = user ? user.id : null;
     const dispatch = useDispatch();
+    const [showModal, setShowModal] = useState(false);
+    const [selectedBook, setSelectedBook] = useState(null);
 
     useEffect(()=> {
         dispatch(getAllShopping())
@@ -20,14 +22,26 @@ const MyShopping = () => {
 
     const userOrders = orders.filter(order => order.id_user === userId)
 
-    const sortOrders = userOrders.sort((a, b) => b.id - a.id)
+    const notSuscription = userOrders.filter(order =>
+        order.orderDetails.some(detail => detail.id_book !== 58)
+      );
+ 
+    const sortOrders = notSuscription.sort((a, b) => b.id - a.id)
 
 const icons = (state) => {
-    if(state === "Created") return <i className="bi bi-pencil-square display-6 text-primary"/>
-    if(state === "Pending") return <i className="bi bi-clock display-6 text-primary"/>
-    if(state === "Cancelled") return <i className="bi bi-x-circle display-6 text-danger"/>
-    if(state === "Completed") return <i className="bi bi-check-circle display-6 text-success"/>
+    if(state === "Creada") return <i className="bi bi-pencil-square icon-size text-primary"/>
+    if(state === "Pendiente") return <i className="bi bi-clock icon-size text-primary"/>
+    if(state === "Cancelada") return <i className="bi bi-x-circle icon-size text-danger"/>
+    if(state === "Pagada") return <i className="bi bi-check-circle icon-size text-success"/>
+    if(state === "Despachada") return <i class="bi bi-gift icon-size text-success"/>
+    // <i class="bi bi-hand-thumbs-up"></i>
+    // <i class="bi bi-hand-thumbs-up"></i>
 };
+
+const modalDetailHandler = (bookId) => {
+    setShowModal(!showModal)
+    setSelectedBook(bookId);
+}
 
     return (
         <Container className="min-vh-100">
@@ -71,20 +85,12 @@ const icons = (state) => {
                                                     <p className="card-text fw-bold ms-3">{book.quantityDetail}</p>
                                                     <p className="card-text ms-3">und{book.quantityDetail > 1 ? "s" : ""}</p>
                                                 </div>
-                                                <OverlayTrigger trigger="click" placement="right" overlay={
-                                                    <Popover className="custom-popover">
-                                                        <Popover.Body>
-                                                            <DetailByBook id_book={book.id_book}/>
-                                                        </Popover.Body>
-                                                    </Popover>
-                                                }>
-                                                    <a  className="text-reset text-decoration-none fw-bold" tabIndex="0" href="#">{book.titleBook}</a>
-                                                </OverlayTrigger> 
-                                             
+                                                    <p  className="card-text fw-bold ms-3" >{book.titleBook}</p>
                                                 <div className="d-flex ">
-                                                <p className="card-text fw-bold ms-3">${book.priceBook}</p>
-                                                <p className="card-text ms-3">c/u</p>
+                                                    <p className="card-text fw-bold ms-3">${book.priceBook}</p>
+                                                    <p className="card-text ms-3">c/u</p>
                                                 </div>
+                                            <button  className="btn btn-link border-0 bg-transparent" onClick={() => modalDetailHandler(book.id_book)}><i className="bi bi-file-richtext display-6 text-success"></i></button>
                                             </div>
                                             {index !== order.orderDetails.length - 1 && <hr/>}
                                         </div>
@@ -103,6 +109,15 @@ const icons = (state) => {
             <div className="d-flex">
                 <p>¿Tenés alguna duda sobre tus compras? Escribinos por mail a: <a href='http://mail.google.com/'><i className="bi bi-envelope p-1"></i></a>rayuela@email.com</p>
             </div>
+            {showModal && selectedBook && (
+                <div className="modal" tabIndex="-1" style={{ display: "block" }}>
+                    <div className="modal-dialog modal-dialog-scrollable">
+                        <div className="modal-content">
+                            <DetailByBook id_book={selectedBook} modalDetailHandler={modalDetailHandler}/>
+                        </div>
+                    </div>
+                </div>
+            )}
         </Container>
     )
 }

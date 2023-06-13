@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getBooksPage, getAllBooks } from "../../redux/action";
-
 import Card from "./Card";
 
 export const Posters = () => {
@@ -40,16 +39,22 @@ export const Posters = () => {
 
         if (filterFlag) {
             searchData.length > 0
-                ? (renderElements = searchData.map((book, index) => {
+                ? (renderElements = searchData
+                    .filter((book) => book.id !== 58)
+                    .map((book, index) => {
                       // if(book.deleted === true) return null;
                       return <Card book={book} key={index} />;
                   }))
-                : (renderElements = filteredbooks.map((book, index) => {
+                : (renderElements = filteredbooks
+                    .filter((book) => book.id !== 58)
+                    .map((book, index) => {
                       // if(book.deleted === true) return null;
                       return <Card book={book} key={index} />;
                   }));
         } else {
-            renderElements = booksPage.map((book, index) => {
+            renderElements = booksPage
+                .filter((book) => book.id !== 58)
+                .map((book, index) => {
                 // if(book.deleted === true) return null;
                 return <Card book={book} key={index} />;
             });

@@ -46,7 +46,8 @@ export const Nav = () => {
       // Definir la clave de encriptación
       // Decodificar el token JWT
       const decodedToken = decode(tokenRayuela);
-      console.log(decodedToken);
+      //console.log('pepe');
+      //console.log(decodedToken);
       if (decodedToken) {
         if (decodedToken.info) {
             console.log('via gmail');
@@ -60,14 +61,15 @@ export const Nav = () => {
           // const textoDesencriptado = bytesDesencriptados.toString(encUtf8);
           // const objetoDesencriptado = JSON.parse(textoDesencriptado);
             dispatch(login(decodedToken.info.datos))
-        } else {
-          // via formulario
-          //console.log('via formulario');
-          let data = decodedToken.info.datos
-          dispatch(login(data))
-        }
+        } 
+        // else {
+        //   // // via formulario
+        //   // //console.log('via formulario');
+        //   // let data = decodedToken.info.datos
+        //   // dispatch(login(data))
+        // }
         if (!SoyRefresh) {
-          navigate("/catalogo")
+          navigate("/")
         }
 
       }
