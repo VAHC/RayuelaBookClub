@@ -35,9 +35,10 @@ function App() {
     //     <Route exact path="/nosotros" element={<AboutUs />} />
     //     <Route exact path="/suscripcion" element={<Suscripcion />} />
     //     <Route exact path="/catalogo" element={<Catalogo />} />
-    //     <Route exact path="/ingresar" element={<Login />} />
-    //     <Route exact path="/registro" element={<Registro />} />
+    //     <Route exact path="/ingresar" element={<Ingreso/>} />
     //     <Route exact path="/preguntas-frecuentes" element={<FAQs />} />
+    //     <Route exact path="/restablecer-contraseña" element={<ChangePass/>}/>
+    //     <Route exact path="/carrito" element={<CartContainer/>}/>
     //     {/* Rutas de user */}
     //     <Route element={<ProtectRoutes isAllowed={!!user && user.profile !== "admin"} />}>
     //       <Route exact path="/perfil" element={<UserDashboard />} />
@@ -61,12 +62,12 @@ function App() {
         <Route exact path="/catalogo" element={<Catalogo/>}/>
         <Route exact path="/ingresar" element={<Ingreso/>}/>
         <Route exact path="/preguntas-frecuentes" element={<FAQs/>}/>
+        <Route exact path="/restablecer-contraseña" element={<ChangePass/>}/>
+        <Route exact path="/carrito" element={<CartContainer/>}/>
         <Route exact path="/perfil" element={<UserDashboard/>}/>
         <Route exact path="/misReseñas" element={<MyReviews/>}/>
         <Route exact path="/editarReseña" element={<FormEditReviews/>}/>
         <Route exact path="/admindashboard" element={<Dashboard/>}/>
-        <Route exact path="/carrito" element={<CartContainer/>}/>
-        <Route exact path="/restablecer-contraseña" element={<ChangePass/>}/>
       </Routes>
       <Footer/>
     </>
