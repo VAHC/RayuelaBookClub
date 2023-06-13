@@ -7,7 +7,7 @@ export const ProtectRoutes = ({ children, isAllowed }) => {
 
     useEffect(() => {
         if (!isAllowed) {
-          navigate("/ingresar")
+          navigate("/")
         }
       }, [isAllowed, navigate]);
     
