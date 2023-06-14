@@ -12,11 +12,11 @@ const getAuthorsHandler = async (req,res) => {
 }
 
 const postAuthorHandler = async (req,res) => {
-    const { author } = req.body
+    const { name } = req.body
 
     try {
-        const newAuthor = await createAuthor(author);
-        res.status(200).json(newAuthor)
+        const newAuthor = await createAuthor(name);
+        res.status(200).send('The author has been created')
     } catch (error) {
         res.status(400).json({ error: error.message })
     }

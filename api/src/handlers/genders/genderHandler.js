@@ -14,11 +14,11 @@ const getGendersHandler = async (req, res) => {
 
 const postGenderHandler = async (req, res) => {
 
-    const { gender } = req.body
+    const { name } = req.body
 
     try {
-        const newGender = await createGender(gender);
-        res.status(200).json(newGender)
+        const newGender = await createGender(name);
+        res.status(200).send('The new genre has been created')
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
