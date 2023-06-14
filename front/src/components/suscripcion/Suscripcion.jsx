@@ -56,34 +56,36 @@ export const Suscripcion = () => {
 
   //Cuando se confirma la suscripción consulta si está logueado para continuar
   const handleConfirm = () => {
-    if(!user) {
+    if (!user) {
       swal({
-        title: "¡Antes debes ingresar!",
-        text: "solo te llevara un minuto",
+        title: "¡Antes debés ingresar!",
+        text: "Sólo te tomará un momento",
         icon: "warning",
-        timer: 2000,
+        timer: 2500,
         buttons: false
       });
       setTimeout(() => {
         navigate("/ingresar");
       }, 3000)
     }
-    if(user && userById.suscribed) {
+    else if (user && userById.suscribed) {
       swal({
         title: "¡Ya estás suscripto!",
-        text: "ya estás disfrutando de nuestros beneficios",
+        text: "Ya estás disfrutando de nuestros beneficios",
         icon: "warning",
-        timer: 2000,
+        timer: 3000,
         buttons: false
       });
       setTimeout(() => {
         navigate("/");
-      }, 3000)
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        })
+      }, 3500)
+    } else {
+      toggleModal()
     }
-    toggleModal()
-    // user ?
-    //   toggleModal()
-    //   : navigate("/ingresar")
   }
 
   //Armo el array de suscripción que se manda al formulario para terminar de armar el array que se despacha
@@ -99,8 +101,6 @@ export const Suscripcion = () => {
       quantity: 1,
       price: susc[0].price,
     };
-
-    //console.log(cartItems);
     
     await axios.put(URL_Railway + '/order/status', cartItems)
     
@@ -173,11 +173,6 @@ export const Suscripcion = () => {
         <div className="card-body">
           <h5 className="card-title">Suscripción $2845 por mes</h5>
           <button onClick={handleConfirm} className="btn btn-secondary btn-lg m-3">Suscribirme</button>
-          {/* <p className="card-text mb-5">Calcular costo de envío</p>
-          <div className="input-group mb-3 w-25 text-center position-absolute bottom-0 start-50 translate-middle-x">
-            <input type="text" className="form-control" placeholder="Código postal" />
-            <button className="btn btn-secondary">Calcular</button>
-          </div> */}
         </div>
       </div>
       {showModal && <div className="modal" tabIndex="-1" style={{ display: "block" }}>

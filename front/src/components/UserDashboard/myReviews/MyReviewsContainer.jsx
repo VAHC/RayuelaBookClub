@@ -9,71 +9,80 @@ import {
     Button,
     Table,
 } from "react-bootstrap";
+import PropagateLoader from "react-spinners/PropagateLoader";
 
 const MyReviewsContainer = () => {
     const userReviews = useSelector((state) => state.userReviews);
     const user = useSelector((state) => state.user);
     const userId = user ? user.id : null;
-    const [showDeleteModal, setShowDeleteModal] = useState(false); 
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showModal, setShowModal] = useState(false); //estdo local para mostrar o no el modal
     const [selectedReview, setSelectedReview] = useState(null);
-    // //user hardcodeado para trabajar
-    //const userId = 1;
     const dispatch = useDispatch();
-    //prueba pr
     const notDeletedReviews = userReviews.filter((review) => !review.deleted)
     const sortReviews = notDeletedReviews.sort((a, b) => b.id - a.id)
-    //console.log(notDeletedReviews);
+    //Estado para el spinner
+    const [loading, setLoading] = useState(true);
 
     const renderStars = (rating) => {
         const stars = [];
         for (let i = 1; i <= 5; i++) {
-          const starIcon = i <= rating ? <i key={i} className="bi bi-star-fill" /> : <i key={i} className="bi bi-star"/>;
-          stars.push(starIcon);
+            const starIcon = i <= rating ? <i key={i} className="bi bi-star-fill" /> : <i key={i} className="bi bi-star" />;
+            stars.push(starIcon);
         }
         return stars;
-      };
+    };
 
     useEffect(() => {
+        setTimeout(() => {
+            dispatch(getReviewsByUser(userId))
+                .then(() => setLoading(false))
+                .catch(() => setLoading(false));
+        }, 1000)
+    }, [dispatch, userId])
+
+    const toggleModal = () => { //funcion que setea showModal al booleano contrario en el que esta
+        setShowModal(prevShowModal => !prevShowModal);
+    };
+
+    const handleEditReview = (review) => {
+        setSelectedReview(review);
+        dispatch(getReviewsByUser(userId));
+        toggleModal();
+    };
+
+    const handlerDelete = (reviewId) => {
+        setShowDeleteModal(true)
+        dispatch(deleteReview(reviewId))
         dispatch(getReviewsByUser(userId))
-    }, [userId]);
-
-  const toggleModal = () => { //funcion que setea showModal al booleano contrario en el que esta
-    setShowModal(prevShowModal => !prevShowModal);
-  };
-
-  const handleEditReview = (review) => {
-    setSelectedReview(review);
-    dispatch(getReviewsByUser(userId));
-    toggleModal();
-  };
-
-  const handlerDelete = (reviewId) => {
-    setShowDeleteModal(true)
-    dispatch(deleteReview(reviewId))
-    dispatch(getReviewsByUser(userId))
-    setTimeout(() => {
-        setShowDeleteModal(false)
-    }, 3000);
-  }
+        setTimeout(() => {
+            setShowDeleteModal(false)
+        }, 2000);
+    }
 
     return (
         <Container className="min-vh-100">
-            <Row>
-                <Col>
-                    <h2 className="text-center">Mis reseñas</h2>
-                </Col>
-            </Row>
-            {!userId && (<div className="text-center d-flex flex-column align-items-center" style={{ marginTop: '50px' }}>
-                <h5>Debes ingresar para ver detalles de tus reseñas</h5>
-            </div>)}
-            {userId && !notDeletedReviews.length ? (
+            {loading ? (
+                <div className="text-center d-flex flex-column align-items-center" style={{ marginTop: '100px' }}>
+                    <PropagateLoader size={25} />
+                </div>
+            ) : !notDeletedReviews.length ? (
                 <div>
+                    <Row>
+                        <Col>
+                            <h2 className="text-center">Mis reseñas</h2>
+                        </Col>
+                    </Row>
                     <h6>Aún no dejaste una reseña...</h6>
                     <h5>¡Elegí un libro y dejá una!</h5>
                 </div>
-            ) : ( userId &&
+            ) : (userId &&
                 <Row>
+                    <Row>
+                        <Col>
+                            <h2 className="text-center">Mis reseñas</h2>
+                        </Col>
+                    </Row>
                     <Col>
                         <Table striped bordered hover>
                             <thead>
@@ -120,7 +129,7 @@ const MyReviewsContainer = () => {
                     <div className="modal-dialog modal-dialog-centered" style={{ marginTop: "7%" }}>
                         <div className="modal-content bg-white border-4">
                             <div className="modal-body d-flex justify-content-center align-items-center">
-                                <img className="w-50 p-3 h-50 d-inline-block" src='.\images\deleteReview.png' alt='reseña borrada' /> {/* Reemplaza "ruta-de-la-imagen.jpg" con la ruta de tu imagen */}
+                                <img className="w-75 p-3 h-50 d-inline-block" src='.\images\deleteReview.png' alt='reseña borrada' /> {/* Reemplaza "ruta-de-la-imagen.jpg" con la ruta de tu imagen */}
                             </div>
                         </div>
                     </div>
@@ -130,4 +139,4 @@ const MyReviewsContainer = () => {
     );
 };
 
-export default MyReviewsContainer
+export default MyReviewsContainer;
