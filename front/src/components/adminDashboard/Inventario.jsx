@@ -70,7 +70,7 @@ const Inventario = () => {
             return titleMatch && genreMatch && authorMatch;
         });
 
-        setFilteredBooks(filteredBooks);
+        // setFilteredBooks(filteredBooks);
     };
 
     const filteredBooks = filterText
@@ -113,7 +113,7 @@ const Inventario = () => {
                     <FormCreateBook />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={() => setModalShow(false)}>Cerrar</Button>
+                    <Button onClick={() => setAddBookModalShow(false)}>Cerrar</Button>
                 </Modal.Footer>
             </Modal>
         );

@@ -38,12 +38,12 @@ const EditBookForm = ({ book }) => {
         if (e.target.name === "authors") {
             setInput({
                 ...input,
-                authors: [e.target.value], //traigo todo lo que esta en el array y le concateno el nuevo valor
+                authors: [ e.target.value], //traigo todo lo que esta en el array y le concateno el nuevo valor
             });
         } else if (e.target.name === "genders") {
             setInput({
                 ...input,
-                genders: [e.target.value], //traigo todo lo que esta en el array y le concateno el nuevo valor
+                genders: [ e.target.value], //traigo todo lo que esta en el array y le concateno el nuevo valor
             });
         } else {
             setInput({

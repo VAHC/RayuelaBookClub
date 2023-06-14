@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { postBook, getAllBooks } from "../../redux/action";
+import { postBook, getAllBooks, createGenre } from "../../redux/action";
 import validation from "./validation";
 
 
@@ -9,7 +9,12 @@ export const FormCreateBook = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const books = useSelector((state) => state.books);
+
     const [file, setFile] = useState(null)
+    const [formComplete, setFormComplete] = useState(false); //estodo local para manejar el boton del submit y el envio de datos
+    const [success, setSuccess] = useState(false); // estado local para manejar la alerta de ok
+    const [showCustomGenderInput, setShowCustomGenderInput] = useState(false);
+    const [customGender, setCustomGender] = useState('')
 
     const genresNoRepeat = books
         .flatMap((book) => book.genders)
@@ -57,7 +62,8 @@ export const FormCreateBook = () => {
         publishedDate: "",
         authors: [],
         genders: [],
-        image:false,
+        //image: false,
+        image: "",
     });
 
     const [errors, setErrors] = useState({
@@ -70,12 +76,17 @@ export const FormCreateBook = () => {
         publishedDate: "",
         authors: "",
         genders: "",
-        image:false,
+        //image: false,
+        image: "",
     });
 
-    const [formComplete, setFormComplete] = useState(false); //estodo local para manejar el boton del submit y el envio de datos
-    const [success, setSuccess] = useState(false); // estado local para manejar la alerta de ok
+    const genderHandler = (e) => {
+        showCustomGenderInput &&
+        setCustomGender(e.target.value)
+    }
 
+
+        
     //handler que maneja el estado de los inputs
     const inputHandler = (e) => {
        if (e.target.name === "authors") {
@@ -84,18 +95,27 @@ export const FormCreateBook = () => {
                 authors: [...input.authors, e.target.value], //traigo todo lo que esta en el array y le concateno el nuevo valor
             });
         } else if (e.target.name === "genders") {
-            setInput({
-                ...input,
-                genders: [...input.genders, e.target.value], //traigo todo lo que esta en el array y le concateno el nuevo valor
-            });
-        }else if (e.target.name === "image") {
-            setFile(e.target.files[0])
-            setInput({
-                ...input,
-                image: true, //
-            });
+            if (e.target.value === "otro") {
+                setShowCustomGenderInput(true);
+                genderHandler(e)
+                setInput({
+                    ...input,
+                    genders: [...input.genders, customGender]
+                })
+            } else {
+                setInput({
+                    ...input,
+                    genders: [...input.genders, e.target.value], //traigo todo lo que esta en el array y le concateno el nuevo valor
+                });
         }
-         else {
+        // }else if (e.target.name === "image") {
+        //     setFile(e.target.files[0])
+        //     setInput({
+        //         ...input,
+        //         image: true, //
+        //         // image: file
+        //     });
+        } else {
             setInput({
                 ...input,
                 [e.target.name]: e.target.value,
@@ -117,36 +137,34 @@ export const FormCreateBook = () => {
             (value) => value === "" || value.length === 0
         );
         //let error = Object.keys(errors);
-        console.log(notComplete);
+        // console.log(notComplete);
 
         if (!notComplete.length) setFormComplete(true);
     }, [input]);
-    //     if(!notComplete.length && !error.length) setFormComplete(true)
-    // }, [input, errors])
-
-    //    //handler para borrar los paises seleccionados
-    //         const deleteHandler = (id) => {
-    //             setInput({
-    //                 ...input,
-    //                 countryId: input.countryId.filter(c => c !== id)
-    //             })
-    //         }
-    //handler del submit ==> si fomrComplete es true despacha la action PostActivity, setea Success en true, setea input y errors al estado inicial
-    const submitHandler = (e) => {
+   
+    const submitHandler = async (e) => {
         e.preventDefault();
         if (formComplete) {
-            const data = new FormData()
-            data.append('title', input.title)
-            data.append('publisher', input.publisher)
-            data.append('description', input.description)
-            data.append('price', input.price)
-            data.append('stock', input.stock)
-            data.append('publishedDate', input.publishedDate)
-            data.append('authors', input.authors)
-            data.append('genders', input.genders)
-            data.append('image', file)
+            if (showCustomGenderInput){
+                console.log(customGender);
+                console.log('se despacha la action');
+                await dispatch(createGenre({name: customGender}))
+                dispatch(getAllBooks())
+            }
+            // const data = new FormData()
+            // data.append('title', input.title)
+            // data.append('publisher', input.publisher)
+            // data.append('description', input.description)
+            // data.append('price', input.price)
+            // data.append('stock', input.stock)
+            // data.append('publishedDate', input.publishedDate)
+            // data.append('authors', input.authors)
+            // data.append('genders', input.genders)
+            // data.append('image', file)
 
-            dispatch(postBook(data));
+            // dispatch(postBook(data));
+            dispatch(postBook(input));
+            setFile(null)
             setSuccess(true); // al setearse en true cambia el rederizado
             setInput({
                 title: "",
@@ -157,6 +175,7 @@ export const FormCreateBook = () => {
                 publishedDate: "",
                 authors: [],
                 genders: [],
+                image: ""
             });
             setErrors({
                 title: "",
@@ -167,9 +186,10 @@ export const FormCreateBook = () => {
                 publishedDate: "",
                 authors: "",
                 genders: "",
+                image: ""
             });
             setTimeout(function () {
-                navigate("/catalogo"); //una vez enviado el form me redirige a catalogo
+                navigate(-1); //una vez enviado el form me redirige a catalogo
             }, 2000);
         } else {
             alert("missing or incorrect data");
@@ -395,8 +415,9 @@ export const FormCreateBook = () => {
                                     style={{ width: "100%" }}
                                     className="form-control"
                                     id="image"
-                                    type='file'
-                                    accept='image/jpeg'
+                                    // type='file'
+                                    type='text'
+                                    // accept='image/jpeg'
                                     name="image"
                                     onChange={inputHandler}
                                 />
@@ -439,8 +460,21 @@ export const FormCreateBook = () => {
                                                     {genre}
                                                 </option>
                                             );
-                                        })}
+                                    })}
+                                    <option>otro</option>
                                 </select>
+                                {showCustomGenderInput && (
+                                    <div className="row g-3 align-items-center">
+                                        <div className="col-auto">
+                                            <label className="col-form-label ms-3" htmlFor="customGender"style={{display: "block", textAlign: "center", marginBottom: "0.5rem"}}>
+                                                Otro:
+                                            </label> 
+                                        </div>
+                                        <div className="col-auto">
+                                            <input style={{ width: "100%" }} className="form-control" id="customGender" type="text" value={input.customGender} name="customGender" placeholder="Ingresa un género nuevo" onChange={genderHandler}/>
+                                        </div>
+                                    </div>
+                                )}
                                 {/* <p>{errors.genders}</p> */}
                                 {errors.genders ? <p className="text-danger">{errors.genders}</p> : null}
                             </div>
