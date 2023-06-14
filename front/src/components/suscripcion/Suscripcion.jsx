@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { FormAddressSus } from "./FormAddressSus";
 import { URL_Railway } from '../../../ruta';
+import { getUserById } from '../../redux/action';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 export const Suscripcion = () => {
 
   const user = useSelector((state) => state.user)
+  const userId = user ? user.id : null;
+  const userById = useSelector((state) => state.userById)
   
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    userId && dispatch(getUserById(userId))
+  }, [dispatch, userId])
+
+
 
   //Estado local para mostrar o no el modal y funciones para setearlo y cerrarlo
   const [showModal, setShowModal] = useState(false)
@@ -45,9 +56,34 @@ export const Suscripcion = () => {
 
   //Cuando se confirma la suscripción consulta si está logueado para continuar
   const handleConfirm = () => {
-    user ?
-      toggleModal()
-      : navigate("/ingresar")
+    if(!user) {
+      swal({
+        title: "¡Antes debes ingresar!",
+        text: "solo te llevara un minuto",
+        icon: "warning",
+        timer: 2000,
+        buttons: false
+      });
+      setTimeout(() => {
+        navigate("/ingresar");
+      }, 3000)
+    }
+    if(user && userById.suscribed) {
+      swal({
+        title: "¡Ya estás suscripto!",
+        text: "ya estás disfrutando de nuestros beneficios",
+        icon: "warning",
+        timer: 2000,
+        buttons: false
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 3000)
+    }
+    toggleModal()
+    // user ?
+    //   toggleModal()
+    //   : navigate("/ingresar")
   }
 
   //Armo el array de suscripción que se manda al formulario para terminar de armar el array que se despacha
@@ -114,7 +150,7 @@ export const Suscripcion = () => {
           <div className="card h-100">
             <div className="card-body text-center">
               <h5 className="card-title fs-4 fw-bold text-danger">Comprar</h5>
-              <p className="card-text">La suscripción es mensual pero podés darte de baja en cualquier momento. Pagá de manera segura utilizando MecadoPago</p>
+              <p className="card-text">La suscripción es anual, con un pago mensual, pero podés darte de baja en cualquier momento. Pagá de manera segura utilizando MecadoPago</p>
             </div>
             <img src="./images/paso2.png" className="card-img-top" alt="Paso 2" />
           </div>
@@ -135,7 +171,7 @@ export const Suscripcion = () => {
           Quiero suscribirme
         </div>
         <div className="card-body">
-          <h5 className="card-title">Suscripción mensual $2845</h5>
+          <h5 className="card-title">Suscripción $2845 por mes</h5>
           <button onClick={handleConfirm} className="btn btn-secondary btn-lg m-3">Suscribirme</button>
           {/* <p className="card-text mb-5">Calcular costo de envío</p>
           <div className="input-group mb-3 w-25 text-center position-absolute bottom-0 start-50 translate-middle-x">
