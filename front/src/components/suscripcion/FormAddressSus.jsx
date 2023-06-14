@@ -13,7 +13,7 @@ export const FormAddressSus = ({ susc, mpHandler }) => {
         street_and_number: "",
         floor_and_department: "",
         city: "",
-        CP: 0,
+        CP: "",
         province: ""
     })
 
