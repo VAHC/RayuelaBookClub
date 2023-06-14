@@ -67,8 +67,23 @@ const Users = () => {
         else{
             return "usuario"
         }}
+    
+        const getStateLabel = (state) => {
+            switch (state) {
+              case "Active":
+                return "Activo";
+              case "Inactive":
+                return "Inactivo";
+              case "New":
+                return "Nuevo";
+              case "Blocked":
+                return "Bloqueado";
+              default:
+                return "";
+            }
+        };
+          
         
-
         return (
             <tr key={index}>
                 <td>{user.id}</td>
@@ -78,7 +93,7 @@ const Users = () => {
                 <td>{user.phone}</td>
                 <td>{user.suscribed === true ? "Sí" : "No"}</td>
                 {/* <td>{String(user.state)}</td> */}
-                <td>{user.state === "Active" ? "Activo" : "Bloqueado"}</td>
+                <td>{getStateLabel(user.state)}</td>
                 <td>
                     {" "}
                     <Button
