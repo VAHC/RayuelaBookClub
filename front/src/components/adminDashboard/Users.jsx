@@ -8,6 +8,7 @@ import {
     filterStateUser,
     updateUser,
 } from "../../redux/action";
+import swal from 'sweetalert';
 
 const Users = () => {
     const allUsers = useSelector((state) => state.allUsers);
@@ -43,7 +44,24 @@ const Users = () => {
     const updateButtonHandler = async (user) => {
         //console.log("Estoy modificando el profile de este User: " + user.profile + user.id);
         
-        await updateUser(user,dispatch);
+        //await updateUser(user,dispatch);
+        dispatch(updateUser(user))
+        .then((response) => {
+            if (response.status !== 400) {
+            } else swal({
+                title: "Algo salió mal",
+                icon: "error",
+                timer: "2500"
+            })
+        })
+        .catch((error) => {
+            console.log(error)
+            swal({
+                title: "Algo salió mal",
+                icon: "error",
+                timer: "2500"
+            })
+        })
         dispatch(getAllUsers());
     };
 
@@ -61,7 +79,11 @@ const Users = () => {
         }
     };
 
-    const usersMap = filteredUsers.map((user, index) => {
+    const usersFilterdOrdered = filteredUsers.sort((a, b) =>
+    a.id < b.id ? 1 : -1
+)
+
+    const usersMap = usersFilterdOrdered.map((user, index) => {
         
         const userprofileCOnditional= ()=>{if (user.profile==="usuario") return "admin"
         else{
