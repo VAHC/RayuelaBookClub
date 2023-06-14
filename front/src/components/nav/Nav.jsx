@@ -28,16 +28,21 @@ export const Nav = () => {
 
   useEffect(() => {
     let tokenRayuela = localStorage.getItem('token');
-    const clave = 'mi_clave_secreta';
 
     if (!tokenRayuela) {
       const urlParams = new URLSearchParams(window.location.search);
-      tokenRayuela = urlParams.get('token');
+      tokenRayuela = urlParams.get('token'); // respuesta de google valida
+      let error = urlParams.get('error'); // por si eligio gmail cuando ya esta creada
       // consulto si existe por url
       if (tokenRayuela) {
         setSoyRefresh(false)
         localStorage.setItem('token', tokenRayuela);
       }
+      if (error) {
+        console.log('-------');
+        console.log(error); // Noe, aca va el cartel de usuario creado por formulario
+      }
+
     } else {
       //console.log('existe');
     }
@@ -50,28 +55,11 @@ export const Nav = () => {
       //console.log(decodedToken);
       if (decodedToken) {
         if (decodedToken.info) {
-            console.log('via gmail');
-           // console.log(decodedToken.info.datos);
-          // encriptado via gmail
-          // Obtener el objeto encriptado del token decodificado
-          // const objetoEncriptado = decodedToken.objetoEncriptado;
-
-          // // Desencriptar el objeto
-          // const bytesDesencriptados = AES.decrypt(objetoEncriptado, clave);
-          // const textoDesencriptado = bytesDesencriptados.toString(encUtf8);
-          // const objetoDesencriptado = JSON.parse(textoDesencriptado);
             dispatch(login(decodedToken.info.datos))
         } 
-        // else {
-        //   // // via formulario
-        //   // //console.log('via formulario');
-        //   // let data = decodedToken.info.datos
-        //   // dispatch(login(data))
-        // }
         if (!SoyRefresh) {
           navigate("/")
         }
-
       }
     } else {
       //console.log('vacio URL tokenRayuela')
