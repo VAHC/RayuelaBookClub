@@ -293,10 +293,22 @@ const reducer = (state = initialState, action) => {
       }
 
     case POST_REVIEW:
-      //console.log('llega la action al reducer');
+      const newEstado = [...state.books]
+      const book = newEstado.find((b) => b.id === action.payload.id_book)
+      if (!book) {
+       return state
+      }
+      book.reviews.push(action.payload)
       return {
-        ...state
-      };
+        ...state,
+        books: newEstado,
+        allBooks: newEstado
+      }
+
+    // case POST_REVIEW:
+    //   return {
+    //     ...state
+    //   }
 
     case LOGIN_SUCCESS:
       return {
