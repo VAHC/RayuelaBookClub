@@ -3,17 +3,17 @@ const validation = (input) => {
     
       // Validación para el campo "title"
       if (!input.title) {
-        errors.title = 'Debes darle un titulo a tu reseña';
+        errors.title = 'Debés darle un título a tu reseña';
       }
     
       // Validación para el campo "comment"
       if (!input.comment) {
-        errors.comment = 'Debes dejar una reseña';
+        errors.comment = 'Debés dejar una reseña';
       } 
     
       // Validación para el campo "qualification"
       if (!input.qualification) {
-        errors.qualification = 'Debes calificar el libro, elije una opción';
+        errors.qualification = 'Debés calificar el libro, elegí una opción';
       }
 
       // Retorna los errores del formulario

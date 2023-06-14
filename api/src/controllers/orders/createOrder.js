@@ -67,7 +67,7 @@ const createOrder = async (orderData) => {
     // console.log(user);
 
     await confirmacionCompra(
-        "Rayuela BookClub",
+        "Rayuela Club de Lectura",
         `${URL_Vercel_back}/perfil`,
         user.dataValues.firstName, 
         newOrder.date, 

@@ -5,6 +5,7 @@ import ContainerReviews from "../reviews/ContainerReviews";
 import { useState } from 'react';
 import { addToCart } from "../../redux/action";
 
+
 export const Detail = () => {
 
   const detailData = useSelector((state) => state.detail_data);
@@ -59,35 +60,34 @@ export const Detail = () => {
     return (
       <Card style={{ width: "90%", height: "100%" }}>
         <Card.Body className="d-flex flex-column justify-content-evenly">
-          <div className="row">
-            <div className="col-8">
-              <h4 style={{ marginRight: "10px", maxWidth: "80%" }}>
-                {detailData.title}
-              </h4>
-            </div>
-            <div className="col-4">
-              <Button variant="secondary" onClick={toggleModal}>
-                <p className="mb-1">Reseñas</p>
-                <div>{renderStars(qualificationObtained(detailData))}</div>
-              </Button>
-            </div>
-          </div>
-
+          <Row>
+          <Col>
+            <h4>{detailData.title}</h4>
+            <Button variant="secondary" onClick={toggleModal} className="custom-button">
+              <p className="mb-1">Reseñas</p>
+              <div>{renderStars(qualificationObtained(detailData))}</div>
+            </Button>
+            
+          </Col>
+          <Col>
+            <img  src={detailData.image} alt="Cover" style={{ width: "70%", height: "auto" }} />
+          </Col>
+          </Row>
           <Row>
             <Col>
               <Card.Subtitle className="text-muted">
-                Autor
+                <strong>Autor</strong>
               </Card.Subtitle>
               {detailData.authors && detailData.authors.map((author, index) => {
-                return <Card.Text key={index}>{author}</Card.Text>;
+                return <Card.Text key={index}><strong>{author}</strong></Card.Text>;
               })}
             </Col>
             <Col>
               <Card.Subtitle className="text-muted">
-                Género
+                <strong>Género</strong>
               </Card.Subtitle>
               {detailData.genders && detailData.genders.map((gender, index) => {
-                return <Card.Text key={index}>{gender}</Card.Text>;
+                return <Card.Text key={index}><strong>{gender}</strong></Card.Text>;
               })}
             </Col>
           </Row>

@@ -18,7 +18,9 @@ import { getAllBooks, deleteBook } from "../../redux/action";
 const Inventario = () => {
     const books = useSelector((state) => state.allBooks);
 
-    const allBooks = books.sort((a, b) =>
+    const libros = books.filter((book) => book.id !== 58)
+
+    const allBooks = libros.sort((a, b) =>
         a.id > b.id ? 1 : -1
     )
 
@@ -277,7 +279,7 @@ const Inventario = () => {
         <Container>
             <Row>
                 <Col>
-                    <h1>Gestión del inventario</h1>
+                    <h1>Gestión del Inventario</h1>
                     <p>
                         En este panel podrás ver el inventario completo, agregar
                         y editar los productos, además de habilitarlos y

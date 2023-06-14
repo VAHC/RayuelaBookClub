@@ -22,7 +22,7 @@ mpRouter.post('/payment', async (req, res) => {
             unit_price: prod.price
 
         }],
-        notification_url: `https://5ac8-2803-9800-b886-82b2-e43d-9110-9ed5-190d.ngrok-free.app/mercadopago/notificar`,
+        notification_url: `https://d127-2803-9800-b886-82b2-c1e8-205f-266b-25f8.ngrok-free.app/mercadopago/notificar`,
         back_urls: {
             success: URL_Vercel_back + '/catalogo',
             failure: '',
@@ -93,7 +93,7 @@ mpRouter.post('/notificar', async (req, res) => {
                 const user = await User.findOne({ where: { id: foundOrder.id_user } });
                 // console.log(user);
                 await confirmacionPago(
-                    "Rayuela BookClub",
+                    "Rayuela Club de Lectura",
                     `${URL_Vercel_back}/perfil`,
                     user.dataValues.firstName,
                     foundOrder.date,

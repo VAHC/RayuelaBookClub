@@ -56,7 +56,7 @@ const Users = () => {
         } else {
             setFiltersValues({
                 ...filtersValue,
-                user_id: event.target.value,
+                profile: event.target.value,
             });
         }
     };
@@ -77,7 +77,8 @@ const Users = () => {
                 <td>{user.email}</td>
                 <td>{user.phone}</td>
                 <td>{user.suscribed === true ? "Sí" : "No"}</td>
-                <td>{String(user.state)}</td>
+                {/* <td>{String(user.state)}</td> */}
+                <td>{user.state === "Active" ? "Activo" : "Bloqueado"}</td>
                 <td>
                     {" "}
                     <Button
@@ -106,10 +107,10 @@ const Users = () => {
         <Container>
             <Row>
                 <Col>
-                    <h1>Gestión de usuarios</h1>
+                    <h1>Gestión de Usuarios</h1>
                     <p>
-                        En este panel podrás ver un listado completo de todos
-                        los usuarios, editar su perfil y habilitarlos o
+                        En este panel podrás ver el listado completo de todos
+                        los usuarios, editar su perfil, y habilitarlos o
                         deshabilitarlos.
                     </p>
                 </Col>
@@ -121,7 +122,7 @@ const Users = () => {
                     <div className="m-1 mb-3">
                         <select
                             className="form-select"
-                            value={filtersValue.profile}
+                            //value={filtersValue.profile}
                             onChange={(e) => filterHandler(e)}
                             defaultValue={"All"}
                             name={"profile"}
@@ -137,7 +138,7 @@ const Users = () => {
                         <h6 className="mx-2">Filtrar por estado</h6>
                         <select
                             className="form-select"
-                            value={filtersValue.state}
+                            //value={filtersValue.state}
                             onChange={(e) => filterHandler(e)}
                             defaultValue={"All"}
                             name={"state"}
