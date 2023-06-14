@@ -18,7 +18,9 @@ import { getAllBooks, deleteBook } from "../../redux/action";
 const Inventario = () => {
     const books = useSelector((state) => state.allBooks);
 
-    const allBooks = books.sort((a, b) =>
+    const libros = books.filter((book) => book.id !== 58)
+
+    const allBooks = libros.sort((a, b) =>
         a.id > b.id ? 1 : -1
     )
 

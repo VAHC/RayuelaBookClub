@@ -45,8 +45,6 @@ export const CANCEL_SUSCRIPTION = "CANCEL_SUSCRIPTION";
 export const EDIT_ORDER = "EDIT_ORDER";
 export const FILTER_ORDER_STATE = "FILTER_ORDER_STATE";
 
-
-
 export const getAllBooks = () => {
   return async (dispatch) => {
     const response = await axios.get(`${URL_Railway}/books`);
@@ -152,12 +150,24 @@ export const getReviewsBook = (bookId) => {
   }
 }
 
+// export const postReview = (review) => {
+//   //console.log(review);
+//   //console.log('se despacha la action');
+//   return async function (dispatch) {
+//     let response = await axios.post(`${URL_Railway}/reviews`, review)
+//     return response
+//   }
+// }
+
 export const postReview = (review) => {
-  //console.log(review);
-  //console.log('se despacha la action');
-  return async function (dispatch) {
-    let response = await axios.post(`${URL_Railway}/reviews`, review)
-    return response
+  return async (dispatch) => {
+    try {
+      await axios.post(`${URL_Railway}/reviews`, review)
+      dispatch({ type: POST_REVIEW, payload: review })
+      return { status: 200, message: 'Success' };
+    } catch (error) {
+      throw error
+    }
   }
 }
 
@@ -229,13 +239,15 @@ export const deleteBook = async (bookId, dispatch) => {
   dispatch({ type: DELETE_BOOK })
 }
 
-export const updateUser = async (user, dispatch) => {
-  try {
-    await axios.put(`${URL_Railway}/users`, user);
-    dispatch({ type: UPDATE_USER, payload: user });
-    return { status: 200, message: 'Success' };
-  } catch (error) {
-    throw error
+export const updateUser = (user) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(`${URL_Railway}/users`, user);
+      dispatch({ type: UPDATE_USER, payload: user });
+      return { status: 200, message: 'Success' };
+    } catch (error) {
+      throw error;
+    }
   }
 }
 

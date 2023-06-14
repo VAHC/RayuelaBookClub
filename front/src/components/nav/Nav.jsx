@@ -6,8 +6,9 @@ import { login, logout, emptyCart } from "../../redux/action";
 import axios from 'axios';
 import { URL_Railway } from '../../../ruta';
 import { decode } from 'jsonwebtoken-esm';
-import AES from 'crypto-js/aes';
-import encUtf8 from 'crypto-js/enc-utf8';
+//import AES from 'crypto-js/aes';
+//import encUtf8 from 'crypto-js/enc-utf8';
+import swal from 'sweetalert';
 
 export const Nav = () => {
 
@@ -39,10 +40,13 @@ export const Nav = () => {
         localStorage.setItem('token', tokenRayuela);
       }
       if (error) {
-        console.log('-------');
-        console.log(error); // Noe, aca va el cartel de usuario creado por formulario
+        console.log(error)
+        swal({
+          title: "¡Ingresá con tu usuario y contraseña!",
+          text: "Tu usuario fue creado a través del registro, no podés ingresar con G-mail",
+          icon: "warning"
+        });
       }
-
     } else {
       //console.log('existe');
     }

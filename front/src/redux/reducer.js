@@ -293,10 +293,17 @@ const reducer = (state = initialState, action) => {
       }
 
     case POST_REVIEW:
-      //console.log('llega la action al reducer');
+      const newEstado = [...state.allBooks]
+      const book = newEstado.find((b) => b.id === action.payload.id_book)
+      if (!book) {
+        return state
+      }
+      book.reviews.push(action.payload)
       return {
-        ...state
-      };
+        ...state,
+        books: newEstado,
+        allBooks: newEstado
+      }
 
     case LOGIN_SUCCESS:
       return {
@@ -379,7 +386,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         cart: cartCopy,
       }
-
 
     case REMOVE_FROM_CART:
       const cartCopi = [...state.cart]
@@ -485,14 +491,14 @@ const reducer = (state = initialState, action) => {
       }
 
     case GET_USER_BY_ID:
-      console.log('entra en el reducer');
+      //console.log('entra en el reducer');
       return {
         ...state,
         userById: action.payload
       }
 
     case CANCEL_SUSCRIPTION:
-      console.log('entra la action en el reducer de desuscripcion');
+      //console.log('entra la action en el reducer de desuscripcion');
       return {
         ...state,
         // userById: { ...state.userById }

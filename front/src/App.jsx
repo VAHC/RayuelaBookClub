@@ -16,8 +16,6 @@ import Dashboard from "./components/adminDashboard/Dashboard"
 import UserDashboard from "./components/UserDashboard/UserDashboard";
 import { Ingreso } from "./components/login/Ingreso";
 import { FAQs } from "./components/footer/FAQs";
-import MyReviews from "./components/UserDashboard/myReviews/MyReviewsContainer";
-import FormEditReviews from "./components/UserDashboard/myReviews/FormEditReviews";
 import CartContainer from "./components/shoppingCart/CartContainer";
 import { ChangePass } from "./components/login/ChangePass";
 
@@ -27,50 +25,49 @@ function App() {
 
   return (
     //Descomentar para utilizar rutas protegidas
+    <>
+      <Nav />
+      <Routes>
+        {/* Rutas públicas */}
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/nosotros" element={<AboutUs />} />
+        <Route exact path="/suscripcion" element={<Suscripcion />} />
+        <Route exact path="/catalogo" element={<Catalogo />} />
+        <Route exact path="/ingresar" element={<Ingreso />} />
+        <Route exact path="/preguntas-frecuentes" element={<FAQs />} />
+        <Route exact path="/restablecer-contraseña" element={<ChangePass />} />
+        <Route exact path="/carrito" element={<CartContainer />} />
+        {/* Rutas de user */}
+        {/* <Route element={<ProtectRoutes isAllowed={!!user && user.profile !== "admin"} />}>
+          <Route exact path="/perfil" element={<UserDashboard />} />
+        </Route> */}
+        <Route exact path="/perfil" element={<ProtectRoutes isAllowed={!!user && user.profile !== "admin"}>
+          <UserDashboard />
+        </ProtectRoutes>} />
+        {/* Rutas de admin */}
+        <Route exact path="/admindashboard" element={<ProtectRoutes isAllowed={!!user && user.profile === "admin"}>
+          <Dashboard />
+        </ProtectRoutes>} />
+      </Routes>
+      <Footer />
+    </>
+
     // <>
-    //   <Nav />
+    //   <Nav/>
     //   <Routes>
-    //     {/* Rutas públicas */}
-    //     <Route exact path="/" element={<Home />} />
-    //     <Route exact path="/nosotros" element={<AboutUs />} />
-    //     <Route exact path="/suscripcion" element={<Suscripcion />} />
-    //     <Route exact path="/catalogo" element={<Catalogo />} />
-    //     <Route exact path="/ingresar" element={<Ingreso/>} />
-    //     <Route exact path="/preguntas-frecuentes" element={<FAQs />} />
+    //     <Route exact path="/" element={<Home/>}/>
+    //     <Route exact path="/nosotros" element={<AboutUs/>}/>
+    //     <Route exact path="/suscripcion" element={<Suscripcion/>}/>
+    //     <Route exact path="/catalogo" element={<Catalogo/>}/>
+    //     <Route exact path="/ingresar" element={<Ingreso/>}/>
+    //     <Route exact path="/preguntas-frecuentes" element={<FAQs/>}/>
     //     <Route exact path="/restablecer-contraseña" element={<ChangePass/>}/>
     //     <Route exact path="/carrito" element={<CartContainer/>}/>
-    //     {/* Rutas de user */}
-    //     <Route element={<ProtectRoutes isAllowed={!!user && user.profile !== "admin"} />}>
-    //       <Route exact path="/perfil" element={<UserDashboard />} />
-    //       <Route exact path="/misReseñas" element={<MyReviews />} />
-    //       <Route exact path="/editarReseña" element={<FormEditReviews />} />
-    //     </Route>
-    //     {/* Rutas de admin */}
-    //     <Route exact path="/admindashboard" element={<ProtectRoutes isAllowed={!!user && user.profile === "admin"}>
-    //       <Dashboard />
-    //     </ProtectRoutes>} />
+    //     <Route exact path="/perfil" element={<UserDashboard/>}/>
+    //     <Route exact path="/admindashboard" element={<Dashboard/>}/>
     //   </Routes>
-    //   <Footer />
+    //   <Footer/>
     // </>
-
-    <>
-      <Nav/>
-      <Routes>
-        <Route exact path="/" element={<Home/>}/>
-        <Route exact path="/nosotros" element={<AboutUs/>}/>
-        <Route exact path="/suscripcion" element={<Suscripcion/>}/>
-        <Route exact path="/catalogo" element={<Catalogo/>}/>
-        <Route exact path="/ingresar" element={<Ingreso/>}/>
-        <Route exact path="/preguntas-frecuentes" element={<FAQs/>}/>
-        <Route exact path="/restablecer-contraseña" element={<ChangePass/>}/>
-        <Route exact path="/carrito" element={<CartContainer/>}/>
-        <Route exact path="/perfil" element={<UserDashboard/>}/>
-        <Route exact path="/misReseñas" element={<MyReviews/>}/>
-        <Route exact path="/editarReseña" element={<FormEditReviews/>}/>
-        <Route exact path="/admindashboard" element={<Dashboard/>}/>
-      </Routes>
-      <Footer/>
-    </>
   )
 }
 
