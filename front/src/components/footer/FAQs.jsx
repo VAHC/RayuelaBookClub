@@ -6,9 +6,9 @@ export const FAQs = () => {
       <h3 className='text-center fs-1'>Preguntas frecuentes</h3>
       <p className="fw-bold mt-4 mb-2 mx-5">¿Qué es y cómo funciona Rayuela?</p>
       <p className="mx-5">Rayuela es una suscripción literaria que ayuda a las personas que buscan leer más y leer algo diferente, a tener todos los meses un libro que les atraiga, que renueve sus ganas de leer.
-        Todos los meses vas a recibir una caja que incluye un libro, una guía para disfrutar más de tu momento de lectura y regalos extra como señaladores y stickers; además de increíbles descuentos en nuestra tienda.</p>
+        Todos los meses vas a recibir una caja que incluye un libro, una guía para disfrutar más de tu momento de lectura y regalos extra como señaladores y stickers, además de increíbles descuentos en nuestra tienda.</p>
       <p className="fw-bold mt-4 mb-2 mx-5">¿Hay algún tipo de compromiso de permanencia mínima?</p>
-      <p className="mx-5">No, podés darte de baja cuando lo desees. Solo tenés que ingresar a tu perfil y,  desde "mi suscrpción",  podrás solicitar la baja</p>
+      <p className="mx-5">No, podés darte de baja cuando lo deseés. Sólo tenés que ingresar a tu perfil y desde "Mi suscripción", podrás solicitar la baja.</p>
       <p className="fw-bold mt-4 mb-2 mx-5">¿Hacen envíos a todo el país?</p>
       <p className="mx-5">Sí, hacemos envíos a todo el país a través de Correo Argentino.</p>
       {/* <p className="fw-bold mt-4 mb-2 mx-5">¿Cuál es el costo de envío?</p>

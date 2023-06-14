@@ -12,7 +12,7 @@ export const MiSuscripcion = () => {
 
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
-
+  //Estado para el spinner
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

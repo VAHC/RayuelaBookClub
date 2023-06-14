@@ -1,8 +1,7 @@
 const { Gender } = require('../../db');
 
-const createGender = async (gender) => {
-    const { name } = gender
-    
+const createGender = async (name) => {
+        
     const newGender = await Gender.findOrCreate({
         where: { name },
     })
