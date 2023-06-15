@@ -40,7 +40,7 @@ import {
   CANCEL_SUSCRIPTION,
   EDIT_ORDER,
   FILTER_ORDER_STATE,
-  CREATE_GENRE
+  CREATE_GENRE,
 } from './action';
 import swal from 'sweetalert';
 
@@ -191,6 +191,7 @@ const reducer = (state = initialState, action) => {
       }
 
     case SET_DETAIL:
+      console.log( action.payload);
       return {
         ...state,
         detail_data: action.payload,

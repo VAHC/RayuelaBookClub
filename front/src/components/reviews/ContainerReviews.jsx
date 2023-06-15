@@ -5,9 +5,12 @@ import Review from './Review';
 import { getReviewsBook } from '../../redux/action';
 import FormCreateReview from './FormCreateReview';
 
-const ContainerReviews = ({ bookId, toggleModal }) => {
+const ContainerReviews = ({ bookId, toggleModal, title }) => {
 
   const reviewsBook = useSelector((state) => state.reviewsBook);
+  console.log(reviewsBook);
+  console.log(bookId);
+  console.log(title);
   const dispatch = useDispatch();
   const [showForm, setShowForm] = useState(false);
 
@@ -24,7 +27,7 @@ const ContainerReviews = ({ bookId, toggleModal }) => {
   return (
     <Modal show={true} onHide={toggleModal}>
       <Modal.Header closeButton>
-        <Modal.Title>Opiniones</Modal.Title>
+        <Modal.Title>Opiniones sobre el libro "{title}"</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {!notDeletedReviews.length ? (

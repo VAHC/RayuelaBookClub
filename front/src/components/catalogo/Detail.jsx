@@ -2,8 +2,8 @@ import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import ContainerReviews from "../reviews/ContainerReviews";
-import { useState } from 'react';
-import { addToCart } from "../../redux/action";
+import { useState, useEffect } from 'react';
+import { addToCart, updateDetailData } from "../../redux/action";
 
 
 export const Detail = () => {
@@ -116,6 +116,7 @@ export const Detail = () => {
                 <ContainerReviews
                   toggleModal={toggleModal}
                   bookId={bookId} 
+                  title={detailData.title}
                 />
               </div>
             </div>

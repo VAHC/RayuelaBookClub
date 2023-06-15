@@ -395,3 +395,10 @@ export const createGenre = (input) => {
     return response
   }
 }
+
+export const updateDetailData = (updatedDetailData) => {
+  return {
+    type: "UPDATE_DETAIL_DATA",
+    payload: updatedDetailData,
+  };
+};
