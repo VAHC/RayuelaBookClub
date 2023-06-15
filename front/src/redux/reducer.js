@@ -39,7 +39,9 @@ import {
   GET_USER_BY_ID,
   CANCEL_SUSCRIPTION,
   EDIT_ORDER,
-  FILTER_ORDER_STATE
+  FILTER_ORDER_STATE,
+  CREATE_GENRE,
+  CREATE_AUTHOR
 } from './action';
 import swal from 'sweetalert';
 
@@ -231,6 +233,7 @@ const reducer = (state = initialState, action) => {
     }
 
     case POST_BOOK:
+      console.log('entra en el reducer');
       return { ...state }
 
     case CREATE_USER:
@@ -520,6 +523,15 @@ const reducer = (state = initialState, action) => {
         filteredOrders: ordersFilteredByState
       }
 
+    case CREATE_GENRE:
+      return {
+        ...state,
+      }
+
+    case CREATE_AUTHOR:
+      return {
+        ...state,
+      }
 
     default:
       return state;

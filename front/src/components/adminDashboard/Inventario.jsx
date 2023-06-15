@@ -70,7 +70,7 @@ const Inventario = () => {
             return titleMatch && genreMatch && authorMatch;
         });
 
-        setFilteredBooks(filteredBooks);
+        // setFilteredBooks(filteredBooks);
     };
 
     const filteredBooks = filterText
@@ -110,11 +110,11 @@ const Inventario = () => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <FormCreateBook />
+                    <FormCreateBook/>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={() => setModalShow(false)}>Cerrar</Button>
-                </Modal.Footer>
+                {/* <Modal.Footer>
+                    <Button onClick={() => setAddBookModalShow(false)}>Cerrar</Button>
+                </Modal.Footer> */}
             </Modal>
         );
     };

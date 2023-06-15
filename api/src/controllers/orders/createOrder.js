@@ -44,6 +44,9 @@ const createOrder = async (orderData) => {
             throw Error(`No user has been found matching the id: ${id_user}`);
         }
 
+        book.stock = book.stock - quantity;
+        await book.save();
+
         quantityTotal += quantity;
         priceTotal += quantity * price;
 
