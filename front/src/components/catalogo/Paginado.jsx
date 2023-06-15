@@ -6,7 +6,7 @@ import { Pagination } from "react-bootstrap";
 export const Paginado = () => {
     const PagActual = useSelector((state) => state.paginaActual);
     const cantXPag = 9;
-    const Arraylibros = useSelector((state) => state.allBooks);
+    const Arraylibros = useSelector((state) => state.books);
     const ArraySearch = useSelector((state) => state.searchData);
     const Ry = ArraySearch.length > 0 ? ArraySearch : Arraylibros
     const librosTotal = Arraylibros.length;
