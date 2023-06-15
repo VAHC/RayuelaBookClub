@@ -24,12 +24,12 @@ const ContainerReviews = ({ bookId, toggleModal }) => {
   return (
     <Modal show={true} onHide={toggleModal}>
       <Modal.Header closeButton>
-        <Modal.Title>Reseñas</Modal.Title>
+        <Modal.Title>Opiniones</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {!notDeletedReviews.length ? (
           <div>
-            <h6>Aún no hay reseñas...</h6>
+            <h6>Aún no hay opiniones...</h6>
             <h5>¡Sé el primero en dejar una!</h5>
           </div>
         ) : (
@@ -53,7 +53,7 @@ const ContainerReviews = ({ bookId, toggleModal }) => {
         <div className="d-flex justify-content-center align-items-center">
         <Accordion>
           <Accordion.Item eventKey="0">
-            <Accordion.Header>Dejá tu reseña</Accordion.Header>
+            <Accordion.Header>Dejá tu opinión</Accordion.Header>
             <Accordion.Body>
               <FormCreateReview handleToggleForm={handleToggleForm} bookId={bookId} toggleModal={toggleModal}/>
             </Accordion.Body>

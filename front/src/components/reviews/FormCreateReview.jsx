@@ -79,7 +79,7 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
     const submitHandler =  async (e) => {
         e.preventDefault();
         if(!user) {
-                alert('Antes de dejar tu reseña debés loguearte')
+                alert('Antes de dejar tu opinión debés loguearte')
             setTimeout(function(){
                 navigate('/ingresar')//si no estoy logueado redirege al login
             }, 2000)
@@ -105,7 +105,7 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
                 handleToggleForm()
                 toggleModal()
                 setSuccess(false)
-            }, 3000)
+            }, 2000)
         } else {
             alert('Datos erróneos o incorrectos');
             }
@@ -122,7 +122,7 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
       </div>}
       {!success && user && (
         <div>
-          <h4 className='text-center fs-3'>Dejá tu reseña</h4>
+          <h4 className='text-center fs-3'>Dejá tu opinión</h4>
           <form onSubmit={submitHandler}>
             <div className="row g-3 align-items-center">
               <div className="d-flex flex-column align-items-center">
@@ -150,7 +150,7 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
             </div>
             <div className="row g-3 align-items-center">
               <div className="col-3 mb-3">
-                <label className="col-form-label ms-3" htmlFor='comment'>Reseña:</label>
+                <label className="col-form-label ms-3" htmlFor='comment'>Opinión:</label>
               </div>
               <div className="col-9">
                 <input className="form-control" id='comment' type='textarea' value={input.comment} name='comment' placeholder='Reseña...' onChange={inputHandler} />

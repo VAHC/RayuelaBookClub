@@ -64,7 +64,7 @@ export const Detail = () => {
           <Col>
             <h4>{detailData.title}</h4>
             <Button variant="secondary" onClick={toggleModal} className="custom-button">
-              <p className="mb-1">Reseñas</p>
+              <p className="mb-1">Opiniones</p>
               <div>{renderStars(qualificationObtained(detailData))}</div>
             </Button>
             
