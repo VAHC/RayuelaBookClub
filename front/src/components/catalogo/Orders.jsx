@@ -16,14 +16,16 @@ export const Orders = () => {
 
   const handlerSortByPrice = (e) => {
     dispatch(sortByPrice(e.target.value))
-    // dispatch(changePagina(1))
+    dispatch(changePagina(1))
+    // dispatch(getBooksPage(1));
     setPriceValue(e.target.value)
     setRatingValue("")
   }
 
   const handlerSortByRating = (e) => {
     dispatch(sortByRating(e.target.value))
-    // dispatch(changePagina(1))
+    dispatch(changePagina(1))
+    // dispatch(getBooksPage(1));
     setRatingValue(e.target.value)
     setPriceValue("")
   }

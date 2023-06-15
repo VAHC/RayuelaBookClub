@@ -134,7 +134,7 @@ const reducer = (state = initialState, action) => {
         });
       return {
         ...state,
-        // orderFlag: true,
+        orderFlag: true,
         books: [...sortPriceArray]
       }
 
@@ -167,10 +167,10 @@ const reducer = (state = initialState, action) => {
         arrayOrdenadoRating.sort((a, b) => {
           return b.totalQualification - a.totalQualification
         });
-      const returnRatingProp = state.filterFlag ? "books" : "booksPage"
+
       return {
         ...state,
-        [returnRatingProp]: [...sortRatingArray]
+        books: [...sortRatingArray]
       }
 
     case SEARCH_BY_NAME_OR_AUTHOR:
@@ -236,6 +236,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         searchData: [],
+        orderFlag: false,
+        filterFlag: false,
         books: state.allBooks
       }
 

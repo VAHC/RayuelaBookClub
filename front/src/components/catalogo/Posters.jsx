@@ -14,6 +14,7 @@ export const Posters = () => {
 
     //flag para saber si esta activo algun filtro
     const filterFlag = useSelector((state) => state.filterFlag);
+    const orderFlag = useSelector((state) => state.orderFlag);
 
     //flag para no cargar todos los libros con cada render
     const [allBooksLoaded, setAllBooksLoaded] = useState(false);
@@ -33,7 +34,7 @@ export const Posters = () => {
             dispatch(getBooksPage(pagina));
         };
         booksGet();
-    }, [pagina,filterFlag]);
+    }, [pagina,filterFlag,orderFlag,filteredbooks]);
 
     const renderConditional = () => {
         // let renderElements = undefined;
