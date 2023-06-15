@@ -40,10 +40,8 @@ import {
   CANCEL_SUSCRIPTION,
   EDIT_ORDER,
   FILTER_ORDER_STATE,
-  CREATE_GENRE,
-  CREATE_AUTHOR
+  // ORDER_FLAG
 } from './action';
-import swal from 'sweetalert';
 
 // Initial state
 const initialState = {
@@ -59,6 +57,8 @@ const initialState = {
   allBooks: [],
   //Flag para saber si se esta filtrando
   filterFlag: false,
+  //Flag para saber si se esta ordenando
+  sortFlag: false,
   //Array de géneros
   generos: [],
   //Array de autores
@@ -115,38 +115,27 @@ const reducer = (state = initialState, action) => {
       const indiceInicio = (pageNumber - 1) * pageSize;
       const indiceFinal = indiceInicio + pageSize;
       let notDeletetedBooks;
-
-      if (state.searchData.length > 0) {
-        notDeletetedBooks = state.searchData.filter((book) => {
-          return book.deleted === false
-        })
-
-        return {
-          ...state,
-          booksPage: notDeletetedBooks.slice(indiceInicio, indiceFinal)
-        }
-      } else {
-        notDeletetedBooks = state.allBooks.filter((book) => {
-          return book.deleted === false
-        })
-        return {
-          ...state,
-          booksPage: notDeletetedBooks.slice(indiceInicio, indiceFinal)
-        };
-      }
-
-    case SORT_BY_PRICE:
-      let arrayOrdenPrecio = state.filterFlag ? state.books : state.booksPage
-      let sortPriceArray = action.payload === 'Asc' ? arrayOrdenPrecio.sort((a, b) => {
-        return a.price - b.price
-      }) :
-        arrayOrdenPrecio.sort((a, b) => {
-          return b.price - a.price
-        });
-      const returnPriceProp = state.filterFlag ? "books" : "booksPage"
+      const Ry = state.searchData === [] ? state.searchData : state.books
+      notDeletetedBooks = Ry.filter((book) => {
+        return book.deleted === false
+      })
       return {
         ...state,
-        [returnPriceProp]: [...sortPriceArray]
+        booksPage: notDeletetedBooks.slice(indiceInicio, indiceFinal)
+      };
+    // }
+
+    case SORT_BY_PRICE:
+      let sortPriceArray = action.payload === 'Asc' ? state.books.sort((a, b) => {
+        return a.price - b.price
+      }) :
+        state.books.sort((a, b) => {
+          return b.price - a.price
+        });
+      return {
+        ...state,
+        // orderFlag: true,
+        books: [...sortPriceArray]
       }
 
     case SORT_BY_RATING:
@@ -185,11 +174,11 @@ const reducer = (state = initialState, action) => {
       }
 
     case SEARCH_BY_NAME_OR_AUTHOR:
-      const deletedFilter = action.payload.filter(book => !book.deleted)
       return {
         ...state,
-        searchData: deletedFilter
-      }
+        filterFlag: true,
+        books: action.payload
+      };
 
     case SET_DETAIL:
       return {
@@ -198,13 +187,9 @@ const reducer = (state = initialState, action) => {
       };
 
     case FILTER_BY_GENRE:
-      { 
+      {
         const genreFiltered = action.payload === 'All' ?
-          state.allBooks.filter(book => !book.deleted)
-           : 
-          state.books
-          .filter(book => !book.deleted)
-          .filter(libro => {
+          state.books : state.books.filter(libro => {
             if (libro.genders.length > 0) {
               if (libro.genders.find(genero => genero === action.payload)) return libro
             }
@@ -217,11 +202,7 @@ const reducer = (state = initialState, action) => {
 
     case FILTER_AUTHOR: {
       const authorsFiltered = action.payload === 'All' ?
-        state.allBooks.filter(book => !book.deleted) 
-        :
-        state.books
-        .filter(book => !book.deleted)
-        .filter(libro => {
+        state.allBooks : state.books.filter(libro => {
           if (libro.authors.length > 0) {
             if (libro.authors.find(autor => autor === action.payload)) return libro
           }
@@ -233,7 +214,6 @@ const reducer = (state = initialState, action) => {
     }
 
     case POST_BOOK:
-      console.log('entra en el reducer');
       return { ...state }
 
     case CREATE_USER:
@@ -245,8 +225,14 @@ const reducer = (state = initialState, action) => {
         filterFlag: action.payload,
       }
 
+    // case ORDER_FLAG:
+    //   return {
+    //     ...state,
+    //     orderFlag: action.payload,
+    //   }
+
     case RESET_FILTERS:
-      //console.log("entra el reducer de redux")
+      console.log("entra el reducer de redux")
       return {
         ...state,
         searchData: [],
@@ -273,8 +259,9 @@ const reducer = (state = initialState, action) => {
       }
 
     case GET_AUTORES:
+      let RyConditional = state.searchData.length > 0 ? state.searchData : state.books;
 
-      const authorsNoRepeat = state.books
+      const authorsNoRepeat = RyConditional
         .flatMap(book => book.authors)
         .filter((aut, index, self) => self.findIndex(a => a === aut) === index);
 
@@ -296,17 +283,10 @@ const reducer = (state = initialState, action) => {
       }
 
     case POST_REVIEW:
-      const newEstado = [...state.allBooks]
-      const book = newEstado.find((b) => b.id === action.payload.id_book)
-      if (!book) {
-        return state
-      }
-      book.reviews.push(action.payload)
+      //console.log('llega la action al reducer');
       return {
-        ...state,
-        books: newEstado,
-        allBooks: newEstado
-      }
+        ...state
+      };
 
     case LOGIN_SUCCESS:
       return {
@@ -317,8 +297,7 @@ const reducer = (state = initialState, action) => {
     case LOGOUT:
       return {
         ...state,
-        user: null,
-        userById: {}
+        user: null
       }
 
     case GET_REVIEWS_BY_USER:
@@ -373,13 +352,7 @@ const reducer = (state = initialState, action) => {
         if (findItem.quantity < findItem.stock) {
           findItem.quantity += 1;
         } else {
-          swal({
-            title: "¡No hay stock suficiente!",
-            text: "Pronto renovaremos stock...",
-            icon: "warning",
-            timer: 2000,
-            buttons: false
-          });
+          window.alert('No hay stock suficiente');
         }
       } else {
         const { id, price, stock, title } = action.payload
@@ -389,6 +362,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         cart: cartCopy,
       }
+
 
     case REMOVE_FROM_CART:
       const cartCopi = [...state.cart]
@@ -443,7 +417,6 @@ const reducer = (state = initialState, action) => {
         ...state
       }
 
-
     case FILTER_USER_PROFILE:
       // console.log("🚀 ~ file: reducer.js:394 ~ reducer ~ action.payload:", action.payload)
 
@@ -494,14 +467,14 @@ const reducer = (state = initialState, action) => {
       }
 
     case GET_USER_BY_ID:
-      //console.log('entra en el reducer');
+      console.log('entra en el reducer');
       return {
         ...state,
         userById: action.payload
       }
 
     case CANCEL_SUSCRIPTION:
-      //console.log('entra la action en el reducer de desuscripcion');
+      console.log('entra la action en el reducer de desuscripcion');
       return {
         ...state,
         // userById: { ...state.userById }
@@ -523,15 +496,6 @@ const reducer = (state = initialState, action) => {
         filteredOrders: ordersFilteredByState
       }
 
-    case CREATE_GENRE:
-      return {
-        ...state,
-      }
-
-    case CREATE_AUTHOR:
-      return {
-        ...state,
-      }
 
     default:
       return state;
