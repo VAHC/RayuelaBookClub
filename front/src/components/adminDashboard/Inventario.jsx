@@ -110,11 +110,11 @@ const Inventario = () => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <FormCreateBook />
+                    <FormCreateBook/>
                 </Modal.Body>
-                <Modal.Footer>
+                {/* <Modal.Footer>
                     <Button onClick={() => setAddBookModalShow(false)}>Cerrar</Button>
-                </Modal.Footer>
+                </Modal.Footer> */}
             </Modal>
         );
     };
