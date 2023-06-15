@@ -32,8 +32,7 @@ const validation = (input,file) => {
     }
   
     // Validación para el campo "image"
-    // if (!input.image && (file === null)) {
-    if (!input.image) {
+    if (!input.image && (file === null)) {
       errors.image = 'La imagen de la portada es obligatoria';
     } 
   
