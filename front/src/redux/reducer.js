@@ -197,7 +197,7 @@ const reducer = (state = initialState, action) => {
       const deletedFilter = action.payload.filter(book => !book.deleted)
       return {
         ...state,
-        searchData: deletedFilter
+        books: deletedFilter
       }
 //comentario
     case SET_DETAIL:
