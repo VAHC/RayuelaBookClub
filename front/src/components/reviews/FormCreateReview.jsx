@@ -78,12 +78,16 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
             // //handler del submit ==> si fomrComplete es true despacha la action, setea Success en true, setea input y errors al estado inicial
     const submitHandler =  async (e) => {
         e.preventDefault();
-        if(!user) {
-                alert('Antes de dejar tu opinión debés loguearte')
-            setTimeout(function(){
-                navigate('/ingresar')//si no estoy logueado redirege al login
-            }, 2000)
-        } else if(formComplete) {
+
+        // if(!user) {
+        //         alert('Antes de dejar tu opinión debés loguearte')
+        //     setTimeout(function(){
+        //         navigate('/ingresar')//si no estoy logueado redirege al login
+        //     }, 2000)
+        // } else if(formComplete) {
+
+        if(formComplete) {
+
             await dispatch(postReview(input));
             dispatch(getReviewsBook(bookId))
             setSuccess(true); // al setearse en true cambia el rederizado
@@ -115,7 +119,7 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
     <>
       {!user && (
         <div className="d-flex justify-content-center">
-          <img className="w-50 p-3 h-50 d-inline-block" src='./images/loginFirst.png' alt='debes estar registrado para crear una reseña' />
+          <img className="w-75 p-3 h-50 d-inline-block" src='./images/loginFirst.png' alt='debes estar registrado para crear una reseña' />
         </div>)}
       {success && <div className="d-flex justify-content-center">
         <img className="w-75 p-3 h-50 d-inline-block" src='./images/createdReview.png' alt='formulario enviado correctamente' />
@@ -158,7 +162,7 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
               </div>
             </div>
             <div className="d-flex flex-row justify-content-evenly">
-              <button className="btn btn-dark m-3" type='submit' onClick={handleToggleForm}>Enviar</button>
+              <button className={formComplete ? "btn btn-dark m-3" : "btn btn-dark m-3 disabled"} type='submit' onClick={handleToggleForm}>Enviar</button>
             </div>
           </form>
         </div>

@@ -41,6 +41,7 @@ import {
   EDIT_ORDER,
   FILTER_ORDER_STATE,
   CREATE_GENRE,
+  CREATE_AUTHOR
 } from './action';
 import swal from 'sweetalert';
 
@@ -523,12 +524,15 @@ const reducer = (state = initialState, action) => {
         filteredOrders: ordersFilteredByState
       }
 
-      case CREATE_GENRE:
-        console.log('entra en el reducer');
-        console.log(state.generos);
-        return { 
-          ...state,
-        }
+    case CREATE_GENRE:
+      return {
+        ...state,
+      }
+
+    case CREATE_AUTHOR:
+      return {
+        ...state,
+      }
 
     default:
       return state;

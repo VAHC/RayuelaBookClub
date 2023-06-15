@@ -9,7 +9,7 @@ const AES = require('crypto-js/aes');
 require('dotenv').config();
 
 const { URL_Railway_back, URL_Vercel_back } = require('../../rutas')
-const UrlFallida=URL_Vercel_back+"/?error=ya creado"// respuesta fallida de google
+const UrlFallida=URL_Vercel_back+"/?error=ingreso incorrecto"// respuesta fallida de google
 
 UserJson = (id, firstName, lastName, email, phone, profile) => {
   return ({
@@ -44,8 +44,8 @@ const findOrCreate = async (firstName, lastName, username, password, phone, done
         return done(null, user);
       } else {
         // Las credenciales son válidas, autenticación exitosa
-        if (user.dataValues.createdDb) {
-          console.log('se creo usando el metodo local');
+        if (user.dataValues.createdDb || user.dataValues.state === 'Blocked') {
+          //console.log('se creo usando el metodo local');
           // se creo usando el metodo local
           return done(null, false);
         } else {
@@ -182,7 +182,7 @@ const FindUser = async (username, password, done) => {
   const usuario = await User.findOne({ where: { email: username } });
   if (usuario) {
     console.log(usuario.dataValues.password);
-    if (password === usuario.dataValues.password) {
+    if (password === usuario.dataValues.password &&  usuario.dataValues.state !='Blocked') {
       return done(null, usuario);
     } else {
       return done(null, false);
