@@ -115,7 +115,7 @@ const reducer = (state = initialState, action) => {
       const indiceInicio = (pageNumber - 1) * pageSize;
       const indiceFinal = indiceInicio + pageSize;
       let notDeletetedBooks;
-      const Ry = state.searchData === [] ? state.searchData : state.books
+      const Ry = state.searchData.length > 0 ? state.searchData : state.books
       notDeletetedBooks = Ry.filter((book) => {
         return book.deleted === false
       })

@@ -36,30 +36,30 @@ export const Posters = () => {
     }, [pagina]);
 
     const renderConditional = () => {
-        let renderElements = undefined;
+        // let renderElements = undefined;
 
-        if (filterFlag) {
-            searchData.length > 0
-                ? (renderElements = searchData
-                    .filter((book) => book.id !== 58)
-                    .map((book, index) => {
-                      // if(book.deleted === true) return null;
-                      return <Card book={book} key={index} />;
-                  }))
-                : (renderElements = filteredbooks
-                    .filter((book) => book.id !== 58)
-                    .map((book, index) => {
-                      // if(book.deleted === true) return null;
-                      return <Card book={book} key={index} />;
-                  }));
-        } else {
-            renderElements = booksPage
+        // if (filterFlag) {
+        //     searchData.length > 0
+        //         ? (renderElements = searchData
+        //             .filter((book) => book.id !== 58)
+        //             .map((book, index) => {
+        //               // if(book.deleted === true) return null;
+        //               return <Card book={book} key={index} />;
+        //           }))
+        //         : (renderElements = filteredbooks
+        //             .filter((book) => book.id !== 58)
+        //             .map((book, index) => {
+        //               // if(book.deleted === true) return null;
+        //               return <Card book={book} key={index} />;
+        //           }));
+        // } else {
+            let renderElements = booksPage
                 .filter((book) => book.id !== 58)
                 .map((book, index) => {
                 // if(book.deleted === true) return null;
                 return <Card book={book} key={index} />;
             });
-        }
+        // }
         return renderElements;
     };
 
