@@ -70,17 +70,17 @@ const MyReviewsContainer = () => {
                 <div>
                     <Row>
                         <Col>
-                            <h2 className="text-center">Mis reseñas</h2>
+                            <h2 className="text-center">Mis Opiniones</h2>
                         </Col>
                     </Row>
-                    <h6>Aún no dejaste una reseña...</h6>
+                    <h6>Aún no dejaste una opinión...</h6>
                     <h5>¡Elegí un libro y dejá una!</h5>
                 </div>
             ) : (userId &&
                 <Row>
                     <Row>
                         <Col>
-                            <h2 className="text-center">Mis reseñas</h2>
+                            <h2 className="text-center">Mis opiniones</h2>
                         </Col>
                     </Row>
                     <Col>

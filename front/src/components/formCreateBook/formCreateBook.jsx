@@ -62,8 +62,7 @@ export const FormCreateBook = () => {
         publishedDate: "",
         authors: [],
         genders: [],
-        //image: false,
-        image: "",
+        image: false,
     });
 
     const [errors, setErrors] = useState({
@@ -76,8 +75,7 @@ export const FormCreateBook = () => {
         publishedDate: "",
         authors: "",
         genders: "",
-        //image: false,
-        image: "",
+        image: false,
     });
 
     const genderHandler = (e) => {
@@ -118,13 +116,13 @@ export const FormCreateBook = () => {
                     genders: [...input.genders, e.target.value], //traigo todo lo que esta en el array y le concateno el nuevo valor
                 });
             }
-            // }else if (e.target.name === "image") {
-            //     setFile(e.target.files[0])
-            //     setInput({
-            //         ...input,
-            //         image: true, //
-            //         // image: file
-            //     });
+            }else if (e.target.name === "image") {
+                setFile(e.target.files[0])
+                setInput({
+                    ...input,
+                    image: true, //
+                    // image: file
+                });
         } else {
             setInput({
                 ...input,
@@ -178,18 +176,18 @@ export const FormCreateBook = () => {
                 await dispatch(createAuthor({ name: customAuthor }))
                 dispatch(getAllBooks())
             }
-            // const data = new FormData()
-            // data.append('title', input.title)
-            // data.append('publisher', input.publisher)
-            // data.append('description', input.description)
-            // data.append('price', input.price)
-            // data.append('stock', input.stock)
-            // data.append('publishedDate', input.publishedDate)
-            // data.append('authors', input.authors)
-            // data.append('genders', input.genders)
-            // data.append('image', file)
-            // dispatch(postBook(data));
-            dispatch(postBook(input))
+            const data = new FormData()
+            data.append('title', input.title)
+            data.append('publisher', input.publisher)
+            data.append('description', input.description)
+            data.append('price', input.price)
+            data.append('stock', input.stock)
+            data.append('publishedDate', input.publishedDate)
+            data.append('authors', input.authors)
+            data.append('genders', input.genders)
+            data.append('image', file)
+
+            dispatch(postBook(data))
                 .then((response) => {
                     if (response.status !== 400) {
                         setSuccess(true) // al setearse en true cambia el rederizado
@@ -552,9 +550,8 @@ export const FormCreateBook = () => {
                                             style={{ width: "100%" }}
                                             className="form-control"
                                             id="image"
-                                            // type='file'
-                                            type='text'
-                                            // accept='image/jpeg'
+                                            type='file'
+                                            accept='image/jpeg'
                                             name="image"
                                             onChange={inputHandler}
                                         />

@@ -70,7 +70,7 @@ const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
       </div>}
       {!success && (
         <div>
-          <p className='text-center fs-5'>Estás editando tu reseña del libro:</p>
+          <p className='text-center fs-5'>Estás editando tu opinión sobre el libro:</p>
           <h6 className='text-center fs-3'>{input.book}</h6>
           <form onSubmit={submitHandler}>
             <div>
@@ -98,7 +98,7 @@ const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
               </div>
               <div className="d-flex justify-content-center w-75 my-2">
                 <div className="col-4">
-                  <label className="col-form-label ms-3" htmlFor='comment'>Reseña:</label>
+                  <label className="col-form-label ms-3" htmlFor='comment'>Opinión:</label>
                 </div>
                 <div className="col-8">
                   <input className="form-control" id='comment' type='textarea' value={input.comment} name='comment' placeholder='Reseña...' onChange={inputHandler} />

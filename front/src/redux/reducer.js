@@ -192,6 +192,7 @@ const reducer = (state = initialState, action) => {
       }
 
     case SET_DETAIL:
+      console.log( action.payload);
       return {
         ...state,
         detail_data: action.payload,

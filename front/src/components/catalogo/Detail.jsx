@@ -2,8 +2,8 @@ import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import ContainerReviews from "../reviews/ContainerReviews";
-import { useState } from 'react';
-import { addToCart } from "../../redux/action";
+import { useState, useEffect } from 'react';
+import { addToCart, updateDetailData } from "../../redux/action";
 
 
 export const Detail = () => {
@@ -64,7 +64,7 @@ export const Detail = () => {
           <Col>
             <h4>{detailData.title}</h4>
             <Button variant="secondary" onClick={toggleModal} className="custom-button">
-              <p className="mb-1">Reseñas</p>
+              <p className="mb-1">Opiniones</p>
               <div>{renderStars(qualificationObtained(detailData))}</div>
             </Button>
             
@@ -116,6 +116,7 @@ export const Detail = () => {
                 <ContainerReviews
                   toggleModal={toggleModal}
                   bookId={bookId} 
+                  title={detailData.title}
                 />
               </div>
             </div>
