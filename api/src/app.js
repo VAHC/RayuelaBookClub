@@ -35,6 +35,7 @@ server.use(
     saveUninitialized: true,
   })
 );
+// hola
 
 server.use(passport.initialize());
 server.use(passport.session()); // aca es donde se deberia crear la cookie
