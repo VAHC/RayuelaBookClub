@@ -16,6 +16,7 @@ const Users = () => {
     const [filtersValue, setFiltersValues] = useState({
         profile: "",
         state: "",
+        suscribed: ""
     });
 
     const dispatch = useDispatch();
@@ -53,7 +54,12 @@ const Users = () => {
                 ...filtersValue,
                 state: event.target.value,
             });
-        } else {
+        } else if(event.target.name === "suscribed"){
+            setFiltersValues({
+                ...filtersValue,
+                suscribed: event.target.value,
+            });
+        } else{
             setFiltersValues({
                 ...filtersValue,
                 profile: event.target.value,
@@ -67,7 +73,35 @@ const Users = () => {
         else{
             return "usuario"
         }}
-    
+
+        
+        // Filtro por perfil
+        if (
+            filtersValue.profile &&
+            filtersValue.profile !== "All" &&
+            filtersValue.profile !== user.profile
+          ) {
+            return null;
+          }
+        
+          // Filtro por suscripción
+          if (
+            filtersValue.suscribed &&
+            filtersValue.suscribed !== "All" &&
+            filtersValue.suscribed !== (user.suscribed ? "Yes" : "No")
+          ) {
+            return null;
+          }
+        
+          // Filtro por estado
+          if (
+            filtersValue.state &&
+            filtersValue.state !== "All" &&
+            filtersValue.state !== user.state
+          ) {
+            return null;
+          }
+
         const getStateLabel = (state) => {
             switch (state) {
               case "Active":
@@ -148,6 +182,21 @@ const Users = () => {
                         </select>
                     </div>
                 </Col>{" "}
+                <Col>
+                    <div className="m-1">
+                        <h6 className="mx-2">Filtrar por suscripción</h6>
+                        <select
+                            className="form-select"
+                            onChange={(e) => filterHandler(e)}
+                            defaultValue={"All"}
+                            name={"suscribed"}
+                        >
+                            <option value="All">Todos</option>
+                            <option value="Yes">Suscriptos</option>
+                            <option value="No">No suscriptos</option>
+                        </select>
+                    </div>
+                </Col>
                 <Col>
                     <div className="m-1">
                         <h6 className="mx-2">Filtrar por estado</h6>
