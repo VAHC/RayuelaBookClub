@@ -5,7 +5,8 @@ import Tooltip from "react-bootstrap/Tooltip";
 import { useDispatch, useSelector } from "react-redux";
 import { setDetail, addToCart } from "../../redux/action";
 
-const bookCard = ({book}) => {
+const BookCard = (book) => {
+  //  console.log(book);
 
   const cart = useSelector((state) => state.cart)
 
@@ -105,5 +106,5 @@ const bookCard = ({book}) => {
   );
 };
 
-export default bookCard;
+export default BookCard;
 
