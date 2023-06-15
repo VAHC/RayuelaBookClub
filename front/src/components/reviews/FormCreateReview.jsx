@@ -78,12 +78,16 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
             // //handler del submit ==> si fomrComplete es true despacha la action, setea Success en true, setea input y errors al estado inicial
     const submitHandler =  async (e) => {
         e.preventDefault();
-        if(!user) {
-                alert('Antes de dejar tu reseña debés loguearte')
-            setTimeout(function(){
-                navigate('/ingresar')//si no estoy logueado redirege al login
-            }, 2000)
-        } else if(formComplete) {
+
+        // if(!user) {
+        //         alert('Antes de dejar tu opinión debés loguearte')
+        //     setTimeout(function(){
+        //         navigate('/ingresar')//si no estoy logueado redirege al login
+        //     }, 2000)
+        // } else if(formComplete) {
+
+        if(formComplete) {
+
             await dispatch(postReview(input));
             dispatch(getReviewsBook(bookId))
             setSuccess(true); // al setearse en true cambia el rederizado
@@ -105,65 +109,65 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
                 handleToggleForm()
                 toggleModal()
                 setSuccess(false)
-            }, 2000)    
+            }, 2000)
         } else {
             alert('Datos erróneos o incorrectos');
             }
         }
 
-return (
-  <>
-    <h4 className='text-center fs-3'>Deja tu reseña</h4>
-    <form onSubmit={submitHandler}>
+  return (
+    <>
       {!user && (
         <div className="d-flex justify-content-center">
-          <img className="w-50 p-3 h-50 d-inline-block" src='./images/loginFirst.png' alt='debes estar registrado para crear una reseña' />
+          <img className="w-75 p-3 h-50 d-inline-block" src='./images/loginFirst.png' alt='debes estar registrado para crear una reseña' />
         </div>)}
       {success && <div className="d-flex justify-content-center">
-        <img className="w-50 p-3 h-50 d-inline-block" src='./images/createdReview.png' alt='formulario enviado correctamente' />
+        <img className="w-75 p-3 h-50 d-inline-block" src='./images/createdReview.png' alt='formulario enviado correctamente' />
       </div>}
       {!success && user && (
         <div>
-          <div className="row g-3 align-items-center">
-            <div className="d-flex flex-column align-items-center">
-              <p className="text-center">{handlerText()}</p>
-              <div>
-                {Array(5).fill().map((_, index) => {
-                  return (
-                    number >= index + 1 || hoverStar >= index + 1
-                    ? <i key={index} className="bi bi-star-fill" onClick={() => { setNumber(index + 1); setInput({ ...input, qualification: index + 1 }); }} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
-                    : <i key={index} className="bi bi-star" onClick={() => { setNumber(index + 1); setInput({ ...input, qualification: index + 1 }); }} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
-                    // ? <i key={index} className="bi bi-star-fill" onClick={() => setNumber(index + 1)} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
-                    // : <i key={index} className="bi bi-star" onClick={() => { inputHandler }} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
-                  )
-                })}
-                {errors.qualification ? <p className="text-danger">{errors.qualification}</p> : null}
+          <h4 className='text-center fs-3'>Dejá tu opinión</h4>
+          <form onSubmit={submitHandler}>
+            <div className="row g-3 align-items-center">
+              <div className="d-flex flex-column align-items-center">
+                <p className="text-center">{handlerText()}</p>
+                <div>
+                  {Array(5).fill().map((_, index) => {
+                    return (
+                      number >= index + 1 || hoverStar >= index + 1
+                        ? <i key={index} className="bi bi-star-fill" onClick={() => { setNumber(index + 1); setInput({ ...input, qualification: index + 1 }); }} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
+                        : <i key={index} className="bi bi-star" onClick={() => { setNumber(index + 1); setInput({ ...input, qualification: index + 1 }); }} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
+                      // ? <i key={index} className="bi bi-star-fill" onClick={() => setNumber(index + 1)} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
+                      // : <i key={index} className="bi bi-star" onClick={() => { inputHandler }} onMouseOver={() => setHoverStar(index + 1)} onMouseLeave={() => { setHoverStar(undefined) }} />
+                    )
+                  })}
+                  {errors.qualification ? <p className="text-danger">{errors.qualification}</p> : null}
+                </div>
+              </div>
+              <div className="col-3 mb-3">
+                <label className="col-form-label ms-3" htmlFor='title'>Título:</label>
+              </div>
+              <div className="col-9">
+                <input className="form-control" id='title' type='text' value={input.title} name='title' placeholder='Dale un título a tu opinión' onChange={inputHandler} />
+                {errors.title ? <p className="text-danger">{errors.title}</p> : null}
               </div>
             </div>
-            <div className="col-3 mb-3">
-              <label className="col-form-label ms-3" htmlFor='title'>Título:</label>
+            <div className="row g-3 align-items-center">
+              <div className="col-3 mb-3">
+                <label className="col-form-label ms-3" htmlFor='comment'>Opinión:</label>
+              </div>
+              <div className="col-9">
+                <input className="form-control" id='comment' type='textarea' value={input.comment} name='comment' placeholder='Opinión...' onChange={inputHandler} />
+                {errors.comment ? <p className="text-danger">{errors.comment}</p> : null}
+              </div>
             </div>
-            <div className="col-9">
-              <input className="form-control" id='title' type='text' value={input.title} name='title' placeholder='Dale un título a tu reseña' onChange={inputHandler} />
-              {errors.title ? <p className="text-danger">{errors.title}</p> : null}
+            <div className="d-flex flex-row justify-content-evenly">
+              <button className={formComplete ? "btn btn-dark m-3" : "btn btn-dark m-3 disabled"} type='submit' onClick={handleToggleForm}>Enviar</button>
             </div>
-          </div>
-          <div className="row g-3 align-items-center">
-            <div className="col-3 mb-3">
-              <label className="col-form-label ms-3" htmlFor='comment'>Reseña:</label>
-            </div>
-            <div className="col-9">
-              <input className="form-control" id='comment' type='textarea' value={input.comment} name='comment' placeholder='Reseña...' onChange={inputHandler} />
-              {errors.comment ? <p className="text-danger">{errors.comment}</p> : null}
-            </div>
-          </div>
-          <div className="d-flex flex-row justify-content-evenly">
-            <button className="btn btn-dark m-3"  type='submit' onClick={handleToggleForm}>Enviar</button>
-          </div>
+          </form>
         </div>
       )}
-    </form>
-  </>
+    </>
   )
 }
         

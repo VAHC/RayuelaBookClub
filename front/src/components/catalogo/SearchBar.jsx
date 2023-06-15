@@ -23,7 +23,8 @@ export const SearchBar = () => {
         const searchDataPopulation = async () => {
             await dispatch(searchByNameOrAuthor(input))
                 .then((response) => {
-                    if (response.payload.length === 0) {
+                    const deletedFilter = response.payload.filter(book => !book.deleted)
+                    if (deletedFilter.length === 0) {
                         swal({
                             title: "No hay resultados",
                             icon: "warning",

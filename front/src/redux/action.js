@@ -44,8 +44,8 @@ export const GET_USER_BY_ID = "GET_USER_BY_ID";
 export const CANCEL_SUSCRIPTION = "CANCEL_SUSCRIPTION";
 export const EDIT_ORDER = "EDIT_ORDER";
 export const FILTER_ORDER_STATE = "FILTER_ORDER_STATE";
-
-
+export const CREATE_GENRE = "CREATE_GENRE";
+export const CREATE_AUTHOR = "CREATE_AUTHOR";
 
 export const getAllBooks = () => {
   return async (dispatch) => {
@@ -110,7 +110,9 @@ export const filterAuthor = (value) => {
 
 export const postBook = (book) => {
   return async function (dispatch) {
+    //console.log('entra en la action');
     let response = await axios.post(`${URL_Railway}/books`, book)
+    //console.log(response.data);
     return response
   }
 }
@@ -130,7 +132,7 @@ export const filterFlagToggle = (boolean) => {
 }
 
 export const resetFilter = () => {
-  console.log("entra el reset a la action de redux")
+  //console.log("entra el reset a la action de redux")
   return { type: RESET_FILTERS }
 }
 
@@ -144,7 +146,6 @@ export const getAutores = () => {
 
 //trae todas las reviews de un libro
 export const getReviewsBook = (bookId) => {
-  //console.log('action' + bookId);
   return async (dispatch) => {
     const response = await axios.get(`${URL_Railway}/books/${bookId}`);
     const allReviews = response.data;
@@ -153,21 +154,20 @@ export const getReviewsBook = (bookId) => {
 }
 
 export const postReview = (review) => {
-  //console.log(review);
-  //console.log('se despacha la action');
-  return async function (dispatch) {
-    let response = await axios.post(`${URL_Railway}/reviews`, review)
-    return response
+  return async (dispatch) => {
+    try {
+      await axios.post(`${URL_Railway}/reviews`, review)
+      dispatch({ type: POST_REVIEW, payload: review })
+      return { status: 200, message: 'Success' };
+    } catch (error) {
+      throw error
+    }
   }
 }
 
 export const login = (user) => {
   return { type: LOGIN_SUCCESS, payload: user }
 }
-
-// export const logout = () => {
-//   return { type: LOGOUT }
-// }
 
 export const logout = (userlogout) => {
   return async (dispatch) => {
@@ -229,13 +229,15 @@ export const deleteBook = async (bookId, dispatch) => {
   dispatch({ type: DELETE_BOOK })
 }
 
-export const updateUser = async (user, dispatch) => {
-  try {
-    await axios.put(`${URL_Railway}/users`, user);
-    dispatch({ type: UPDATE_USER, payload: user });
-    return { status: 200, message: 'Success' };
-  } catch (error) {
-    throw error
+export const updateUser = (user) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(`${URL_Railway}/users`, user);
+      dispatch({ type: UPDATE_USER, payload: user });
+      return { status: 200, message: 'Success' };
+    } catch (error) {
+      throw error;
+    }
   }
 }
 
@@ -346,7 +348,7 @@ export const getUserById = (userId) => {
 
 export const cancelSuscription = (userId) => {
   return async function (dispatch) {
-    console.log('entra a la action de desuscribir');
+    //console.log('entra a la action de desuscribir');
     let response = await axios.put(`${URL_Railway}/users/suscription/${userId}`)
     dispatch({ type: CANCEL_SUSCRIPTION })
     return response
@@ -355,9 +357,7 @@ export const cancelSuscription = (userId) => {
 
 export const editOrder = async (order, dispatch) => {
 
-  console.log("🚀 ~ file: action.js:360 ~ editOrder ~ order:", order)
-
-
+  //console.log("🚀 ~ file: action.js:360 ~ editOrder ~ order:", order)
   if (order.state === "Despachada") await axios.put(`${URL_Railway}/order/shipped`, order)
   else await axios.put(`${URL_Railway}/order`, order)
 
@@ -370,3 +370,27 @@ export const filterOrderState = (estado) => {
     payload: estado
   }
 }
+
+export const createGenre = (input) => {
+  return async function (dispatch) {
+    let response = await axios.post(`${URL_Railway}/genres`, input)
+    dispatch({ type: CREATE_GENRE })
+    //console.log(response);
+    return response
+  }
+}
+
+export const createAuthor = (input) => {
+  return async function (dispatch) {
+    let response = await axios.post(`${URL_Railway}/authors`, input)
+    dispatch({ type: CREATE_AUTHOR })
+    return response
+  }
+}
+
+export const updateDetailData = (updatedDetailData) => {
+  return {
+    type: "UPDATE_DETAIL_DATA",
+    payload: updatedDetailData,
+  };
+};

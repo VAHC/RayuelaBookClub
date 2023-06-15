@@ -38,7 +38,6 @@ bookRouter.get('/load', LoadBooksHandler)
 // bookRouter.put('/:id', updateBookHandler)
 bookRouter.put('/putbook', updateBookHandler)
 bookRouter.put('/delete/:id', deleteBookHandler)
-
-
+bookRouter.delete('/deleteImg/:id', deleteImageBookHandler)
 
 module.exports = bookRouter

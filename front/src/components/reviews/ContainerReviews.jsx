@@ -5,10 +5,12 @@ import Review from './Review';
 import { getReviewsBook } from '../../redux/action';
 import FormCreateReview from './FormCreateReview';
 
-
-const ContainerReviews = ({ bookId, toggleModal }) => {
+const ContainerReviews = ({ bookId, toggleModal, title }) => {
 
   const reviewsBook = useSelector((state) => state.reviewsBook);
+  console.log(reviewsBook);
+  console.log(bookId);
+  console.log(title);
   const dispatch = useDispatch();
   const [showForm, setShowForm] = useState(false);
 
@@ -25,13 +27,13 @@ const ContainerReviews = ({ bookId, toggleModal }) => {
   return (
     <Modal show={true} onHide={toggleModal}>
       <Modal.Header closeButton>
-        <Modal.Title>Reseñas</Modal.Title>
+        <Modal.Title>Opiniones sobre el libro "{title}"</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {!notDeletedReviews.length ? (
           <div>
-            <h6>Aún no hay reseñas...</h6>
-            <h5>Sé el primero en dejar una!</h5>
+            <h6>Aún no hay opiniones...</h6>
+            <h5>¡Sé el primero en dejar una!</h5>
           </div>
         ) : (
           notDeletedReviews && notDeletedReviews.map((r) => (
@@ -54,7 +56,7 @@ const ContainerReviews = ({ bookId, toggleModal }) => {
         <div className="d-flex justify-content-center align-items-center">
         <Accordion>
           <Accordion.Item eventKey="0">
-            <Accordion.Header>Deja tu reseña</Accordion.Header>
+            <Accordion.Header>Dejá tu opinión</Accordion.Header>
             <Accordion.Body>
               <FormCreateReview handleToggleForm={handleToggleForm} bookId={bookId} toggleModal={toggleModal}/>
             </Accordion.Body>

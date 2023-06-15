@@ -8,9 +8,6 @@ const Menu = ({setCompoActivo}) => {
   }
   return (
     <Nav variant="pills" className="flex-column sidebar shadow">
-      {/* <Nav.Item className="sidebar-item">
-        <Nav.Link  href="#panel">Panel de control</Nav.Link>
-      </Nav.Item> */}
       <Nav.Item className="sidebar-item">
         <Nav.Link  onClick={()=>navHandler("inventario")} href="#inventario">Inventario</Nav.Link>
       </Nav.Item>
@@ -20,12 +17,6 @@ const Menu = ({setCompoActivo}) => {
       <Nav.Item className="sidebar-item">
         <Nav.Link  onClick={()=>navHandler("pedidos")} href="#pedidos">Pedidos</Nav.Link>
       </Nav.Item>
-      {/* <Nav.Item className="sidebar-item">
-        <Nav.Link href="#estadisticas">Estadísticas</Nav.Link>
-      </Nav.Item>
-      <Nav.Item className="sidebar-item">
-        <Nav.Link href="#configuracion">Configuración</Nav.Link>
-      </Nav.Item> */}
     </Nav>
   );
 };

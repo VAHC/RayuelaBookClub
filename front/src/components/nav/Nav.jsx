@@ -6,8 +6,9 @@ import { login, logout, emptyCart } from "../../redux/action";
 import axios from 'axios';
 import { URL_Railway } from '../../../ruta';
 import { decode } from 'jsonwebtoken-esm';
-import AES from 'crypto-js/aes';
-import encUtf8 from 'crypto-js/enc-utf8';
+//import AES from 'crypto-js/aes';
+//import encUtf8 from 'crypto-js/enc-utf8';
+import swal from 'sweetalert';
 
 export const Nav = () => {
 
@@ -28,15 +29,22 @@ export const Nav = () => {
 
   useEffect(() => {
     let tokenRayuela = localStorage.getItem('token');
-    const clave = 'mi_clave_secreta';
 
     if (!tokenRayuela) {
       const urlParams = new URLSearchParams(window.location.search);
-      tokenRayuela = urlParams.get('token');
+      tokenRayuela = urlParams.get('token'); // respuesta de google valida
+      let error = urlParams.get('error'); // por si eligio gmail cuando ya esta creada
       // consulto si existe por url
       if (tokenRayuela) {
         setSoyRefresh(false)
         localStorage.setItem('token', tokenRayuela);
+      }
+      if (error) {
+        console.log(error)
+        swal({
+          title: "¡Ingreso inválido!",
+          icon: "warning"
+        });
       }
     } else {
       //console.log('existe');
@@ -46,32 +54,15 @@ export const Nav = () => {
       // Definir la clave de encriptación
       // Decodificar el token JWT
       const decodedToken = decode(tokenRayuela);
-      console.log('pepe');
-      console.log(decodedToken);
+      //console.log('pepe');
+      //console.log(decodedToken);
       if (decodedToken) {
         if (decodedToken.info) {
-            console.log('via gmail');
-           // console.log(decodedToken.info.datos);
-          // encriptado via gmail
-          // Obtener el objeto encriptado del token decodificado
-          // const objetoEncriptado = decodedToken.objetoEncriptado;
-
-          // // Desencriptar el objeto
-          // const bytesDesencriptados = AES.decrypt(objetoEncriptado, clave);
-          // const textoDesencriptado = bytesDesencriptados.toString(encUtf8);
-          // const objetoDesencriptado = JSON.parse(textoDesencriptado);
             dispatch(login(decodedToken.info.datos))
         } 
-        // else {
-        //   // // via formulario
-        //   // //console.log('via formulario');
-        //   // let data = decodedToken.info.datos
-        //   // dispatch(login(data))
-        // }
         if (!SoyRefresh) {
-          navigate("/catalogo")
+          navigate("/")
         }
-
       }
     } else {
       //console.log('vacio URL tokenRayuela')

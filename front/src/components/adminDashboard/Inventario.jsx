@@ -18,7 +18,9 @@ import { getAllBooks, deleteBook } from "../../redux/action";
 const Inventario = () => {
     const books = useSelector((state) => state.allBooks);
 
-    const allBooks = books.sort((a, b) =>
+    const libros = books.filter((book) => book.id !== 58)
+
+    const allBooks = libros.sort((a, b) =>
         a.id > b.id ? 1 : -1
     )
 
@@ -68,7 +70,7 @@ const Inventario = () => {
             return titleMatch && genreMatch && authorMatch;
         });
 
-        setFilteredBooks(filteredBooks);
+        // setFilteredBooks(filteredBooks);
     };
 
     const filteredBooks = filterText
@@ -108,11 +110,11 @@ const Inventario = () => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <FormCreateBook />
+                    <FormCreateBook/>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={() => setModalShow(false)}>Cerrar</Button>
-                </Modal.Footer>
+                {/* <Modal.Footer>
+                    <Button onClick={() => setAddBookModalShow(false)}>Cerrar</Button>
+                </Modal.Footer> */}
             </Modal>
         );
     };
@@ -277,11 +279,11 @@ const Inventario = () => {
         <Container>
             <Row>
                 <Col>
-                    <h1>Gestión del inventario</h1>
+                    <h1>Gestión del Inventario</h1>
                     <p>
                         En este panel podrás ver el inventario completo, agregar
                         y editar los productos, además de habilitarlos y
-                        deshabilitarlos
+                        deshabilitarlos.
                     </p>
                 </Col>
             </Row>
@@ -324,7 +326,7 @@ const Inventario = () => {
                                 />
                             </Form.Group>
                         </Tab>
-                        <Tab eventKey="autor" title="Filtrar por Autor">
+                        <Tab eventKey="autor" title="Filtrar por autor">
                             <Form.Group controlId="authorFilterInput">
                                 <Form.Control
                                     style={{ marginBottom: "15px" }}

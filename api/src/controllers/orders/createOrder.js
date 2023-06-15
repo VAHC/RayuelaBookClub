@@ -44,6 +44,9 @@ const createOrder = async (orderData) => {
             throw Error(`No user has been found matching the id: ${id_user}`);
         }
 
+        book.stock = book.stock - quantity;
+        await book.save();
+
         quantityTotal += quantity;
         priceTotal += quantity * price;
 
@@ -67,7 +70,7 @@ const createOrder = async (orderData) => {
     // console.log(user);
 
     await confirmacionCompra(
-        "Rayuela BookClub",
+        "Rayuela Club de Lectura",
         `${URL_Vercel_back}/perfil`,
         user.dataValues.firstName, 
         newOrder.date, 

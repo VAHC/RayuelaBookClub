@@ -89,29 +89,30 @@ const Orders = () => {
         <Container className="min-vh-100">
             <Row>
                 <Col>
-                    <h2 className="text-center">Gestion de compras</h2>
+                    {/* <h2 className="text-center">Gestion de compras</h2> */}
+                    <h1>Gestión de Compras</h1>
                     <p>
                         En este panel podrás ver el listado completo de compras
-                        y editar el estado de las ordenes.
+                        y editar el estado de las órdenes.
                     </p>
                 </Col>
             </Row>
             <Row>
                 <Col>
                     <div className="m-1">
-                        <h6 className="mx-2">Filtrar por Estado</h6>
+                        <h6 className="mx-2">Filtrar por estado</h6>
                         <select
                             className="form-select"
                             value={filtersValue.state}
                             onChange={(e) => filterHandler(e)}
                             name={"state"}
                         >
-                            <option value="All">All</option>
-                            <option value="Creada">Creada</option>
-                            <option value="Pendiente">Pendiente</option>
-                            <option value="Pagada">Pagada</option>
-                            <option value="Despachada">Despachada</option>
-                            <option value="Cancelada">Cancelada</option>
+                            <option value="All">Todas</option>
+                            <option value="Creada">Creadas</option>
+                            <option value="Pendiente">Pendientes</option>
+                            <option value="Pagada">Pagadas</option>
+                            <option value="Despachada">Despachadas</option>
+                            <option value="Cancelada">Canceladas</option>
                         </select>
                     </div>
                 </Col>
@@ -123,11 +124,11 @@ const Orders = () => {
                             <tr>
                                 <th></th>
                                 <th>Fecha</th>
-                                <th>Detalles de Usuario</th>
+                                <th>Detalles de usuario</th>
                                 <th>Detalle de la compra</th>
-                                <th>Total de items</th>
+                                <th>Total items</th>
                                 <th>Precio total</th>
-                                <th>Estado de la compra</th>
+                                <th>Estado</th>
                                 <th>Edición</th>
                             </tr>
                         </thead>
@@ -138,7 +139,7 @@ const Orders = () => {
                                         <td>{icons(order.state)}</td>
                                         <td>{order.date}</td>
                                         <th>
-                                            Name:{" "}
+                                            Nombre:{" "}
                                             {users.length > 0 &&
                                                 nombreUsuario(order.id_user)}
                                             <br />
@@ -160,7 +161,7 @@ const Orders = () => {
                                                                             book.quantityDetail
                                                                         }
                                                                     </p>
-                                                                    <p className="card-text ms-3">
+                                                                    <p className="card-text mx-3">
                                                                         und
                                                                         {book.quantityDetail >
                                                                         1

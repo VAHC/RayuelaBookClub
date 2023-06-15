@@ -93,7 +93,7 @@ mpRouter.post('/notificar', async (req, res) => {
                 const user = await User.findOne({ where: { id: foundOrder.id_user } });
                 // console.log(user);
                 await confirmacionPago(
-                    "Rayuela BookClub",
+                    "Rayuela Club de Lectura",
                     `${URL_Vercel_back}/perfil`,
                     user.dataValues.firstName,
                     foundOrder.date,

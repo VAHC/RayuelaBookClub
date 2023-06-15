@@ -1,8 +1,7 @@
 const { Author } = require('../../db');
 
-const createAuthor = async (author) => {
-    const { name } = author
-    
+const createAuthor = async (name) => {
+
     const newAuthor = await Author.findOrCreate({
         where: { name },
     })
