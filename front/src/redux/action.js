@@ -44,6 +44,7 @@ export const GET_USER_BY_ID = "GET_USER_BY_ID";
 export const CANCEL_SUSCRIPTION = "CANCEL_SUSCRIPTION";
 export const EDIT_ORDER = "EDIT_ORDER";
 export const FILTER_ORDER_STATE = "FILTER_ORDER_STATE";
+export const CREATE_GENRE = 'CREATE_GENRE';
 
 export const getAllBooks = () => {
   return async (dispatch) => {
@@ -108,7 +109,9 @@ export const filterAuthor = (value) => {
 
 export const postBook = (book) => {
   return async function (dispatch) {
+    console.log('entra en la action');
     let response = await axios.post(`${URL_Railway}/books`, book)
+    console.log(response.data);
     return response
   }
 }
@@ -380,5 +383,15 @@ export const filterOrderState = (estado) => {
   return {
     type: FILTER_ORDER_STATE,
     payload: estado
+  }
+}
+
+export const createGenre = (input) => {
+  return async function (dispatch) {
+ console.log('entra en la action');
+    let response = await axios.post(`${URL_Railway}/genres`, input)
+    dispatch({ type: CREATE_GENRE })
+    console.log(response);
+    return response
   }
 }
