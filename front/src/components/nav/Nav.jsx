@@ -42,8 +42,7 @@ export const Nav = () => {
       if (error) {
         console.log(error)
         swal({
-          title: "¡Ingresá con tu usuario y contraseña!",
-          text: "Tu usuario fue creado a través del registro, no podés ingresar con G-mail",
+          title: "¡Ingreso inválido!",
           icon: "warning"
         });
       }
