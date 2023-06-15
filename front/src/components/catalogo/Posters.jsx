@@ -14,6 +14,7 @@ export const Posters = () => {
 
     //flag para saber si esta activo algun filtro
     const filterFlag = useSelector((state) => state.filterFlag);
+    const orderFlag = useSelector((state) => state.orderFlag);
 
     //flag para no cargar todos los libros con cada render
     const [allBooksLoaded, setAllBooksLoaded] = useState(false);
@@ -33,33 +34,33 @@ export const Posters = () => {
             dispatch(getBooksPage(pagina));
         };
         booksGet();
-    }, [pagina]);
+    }, [pagina,filterFlag,orderFlag,filteredbooks]);
 
     const renderConditional = () => {
-        let renderElements = undefined;
+        // let renderElements = undefined;
 
-        if (filterFlag) {
-            searchData.length > 0
-                ? (renderElements = searchData
-                    .filter((book) => book.id !== 58)
-                    .map((book, index) => {
-                      // if(book.deleted === true) return null;
-                      return <Card book={book} key={index} />;
-                  }))
-                : (renderElements = filteredbooks
-                    .filter((book) => book.id !== 58)
-                    .map((book, index) => {
-                      // if(book.deleted === true) return null;
-                      return <Card book={book} key={index} />;
-                  }));
-        } else {
-            renderElements = booksPage
+        // if (filterFlag) {
+        //     searchData.length > 0
+        //         ? (renderElements = searchData
+        //             .filter((book) => book.id !== 58)
+        //             .map((book, index) => {
+        //               // if(book.deleted === true) return null;
+        //               return <Card book={book} key={index} />;
+        //           }))
+        //         : (renderElements = filteredbooks
+        //             .filter((book) => book.id !== 58)
+        //             .map((book, index) => {
+        //               // if(book.deleted === true) return null;
+        //               return <Card book={book} key={index} />;
+        //           }));
+        // } else {
+            let renderElements = booksPage
                 .filter((book) => book.id !== 58)
                 .map((book, index) => {
                 // if(book.deleted === true) return null;
                 return <Card book={book} key={index} />;
             });
-        }
+        // }
         return renderElements;
     };
 

@@ -40,20 +40,22 @@ export function Filters() {
 
     const handleFilterGenre = (e) => {
         setGenreValue(e.target.value);
+        dispatch(changePagina(1))
         dispatch(genreFiltered(e.target.value));
         dispatch(filterFlagToggle(true));
     };
 
     const handleFilterAuthor = (e) => {
         setAuthorValue(e.target.value);
-
+        dispatch(changePagina(1))
         dispatch(filterAuthor(e.target.value));
         dispatch(filterFlagToggle(true));
     };
-
+    
     const clearFilters = async () => {
-        await dispatch(resetFilter());
-        dispatch(getBooksPage(pagina));
+        dispatch(resetFilter());
+        // dispatch(getBooksPage(pagina));
+        dispatch(changePagina(1))
         setGenreValue("All");
         setAuthorValue("All");
         dispatch(genreFiltered("All"));
