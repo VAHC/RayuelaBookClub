@@ -33,7 +33,7 @@ export const Posters = () => {
             dispatch(getBooksPage(pagina));
         };
         booksGet();
-    }, [pagina]);
+    }, [pagina,filterFlag]);
 
     const renderConditional = () => {
         // let renderElements = undefined;
