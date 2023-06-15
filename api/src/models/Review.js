@@ -15,11 +15,11 @@ module.exports = (sequelize) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: 'El título de la reseña no puede estar vacío.'
+          msg: 'El título de la opinión no puede estar vacío.'
         },
         len: {
           args: [2, 100],
-          msg: 'El título de la reseña debe tener entre 2 y 100 caracteres.'
+          msg: 'El título de la opinión debe tener entre 2 y 100 caracteres.'
         }
       }
     },

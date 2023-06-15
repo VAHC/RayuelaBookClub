@@ -119,7 +119,7 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
     <>
       {!user && (
         <div className="d-flex justify-content-center">
-          <img className="w-75 p-3 h-50 d-inline-block" src='./images/loginFirst.png' alt='debes estar registrado para crear una reseña' />
+          <img className="w-75 p-3 h-50 d-inline-block" src='./images/loginFirst.png' alt='debes estar registrado para crear una opinión' />
         </div>)}
       {success && <div className="d-flex justify-content-center">
         <img className="w-75 p-3 h-50 d-inline-block" src='./images/createdReview.png' alt='formulario enviado correctamente' />

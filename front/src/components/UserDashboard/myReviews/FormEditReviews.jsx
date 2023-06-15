@@ -93,7 +93,7 @@ const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
                   <label className="col-form-label ms-3" htmlFor='title'>Título:</label>
                 </div>
                 <div className="col-8">
-                  <input className="form-control" id='title' type='text' value={input.title} name='title' placeholder='Dale un título a tu reseña' onChange={inputHandler} />
+                  <input className="form-control" id='title' type='text' value={input.title} name='title' placeholder='Dale un título a tu opinión' onChange={inputHandler} />
                 </div>
               </div>
               <div className="d-flex justify-content-center w-75 my-2">
@@ -101,7 +101,7 @@ const FormEditReviews = ({review, toggleModal, handleEditReview}) => {
                   <label className="col-form-label ms-3" htmlFor='comment'>Opinión:</label>
                 </div>
                 <div className="col-8">
-                  <input className="form-control" id='comment' type='textarea' value={input.comment} name='comment' placeholder='Reseña...' onChange={inputHandler} />
+                  <input className="form-control" id='comment' type='textarea' value={input.comment} name='comment' placeholder='Opinión...' onChange={inputHandler} />
                 </div>
               </div>
               <div className="d-flex flex-row justify-content-evenly">
