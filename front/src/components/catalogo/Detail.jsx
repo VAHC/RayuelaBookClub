@@ -34,7 +34,7 @@ export const Detail = () => {
     return stars;
   };
 
-  //console.log(detailData);
+  // console.log(detailData);
   const bookId = detailData ? detailData.id : null;
 
   //codigo para modal
