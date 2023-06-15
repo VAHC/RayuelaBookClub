@@ -148,7 +148,7 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
                 <label className="col-form-label ms-3" htmlFor='title'>Título:</label>
               </div>
               <div className="col-9">
-                <input className="form-control" id='title' type='text' value={input.title} name='title' placeholder='Dale un título a tu reseña' onChange={inputHandler} />
+                <input className="form-control" id='title' type='text' value={input.title} name='title' placeholder='Dale un título a tu opinión' onChange={inputHandler} />
                 {errors.title ? <p className="text-danger">{errors.title}</p> : null}
               </div>
             </div>
@@ -157,7 +157,7 @@ const FormCreateReview = ({handleToggleForm, bookId, toggleModal}) => {
                 <label className="col-form-label ms-3" htmlFor='comment'>Opinión:</label>
               </div>
               <div className="col-9">
-                <input className="form-control" id='comment' type='textarea' value={input.comment} name='comment' placeholder='Reseña...' onChange={inputHandler} />
+                <input className="form-control" id='comment' type='textarea' value={input.comment} name='comment' placeholder='Opinión...' onChange={inputHandler} />
                 {errors.comment ? <p className="text-danger">{errors.comment}</p> : null}
               </div>
             </div>

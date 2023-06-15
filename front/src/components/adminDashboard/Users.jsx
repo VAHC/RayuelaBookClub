@@ -128,8 +128,8 @@ const Users = () => {
             switch (state) {
               case "Active":
                 return "Activo";
-              case "Inactive":
-                return "Inactivo";
+            //   case "Inactive":
+            //     return "Inactivo";
               case "New":
                 return "Nuevo";
               case "Blocked":
@@ -231,7 +231,7 @@ const Users = () => {
                         >
                             <option value="All">Todos</option>
                             <option value="Active">Activos</option>
-                            <option value="Inactive">Inactivos</option>
+                            {/* <option value="Inactive">Inactivos</option> */}
                             <option value="New">Nuevos</option>
                             <option value="Blocked">Bloqueados</option>
                         </select>
