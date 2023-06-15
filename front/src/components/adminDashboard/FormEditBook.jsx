@@ -476,7 +476,7 @@ const EditBookForm = ({ book }) => {
                         {BorrarImage ?
                             <div>
                                 <img src={URL_Vercel + '/images/logo.png'} width="120" height='auto' alt={input.title} />
-                                <input
+                                {/* <input
                                     style={{ width: "100%" }}
                                     className="form-control"
                                     id="image"
@@ -484,12 +484,12 @@ const EditBookForm = ({ book }) => {
                                     accept='image/jpeg'
                                     name="image"
                                     onChange={handleInputChange}
-                                />
+                                /> */}
                             </div>
                             : <img src={input.image} width="100" height='auto' alt={input.title} />}
                         {/*si el estado es false muestro la imagen, sino el logo, por el tema refresco */}
                         {URL_Vercel + '/images/logo.png' === input.image ?
-                            <p>El mensaje está visible</p>
+                            <p></p>
                             : <div className="btn btn-danger btn-sm m-2" onClick={(event) => BorrarImagen(event, input.id)} > Borrar imagen</div>}
                     </div>
                 </div>

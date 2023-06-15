@@ -26,7 +26,7 @@ import {useState} from 'react'
 // En este componente se renderizan todos los demas.
 export const Catalogo = () => {
 
-    const AllBooks = useSelector((state) => state.books); //escucho la propiedad countries del estado global
+    const AllBooks = useSelector((state) => state.books); //escucho la propiedad books del estado global
     const notSuscripctionBooks = AllBooks.filter(book => book.id !== 58);
     const books = notSuscripctionBooks.filter(book => !book.deleted)
     const dispatch = useDispatch();
