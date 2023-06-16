@@ -3,12 +3,12 @@ const validation = (input) => {
     
       // Validación para el campo "title"
       if (!input.title) {
-        errors.title = 'Debés darle un título a tu reseña';
+        errors.title = 'Debés darle un título a tu opinión';
       }
     
       // Validación para el campo "comment"
       if (!input.comment) {
-        errors.comment = 'Debés dejar una reseña';
+        errors.comment = 'Debés dejar una opinión';
       } 
     
       // Validación para el campo "qualification"

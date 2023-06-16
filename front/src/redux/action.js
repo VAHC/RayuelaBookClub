@@ -61,9 +61,16 @@ export const getBooksPage = (pagNum) => {
 }
 
 //se encarga de actualizar pagina actual
-export function changePagina(pagNum) {
+// export function changePagina(pagNum) {
+//   return {
+//     type: CHANGE_PAGINA, payload: pagNum
+//   }
+// }
+
+//se encarga de borrar el detalle al cambiar de página
+export function changePagina() {
   return {
-    type: CHANGE_PAGINA, payload: pagNum
+    type: CHANGE_PAGINA
   }
 }
 

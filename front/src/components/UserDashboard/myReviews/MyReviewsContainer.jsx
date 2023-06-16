@@ -129,7 +129,7 @@ const MyReviewsContainer = () => {
                     <div className="modal-dialog modal-dialog-centered" style={{ marginTop: "7%" }}>
                         <div className="modal-content bg-white border-4">
                             <div className="modal-body d-flex justify-content-center align-items-center">
-                                <img className="w-75 p-3 h-50 d-inline-block" src='.\images\deleteReview.png' alt='reseña borrada' /> {/* Reemplaza "ruta-de-la-imagen.jpg" con la ruta de tu imagen */}
+                                <img className="w-75 p-3 h-50 d-inline-block" src='.\images\deleteReview.png' alt='opinión borrada' /> {/* Reemplaza "ruta-de-la-imagen.jpg" con la ruta de tu imagen */}
                             </div>
                         </div>
                     </div>

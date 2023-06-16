@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { searchByNameOrAuthor, getBooksPage } from "../../redux/action";
+import { searchByNameOrAuthor, getBooksPage, getAllBooks } from "../../redux/action";
 import { Paginado } from "./Paginado";
 import { Link } from "react-router-dom";
 import { totalItems } from "../shoppingCart/helpers";
@@ -31,6 +31,7 @@ export const SearchBar = ({ booksPerPage, totalBooks, paginate, currentPage, pre
                             icon: "warning",
                             timer: "2000"
                         })
+                        dispatch(getAllBooks())
                     }
                 })
                 .catch((error) => {

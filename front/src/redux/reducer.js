@@ -63,11 +63,11 @@ const initialState = {
   generos: [],
   //Array de autores
   autores: [],
-  //array que trae todas la reseñas de un libro
+  //array que trae todas la opinión de un libro
   reviewsBook: [],
   //Objeto con los datos del usuario logueado
   user: null,
-  //array que trae todas la reseñas de un usuario
+  //array que trae todas la opinión de un usuario
   userReviews: [],
   //array de la busqueda
   searchData: [],
@@ -102,10 +102,16 @@ const reducer = (state = initialState, action) => {
         allBooks: action.payload
       };
 
+    // case CHANGE_PAGINA:
+    //   return {
+    //     ...state,
+    //     paginaActual: action.payload,
+    //     detail_data: undefined, // elimino pagina detalle
+    //   };
+
     case CHANGE_PAGINA:
       return {
         ...state,
-        paginaActual: action.payload,
         detail_data: undefined, // elimino pagina detalle
       };
 
@@ -154,7 +160,7 @@ const reducer = (state = initialState, action) => {
             state.books.sort((a, b) => {
                return a.price - b.price
             }) :
-            state.countries.sort((a, b) => {
+            state.books.sort((a, b) => {
                 return b.price - a.price
             });
             return  {
