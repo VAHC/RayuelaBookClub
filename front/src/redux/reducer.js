@@ -102,10 +102,16 @@ const reducer = (state = initialState, action) => {
         allBooks: action.payload
       };
 
+    // case CHANGE_PAGINA:
+    //   return {
+    //     ...state,
+    //     paginaActual: action.payload,
+    //     detail_data: undefined, // elimino pagina detalle
+    //   };
+
     case CHANGE_PAGINA:
       return {
         ...state,
-        paginaActual: action.payload,
         detail_data: undefined, // elimino pagina detalle
       };
 
