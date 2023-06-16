@@ -13,7 +13,7 @@ import {
 } from "../../redux/action";
 
 //export function Filters({setCurrentPage, generos, setOrder}) {
-export function Filters() {
+export function Filters({paginate}) {
     const dispatch = useDispatch();
     const pagina = useSelector((state) => state.paginaActual);
     const allBooks = useSelector((state) => state.allBooks);
@@ -36,12 +36,14 @@ export function Filters() {
         dispatch(genreFiltered("All"));
         dispatch(filterAuthor("All"));
         dispatch(filterFlagToggle(false));
-    }, [searchData]);
+    }, [dispatch]);
+    // }, [books]);
 
     const handleFilterGenre = (e) => {
         setGenreValue(e.target.value);
         dispatch(genreFiltered(e.target.value));
         dispatch(filterFlagToggle(true));
+        paginate(1)
     };
 
     const handleFilterAuthor = (e) => {
@@ -49,6 +51,7 @@ export function Filters() {
 
         dispatch(filterAuthor(e.target.value));
         dispatch(filterFlagToggle(true));
+        paginate(1)
     };
 
     const clearFilters = async () => {
@@ -59,6 +62,7 @@ export function Filters() {
         dispatch(genreFiltered("All"));
         dispatch(filterAuthor("All"));
         dispatch(filterFlagToggle(false));
+        paginate(1)
     };
 
     return (
