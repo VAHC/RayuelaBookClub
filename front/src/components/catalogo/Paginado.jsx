@@ -64,27 +64,49 @@
 // };
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { Pagination } from "react-bootstrap";
 
-export const Paginado = ({ booksPerPage, totalBooks, paginate, currentPage, previus, next }) => {
-    
-    const lastPage = Math.ceil(totalBooks / booksPerPage)
-    
+export const Paginado = ({
+    booksPerPage,
+    totalBooks,
+    paginate,
+    currentPage,
+    previus,
+    next,
+}) => {
+    const lastPage = Math.ceil(totalBooks / booksPerPage);
+
     const pageNumbers = [];
-    for (let i = 1; i <= lastPage; i++) { 
+    for (let i = 1; i <= lastPage; i++) {
         pageNumbers.push(i); //pusheo cada uno de los numeros de pagina
     }
-    
+
     return (
         <nav>
-            <ul>
+            <Pagination>
+                //{" "}
+                {currentPage > 1 && (
+                    <Pagination.First onClick={() => paginate(previus)} />
+                )}
+                {currentPage > 1 && (
+                    <Pagination.Prev onClick={() => paginate(previus)} />
+                )}
                 {pageNumbers.map((number) => (
-                    <li key={number}> 
-                        <NavLink to={number}  onClick={() => paginate(number)}> 
-                            {number}
-                        </NavLink>
-                    </li>
+                    <Pagination.Item
+                        key={number}
+                        active={number === currentPage}
+                        onClick={() => paginate(number)}
+                    >
+                        {number}
+                    </Pagination.Item>
                 ))}
-            </ul>
+                {currentPage !== lastPage && (
+                    <Pagination.Next onClick={() => paginate(next)} />
+                )}
+                {currentPage !== lastPage && (
+                    <Pagination.Last onClick={() => paginate(next)} />
+                )}
+            </Pagination>
         </nav>
-    )
-}
+    );
+};
