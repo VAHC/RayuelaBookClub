@@ -83,6 +83,7 @@ console.log(currentBooks);
               genders={book.genders}
               deleted={book.deleted} 
               reviews={book.reviews}
+              stock={book.stock}
               key={index}
             />
           ))}
