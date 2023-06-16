@@ -69,27 +69,28 @@ import React from "react";
 import  BookCard  from "./Card";
 
 export const Posters = ({currentBooks}) => {
-console.log(currentBooks);
-    return (
-        <div>
-            {currentBooks && currentBooks.map((book, index) => ( //uso currentBooks para que renderize solo los books de esa pagina
-            <BookCard
-              id={book.id}
-              title={book.title}
-              price={book.price}
-              image={book.image}
-              description={book.description}
-              authors={book.authors}
-              genders={book.genders}
-              deleted={book.deleted} 
-              reviews={book.reviews}
-              stock={book.stock}
-              publishedDate={book.publishedDate}
-              publisher={book.publisher}
-              createdDb={book.createdDb}
-              key={index}
-            />
-          ))}
+//console.log(currentBooks);
+  return (
+    <div className="row">
+      {currentBooks && currentBooks.map((book, index) => ( //uso currentBooks para que renderize solo los books de esa pagina
+        <div className="col-md-4" key={index}>
+          <BookCard
+            id={book.id}
+            title={book.title}
+            price={book.price}
+            image={book.image}
+            description={book.description}
+            authors={book.authors}
+            genders={book.genders}
+            deleted={book.deleted}
+            reviews={book.reviews}
+            stock={book.stock}
+            publishedDate={book.publishedDate}
+            publisher={book.publisher}
+            createdDb={book.createdDb}
+          />
         </div>
+      ))}
+    </div>
   )
 }
