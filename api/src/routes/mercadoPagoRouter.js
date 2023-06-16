@@ -22,7 +22,7 @@ mpRouter.post('/payment', async (req, res) => {
             unit_price: prod.price
 
         }],
-        notification_url: `https://a51b-2803-9800-b886-82b2-4cbb-fdde-f064-7be.ngrok-free.app/mercadopago/notificar`,
+        notification_url: `https://rayuelabookclub-production.up.railway.app/mercadopago/notificar`,
         back_urls: {
             success: URL_Vercel_back + '/catalogo',
             failure: '',
