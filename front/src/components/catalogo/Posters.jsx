@@ -84,6 +84,9 @@ console.log(currentBooks);
               deleted={book.deleted} 
               reviews={book.reviews}
               stock={book.stock}
+              publishedDate={book.publishedDate}
+              publisher={book.publisher}
+              createdDb={book.createdDb}
               key={index}
             />
           ))}
