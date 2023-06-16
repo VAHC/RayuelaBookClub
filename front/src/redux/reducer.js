@@ -63,11 +63,11 @@ const initialState = {
   generos: [],
   //Array de autores
   autores: [],
-  //array que trae todas la reseñas de un libro
+  //array que trae todas la opinión de un libro
   reviewsBook: [],
   //Objeto con los datos del usuario logueado
   user: null,
-  //array que trae todas la reseñas de un usuario
+  //array que trae todas la opinión de un usuario
   userReviews: [],
   //array de la busqueda
   searchData: [],
@@ -102,10 +102,16 @@ const reducer = (state = initialState, action) => {
         allBooks: action.payload
       };
 
+    // case CHANGE_PAGINA:
+    //   return {
+    //     ...state,
+    //     paginaActual: action.payload,
+    //     detail_data: undefined, // elimino pagina detalle
+    //   };
+
     case CHANGE_PAGINA:
       return {
         ...state,
-        paginaActual: action.payload,
         detail_data: undefined, // elimino pagina detalle
       };
 
@@ -135,19 +141,32 @@ const reducer = (state = initialState, action) => {
         };
       }
 
+    // case SORT_BY_PRICE:
+    //   let arrayOrdenPrecio = state.filterFlag ? state.books : state.booksPage
+    //   let sortPriceArray = action.payload === 'Asc' ? arrayOrdenPrecio.sort((a, b) => {
+    //     return a.price - b.price
+    //   }) :
+    //     arrayOrdenPrecio.sort((a, b) => {
+    //       return b.price - a.price
+    //     });
+    //   const returnPriceProp = state.filterFlag ? "books" : "booksPage"
+    //   return {
+    //     ...state,
+    //     [returnPriceProp]: [...sortPriceArray]
+    //   }
+
     case SORT_BY_PRICE:
-      let arrayOrdenPrecio = state.filterFlag ? state.books : state.booksPage
-      let sortPriceArray = action.payload === 'Asc' ? arrayOrdenPrecio.sort((a, b) => {
-        return a.price - b.price
-      }) :
-        arrayOrdenPrecio.sort((a, b) => {
-          return b.price - a.price
-        });
-      const returnPriceProp = state.filterFlag ? "books" : "booksPage"
-      return {
-        ...state,
-        [returnPriceProp]: [...sortPriceArray]
-      }
+      let sortArray = action.payload === 'Asc' ?
+            state.books.sort((a, b) => {
+               return a.price - b.price
+            }) :
+            state.books.sort((a, b) => {
+                return b.price - a.price
+            });
+            return  {
+                ...state,
+                books: [...sortArray] //asigno la referencia de sortArray y no modifico el estado original
+            };
 
     case SORT_BY_RATING:
 
@@ -166,31 +185,27 @@ const reducer = (state = initialState, action) => {
       };
 
       let booksCopy = [...state.books]
-      let booksPageCopy = [...state.booksPage]
       let booksTotalQualification = booksCopy.map(book => ({ ...book, totalQualification: qualificationObtained(book) }))
-      let booksPageTotalQualification = booksPageCopy.map(book => ({ ...book, totalQualification: qualificationObtained(book) }))
 
-      // let arrayOrdenadoRating = state.filterFlag ? state.books : state.booksPage
-      let arrayOrdenadoRating = state.filterFlag ? booksTotalQualification : booksPageTotalQualification
-      let sortRatingArray = action.payload === 'Asc' ? arrayOrdenadoRating.sort((a, b) => {
+      let sortRatingArray = action.payload === 'Asc' ? booksTotalQualification.sort((a, b) => {
         return a.totalQualification - b.totalQualification
       }) :
-        arrayOrdenadoRating.sort((a, b) => {
+      booksTotalQualification.sort((a, b) => {
           return b.totalQualification - a.totalQualification
         });
-      const returnRatingProp = state.filterFlag ? "books" : "booksPage"
+     
       return {
         ...state,
-        [returnRatingProp]: [...sortRatingArray]
+        books: [...sortRatingArray]
       }
 
     case SEARCH_BY_NAME_OR_AUTHOR:
       const deletedFilter = action.payload.filter(book => !book.deleted)
       return {
         ...state,
-        searchData: deletedFilter
+        books: deletedFilter
       }
-
+//comentario
     case SET_DETAIL:
       console.log( action.payload);
       return {

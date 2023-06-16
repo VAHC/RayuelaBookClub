@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useState} from 'react';
 import {sortByPrice, sortByRating, changePagina} from '../../redux/action'
 
-export const Orders = () => {
+export const Orders = ({paginate}) => {
   const dispatch = useDispatch();
   const[priceValue, setPriceValue] = useState('');
   const[ratingValue, setRatingValue] = useState('');
@@ -16,16 +16,16 @@ export const Orders = () => {
 
   const handlerSortByPrice = (e) => {
     dispatch(sortByPrice(e.target.value))
-    // dispatch(changePagina(1))
     setPriceValue(e.target.value)
     setRatingValue("")
+    paginate(1)
   }
 
   const handlerSortByRating = (e) => {
     dispatch(sortByRating(e.target.value))
-    // dispatch(changePagina(1))
     setRatingValue(e.target.value)
     setPriceValue("")
+    paginate(1)
   }
   
   return (

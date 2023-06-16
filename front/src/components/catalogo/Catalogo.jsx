@@ -1,4 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { getAllBooks, changePagina } from "../../redux/action";
+import { useDispatch, useSelector } from "react-redux";
 
 //Componentes
 import { Detail } from "./Detail";
@@ -6,7 +8,6 @@ import { SearchBar } from "./SearchBar";
 import { Orders } from "./Orders";
 import { Filters } from "./Filters";
 import { Posters } from "./Posters";
-import { Paginado } from "./Paginado";
 
 //Estilos
 import {
@@ -19,13 +20,29 @@ import {
     Wrap,
 } from "./Styles/catalogo";
 
-import { getAllBooks } from "../../redux/action";
-import { useDispatch, useSelector } from "react-redux";
-
 // En este componente se renderizan todos los demas.
 export const Catalogo = () => {
+
+    const AllBooks = useSelector((state) => state.books); //escucho la propiedad books del estado global
+    const notSuscripctionBooks = AllBooks.filter(book => book.id !== 58);
+    const books = notSuscripctionBooks.filter(book => !book.deleted)
     const dispatch = useDispatch();
-    const cart = useSelector((state) => state.cart)
+
+    //paginado
+    const [currentPage, setCurrentPage] = useState(1); //inicializo la paginacion en 1
+    const booksPerPage = 9; //indico cuantas cards renderizar por pagina
+
+    const indexOfLastBooks = currentPage * booksPerPage;  //encuentro el ultimo book renderizado
+    const indexOfFirstBooks = indexOfLastBooks - booksPerPage; //encuentro el primer book renderizado
+    const currentBooks = books.slice(indexOfFirstBooks, indexOfLastBooks); //corto el estado global desde el 1 book al ultimo renderizado
+
+    const previus = currentPage - 1;
+    const next = currentPage + 1;
+
+    const paginate = (pageNumber) => { //ejecuto la funcion que setea el numero de pagina
+        setCurrentPage(pageNumber);
+        dispatch(changePagina())
+    };
 
     useEffect(() => {
         dispatch(getAllBooks());
@@ -36,24 +53,29 @@ export const Catalogo = () => {
 
     return (
         <Wrap>
-            {/* ¿NavBar? */}
             <SearchBarDiv>
-            <SearchBar />
+                <SearchBar
+                    booksPerPage={booksPerPage}
+                    totalBooks={books.length}
+                    paginate={paginate}
+                    currentPage={currentPage}
+                    previus={previus}
+                    next={next}
+                />
             </SearchBarDiv>
-
             <Container>
                 <Sidebar>
-                    <Orders />
-                    <Filters />
+                    <Orders paginate={paginate} />
+                    <Filters paginate={paginate} />
                 </Sidebar>
-
                 <CatalogoSection>
-                    
-                    <PosterSection>
-                        <Posters />
+                    <PosterSection className="overflow-x-hidden">
+                        <Posters
+                            paginate={paginate}
+                            currentBooks={currentBooks}
+                        />
                     </PosterSection>
                 </CatalogoSection>
-
                 {detailData === undefined && (
                     <DetailSection>
                         <Detail />
