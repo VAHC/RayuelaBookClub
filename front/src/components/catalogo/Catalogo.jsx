@@ -69,7 +69,7 @@ export const Catalogo = () => {
                     <Filters paginate={paginate} />
                 </Sidebar>
                 <CatalogoSection>
-                    <PosterSection>
+                    <PosterSection className="overflow-x-hidden">
                         <Posters
                             paginate={paginate}
                             currentBooks={currentBooks}

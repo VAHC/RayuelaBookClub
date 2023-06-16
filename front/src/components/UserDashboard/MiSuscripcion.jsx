@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getUserById, cancelSuscription } from '../../redux/action';
 import PropagateLoader from "react-spinners/PropagateLoader";
+import swal from 'sweetalert';
 
 export const MiSuscripcion = () => {
   //Codigo para reemplazar cuando la ruta este ok
@@ -32,6 +33,23 @@ export const MiSuscripcion = () => {
     setTimeout(() => {
       setShowModal(false)
     }, 2500);
+
+    // swal({
+    //   title: "¿Estás seguro?",
+    //   text: "¡Te vas a perder de los beneficios de formar parte de Rayuela!",
+    //   icon: "warning",
+    //   buttons: ["Atrás", "Cancelar suscripción"]
+    // })
+    // .then((willDelete) => {
+    //   if (willDelete) {
+    //     dispatch(cancelSuscription(userId))
+    //     dispatch(getUserById(userId))
+    //     setShowModal(true)
+    //     setTimeout(() => {
+    //     setShowModal(false)
+    // }, 2500);
+    //   }
+    // });
   }
 
   return (
